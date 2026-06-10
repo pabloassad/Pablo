@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { usePlayer } from "@/lib/player/PlayerProvider";
 import { RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { images, cercleSets } from "@/lib/data";
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 
@@ -86,11 +87,12 @@ export function SetsCarousel() {
           const isCurrent = player.track?.id === set.id;
           return (
             <RevealItem key={set.id} className="w-[78%] shrink-0 snap-start sm:w-[48%] lg:w-[31%]">
-              <button
-                type="button"
-                onClick={() => player.playTrack(set.id, { expand: true })}
-                className="group relative block aspect-square w-full overflow-hidden rounded-2xl text-left"
-              >
+              <TiltCard>
+                <button
+                  type="button"
+                  onClick={() => player.playTrack(set.id, { expand: true })}
+                  className="group relative block aspect-square w-full overflow-hidden rounded-2xl text-left"
+                >
                 <ArtImage
                   src={images.liveClub}
                   alt={`Le Cercle — ${set.name}`}
@@ -128,7 +130,8 @@ export function SetsCarousel() {
                     )}
                   </span>
                 </div>
-              </button>
+                </button>
+              </TiltCard>
             </RevealItem>
           );
         })}
