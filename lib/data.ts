@@ -55,7 +55,7 @@ export const cercleSets: { id: string; edition: string; name: string; videoId: s
   { id: "cercle-saint-valentin", edition: "01", name: "Saint-Valentin", videoId: "_7-zKtmmYDo" },
   { id: "cercle-bresil", edition: "02", name: "Brésil", videoId: "dcVG4HYvEHM" },
   { id: "cercle-las-vegas", edition: "03", name: "Las Vegas", videoId: "4wFp_u7nr4o" },
-  { id: "cercle-prestige", edition: "04", name: "Prestige", videoId: "_7-zKtmmYDo" },
+  { id: "cercle-prestige", edition: "04", name: "Prestige", videoId: "EEQBWvpjels" },
   { id: "cercle-summer-party", edition: "05", name: "Summer Party", videoId: "EfLqfgu0KGE" },
 ];
 

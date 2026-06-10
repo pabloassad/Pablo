@@ -1,17 +1,16 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { usePlayer } from "@/lib/player/PlayerProvider";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Button } from "@/components/ui/Button";
-import { images, clubs, cercleSets, cercleInstagram, cercleStats } from "@/lib/data";
-import { PlayIcon, InstagramIcon } from "@/components/ui/icons";
+import { images, clubs, cercleInstagram, cercleStats } from "@/lib/data";
+import { InstagramIcon } from "@/components/ui/icons";
 import { StatCounter } from "@/components/ui/StatCounter";
+import { SetsCarousel } from "./SetsCarousel";
 
 export function ProjectsPageContent() {
   const { t } = useLanguage();
-  const player = usePlayer();
 
   return (
     <div className="pb-32">
@@ -79,6 +78,9 @@ export function ProjectsPageContent() {
             </RevealItem>
           ))}
         </RevealGroup>
+        <Reveal delay={0.1}>
+          <p className="mt-6 text-sm italic text-muted/70">{t.projects.collabsExtra}</p>
+        </Reveal>
       </section>
 
       {/* B. Le Cercle — case study */}
@@ -162,64 +164,7 @@ export function ProjectsPageContent() {
               </Reveal>
             </div>
 
-            <RevealGroup
-              className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              stagger={0.08}
-            >
-              {cercleSets.map((set) => {
-                const isCurrent = player.track?.id === set.id;
-                return (
-                  <RevealItem
-                    key={set.id}
-                    className="w-[78%] shrink-0 snap-center sm:w-[48%] lg:w-[31%]"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => player.playTrack(set.id, { expand: true })}
-                      className="group relative block aspect-square w-full overflow-hidden rounded-2xl text-left"
-                    >
-                      <ArtImage
-                        src={images.liveClub}
-                        alt={`Le Cercle — ${set.name}`}
-                        fallback="amber"
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
-                        className="absolute inset-0"
-                        imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
-                      </ArtImage>
-                      {/* Ring motif */}
-                      <span className="pointer-events-none absolute right-6 top-6 flex h-16 w-16 items-center justify-center rounded-full border border-foreground/25 text-xs tracking-[0.2em] text-foreground/80 backdrop-blur-sm transition-all duration-500 group-hover:border-accent/70 group-hover:text-accent">
-                        {set.edition}
-                      </span>
-                      <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
-                        <div>
-                          <p className="text-xs uppercase tracking-[0.25em] text-accent">
-                            {isCurrent ? t.projects.nowPlaying : "Le Cercle"}
-                          </p>
-                          <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
-                        </div>
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
-                          {isCurrent && player.isPlaying ? (
-                            <span className="flex items-end gap-[2px]">
-                              {[0, 1, 2].map((bar) => (
-                                <span
-                                  key={bar}
-                                  className="eq-bar w-[2.5px] rounded-full bg-background"
-                                  style={{ animationDelay: `${bar * 0.18}s`, height: "10px" }}
-                                />
-                              ))}
-                            </span>
-                          ) : (
-                            <PlayIcon className="ml-0.5 h-4 w-4" />
-                          )}
-                        </span>
-                      </div>
-                    </button>
-                  </RevealItem>
-                );
-              })}
-            </RevealGroup>
+            <SetsCarousel />
           </div>
 
           {/* Animated stats band */}
@@ -251,43 +196,7 @@ export function ProjectsPageContent() {
         </div>
       </section>
 
-      {/* C. Battle / All-Style */}
-      <section id="battle" className="mt-32 scroll-mt-28 border-y border-line bg-background-elevated/40">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12">
-          <Reveal>
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">
-              {t.projects.battleLabel}
-            </span>
-          </Reveal>
-          <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-            <Reveal delay={0.05}>
-              <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
-                {t.projects.battleTitle}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="text-sm uppercase tracking-[0.25em] text-muted">
-                {t.projects.battleIntro}
-              </p>
-            </Reveal>
-          </div>
-          <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3" stagger={0.08}>
-            {t.projects.battlePoints.map((point, i) => (
-              <RevealItem key={point.title} className="bg-background">
-                <div className="group flex h-full flex-col gap-4 p-8 transition-colors duration-500 hover:bg-white/[0.02]">
-                  <span className="text-xs tracking-[0.3em] text-accent/80">
-                    0{i + 1}
-                  </span>
-                  <h3 className="text-xl font-medium tracking-tight">{point.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted">{point.line}</p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* D. Premium & Private Events */}
+      {/* C. Premium & Private Events */}
       <section id="premium" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
         <Reveal>
           <span className="text-xs uppercase tracking-[0.3em] text-accent">

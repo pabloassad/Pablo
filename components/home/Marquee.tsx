@@ -1,10 +1,8 @@
 "use client";
 
-import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { clubs } from "@/lib/data";
 
 export function Marquee() {
-  const { t } = useLanguage();
   const row = [...clubs, ...clubs];
 
   return (
@@ -27,9 +25,6 @@ export function Marquee() {
           ))}
         </div>
       </div>
-      <p className="px-6 pb-5 text-center text-xs italic text-muted/60 sm:px-8">
-        {t.home.collabsExtra}
-      </p>
     </div>
   );
 }

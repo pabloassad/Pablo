@@ -1,6 +1,6 @@
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/home/Marquee";
-import { Manifesto } from "@/components/home/Manifesto";
+import { ProfileSection } from "@/components/home/ProfileSection";
 import { Duo } from "@/components/home/Duo";
 import { CercleBand } from "@/components/home/CercleBand";
 import { ListenStrip } from "@/components/home/ListenStrip";
@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Hero />
       <Marquee />
-      <Manifesto />
+      <ProfileSection />
       <Duo />
       <CercleBand />
       <ListenStrip />

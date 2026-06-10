@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { socials } from "@/lib/data";
-import { SpotifyIcon, SoundcloudIcon, YoutubeIcon, InstagramIcon, LinkIcon } from "@/components/ui/icons";
+import { SpotifyIcon, SoundcloudIcon, YoutubeIcon, InstagramIcon, CopyIcon, CheckIcon } from "@/components/ui/icons";
 
 const links = [
   { href: socials.spotify, label: "Spotify", Icon: SpotifyIcon },
@@ -20,7 +20,7 @@ export function SocialSidebar() {
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
+      setTimeout(() => setCopied(false), 1500);
     } catch {
       // clipboard unavailable — silently ignore
     }
@@ -46,18 +46,20 @@ export function SocialSidebar() {
           type="button"
           onClick={handleCopy}
           aria-label={t.footer.copyLink}
+          title={t.footer.copyLink}
           className="group relative text-muted transition-colors duration-300 hover:text-accent"
         >
-          <LinkIcon className="h-[18px] w-[18px] transition-transform duration-300 group-hover:-translate-y-0.5" />
+          {copied ? (
+            <CheckIcon className="h-[18px] w-[18px] text-accent transition-opacity duration-150" />
+          ) : (
+            <CopyIcon className="h-[18px] w-[18px] transition-all duration-150 group-hover:-translate-y-0.5" />
+          )}
           {copied && (
             <span className="absolute right-7 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-foreground px-3 py-1 text-[11px] font-medium text-background">
               {t.footer.linkCopied}
             </span>
           )}
         </button>
-        <span className="mt-2 origin-center -rotate-90 whitespace-nowrap text-[10px] uppercase tracking-[0.4em] text-muted">
-          {t.nav.contact}
-        </span>
       </div>
     </div>
   );

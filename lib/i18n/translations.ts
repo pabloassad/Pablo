@@ -14,24 +14,27 @@ export const translations = {
     },
     home: {
       kicker: "DJ / Producer",
-      heroTagline: "Bringing dancefloors to life.",
+      heroTagline: "Creating connection through sound.",
       heroPlay: "Play the sound",
       heroProjects: "View projects",
-      collabsExtra:
-        "And also: Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle and other private collaborations.",
       scroll: "Scroll",
-      manifestoLabel: "Philosophy",
-      manifestoQuote:
-        "Music's highest purpose is connection — strangers becoming one crowd, one heartbeat.",
+      profileLabel: "Profile",
+      profileQuote: "« Holà Pablito Que Pasa ? »",
+      profileSubQuote: "Me, at 12, recording my first vocal signature.",
+      profileParas: [
+        "Born into the world of hip-hop dance, I discovered deejaying almost naturally, from childhood.",
+        "From middle school on, between beatmaking and piano lessons, I sat in on my first studio sessions. Curiosity did the rest.",
+        "Today, every set I build is an extension of that story — a way of connecting people through sound.",
+      ],
       duoLabel: "Universe",
       duo: [
         {
-          title: "Club & Festival",
+          title: "Club",
           line: "Immersive sets engineered for the dancefloor.",
           href: "/projects",
         },
         {
-          title: "Artist & Producer",
+          title: "Producer",
           line: "Original productions with a distinct signature.",
           href: "/music",
         },
@@ -66,12 +69,14 @@ export const translations = {
       intro: "Three territories, one intention: turning a room into a shared moment.",
       clubsLabel: "Booking",
       clubsTitle: "Clubs & stages",
+      collabsExtra:
+        "And also: Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle and other private collaborations.",
       cercleLabel: "Signature project",
       cercleTitle: "Le Cercle",
       cercleIntro:
-        "A recurring ritual: a circular dancefloor, the booth at the heart of the crowd, warm light tuned to disappear.",
+        "Le Cercle is a festive event concept I built around one simple idea: bringing people together in an elegant, convivial setting where music is at the heart of the experience.",
       cercleBody:
-        "Born from a simple observation — the best nights are the ones where everyone forgets who's behind the decks. Edition after edition, Le Cercle became a community.",
+        "Since 2023, every edition rests on a strong theme, a carefully chosen venue and a tailor-made musical atmosphere.",
       cercleTags: ["Circular floor", "Extended sets", "Community"],
       cercleInstagram: "Follow Le Cercle",
       statsParticipants: "Participants per edition",
@@ -99,23 +104,6 @@ export const translations = {
         {
           title: "Any audience",
           line: "Sets shaped for the room — corporate, festival or intimate celebration.",
-        },
-      ],
-      battleLabel: "Performance",
-      battleTitle: "Battle / All-Style DJing",
-      battleIntro: "Live reaction as an art form.",
-      battlePoints: [
-        {
-          title: "All-style battles",
-          line: "Official DJ for all-style dance battles — every round a different language.",
-        },
-        {
-          title: "Reading the floor",
-          line: "Music adapted live to the dancers' energy, second by second.",
-        },
-        {
-          title: "Improvised, precise",
-          line: "Reactive performance where selection and timing decide everything.",
         },
       ],
       ctaTitle: "Book Pablito",
@@ -168,24 +156,27 @@ export const translations = {
     },
     home: {
       kicker: "DJ / Producteur",
-      heroTagline: "Faire vivre le dancefloor.",
+      heroTagline: "Créer du lien à travers le son.",
       heroPlay: "Lancer le son",
       heroProjects: "Voir les projets",
-      collabsExtra:
-        "Et également : Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle et d'autres collaborations privées.",
       scroll: "Défiler",
-      manifestoLabel: "Philosophie",
-      manifestoQuote:
-        "La plus haute vocation de la musique : créer du lien — des inconnus qui deviennent une foule, un seul battement.",
+      profileLabel: "Profil",
+      profileQuote: "« Holà Pablito Que Pasa ? »",
+      profileSubQuote: "Moi, à 12 ans, en train d'enregistrer ma première signature vocale.",
+      profileParas: [
+        "Né dans l'univers de la danse hip-hop, j'ai découvert le deejaying presque naturellement, dès l'enfance.",
+        "Dès le collège, entre beatmaking et cours de piano, j'ai ouvert mes premières sessions en studio. La curiosité a fait le reste.",
+        "Aujourd'hui, chaque set que je construis est une extension de cette histoire — une façon de relier les gens à travers le son.",
+      ],
       duoLabel: "Univers",
       duo: [
         {
-          title: "Club & Festival",
+          title: "Club",
           line: "Des sets immersifs pensés pour le dancefloor.",
           href: "/projects",
         },
         {
-          title: "Artiste & Producteur",
+          title: "Producteur",
           line: "Des productions originales à la signature singulière.",
           href: "/music",
         },
@@ -220,12 +211,14 @@ export const translations = {
       intro: "Trois territoires, une intention : transformer une salle en moment partagé.",
       clubsLabel: "Booking",
       clubsTitle: "Clubs & scènes",
+      collabsExtra:
+        "Et également : Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle et d'autres collaborations privées.",
       cercleLabel: "Projet signature",
       cercleTitle: "Le Cercle",
       cercleIntro:
-        "Un rituel récurrent : un dancefloor circulaire, la cabine au cœur de la foule, une lumière chaude pensée pour disparaître.",
+        "Le Cercle est un concept d'événement festif que j'ai pensé autour d'une idée simple : réunir des personnes dans un cadre élégant et convivial, où la musique est au cœur de l'expérience.",
       cercleBody:
-        "Né d'un constat simple — les meilleures soirées sont celles où l'on oublie qui est derrière les platines. Édition après édition, Le Cercle est devenu une communauté.",
+        "Depuis 2023, chaque édition repose sur un thème fort, un lieu soigneusement choisi et une ambiance musicale pensée sur mesure.",
       cercleTags: ["Format circulaire", "Sets longs", "Communauté"],
       cercleInstagram: "Suivre Le Cercle",
       statsParticipants: "Participants par édition",
@@ -253,23 +246,6 @@ export const translations = {
         {
           title: "Tout type de public",
           line: "Des sets pensés pour la salle — corporate, festival ou célébration intime.",
-        },
-      ],
-      battleLabel: "Performance",
-      battleTitle: "Battle / All-Style DJing",
-      battleIntro: "La réaction live comme forme d'art.",
-      battlePoints: [
-        {
-          title: "Battles all-style",
-          line: "DJ officiel de battles de danse all-style — chaque round, un langage différent.",
-        },
-        {
-          title: "Lire le floor",
-          line: "Une musique adaptée en direct à l'énergie des danseurs, seconde par seconde.",
-        },
-        {
-          title: "Improvisé, précis",
-          line: "Une performance réactive où la sélection et le timing décident de tout.",
         },
       ],
       ctaTitle: "Booker Pablito",
