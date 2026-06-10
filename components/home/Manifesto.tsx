@@ -7,18 +7,20 @@ export function Manifesto() {
   const { t } = useLanguage();
 
   return (
-    <section id="universe" className="relative mx-auto max-w-5xl px-6 py-28 sm:px-8 sm:py-36 lg:py-44">
-      <div className="flex flex-col items-center gap-8 text-center">
+    <section id="universe" className="relative overflow-hidden py-28 sm:py-36 lg:py-44">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="spin-slow h-[80vmin] w-[80vmin] rounded-full border border-white/[0.05]" />
+      </div>
+      <div className="relative mx-auto max-w-4xl px-6 text-center sm:px-8">
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.home.manifestoLabel}</span>
-        </Reveal>
-        <Reveal delay={0.05}>
-          <p className="text-balance text-2xl font-medium leading-snug tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
-            “{t.home.manifestoQuote}”
-          </p>
+          <span className="text-xs uppercase tracking-[0.4em] text-accent">
+            {t.home.manifestoLabel}
+          </span>
         </Reveal>
         <Reveal delay={0.1}>
-          <p className="max-w-2xl text-balance text-base text-muted sm:text-lg">{t.home.manifestoBody}</p>
+          <p className="mt-8 text-balance text-2xl font-light leading-snug tracking-tight sm:text-3xl md:text-[2.6rem] md:leading-[1.25]">
+            “{t.home.manifestoQuote}”
+          </p>
         </Reveal>
       </div>
     </section>

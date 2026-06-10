@@ -1,75 +1,176 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { PageHero } from "@/components/ui/PageHero";
-import { TrackCard } from "@/components/music/TrackCard";
-import { GradientArt } from "@/components/ui/GradientArt";
+import { usePlayer } from "@/lib/player/PlayerProvider";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
-import { PlayIcon, SpotifyIcon, SoundcloudIcon, YoutubeIcon } from "@/components/ui/icons";
-import { socials } from "@/lib/data";
-import type { ArtVariant } from "@/lib/data";
-
-const variants: ArtVariant[] = ["amber", "violet", "teal", "rose", "gold", "slate"];
-const patterns: ("circle" | "lines" | "grid")[] = ["circle", "lines", "grid", "circle", "lines", "grid"];
-
-const platformLinks = [
-  { label: "Spotify", href: socials.spotify, Icon: SpotifyIcon },
-  { label: "SoundCloud", href: socials.soundcloud, Icon: SoundcloudIcon },
-  { label: "YouTube", href: socials.youtube, Icon: YoutubeIcon },
-];
+import { ArtImage } from "@/components/ui/ArtImage";
+import {
+  images,
+  socials,
+  spotifyArtistId,
+  soundcloudProfileUrl,
+  cercleSets,
+} from "@/lib/data";
+import { PlayIcon, YoutubeIcon } from "@/components/ui/icons";
 
 export function MusicPageContent() {
   const { t } = useLanguage();
+  const { playTrack } = usePlayer();
 
   return (
-    <>
-      <PageHero kicker={t.music.kicker} title={t.music.title} intro={t.music.intro} />
-
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:px-8 lg:px-12 lg:py-28">
+    <div className="pb-32 pt-28 lg:pt-36">
+      {/* Header */}
+      <header className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-line">
-            <GradientArt variant="amber" pattern="lines" className="absolute inset-0 h-full w-full" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/10" />
-            <div className="relative flex min-h-[360px] flex-col justify-end gap-5 p-8 sm:p-12 lg:p-16">
-              <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.embedTitle}</span>
-              <h2 className="max-w-xl text-balance text-3xl font-medium tracking-tight sm:text-4xl">
-                {t.music.tracks[1].title}
-              </h2>
-              <p className="max-w-md text-sm text-muted sm:text-base">{t.music.embedNote}</p>
-              <div className="mt-2 flex flex-wrap gap-3">
-                {platformLinks.map(({ label, href, Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 rounded-full border border-line bg-black/30 px-5 py-2.5 text-sm backdrop-blur-sm transition-all duration-300 hover:border-accent/50"
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </a>
-                ))}
+          <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
+        </Reveal>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
+          <Reveal delay={0.06}>
+            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl md:text-7xl">
+              {t.music.title}
+            </h1>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="max-w-xs text-balance text-base text-muted">{t.music.intro}</p>
+          </Reveal>
+        </div>
+      </header>
+
+      {/* Live sets — play on site via the global player */}
+      <section className="mx-auto mt-20 max-w-7xl px-6 sm:px-8 lg:px-12">
+        <Reveal>
+          <span className="text-xs uppercase tracking-[0.3em] text-muted">
+            {t.music.youtubeTitle}
+          </span>
+        </Reveal>
+        <RevealGroup className="mt-6 grid gap-5 md:grid-cols-2" stagger={0.1}>
+          <RevealItem>
+            <button
+              type="button"
+              onClick={() => playTrack(cercleSets[0].id, { expand: true })}
+              className="group relative block aspect-video w-full overflow-hidden rounded-2xl text-left"
+            >
+              <ArtImage
+                src={images.liveClub}
+                alt="Le Cercle — live set"
+                fallback="amber"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="absolute inset-0"
+                imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
+              </ArtImage>
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.25em] text-accent">Le Cercle</p>
+                  <h2 className="mt-1 text-2xl font-medium tracking-tight">
+                    Edition {cercleSets[0].edition}
+                  </h2>
+                  <p className="mt-1 text-sm text-foreground/70">{t.music.playInPlayer}</p>
+                </div>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
+                  <PlayIcon className="ml-0.5 h-4 w-4" />
+                </span>
               </div>
-              <span className="absolute right-8 top-8 flex h-16 w-16 items-center justify-center rounded-full bg-foreground/95 text-background shadow-[0_0_30px_rgba(216,200,168,0.35)]">
-                <PlayIcon className="ml-1 h-6 w-6" />
-              </span>
-            </div>
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 pb-24 sm:px-8 lg:px-12 lg:pb-32">
-        <Reveal>
-          <h2 className="text-2xl font-medium tracking-tight sm:text-3xl">{t.music.latestSets}</h2>
-        </Reveal>
-        <RevealGroup className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {t.music.tracks.map((track, i) => (
-            <RevealItem key={track.title}>
-              <TrackCard {...track} variant={variants[i % variants.length]} pattern={patterns[i % patterns.length]} />
-            </RevealItem>
-          ))}
+            </button>
+          </RevealItem>
+          <RevealItem>
+            <a
+              href={socials.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block aspect-video w-full overflow-hidden rounded-2xl"
+            >
+              <ArtImage
+                src={images.portraitDenim}
+                alt="Pablito — YouTube"
+                fallback="slate"
+                pattern="lines"
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="absolute inset-0"
+                imgClassName="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
+              </ArtImage>
+              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.25em] text-accent">YouTube</p>
+                  <h2 className="mt-1 text-2xl font-medium tracking-tight">
+                    {t.music.youtubeTitle}
+                  </h2>
+                  <p className="mt-1 text-sm text-foreground/70">{t.music.youtubeLine}</p>
+                </div>
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line text-foreground transition-all duration-300 group-hover:border-accent/60 group-hover:text-accent">
+                  <YoutubeIcon className="h-5 w-5" />
+                </span>
+              </div>
+            </a>
+          </RevealItem>
         </RevealGroup>
       </section>
-    </>
+
+      {/* Platform embeds */}
+      <section className="mx-auto mt-20 max-w-7xl px-6 sm:px-8 lg:px-12">
+        <Reveal>
+          <span className="text-xs uppercase tracking-[0.3em] text-muted">{t.music.platforms}</span>
+        </Reveal>
+        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+          <Reveal className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
+            <div className="flex items-center justify-between px-6 pt-5">
+              <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
+                {t.music.spotifyTitle} — Spotify
+              </h2>
+              <a
+                href={socials.spotify}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs uppercase tracking-[0.2em] text-accent transition-opacity hover:opacity-70"
+              >
+                {t.music.openPlatform} ↗
+              </a>
+            </div>
+            <div className="p-4">
+              <iframe
+                src={`https://open.spotify.com/embed/artist/${spotifyArtistId}?utm_source=generator&theme=0`}
+                title="Pablito on Spotify"
+                width="100%"
+                height="352"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                className="rounded-xl"
+              />
+            </div>
+          </Reveal>
+          <Reveal delay={0.08} className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
+            <div className="flex items-center justify-between px-6 pt-5">
+              <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
+                {t.music.soundcloudTitle} — SoundCloud
+              </h2>
+              <a
+                href={socials.soundcloud}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs uppercase tracking-[0.2em] text-accent transition-opacity hover:opacity-70"
+              >
+                {t.music.openPlatform} ↗
+              </a>
+            </div>
+            <div className="p-4">
+              <iframe
+                src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
+                  soundcloudProfileUrl
+                )}&color=%23d8c8a8&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=false`}
+                title="Pablito on SoundCloud"
+                width="100%"
+                height="352"
+                allow="autoplay"
+                loading="lazy"
+                className="rounded-xl"
+              />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </div>
   );
 }

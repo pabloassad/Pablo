@@ -50,7 +50,6 @@ export function Footer() {
             <Link href="/privacy" className="transition-colors duration-300 hover:text-foreground">
               {t.footer.privacy}
             </Link>
-            <span>{t.footer.credits}: Studio Pablito</span>
           </div>
         </div>
       </div>

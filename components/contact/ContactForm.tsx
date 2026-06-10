@@ -4,25 +4,22 @@ import { useState, type FormEvent } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { motion, AnimatePresence } from "framer-motion";
 
-type FieldErrors = Partial<Record<"name" | "email" | "subject" | "message", string>>;
+type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
 type Status = "idle" | "sending" | "success" | "error";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactForm() {
   const { t } = useLanguage();
-  const [values, setValues] = useState({ name: "", email: "", subject: "", message: "" });
+  const [values, setValues] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
-
-  const subjectOptions = t.contact.formSubjectOptions;
 
   const validate = (): FieldErrors => {
     const next: FieldErrors = {};
     if (!values.name.trim()) next.name = t.contact.validation.required;
     if (!values.email.trim()) next.email = t.contact.validation.required;
     else if (!EMAIL_REGEX.test(values.email)) next.email = t.contact.validation.email;
-    if (!values.subject) next.subject = t.contact.validation.required;
     if (!values.message.trim()) next.message = t.contact.validation.required;
     return next;
   };
@@ -37,7 +34,7 @@ export function ContactForm() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 900));
       setStatus("success");
-      setValues({ name: "", email: "", subject: "", message: "" });
+      setValues({ name: "", email: "", message: "" });
     } catch {
       setStatus("error");
     }
@@ -92,35 +89,6 @@ export function ContactForm() {
             </p>
           )}
         </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <label htmlFor="subject" className="text-xs uppercase tracking-[0.2em] text-muted">
-          {t.contact.formSubject}
-        </label>
-        <select
-          id="subject"
-          name="subject"
-          value={values.subject}
-          onChange={(e) => setValues((v) => ({ ...v, subject: e.target.value }))}
-          className={`${inputClass} appearance-none`}
-          aria-invalid={!!errors.subject}
-          aria-describedby={errors.subject ? "subject-error" : undefined}
-        >
-          <option value="" disabled className="bg-background-elevated">
-            —
-          </option>
-          {subjectOptions.map((option) => (
-            <option key={option} value={option} className="bg-background-elevated">
-              {option}
-            </option>
-          ))}
-        </select>
-        {errors.subject && (
-          <p id="subject-error" className="text-xs text-rose-300">
-            {errors.subject}
-          </p>
-        )}
       </div>
 
       <div className="flex flex-col gap-2">

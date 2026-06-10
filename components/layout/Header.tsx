@@ -33,9 +33,16 @@ export function Header() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:h-20 lg:px-12">
           <Link
             href="/"
-            className="text-lg font-semibold tracking-[0.25em] transition-colors duration-300 hover:text-accent"
+            className="logo-glow text-lg font-semibold tracking-[0.25em] transition-colors duration-300 hover:text-accent"
           >
-            PABLITO
+            <motion.span
+              initial={{ opacity: 0, letterSpacing: "0.45em" }}
+              animate={{ opacity: 1, letterSpacing: "0.25em" }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-block"
+            >
+              PABLITO
+            </motion.span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">

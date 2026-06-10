@@ -5,6 +5,7 @@ import { Providers } from "@/components/layout/Providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
+import { MiniPlayer } from "@/components/player/MiniPlayer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,6 +47,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <SocialSidebar />
+          <MiniPlayer />
         </Providers>
       </body>
     </html>
