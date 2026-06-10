@@ -5,8 +5,9 @@ import { usePlayer } from "@/lib/player/PlayerProvider";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Button } from "@/components/ui/Button";
-import { images, venueLogos, cercleSets } from "@/lib/data";
-import { PlayIcon } from "@/components/ui/icons";
+import { images, clubs, cercleSets, cercleInstagram, cercleStats } from "@/lib/data";
+import { PlayIcon, InstagramIcon } from "@/components/ui/icons";
+import { StatCounter } from "@/components/ui/StatCounter";
 
 export function ProjectsPageContent() {
   const { t } = useLanguage();
@@ -63,13 +64,18 @@ export function ProjectsPageContent() {
           className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-4"
           stagger={0.05}
         >
-          {venueLogos.map((venue) => (
-            <RevealItem key={venue}>
-              <div className="group flex h-28 items-center justify-center border-b border-r border-line px-4 transition-colors duration-500 hover:bg-white/[0.03] sm:h-32">
+          {clubs.map((club) => (
+            <RevealItem key={club.name}>
+              <a
+                href={club.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex h-28 items-center justify-center border-b border-r border-line px-4 transition-colors duration-500 hover:bg-white/[0.03] sm:h-32"
+              >
                 <span className="text-sm uppercase tracking-[0.25em] text-muted transition-all duration-500 group-hover:scale-105 group-hover:text-foreground group-hover:[text-shadow:0_0_24px_rgba(216,200,168,0.45)]">
-                  {venue}
+                  {club.name}
                 </span>
-              </div>
+              </a>
             </RevealItem>
           ))}
         </RevealGroup>
@@ -112,6 +118,17 @@ export function ProjectsPageContent() {
                   </RevealItem>
                 ))}
               </RevealGroup>
+              <Reveal delay={0.22}>
+                <a
+                  href={cercleInstagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted transition-colors duration-300 hover:text-accent"
+                >
+                  <InstagramIcon className="h-4 w-4" />
+                  {t.projects.cercleInstagram}
+                </a>
+              </Reveal>
             </div>
             <Reveal delay={0.1}>
               <ArtImage
@@ -145,11 +162,17 @@ export function ProjectsPageContent() {
               </Reveal>
             </div>
 
-            <RevealGroup className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
+            <RevealGroup
+              className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              stagger={0.08}
+            >
               {cercleSets.map((set) => {
                 const isCurrent = player.track?.id === set.id;
                 return (
-                  <RevealItem key={set.id}>
+                  <RevealItem
+                    key={set.id}
+                    className="w-[78%] shrink-0 snap-center sm:w-[48%] lg:w-[31%]"
+                  >
                     <button
                       type="button"
                       onClick={() => player.playTrack(set.id, { expand: true })}
@@ -157,9 +180,9 @@ export function ProjectsPageContent() {
                     >
                       <ArtImage
                         src={images.liveClub}
-                        alt={`Le Cercle — Edition ${set.edition}`}
+                        alt={`Le Cercle — ${set.name}`}
                         fallback="amber"
-                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
                         className="absolute inset-0"
                         imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                       >
@@ -174,9 +197,7 @@ export function ProjectsPageContent() {
                           <p className="text-xs uppercase tracking-[0.25em] text-accent">
                             {isCurrent ? t.projects.nowPlaying : "Le Cercle"}
                           </p>
-                          <h4 className="mt-1 text-xl font-medium tracking-tight">
-                            Edition {set.edition}
-                          </h4>
+                          <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
                         </div>
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
                           {isCurrent && player.isPlaying ? (
@@ -198,15 +219,35 @@ export function ProjectsPageContent() {
                   </RevealItem>
                 );
               })}
-              <RevealItem>
-                <div className="flex aspect-square w-full items-center justify-center rounded-2xl border border-dashed border-line">
-                  <p className="max-w-[12rem] text-center text-sm text-muted/70">
-                    {t.projects.setsMore}
-                  </p>
-                </div>
-              </RevealItem>
             </RevealGroup>
           </div>
+
+          {/* Animated stats band */}
+          <RevealGroup
+            className="mt-24 grid grid-cols-2 gap-10 border-t border-line pt-12 sm:grid-cols-4"
+            stagger={0.08}
+          >
+            <RevealItem>
+              <StatCounter value={cercleStats.participants} label={t.projects.statsParticipants} />
+            </RevealItem>
+            <RevealItem>
+              <StatCounter value={cercleStats.editions} label={t.projects.statsEditions} />
+            </RevealItem>
+            <RevealItem>
+              <StatCounter value={cercleStats.views} label={t.projects.statsViews} />
+            </RevealItem>
+            <RevealItem>
+              <div className="flex flex-col items-center gap-2 text-center sm:items-start sm:text-left">
+                <StatCounter
+                  value={String(cercleStats.partners.length)}
+                  label={t.projects.statsPartners}
+                />
+                <p className="text-xs tracking-[0.15em] text-muted/70">
+                  {cercleStats.partners.join(" · ")}
+                </p>
+              </div>
+            </RevealItem>
+          </RevealGroup>
         </div>
       </section>
 
@@ -244,6 +285,36 @@ export function ProjectsPageContent() {
             ))}
           </RevealGroup>
         </div>
+      </section>
+
+      {/* D. Premium & Private Events */}
+      <section id="premium" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
+        <Reveal>
+          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+            {t.projects.premiumLabel}
+          </span>
+        </Reveal>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+          <Reveal delay={0.05}>
+            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
+              {t.projects.premiumTitle}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="max-w-sm text-sm text-muted">{t.projects.premiumIntro}</p>
+          </Reveal>
+        </div>
+        <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3" stagger={0.08}>
+          {t.projects.premiumPoints.map((point, i) => (
+            <RevealItem key={point.title} className="bg-background">
+              <div className="group flex h-full flex-col gap-4 p-8 transition-colors duration-500 hover:bg-white/[0.02]">
+                <span className="text-xs tracking-[0.3em] text-accent/80">0{i + 1}</span>
+                <h3 className="text-xl font-medium tracking-tight">{point.title}</h3>
+                <p className="text-sm leading-relaxed text-muted">{point.line}</p>
+              </div>
+            </RevealItem>
+          ))}
+        </RevealGroup>
       </section>
 
       {/* CTA */}

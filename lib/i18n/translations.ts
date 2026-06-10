@@ -13,10 +13,12 @@ export const translations = {
       close: "Close",
     },
     home: {
-      kicker: "DJ — Producer",
-      heroTagline: "Creating connection through sound",
+      kicker: "DJ / Producer",
+      heroTagline: "Bringing dancefloors to life.",
       heroPlay: "Play the sound",
       heroProjects: "View projects",
+      collabsExtra:
+        "And also: Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle and other private collaborations.",
       scroll: "Scroll",
       manifestoLabel: "Philosophy",
       manifestoQuote:
@@ -71,12 +73,34 @@ export const translations = {
       cercleBody:
         "Born from a simple observation — the best nights are the ones where everyone forgets who's behind the decks. Edition after edition, Le Cercle became a community.",
       cercleTags: ["Circular floor", "Extended sets", "Community"],
+      cercleInstagram: "Follow Le Cercle",
+      statsParticipants: "Participants per edition",
+      statsEditions: "Editions",
+      statsViews: "Cumulative views",
+      statsPartners: "Major partners",
       setsLabel: "Live archive",
       setsTitle: "Cercle Sets",
-      setsIntro: "Every edition, recorded. A living collection of performances.",
+      setsIntro: "Every edition, recorded. A living archive of the project.",
       setsPlay: "Play this edition",
-      setsMore: "Next editions — coming soon",
       nowPlaying: "Now playing",
+      premiumLabel: "Beyond the club",
+      premiumTitle: "Premium & Private Events",
+      premiumIntro:
+        "Weddings, corporate nights, brand activations and festivals — the same energy, tailored to any space.",
+      premiumPoints: [
+        {
+          title: "Full production",
+          line: "Own sound system and lighting design, set up and struck without friction.",
+        },
+        {
+          title: "Total autonomy",
+          line: "From load-in to teardown, every technical detail is handled in-house.",
+        },
+        {
+          title: "Any audience",
+          line: "Sets shaped for the room — corporate, festival or intimate celebration.",
+        },
+      ],
       battleLabel: "Performance",
       battleTitle: "Battle / All-Style DJing",
       battleIntro: "Live reaction as an art form.",
@@ -143,10 +167,12 @@ export const translations = {
       close: "Fermer",
     },
     home: {
-      kicker: "DJ — Producteur",
-      heroTagline: "Créer du lien à travers le son",
+      kicker: "DJ / Producteur",
+      heroTagline: "Faire vivre le dancefloor.",
       heroPlay: "Lancer le son",
       heroProjects: "Voir les projets",
+      collabsExtra:
+        "Et également : Les Bains Douches, Pavillon Tilsitt, Hôtel Carlton's, Folie's Pigalle et d'autres collaborations privées.",
       scroll: "Défiler",
       manifestoLabel: "Philosophie",
       manifestoQuote:
@@ -201,12 +227,34 @@ export const translations = {
       cercleBody:
         "Né d'un constat simple — les meilleures soirées sont celles où l'on oublie qui est derrière les platines. Édition après édition, Le Cercle est devenu une communauté.",
       cercleTags: ["Format circulaire", "Sets longs", "Communauté"],
+      cercleInstagram: "Suivre Le Cercle",
+      statsParticipants: "Participants par édition",
+      statsEditions: "Éditions",
+      statsViews: "Vues cumulées",
+      statsPartners: "Partenaires majeurs",
       setsLabel: "Archive live",
       setsTitle: "Les sets du Cercle",
-      setsIntro: "Chaque édition, enregistrée. Une collection vivante de performances.",
+      setsIntro: "Chaque édition, enregistrée. Une archive vivante du projet.",
       setsPlay: "Écouter cette édition",
-      setsMore: "Prochaines éditions — bientôt",
       nowPlaying: "En lecture",
+      premiumLabel: "Au-delà du club",
+      premiumTitle: "Événements Premium & Privés",
+      premiumIntro:
+        "Mariages, soirées d'entreprise, activations de marque et festivals — la même énergie, adaptée à chaque lieu.",
+      premiumPoints: [
+        {
+          title: "Production complète",
+          line: "Système son et lumière propres, installation et démontage sans accroc.",
+        },
+        {
+          title: "Autonomie totale",
+          line: "Du chargement au rangement, chaque détail technique est géré en interne.",
+        },
+        {
+          title: "Tout type de public",
+          line: "Des sets pensés pour la salle — corporate, festival ou célébration intime.",
+        },
+      ],
       battleLabel: "Performance",
       battleTitle: "Battle / All-Style DJing",
       battleIntro: "La réaction live comme forme d'art.",

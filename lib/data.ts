@@ -9,9 +9,10 @@ export const socials = {
 export const spotifyArtistId = "16F2cb3MMhRC7RZ92jkbSG";
 export const soundcloudProfileUrl = "https://soundcloud.com/user-143220564";
 
-/* Placeholders — replace with real booking details when available */
-export const contactEmail = "booking@pablito.world";
-export const contactPhone = "+33 6 00 00 00 00";
+export const contactEmail = "pablito.booking@gmail.com";
+export const contactPhone = "06 15 64 85 28";
+
+export const cercleInstagram = "https://www.instagram.com/lecercle.paris/";
 
 export const navLinks = [
   { href: "/", key: "home" } as const,
@@ -48,17 +49,37 @@ export type PlayerTrack = {
 
 /*
  * Le Cercle recorded sets — the living archive.
- * Add an entry per edition as recordings are published
- * (playlist: youtube.com/watch?v=_7-zKtmmYDo&list=PLJ_LqhKjauRQ…).
+ * Add an entry per edition as recordings are published.
  */
-export const cercleSets: { id: string; edition: string; videoId: string }[] = [
-  { id: "cercle-01", edition: "01", videoId: "_7-zKtmmYDo" },
+export const cercleSets: { id: string; edition: string; name: string; videoId: string }[] = [
+  { id: "cercle-saint-valentin", edition: "01", name: "Saint-Valentin", videoId: "_7-zKtmmYDo" },
+  { id: "cercle-bresil", edition: "02", name: "Brésil", videoId: "dcVG4HYvEHM" },
+  { id: "cercle-las-vegas", edition: "03", name: "Las Vegas", videoId: "4wFp_u7nr4o" },
+  { id: "cercle-prestige", edition: "04", name: "Prestige", videoId: "_7-zKtmmYDo" },
+  { id: "cercle-summer-party", edition: "05", name: "Summer Party", videoId: "EfLqfgu0KGE" },
 ];
 
+/* Le Cercle — key figures for the animated stat band */
+export const cercleStats = {
+  participants: "800+",
+  editions: "7",
+  views: "1M+",
+  partners: ["Durex", "Red Bull", "Jägermeister", "Sipsty"],
+};
+
 export const playerQueue: PlayerTrack[] = [
+  {
+    id: "pablito-signature",
+    title: "Pablito — Signature Set",
+    subtitle: "Live set",
+    art: "amber",
+    image: images.liveClub,
+    source: "youtube",
+    videoId: "8N-ATi5XuW8",
+  },
   ...cercleSets.map((set) => ({
     id: set.id,
-    title: `Le Cercle — Edition ${set.edition}`,
+    title: `Le Cercle — ${set.name}`,
     subtitle: "Live set",
     art: "amber" as ArtVariant,
     image: images.liveClub,
@@ -76,14 +97,15 @@ export const playerQueue: PlayerTrack[] = [
   },
 ];
 
-/* Venues — replace with the real list & logo files when provided */
-export const venueLogos = [
-  "Concrete",
-  "Rex Club",
-  "Output",
-  "Tresor",
-  "Printworks",
-  "Razzmatazz",
-  "Watergate",
-  "fabric",
+/* Clubs & venues — each opens the venue's Instagram profile */
+export const clubs: { name: string; instagram: string }[] = [
+  { name: "La Cigale", instagram: "https://www.instagram.com/lacigaleofficiel/" },
+  { name: "Le Bridge", instagram: "https://www.instagram.com/bridgeparisclub/" },
+  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/" },
+  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/" },
+  { name: "Les Planches", instagram: "https://www.instagram.com/lesplanchesparis/" },
+  { name: "Volange", instagram: "https://www.instagram.com/volange_event/" },
+  { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/" },
+  { name: "Yardland", instagram: "https://www.instagram.com/yardland_/" },
+  { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/" },
 ];

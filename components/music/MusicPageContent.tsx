@@ -64,7 +64,7 @@ export function MusicPageContent() {
                 <div>
                   <p className="text-xs uppercase tracking-[0.25em] text-accent">Le Cercle</p>
                   <h2 className="mt-1 text-2xl font-medium tracking-tight">
-                    Edition {cercleSets[0].edition}
+                    {cercleSets[0].name}
                   </h2>
                   <p className="mt-1 text-sm text-foreground/70">{t.music.playInPlayer}</p>
                 </div>
