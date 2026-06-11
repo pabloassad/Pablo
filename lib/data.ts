@@ -34,11 +34,13 @@ export const images = {
   liveViolet: "/images/live-violet.png", // violet beams over the floor — music page
   liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
-  crowdEnergy: "/images/cover-bsb.png", // crowd — clubs module (awaiting a dedicated upload)
+  crowdEnergy: "/images/cover-club.png", // DJ from behind, crowd lit in pink — clubs module
   studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — music page header
   studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — home producer dial
   pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
   studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
+  yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
+  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — private events
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -106,10 +108,16 @@ export const cercleLiveSets: LiveSet[] = [
 ];
 
 /*
- * Sets Live — Music page carousel. Every recorded live set outside
- * Le Cercle, most recent first. No Cercle set belongs here.
+ * Sets Live — Music page carousel. The Cercle highlight opens the carousel,
+ * followed by every recorded live set outside Le Cercle, most recent first.
  */
 export const liveSetsMusic: LiveSet[] = [
+  {
+    id: cercleSets[0].id,
+    kicker: "Le Cercle",
+    name: cercleSets[0].name,
+    cover: images.liveViolet,
+  },
   {
     id: "bsb-league",
     kicker: "2024",
@@ -129,7 +137,7 @@ export const liveSetsMusic: LiveSet[] = [
     id: "yardland-2023",
     kicker: "2023",
     name: "Yardland",
-    cover: images.clubRed, // temporary — awaiting a dedicated Yardland upload
+    cover: images.yardlandCover,
   },
 ];
 
@@ -184,7 +192,7 @@ export const playerQueue: PlayerTrack[] = [
     title: "Yardland",
     subtitle: "Live set · 2023",
     art: "rose",
-    image: images.clubRed,
+    image: images.yardlandCover,
     source: "soundcloud",
     url: "https://soundcloud.com/user-143220564/yardland-pablito-mix",
   },

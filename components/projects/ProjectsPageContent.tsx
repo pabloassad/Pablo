@@ -248,7 +248,17 @@ export function ProjectsPageContent() {
             </p>
           </Reveal>
         </div>
-        <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3" stagger={0.08}>
+        <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3 lg:grid-cols-4" stagger={0.08}>
+          <RevealItem className="min-h-48 bg-background lg:min-h-0">
+            <ArtImage
+              src={images.premiumPortrait}
+              alt="Pablito · portrait"
+              fallback="gold"
+              sizes="(min-width: 1024px) 25vw, 100vw"
+              className="h-full w-full"
+              imgClassName="object-cover object-[center_15%]"
+            />
+          </RevealItem>
           {t.projects.premiumPoints.map((point, i) => (
             <RevealItem key={point.title} className="bg-background">
               <div className="group flex h-full flex-col gap-4 p-8 transition-colors duration-500 hover:bg-white/[0.02]">

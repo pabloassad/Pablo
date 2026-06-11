@@ -1,8 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { usePlayer } from "@/lib/player/PlayerProvider";
-import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Emph } from "@/components/ui/Emph";
 import { SetsCarousel } from "@/components/projects/SetsCarousel";
@@ -11,19 +10,17 @@ import {
   socials,
   spotifyArtistId,
   soundcloudProfileUrl,
-  cercleSets,
   liveSetsMusic,
 } from "@/lib/data";
-import { PlayIcon, YoutubeIcon } from "@/components/ui/icons";
+import { YoutubeIcon } from "@/components/ui/icons";
 
 export function MusicPageContent() {
   const { t } = useLanguage();
-  const { playTrack } = usePlayer();
 
   return (
     <div className="pb-32">
       {/* Header — studio and composition */}
-      <header className="relative flex min-h-[70svh] items-end overflow-hidden">
+      <header className="relative flex min-h-[85svh] items-end overflow-hidden sm:min-h-[70svh]">
         <ArtImage
           src={images.studioSession}
           alt="Pablito · mains sur le clavier"
@@ -33,9 +30,9 @@ export function MusicPageContent() {
           className="absolute inset-0"
           imgClassName="object-cover object-[center_50%]"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background from-15% via-background/75 via-50% to-background/10" />
         </ArtImage>
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-40 sm:px-8 lg:px-12">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-32 sm:px-8 sm:pt-40 lg:px-12">
           <Reveal>
             <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
           </Reveal>
@@ -57,80 +54,7 @@ export function MusicPageContent() {
         </div>
       </header>
 
-      {/* Live sets — play on site via the global player */}
-      <section className="mx-auto mt-20 max-w-7xl px-6 sm:px-8 lg:px-12">
-        <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-muted">
-            {t.music.youtubeTitle}
-          </span>
-        </Reveal>
-        <RevealGroup className="mt-6 grid gap-5 md:grid-cols-2" stagger={0.1}>
-          <RevealItem>
-            <button
-              type="button"
-              onClick={() => playTrack(cercleSets[0].id, { expand: true })}
-              className="group relative block aspect-video w-full overflow-hidden rounded-2xl text-left"
-            >
-              <ArtImage
-                src={images.liveViolet}
-                alt="Le Cercle · live set"
-                fallback="amber"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0"
-                imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
-              </ArtImage>
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-accent">Le Cercle</p>
-                  <h2 className="mt-1 text-2xl font-medium tracking-tight">
-                    {cercleSets[0].name}
-                  </h2>
-                  <p className="mt-1 text-sm text-foreground/70">{t.music.playInPlayer}</p>
-                </div>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
-                  <PlayIcon className="ml-0.5 h-4 w-4" />
-                </span>
-              </div>
-            </button>
-          </RevealItem>
-          <RevealItem>
-            <a
-              href={socials.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative block aspect-video w-full overflow-hidden rounded-2xl"
-            >
-              <ArtImage
-                src={images.liveChampagne}
-                alt="Pablito · YouTube"
-                fallback="slate"
-                pattern="lines"
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="absolute inset-0"
-                imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
-              </ArtImage>
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-accent">YouTube</p>
-                  <h2 className="mt-1 text-2xl font-medium tracking-tight">
-                    {t.music.youtubeTitle}
-                  </h2>
-                  <p className="mt-1 text-sm text-foreground/70">{t.music.youtubeLine}</p>
-                </div>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line text-foreground transition-all duration-300 group-hover:border-accent/60 group-hover:text-accent">
-                  <YoutubeIcon className="h-5 w-5" />
-                </span>
-              </div>
-            </a>
-          </RevealItem>
-        </RevealGroup>
-      </section>
-
-      {/* Sets live — every recorded set outside the official Le Cercle editions */}
+      {/* Sets live — Le Cercle highlight and every other recorded live set */}
       <section className="mx-auto mt-20 max-w-7xl px-6 sm:px-8 lg:px-12">
         <Reveal>
           <span className="text-xs uppercase tracking-[0.3em] text-accent">
@@ -149,6 +73,39 @@ export function MusicPageContent() {
         </div>
 
         <SetsCarousel sets={liveSetsMusic} nowPlayingLabel={t.music.nowPlaying} />
+
+        <Reveal delay={0.15} className="mt-5">
+          <a
+            href={socials.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex aspect-[21/9] w-full items-end overflow-hidden rounded-2xl sm:aspect-[3/1]"
+          >
+            <ArtImage
+              src={images.liveChampagne}
+              alt="Pablito · YouTube"
+              fallback="slate"
+              pattern="lines"
+              sizes="100vw"
+              className="absolute inset-0"
+              imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
+            </ArtImage>
+            <div className="relative flex w-full items-end justify-between gap-4 p-6 sm:p-7">
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] text-accent">YouTube</p>
+                <h2 className="mt-1 text-xl font-medium tracking-tight sm:text-2xl">
+                  {t.music.youtubeTitle}
+                </h2>
+                <p className="mt-1 text-sm text-foreground/70">{t.music.youtubeLine}</p>
+              </div>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-foreground transition-all duration-300 group-hover:border-accent/60 group-hover:text-accent sm:h-12 sm:w-12">
+                <YoutubeIcon className="h-5 w-5" />
+              </span>
+            </div>
+          </a>
+        </Reveal>
       </section>
 
       {/* Platform embeds */}

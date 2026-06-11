@@ -57,7 +57,6 @@ export const translations = {
       flStudioIntro:
         "Pablito creates his own **remixes**, **mashups** and **edits** on **FL Studio**. This production practice shapes a **singular musical identity**. Every set is built on original creations heard nowhere else.",
       play: "Play",
-      playInPlayer: "Listen on the site",
       openPlatform: "Open",
       spotifyTitle: "Releases",
       soundcloudTitle: "Mixes and edits",
@@ -205,7 +204,6 @@ export const translations = {
       flStudioIntro:
         "Pablito compose ses propres **remixes**, **mashups** et **edits** sur **FL Studio**. Cette pratique de production forge une **identité musicale singulière**. Chaque set s'appuie sur des créations originales qu'on n'entend nulle part ailleurs.",
       play: "Écouter",
-      playInPlayer: "Écouter sur le site",
       openPlatform: "Ouvrir",
       spotifyTitle: "Sorties",
       soundcloudTitle: "Mixes et edits",
