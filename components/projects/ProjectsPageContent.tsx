@@ -61,54 +61,58 @@ export function ProjectsPageContent() {
             {t.projects.clubsTitle}
           </h2>
         </Reveal>
-        <Reveal delay={0.1}>
-          <ArtImage
-            src={images.crowdEnergy}
-            alt="Pablito · foule"
-            fallback="slate"
-            sizes="100vw"
-            className="mt-10 aspect-[21/9] overflow-hidden rounded-2xl"
-            imgClassName="object-cover"
+        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <RevealGroup
+            className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
+            stagger={0.05}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
-          </ArtImage>
-        </Reveal>
-        <RevealGroup
-          className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
-          stagger={0.05}
-        >
-          {clubs.map((club) => (
-            <RevealItem key={club.name} className="h-full">
-              <a
-                href={club.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={club.name}
-                title={club.name}
-                className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
-              >
-                {club.logo ? (
-                  <Image
-                    src={club.logo}
-                    alt={club.name}
-                    width={160}
-                    height={36}
-                    className="h-7 w-auto object-contain sm:h-9"
-                  />
-                ) : (
-                  <span className="text-center text-sm uppercase tracking-[0.25em] text-foreground">
-                    {club.name}
-                  </span>
-                )}
-                {club.showName && (
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
-                    {club.name}
-                  </span>
-                )}
-              </a>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+            {clubs.map((club) => (
+              <RevealItem key={club.name} className="h-full">
+                <a
+                  href={club.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={club.name}
+                  title={club.name}
+                  className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
+                >
+                  {club.logo ? (
+                    <Image
+                      src={club.logo}
+                      alt={club.name}
+                      width={160}
+                      height={36}
+                      className={
+                        club.compact
+                          ? "h-6 w-auto max-w-[120px] object-contain sm:h-8"
+                          : "h-7 w-auto max-w-[120px] object-contain sm:h-9"
+                      }
+                    />
+                  ) : (
+                    <span className="text-center text-sm uppercase tracking-[0.25em] text-foreground">
+                      {club.name}
+                    </span>
+                  )}
+                  {club.showName && (
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                      {club.name}
+                    </span>
+                  )}
+                </a>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+          <Reveal delay={0.1}>
+            <ArtImage
+              src={images.crowdEnergy}
+              alt="Pablito · foule"
+              fallback="slate"
+              sizes="(min-width: 1024px) 280px, 100vw"
+              className="h-[140px] w-full overflow-hidden rounded-2xl md:h-[180px] lg:aspect-video lg:h-auto"
+              imgClassName="object-cover object-[center_65%]"
+            />
+          </Reveal>
+        </div>
         <Reveal delay={0.1}>
           <p className="mt-6 text-sm italic text-muted/70">{t.projects.collabsExtra}</p>
         </Reveal>

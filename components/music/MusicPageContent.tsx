@@ -25,15 +25,15 @@ export function MusicPageContent() {
       {/* Header — studio and composition */}
       <header className="relative flex min-h-[70svh] items-end overflow-hidden">
         <ArtImage
-          src={images.studioComposition}
-          alt="Pablito · en studio"
+          src={images.studioSession}
+          alt="Pablito · mains sur le clavier"
           fallback="slate"
           priority
           sizes="100vw"
           className="absolute inset-0"
-          imgClassName="object-cover object-[45%_30%]"
+          imgClassName="object-cover object-[center_50%]"
         >
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </ArtImage>
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-40 sm:px-8 lg:px-12">
           <Reveal>

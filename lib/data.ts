@@ -28,17 +28,17 @@ export const navLinks = [
 export const images = {
   portraitAmber: "/images/pablito-amber.jpg", // crystal tee, warm backdrop — home hero
   portraitBeige: "/images/pablito-beige.jpg", // beige suit, seated editorial — profile
-  portraitStreet: "/images/pablito-street.jpg", // beige suit, street daylight — contact
   liveClub: "/images/pablito-club.png", // hands up in the booth — cercle case study
-  clubRed: "/images/pablito-red.jpg", // red light, club energy — duo club, sets live
+  clubRed: "/images/pablito-red.png", // red light, club energy — duo club
   cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
   liveViolet: "/images/live-violet.png", // violet beams over the floor — music page
   liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
-  crowdEnergy: "/images/cover-bsb.png", // crowd, hands up — clubs section, sets live cover
-  studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — home producer dial
-  studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — music page header
+  crowdEnergy: "/images/cover-bsb.png", // crowd — clubs module (awaiting a dedicated upload)
+  studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — music page header
+  studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — home producer dial
   pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
+  studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -47,7 +47,7 @@ export const cercleGallery = [
   "/images/cercle-02.jpg",
   "/images/cercle-03.jpg",
   "/images/cercle-04.jpg",
-  "/images/cercle-05.jpg",
+  "/images/cercle-05.png",
 ];
 
 export type ArtVariant = "amber" | "violet" | "teal" | "rose" | "slate" | "gold";
@@ -88,18 +88,26 @@ export type LiveSet = {
   watermark?: { src: string; alt: string };
 };
 
-/* Le Cercle carousel — exclusively the recorded editions, mirrors `cercleGallery` */
-export const cercleLiveSets: LiveSet[] = cercleSets.map((set, i) => ({
-  id: set.id,
-  kicker: "Le Cercle",
-  name: set.name,
-  edition: set.edition,
-  cover: cercleGallery[i],
-}));
+/* Le Cercle carousel — every recorded Cercle set, opening first then the editions */
+export const cercleLiveSets: LiveSet[] = [
+  {
+    id: "cercle-opening",
+    kicker: "Le Cercle",
+    name: "Opening Set",
+    cover: "/images/cover-opening.png",
+  },
+  ...cercleSets.map((set, i) => ({
+    id: set.id,
+    kicker: "Le Cercle",
+    name: set.name,
+    edition: set.edition,
+    cover: cercleGallery[i],
+  })),
+];
 
 /*
- * Sets Live — Music page carousel. Every recorded live set outside the
- * official Le Cercle editions, most recent first, the opening last.
+ * Sets Live — Music page carousel. Every recorded live set outside
+ * Le Cercle, most recent first. No Cercle set belongs here.
  */
 export const liveSetsMusic: LiveSet[] = [
   {
@@ -114,20 +122,14 @@ export const liveSetsMusic: LiveSet[] = [
     kicker: "2023",
     name: "Rinse Radio",
     sub: "La Passe D' avec Armel Bizzman",
-    cover: "/images/cover-rinse.jpg",
+    cover: images.studioRadio,
     watermark: { src: "/logos/rinse-france.png", alt: "Rinse France" },
   },
   {
     id: "yardland-2023",
     kicker: "2023",
     name: "Yardland",
-    cover: images.clubRed,
-  },
-  {
-    id: "cercle-opening",
-    kicker: "Le Cercle",
-    name: "Opening Set",
-    cover: "/images/cover-opening.png",
+    cover: images.clubRed, // temporary — awaiting a dedicated Yardland upload
   },
 ];
 
@@ -172,7 +174,7 @@ export const playerQueue: PlayerTrack[] = [
     title: "Rinse Radio",
     subtitle: "La Passe D' avec Armel Bizzman · 2023",
     art: "slate",
-    image: "/images/cover-rinse.jpg",
+    image: images.studioRadio,
     source: "soundcloud",
     url: "https://soundcloud.com/rinse_france/la-passe-d-avec-armel-bizzman-16-mai-2023",
     startTime: 4380,
@@ -211,17 +213,19 @@ export const playerQueue: PlayerTrack[] = [
  * Clubs et venues — each opens the venue's Instagram profile.
  * `logo` renders alone (no caption); `showName` adds the name under a sigil
  * logo; entries without a logo render as a typographic wordmark.
+ * `compact` shrinks square-ish marks whose visual weight outsizes the wordmarks.
  */
 export const clubs: {
   name: string;
   instagram: string;
   logo?: string;
   showName?: boolean;
+  compact?: boolean;
 }[] = [
   { name: "La Cigale", instagram: "https://www.instagram.com/lacigaleofficiel/", logo: "/logos/la-cigale.png" },
   { name: "Le Bridge", instagram: "https://www.instagram.com/bridgeparisclub/", logo: "/logos/le-bridge.png" },
-  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/", logo: "/logos/le-rouge.png" },
-  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/", logo: "/logos/la-nuit.png" },
+  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/", logo: "/logos/le-rouge.png", compact: true },
+  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/", logo: "/logos/la-nuit.png", compact: true },
   { name: "Les Planches", instagram: "https://www.instagram.com/lesplanchesparis/", logo: "/logos/les-planches.png" },
   { name: "Volange", instagram: "https://www.instagram.com/volange_event/", logo: "/logos/volange.png" },
   { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },

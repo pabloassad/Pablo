@@ -56,19 +56,6 @@ export function ContactPageContent() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.18}>
-            <ArtImage
-              src={images.portraitStreet}
-              alt="Pablito · portrait"
-              fallback="gold"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="mt-10 hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block"
-              imgClassName="object-cover object-[center_18%]"
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
-            </ArtImage>
-          </Reveal>
-
           <div className="mt-10 space-y-7">
             <Reveal>
               <div className="flex flex-col gap-1.5">

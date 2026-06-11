@@ -55,7 +55,7 @@ export const translations = {
       title: "Sound Gallery",
       intro: "Productions, edits and live recordings.",
       flStudioIntro:
-        "DJ Pablito creates his own **remixes**, **mashups** and **edits** on **FL Studio**. This production practice shapes a **singular musical identity**. Every set is built on original creations heard nowhere else.",
+        "Pablito creates his own **remixes**, **mashups** and **edits** on **FL Studio**. This production practice shapes a **singular musical identity**. Every set is built on original creations heard nowhere else.",
       play: "Play",
       playInPlayer: "Listen on the site",
       openPlatform: "Open",
@@ -97,7 +97,7 @@ export const translations = {
       premiumAxis: "The sound, the stage and the eye.",
       premiumTitle: "Private events",
       premiumIntro:
-        "DJ Pablito performs at your **weddings**, **private** parties, **corporate** events and **galas**. Every performance is designed to measure, to match your vision and your audience exactly.",
+        "Pablito performs at your **weddings**, **private** parties, **corporate** events and **galas**. Every performance is designed to measure, to match your vision and your audience exactly.",
       premiumPoints: [
         {
           title: "Full equipment provided",
@@ -109,7 +109,7 @@ export const translations = {
         },
         {
           title: "Room reading",
-          line: "Whether the audience is 20 or 500 people, young or intergenerational, DJ Pablito adapts in real time.",
+          line: "Whether the audience is 20 or 500 people, young or intergenerational, Pablito adapts in real time.",
         },
       ],
       ctaTitle: "Book Pablito",
@@ -203,7 +203,7 @@ export const translations = {
       title: "Galerie sonore",
       intro: "Productions, edits et enregistrements live.",
       flStudioIntro:
-        "DJ Pablito compose ses propres **remixes**, **mashups** et **edits** sur **FL Studio**. Cette pratique de production forge une **identité musicale singulière**. Chaque set s'appuie sur des créations originales qu'on n'entend nulle part ailleurs.",
+        "Pablito compose ses propres **remixes**, **mashups** et **edits** sur **FL Studio**. Cette pratique de production forge une **identité musicale singulière**. Chaque set s'appuie sur des créations originales qu'on n'entend nulle part ailleurs.",
       play: "Écouter",
       playInPlayer: "Écouter sur le site",
       openPlatform: "Ouvrir",
@@ -245,7 +245,7 @@ export const translations = {
       premiumAxis: "Le son, la scène et le regard.",
       premiumTitle: "Événements privés",
       premiumIntro:
-        "DJ Pablito intervient pour vos **mariages**, soirées **privées**, événements **corporate** et **galas**. Chaque prestation est pensée sur mesure pour correspondre exactement à votre vision et à votre public.",
+        "Pablito intervient pour vos **mariages**, soirées **privées**, événements **corporate** et **galas**. Chaque prestation est pensée sur mesure pour correspondre exactement à votre vision et à votre public.",
       premiumPoints: [
         {
           title: "Matériel complet fourni",
@@ -257,7 +257,7 @@ export const translations = {
         },
         {
           title: "Lecture de salle",
-          line: "Qu'il s'agisse d'un public de 20 ou 500 personnes, jeune ou intergénérationnel, DJ Pablito s'adapte en temps réel.",
+          line: "Qu'il s'agisse d'un public de 20 ou 500 personnes, jeune ou intergénérationnel, Pablito s'adapte en temps réel.",
         },
       ],
       ctaTitle: "Booker Pablito",
