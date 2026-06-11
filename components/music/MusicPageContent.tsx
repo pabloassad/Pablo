@@ -31,7 +31,7 @@ export function MusicPageContent() {
           priority
           sizes="100vw"
           className="absolute inset-0"
-          imgClassName="object-cover object-[center_25%]"
+          imgClassName="object-cover object-[45%_30%]"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/20" />
         </ArtImage>

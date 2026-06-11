@@ -31,13 +31,13 @@ export const images = {
   portraitStreet: "/images/pablito-street.jpg", // beige suit, street daylight — contact
   liveClub: "/images/pablito-club.png", // hands up in the booth — cercle case study
   clubRed: "/images/pablito-red.jpg", // red light, club energy — duo club, sets live
-  cercleRoom: "/images/cercle-room.jpg", // full room under the beams — home cercle band
-  liveViolet: "/images/live-violet.jpg", // violet beams over the floor — music page
-  liveChampagne: "/images/live-champagne.jpg", // champagne pour in the dark — music page
+  cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
+  liveViolet: "/images/live-violet.png", // violet beams over the floor — music page
+  liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
   crowdEnergy: "/images/cover-bsb.png", // crowd, hands up — clubs section, sets live cover
-  studioSession: "/images/studio-session.jpg", // seated studio portrait — home producer dial
-  studioComposition: "/images/studio-composition.jpg", // studio portrait — music page header
+  studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — home producer dial
+  studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — music page header
   pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
 };
 
@@ -127,7 +127,7 @@ export const liveSetsMusic: LiveSet[] = [
     id: "cercle-opening",
     kicker: "Le Cercle",
     name: "Opening Set",
-    cover: "/images/cover-opening.jpg",
+    cover: "/images/cover-opening.png",
   },
 ];
 
@@ -191,7 +191,7 @@ export const playerQueue: PlayerTrack[] = [
     title: "Le Cercle · Opening Set",
     subtitle: "Live set",
     art: "amber",
-    image: "/images/cover-opening.jpg",
+    image: "/images/cover-opening.png",
     source: "youtube",
     videoId: "vxGilpTQv3E",
     startTime: 685,
