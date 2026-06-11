@@ -8,7 +8,7 @@ import { usePlayer } from "@/lib/player/PlayerProvider";
 import { RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { TiltCard } from "@/components/ui/TiltCard";
-import { cercleGallery, cercleSets } from "@/lib/data";
+import { liveSets } from "@/lib/data";
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 
 function ArrowButton({
@@ -83,7 +83,7 @@ export function SetsCarousel() {
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {cercleSets.map((set, i) => {
+        {liveSets.map((set) => {
           const isCurrent = player.track?.id === set.id;
           return (
             <RevealItem key={set.id} className="w-[78%] shrink-0 snap-start sm:w-[48%] lg:w-[31%]">
@@ -94,8 +94,8 @@ export function SetsCarousel() {
                   className="group relative block aspect-square w-full overflow-hidden rounded-2xl text-left"
                 >
                 <ArtImage
-                  src={cercleGallery[i % cercleGallery.length]}
-                  alt={`Le Cercle — ${set.name}`}
+                  src={set.cover}
+                  alt={`${set.kicker} · ${set.name}`}
                   fallback="amber"
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
                   className="absolute inset-0"
@@ -103,16 +103,25 @@ export function SetsCarousel() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent" />
                 </ArtImage>
-                {/* Ring motif */}
-                <span className="pointer-events-none absolute right-6 top-6 flex h-16 w-16 items-center justify-center rounded-full border border-foreground/25 text-xs tracking-[0.2em] text-foreground/80 backdrop-blur-sm transition-all duration-500 group-hover:border-accent/70 group-hover:text-accent">
-                  {set.edition}
-                </span>
+                {/* Ring motif — Cercle editions only */}
+                {set.edition && (
+                  <span className="pointer-events-none absolute right-6 top-6 flex h-16 w-16 items-center justify-center rounded-full border border-foreground/25 text-xs tracking-[0.2em] text-foreground/80 backdrop-blur-sm transition-all duration-500 group-hover:border-accent/70 group-hover:text-accent">
+                    {set.edition}
+                  </span>
+                )}
+                {/* Discreet brand mark — it suggests itself, never imposes */}
+                {set.watermark && (
+                  <span className="pointer-events-none absolute bottom-24 right-6 text-[10px] uppercase tracking-[0.35em] text-foreground/70">
+                    {set.watermark}
+                  </span>
+                )}
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] text-accent">
-                      {isCurrent ? t.projects.nowPlaying : "Le Cercle"}
+                      {isCurrent ? t.projects.nowPlaying : set.kicker}
                     </p>
                     <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
+                    {set.sub && <p className="mt-1 text-xs text-foreground/60">{set.sub}</p>}
                   </div>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
                     {isCurrent && player.isPlaying ? (

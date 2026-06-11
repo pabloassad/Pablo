@@ -16,8 +16,8 @@ export function CercleBand() {
   return (
     <section className="relative overflow-hidden">
       <ArtImage
-        src={images.liveClub}
-        alt="Le Cercle — live"
+        src={images.cercleRoom}
+        alt="Le Cercle · live"
         fallback="amber"
         pattern="circle"
         sizes="100vw"

@@ -16,6 +16,7 @@ function buildEmbedSrc(track: NonNullable<ReturnType<typeof usePlayer>["track"]>
       rel: "0",
       modestbranding: "1",
     });
+    if (track.startTime) params.set("start", String(track.startTime));
     return `https://www.youtube.com/embed/${track.videoId}?${params.toString()}`;
   }
   const params = new URLSearchParams({
@@ -83,6 +84,25 @@ export function MiniPlayer() {
       window.clearInterval(handshake);
       window.clearTimeout(stopHandshake);
       window.removeEventListener("message", onMessage);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-arm per track
+  }, [track?.id]);
+
+  // SoundCloud has no start-time embed param: nudge the widget to the track's
+  // offset while it boots, then leave the listener in control.
+  useEffect(() => {
+    if (!track || track.source !== "soundcloud" || !track.startTime) return;
+    const seekMs = track.startTime * 1000;
+    const seek = window.setInterval(() => {
+      iframeRef.current?.contentWindow?.postMessage(
+        JSON.stringify({ method: "seekTo", value: seekMs }),
+        "*"
+      );
+    }, 800);
+    const stopSeek = window.setTimeout(() => window.clearInterval(seek), 4000);
+    return () => {
+      window.clearInterval(seek);
+      window.clearTimeout(stopSeek);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-arm per track
   }, [track?.id]);

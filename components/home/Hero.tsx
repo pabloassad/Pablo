@@ -28,12 +28,12 @@ export function Hero() {
       <motion.div style={{ y: bgY }} className="absolute inset-x-0 -bottom-[15%] -top-[15%] will-change-transform">
         <ArtImage
           src={images.portraitAmber}
-          alt="Pablito — portrait"
+          alt="Pablito · portrait"
           fallback="amber"
           priority
           sizes="100vw"
           className="absolute inset-0"
-          imgClassName="object-cover object-[70%_20%] md:object-[center_22%]"
+          imgClassName="object-cover object-[center_top] md:object-[38%_22%]"
         />
       </motion.div>
       {/* Atmosphere overlays — mid layer */}
@@ -42,8 +42,10 @@ export function Hero() {
         style={{ y: overlayY }}
         className="pointer-events-none absolute inset-x-0 -bottom-[15%] -top-[15%] will-change-transform"
       >
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-background/10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
+        {/* Dark veil keeping the title legible over the photography */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.15)_0%,rgba(0,0,0,0.65)_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
       </motion.div>
 
       {/* Slow ring ornament — Le Cercle signature */}

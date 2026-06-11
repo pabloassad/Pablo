@@ -51,8 +51,8 @@ export function MusicPageContent() {
               className="group relative block aspect-video w-full overflow-hidden rounded-2xl text-left"
             >
               <ArtImage
-                src={images.liveClub}
-                alt="Le Cercle — live set"
+                src={images.liveViolet}
+                alt="Le Cercle · live set"
                 fallback="amber"
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="absolute inset-0"
@@ -82,13 +82,13 @@ export function MusicPageContent() {
               className="group relative block aspect-video w-full overflow-hidden rounded-2xl"
             >
               <ArtImage
-                src={images.portraitDenim}
-                alt="Pablito — YouTube"
+                src={images.liveChampagne}
+                alt="Pablito · YouTube"
                 fallback="slate"
                 pattern="lines"
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="absolute inset-0"
-                imgClassName="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                imgClassName="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/25 to-transparent" />
               </ArtImage>
@@ -118,7 +118,7 @@ export function MusicPageContent() {
           <Reveal className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
             <div className="flex items-center justify-between px-6 pt-5">
               <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
-                {t.music.spotifyTitle} — Spotify
+                {t.music.spotifyTitle} · Spotify
               </h2>
               <a
                 href={socials.spotify}
@@ -144,7 +144,7 @@ export function MusicPageContent() {
           <Reveal delay={0.08} className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
             <div className="flex items-center justify-between px-6 pt-5">
               <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
-                {t.music.soundcloudTitle} — SoundCloud
+                {t.music.soundcloudTitle} · SoundCloud
               </h2>
               <a
                 href={socials.soundcloud}

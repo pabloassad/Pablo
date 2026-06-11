@@ -5,6 +5,7 @@ import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Button } from "@/components/ui/Button";
+import { Emph } from "@/components/ui/Emph";
 import { images, clubs, cercleInstagram, cercleStats } from "@/lib/data";
 import { InstagramIcon } from "@/components/ui/icons";
 import { StatCounter } from "@/components/ui/StatCounter";
@@ -19,7 +20,7 @@ export function ProjectsPageContent() {
       <header className="relative flex min-h-[70svh] items-end overflow-hidden">
         <ArtImage
           src={images.crowdBW}
-          alt="Pablito — crowd"
+          alt="Pablito · crowd"
           fallback="slate"
           pattern="lines"
           priority
@@ -61,27 +62,37 @@ export function ProjectsPageContent() {
           </h2>
         </Reveal>
         <RevealGroup
-          className="mt-10 grid grid-cols-2 border-l border-t border-line sm:grid-cols-4"
+          className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
           stagger={0.05}
         >
           {clubs.map((club) => (
-            <RevealItem key={club.name}>
+            <RevealItem key={club.name} className="h-full">
               <a
                 href={club.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-28 flex-col items-center justify-center gap-3 border-b border-r border-line px-4 transition-colors duration-500 hover:bg-white/[0.03] sm:h-32"
+                aria-label={club.name}
+                title={club.name}
+                className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
               >
-                <Image
-                  src={club.logo}
-                  alt={club.name}
-                  width={120}
-                  height={48}
-                  className="h-8 w-auto object-contain opacity-70 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0 sm:h-10"
-                />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-muted transition-all duration-500 group-hover:text-foreground group-hover:[text-shadow:0_0_24px_rgba(216,200,168,0.45)]">
-                  {club.name}
-                </span>
+                {club.logo ? (
+                  <Image
+                    src={club.logo}
+                    alt={club.name}
+                    width={160}
+                    height={36}
+                    className="h-7 w-auto object-contain sm:h-9"
+                  />
+                ) : (
+                  <span className="text-center text-sm uppercase tracking-[0.25em] text-foreground">
+                    {club.name}
+                  </span>
+                )}
+                {club.showName && (
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    {club.name}
+                  </span>
+                )}
               </a>
             </RevealItem>
           ))}
@@ -111,29 +122,20 @@ export function ProjectsPageContent() {
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-foreground/85">
-                  {t.projects.cercleIntro}
+                  <Emph text={t.projects.cercleIntro} />
                 </p>
               </Reveal>
               <Reveal delay={0.18}>
                 <p className="mt-4 max-w-lg text-balance text-base leading-relaxed text-muted">
-                  {t.projects.cercleBody}
+                  <Emph text={t.projects.cercleBody} />
                 </p>
               </Reveal>
-              <RevealGroup className="mt-7 flex flex-wrap gap-3" stagger={0.06}>
-                {t.projects.cercleTags.map((tag) => (
-                  <RevealItem key={tag}>
-                    <span className="rounded-full border border-line px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-muted">
-                      {tag}
-                    </span>
-                  </RevealItem>
-                ))}
-              </RevealGroup>
               <Reveal delay={0.22}>
                 <a
                   href={cercleInstagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-7 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted transition-colors duration-300 hover:text-accent"
+                  className="group mt-8 inline-flex items-center gap-3 rounded-full border border-line px-6 py-3 text-sm tracking-wide text-foreground transition-all duration-300 hover:border-accent/50 hover:bg-white/[0.03]"
                 >
                   <InstagramIcon className="h-4 w-4" />
                   {t.projects.cercleInstagram}
@@ -143,7 +145,7 @@ export function ProjectsPageContent() {
             <Reveal delay={0.1}>
               <ArtImage
                 src={images.liveClub}
-                alt="Le Cercle — Pablito in the booth"
+                alt="Le Cercle · Pablito in the booth"
                 fallback="amber"
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="aspect-[4/3] overflow-hidden rounded-2xl"
@@ -152,27 +154,6 @@ export function ProjectsPageContent() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
               </ArtImage>
             </Reveal>
-          </div>
-
-          {/* Live archive — Cercle Sets */}
-          <div className="mt-24">
-            <Reveal>
-              <span className="text-xs uppercase tracking-[0.3em] text-accent">
-                {t.projects.setsLabel}
-              </span>
-            </Reveal>
-            <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-              <Reveal delay={0.05}>
-                <h3 className="text-3xl font-medium tracking-tight sm:text-4xl">
-                  {t.projects.setsTitle}
-                </h3>
-              </Reveal>
-              <Reveal delay={0.1}>
-                <p className="max-w-sm text-sm text-muted">{t.projects.setsIntro}</p>
-              </Reveal>
-            </div>
-
-            <SetsCarousel />
           </div>
 
           {/* Animated stats band */}
@@ -204,7 +185,28 @@ export function ProjectsPageContent() {
         </div>
       </section>
 
-      {/* C. Premium & Private Events */}
+      {/* Live archive — every recorded set */}
+      <section id="sets" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
+        <Reveal>
+          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+            {t.projects.setsLabel}
+          </span>
+        </Reveal>
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+          <Reveal delay={0.05}>
+            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
+              {t.projects.setsTitle}
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <p className="max-w-sm text-sm text-muted">{t.projects.setsIntro}</p>
+          </Reveal>
+        </div>
+
+        <SetsCarousel />
+      </section>
+
+      {/* C. Private events */}
       <section id="premium" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
         <Reveal>
           <span className="text-xs uppercase tracking-[0.3em] text-accent">
@@ -212,13 +214,22 @@ export function ProjectsPageContent() {
           </span>
         </Reveal>
         <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-          <Reveal delay={0.05}>
-            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
-              {t.projects.premiumTitle}
-            </h2>
-          </Reveal>
+          <div>
+            <Reveal delay={0.05}>
+              <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
+                {t.projects.premiumTitle}
+              </h2>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p className="mt-2 text-sm italic tracking-wide text-accent/80">
+                {t.projects.premiumAxis}
+              </p>
+            </Reveal>
+          </div>
           <Reveal delay={0.1}>
-            <p className="max-w-sm text-sm text-muted">{t.projects.premiumIntro}</p>
+            <p className="max-w-md text-sm leading-relaxed text-muted">
+              <Emph text={t.projects.premiumIntro} />
+            </p>
           </Reveal>
         </div>
         <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3" stagger={0.08}>

@@ -58,60 +58,62 @@ export function ContactPageContent() {
 
           <Reveal delay={0.18}>
             <ArtImage
-              src={images.portraitBeige}
-              alt="Pablito — portrait"
+              src={images.portraitStreet}
+              alt="Pablito · portrait"
               fallback="gold"
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="mt-10 hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block"
-              imgClassName="object-cover object-[center_25%]"
+              imgClassName="object-cover object-[center_18%]"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
             </ArtImage>
           </Reveal>
 
-          <div className="mt-10 space-y-5">
+          <div className="mt-10 space-y-7">
             <Reveal>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="w-20 text-xs uppercase tracking-[0.25em] text-muted">
+              <div className="flex flex-col gap-1.5">
+                <span className="block whitespace-nowrap text-xs uppercase tracking-[0.25em] text-muted">
                   {t.contact.emailLabel}
                 </span>
-                <a
-                  href={`mailto:${contactEmail}`}
-                  className="text-lg text-foreground transition-colors hover:text-accent"
-                >
-                  {contactEmail}
-                </a>
-                <button
-                  type="button"
-                  onClick={copyEmail}
-                  aria-label={t.footer.copyLink}
-                  className="relative text-muted transition-colors hover:text-accent"
-                >
-                  <LinkIcon className="h-4 w-4" />
-                  {copied && (
-                    <span className="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-foreground px-3 py-1 text-[11px] font-medium text-background">
-                      {t.footer.linkCopied}
-                    </span>
-                  )}
-                </button>
+                <div className="flex items-center gap-3">
+                  <a
+                    href={`mailto:${contactEmail}`}
+                    className="text-lg text-foreground transition-colors hover:text-accent"
+                  >
+                    {contactEmail}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={copyEmail}
+                    aria-label={t.footer.copyLink}
+                    className="relative text-muted transition-colors hover:text-accent"
+                  >
+                    <LinkIcon className="h-4 w-4" />
+                    {copied && (
+                      <span className="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-foreground px-3 py-1 text-[11px] font-medium text-background">
+                        {t.footer.linkCopied}
+                      </span>
+                    )}
+                  </button>
+                </div>
               </div>
             </Reveal>
             <Reveal delay={0.06}>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="w-20 text-xs uppercase tracking-[0.25em] text-muted">
+              <div className="flex flex-col gap-1.5">
+                <span className="block whitespace-nowrap text-xs uppercase tracking-[0.25em] text-muted">
                   {t.contact.phoneLabel}
                 </span>
                 <a
                   href={`tel:${contactPhone.replace(/\s/g, "")}`}
-                  className="text-lg text-foreground transition-colors hover:text-accent"
+                  className="block whitespace-nowrap text-lg tracking-[0.04em] text-foreground transition-colors hover:text-accent"
                 >
                   {contactPhone}
                 </a>
               </div>
             </Reveal>
             <Reveal delay={0.12}>
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="w-20 text-xs uppercase tracking-[0.25em] text-muted">
+              <div className="flex flex-col gap-1.5">
+                <span className="block whitespace-nowrap text-xs uppercase tracking-[0.25em] text-muted">
                   {t.contact.socialLabel}
                 </span>
                 <div className="flex items-center gap-4">

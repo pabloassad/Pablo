@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { ArtImage } from "@/components/ui/ArtImage";
+import { Emph } from "@/components/ui/Emph";
 import { images } from "@/lib/data";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -22,7 +23,7 @@ export function ProfileSection() {
         >
           <ArtImage
             src={images.portraitBeige}
-            alt="Pablito — portrait"
+            alt="Pablito · portrait"
             fallback="amber"
             pattern="circle"
             sizes="(min-width: 1024px) 50vw, 100vw"
@@ -65,7 +66,7 @@ export function ProfileSection() {
                 }}
                 className="max-w-lg text-balance text-base leading-relaxed text-foreground/80"
               >
-                {para}
+                <Emph text={para} />
               </motion.p>
             ))}
           </motion.div>

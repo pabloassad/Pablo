@@ -20,15 +20,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://pablito.world"),
   title: {
-    default: "Pablito — Creating connection through sound",
-    template: "%s — Pablito",
+    default: "Pablito · Creating connection through sound",
+    template: "%s · Pablito",
   },
   description:
-    "Pablito is a DJ, artist and music producer creating social connection through music — club nights, festival stages and premium events.",
+    "Pablito is a DJ, artist and music producer creating social connection through music: club nights, festival stages and premium events.",
   openGraph: {
-    title: "Pablito — Creating connection through sound",
+    title: "Pablito · Creating connection through sound",
     description:
-      "DJ, artist and music producer. Club & festival sets, original productions, and bespoke musical direction for premium events.",
+      "DJ, artist and music producer. Club and festival sets, original productions, and bespoke musical direction for premium events.",
     type: "website",
   },
 };
