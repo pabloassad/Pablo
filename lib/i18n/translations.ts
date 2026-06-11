@@ -54,6 +54,8 @@ export const translations = {
       kicker: "Music",
       title: "Sound Gallery",
       intro: "Productions, edits and live recordings.",
+      flStudioIntro:
+        "DJ Pablito creates his own **remixes**, **mashups** and **edits** on **FL Studio**. This production practice shapes a **singular musical identity**. Every set is built on original creations heard nowhere else.",
       play: "Play",
       playInPlayer: "Listen on the site",
       openPlatform: "Open",
@@ -62,6 +64,10 @@ export const translations = {
       youtubeTitle: "Live sets",
       youtubeLine: "Full recordings, Le Cercle and beyond.",
       platforms: "Listen on",
+      setsLiveLabel: "Sets live",
+      setsLiveTitle: "Beyond Le Cercle",
+      setsLiveIntro: "Club nights, radio and guest dates, playable on the site.",
+      nowPlaying: "Now playing",
     },
     projects: {
       kicker: "Projects",
@@ -69,7 +75,8 @@ export const translations = {
       intro: "Three territories, one intention: turning a room into a shared moment.",
       clubsLabel: "Booking",
       clubsTitle: "Clubs and stages",
-      collabsExtra: "Including Hôtel Carlton's, Les Bains Douches, Paradisio and many more.",
+      collabsExtra:
+        "Including Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club and many more.",
       cercleLabel: "Signature project",
       cercleTitle: "Le Cercle",
       cercleIntro:
@@ -195,6 +202,8 @@ export const translations = {
       kicker: "Musique",
       title: "Galerie sonore",
       intro: "Productions, edits et enregistrements live.",
+      flStudioIntro:
+        "DJ Pablito compose ses propres **remixes**, **mashups** et **edits** sur **FL Studio**. Cette pratique de production forge une **identité musicale singulière**. Chaque set s'appuie sur des créations originales qu'on n'entend nulle part ailleurs.",
       play: "Écouter",
       playInPlayer: "Écouter sur le site",
       openPlatform: "Ouvrir",
@@ -203,6 +212,10 @@ export const translations = {
       youtubeTitle: "Sets live",
       youtubeLine: "Enregistrements complets, Le Cercle et au-delà.",
       platforms: "Écouter sur",
+      setsLiveLabel: "Sets live",
+      setsLiveTitle: "Au-delà du Cercle",
+      setsLiveIntro: "Soirées club, radio et dates invitées, à écouter sur le site.",
+      nowPlaying: "En lecture",
     },
     projects: {
       kicker: "Projets",
@@ -210,7 +223,8 @@ export const translations = {
       intro: "Trois territoires, une intention : transformer une salle en moment partagé.",
       clubsLabel: "Booking",
       clubsTitle: "Clubs et scènes",
-      collabsExtra: "Dont Hôtel Carlton's, Les Bains Douches, Paradisio et bien d'autres.",
+      collabsExtra:
+        "Dont Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club et bien d'autres.",
       cercleLabel: "Projet signature",
       cercleTitle: "Le Cercle",
       cercleIntro:

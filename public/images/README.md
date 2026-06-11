@@ -1,21 +1,25 @@
 # Photos
 
-Every slot is mapped in `lib/data.ts` (`images`, `cercleGallery`, `liveSets`).
-One photo per slot: no image appears twice across the site.
+Every slot is mapped in `lib/data.ts` (`images`, `cercleGallery`, `cercleLiveSets`, `liveSetsMusic`).
+One photo per slot per page: no image appears twice on the same page.
 
-- `pablito-amber.jpg`    — crystal tee portrait, warm backdrop (Home hero)
-- `pablito-beige.jpg`    — beige suit, seated editorial (Home profile)
-- `pablito-denim.jpg`    — denim jacket, daylight (Home universe, Producer)
-- `pablito-red.jpg`      — red light, club energy (Home universe, Club)
-- `pablito-street.jpg`   — beige suit, street daylight (Contact)
-- `pablito-club.png`     — hands up in the booth (Projects, Le Cercle case study)
-- `pablito-crowd.png`    — black and white crowd (Projects hero)
-- `cercle-room.jpg`      — full room under the beams (Home, Cercle band)
-- `cercle-01..05.jpg`    — one shot per recorded Cercle edition (sets carousel)
-- `cover-bsb.png`        — BSB League set cover
-- `cover-rinse.jpg`      — Rinse Radio set cover
-- `cover-opening.jpg`    — Le Cercle Opening set cover
-- `live-violet.jpg`      — violet beams over the floor (Music)
-- `live-champagne.jpg`   — champagne pour in the dark (Music)
+A shared colorimetry filter (`contrast(1.08) saturate(0.88) brightness(0.97)`) is
+applied to every photo via `ArtImage`. Logos and icons are excluded.
+
+- `pablito-amber.jpg`       — crystal tee portrait, warm backdrop (Home hero)
+- `pablito-beige.jpg`       — beige suit, seated editorial (Home profile)
+- `pablito-red.jpg`         — red light, club energy (Home universe Club, Music sets live Yardland)
+- `pablito-street.jpg`      — beige suit, street daylight (Contact)
+- `pablito-club.png`        — hands up in the booth (Projects, Le Cercle case study)
+- `pablito-crowd.png`       — black and white crowd (Projects hero)
+- `cercle-room.jpg`         — full room under the beams (Home, Cercle band)
+- `cercle-01..05.jpg`       — one shot per recorded Cercle edition (Le Cercle carousel)
+- `cover-bsb.png`           — crowd, hands up (Projects clubs section, Music sets live BSB League)
+- `cover-rinse.jpg`         — square portrait "Pablito carré" (Music sets live Rinse Radio, Contact)
+- `cover-opening.jpg`       — Le Cercle Opening set cover (Music sets live)
+- `live-violet.jpg`         — violet beams over the floor (Music)
+- `live-champagne.jpg`      — champagne pour in the dark (Music)
+- `studio-session.jpg`      — seated studio portrait (Home universe, Producer)
+- `studio-composition.jpg`  — studio portrait (Music header)
 
 `extra/` holds the unused reserve shots. Venue logos live in `/public/logos`.

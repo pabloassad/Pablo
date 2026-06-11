@@ -135,12 +135,24 @@ export function ContactPageContent() {
           </div>
         </div>
 
-        {/* Minimal form */}
-        <Reveal delay={0.1} className="lg:pt-24">
-          <div className="rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
-            <ContactForm />
-          </div>
-        </Reveal>
+        {/* Portrait + minimal form */}
+        <div className="lg:pt-24">
+          <Reveal delay={0.06}>
+            <ArtImage
+              src={images.pabloCarre}
+              alt="Pablito · portrait"
+              fallback="amber"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="mb-8 aspect-square overflow-hidden rounded-2xl"
+              imgClassName="object-cover"
+            />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
+              <ContactForm />
+            </div>
+          </Reveal>
+        </div>
       </div>
     </div>
   );

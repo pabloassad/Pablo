@@ -8,7 +8,7 @@ import { images, type ArtVariant } from "@/lib/data";
 
 const visuals: { src: string; fallback: ArtVariant; position: string }[] = [
   { src: images.clubRed, fallback: "rose", position: "object-[center_30%]" },
-  { src: images.portraitDenim, fallback: "slate", position: "object-[center_15%]" },
+  { src: images.studioSession, fallback: "slate", position: "object-[center_20%]" },
 ];
 
 export function Duo() {

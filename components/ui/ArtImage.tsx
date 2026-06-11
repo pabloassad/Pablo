@@ -54,7 +54,7 @@ export function ArtImage({
           fill
           sizes={sizes ?? "100vw"}
           priority={priority}
-          className={clsx("object-cover", imgClassName)}
+          className={clsx("object-cover [filter:contrast(1.08)_saturate(0.88)_brightness(0.97)]", imgClassName)}
           onError={() => setFailed(true)}
         />
       )}

@@ -28,14 +28,17 @@ export const navLinks = [
 export const images = {
   portraitAmber: "/images/pablito-amber.jpg", // crystal tee, warm backdrop — home hero
   portraitBeige: "/images/pablito-beige.jpg", // beige suit, seated editorial — profile
-  portraitDenim: "/images/pablito-denim.jpg", // denim jacket, daylight — duo producer
   portraitStreet: "/images/pablito-street.jpg", // beige suit, street daylight — contact
   liveClub: "/images/pablito-club.png", // hands up in the booth — cercle case study
-  clubRed: "/images/pablito-red.jpg", // red light, club energy — duo club
+  clubRed: "/images/pablito-red.jpg", // red light, club energy — duo club, sets live
   cercleRoom: "/images/cercle-room.jpg", // full room under the beams — home cercle band
   liveViolet: "/images/live-violet.jpg", // violet beams over the floor — music page
   liveChampagne: "/images/live-champagne.jpg", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
+  crowdEnergy: "/images/cover-bsb.png", // crowd, hands up — clubs section, sets live cover
+  studioSession: "/images/studio-session.jpg", // seated studio portrait — home producer dial
+  studioComposition: "/images/studio-composition.jpg", // studio portrait — music page header
+  pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -74,10 +77,6 @@ export const cercleSets: { id: string; edition: string; name: string; videoId: s
   { id: "cercle-summer-party", edition: "05", name: "Summer Party", videoId: "EfLqfgu0KGE" },
 ];
 
-/*
- * Live archive — every recorded set shown in the sets carousel, in display
- * order: the Cercle editions first, then the guest dates, the opening last.
- */
 export type LiveSet = {
   id: string;
   kicker: string;
@@ -89,14 +88,20 @@ export type LiveSet = {
   watermark?: { src: string; alt: string };
 };
 
-export const liveSets: LiveSet[] = [
-  ...cercleSets.map((set, i) => ({
-    id: set.id,
-    kicker: "Le Cercle",
-    name: set.name,
-    edition: set.edition,
-    cover: cercleGallery[i],
-  })),
+/* Le Cercle carousel — exclusively the recorded editions, mirrors `cercleGallery` */
+export const cercleLiveSets: LiveSet[] = cercleSets.map((set, i) => ({
+  id: set.id,
+  kicker: "Le Cercle",
+  name: set.name,
+  edition: set.edition,
+  cover: cercleGallery[i],
+}));
+
+/*
+ * Sets Live — Music page carousel. Every recorded live set outside the
+ * official Le Cercle editions, most recent first, the opening last.
+ */
+export const liveSetsMusic: LiveSet[] = [
   {
     id: "bsb-league",
     kicker: "2024",
@@ -111,6 +116,12 @@ export const liveSets: LiveSet[] = [
     sub: "La Passe D' avec Armel Bizzman",
     cover: "/images/cover-rinse.jpg",
     watermark: { src: "/logos/rinse-france.png", alt: "Rinse France" },
+  },
+  {
+    id: "yardland-2023",
+    kicker: "2023",
+    name: "Yardland",
+    cover: images.clubRed,
   },
   {
     id: "cercle-opening",
@@ -167,6 +178,15 @@ export const playerQueue: PlayerTrack[] = [
     startTime: 4380,
   },
   {
+    id: "yardland-2023",
+    title: "Yardland",
+    subtitle: "Live set · 2023",
+    art: "rose",
+    image: images.clubRed,
+    source: "soundcloud",
+    url: "https://soundcloud.com/user-143220564/yardland-pablito-mix",
+  },
+  {
     id: "cercle-opening",
     title: "Le Cercle · Opening Set",
     subtitle: "Live set",
@@ -207,7 +227,5 @@ export const clubs: {
   { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },
   { name: "Yardland", instagram: "https://www.instagram.com/yardland_/", logo: "/logos/yardland.png", showName: true },
   { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/", logo: "/logos/club-vendome.png" },
-  { name: "Folie's Pigalle", instagram: "https://www.instagram.com/foliespigalle/", logo: "/logos/folies-pigalle.png" },
   { name: "Rinse France", instagram: "https://www.instagram.com/rinsefrance/", logo: "/logos/rinse-france.png" },
-  { name: "Pavillon Tilsitt", instagram: "https://www.instagram.com/pavillon_tilsitt/", logo: "/logos/pavillon-tilsitt.png" },
 ];

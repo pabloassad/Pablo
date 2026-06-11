@@ -6,7 +6,7 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Button } from "@/components/ui/Button";
 import { Emph } from "@/components/ui/Emph";
-import { images, clubs, cercleInstagram, cercleStats } from "@/lib/data";
+import { images, clubs, cercleInstagram, cercleStats, cercleLiveSets } from "@/lib/data";
 import { InstagramIcon } from "@/components/ui/icons";
 import { StatCounter } from "@/components/ui/StatCounter";
 import { SetsCarousel } from "./SetsCarousel";
@@ -60,6 +60,18 @@ export function ProjectsPageContent() {
           <h2 className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl">
             {t.projects.clubsTitle}
           </h2>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <ArtImage
+            src={images.crowdEnergy}
+            alt="Pablito · foule"
+            fallback="slate"
+            sizes="100vw"
+            className="mt-10 aspect-[21/9] overflow-hidden rounded-2xl"
+            imgClassName="object-cover"
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+          </ArtImage>
         </Reveal>
         <RevealGroup
           className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
@@ -203,7 +215,7 @@ export function ProjectsPageContent() {
           </Reveal>
         </div>
 
-        <SetsCarousel />
+        <SetsCarousel sets={cercleLiveSets} nowPlayingLabel={t.projects.nowPlaying} />
       </section>
 
       {/* C. Private events */}

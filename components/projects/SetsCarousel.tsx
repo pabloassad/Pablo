@@ -4,12 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { motion } from "framer-motion";
-import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { usePlayer } from "@/lib/player/PlayerProvider";
 import { RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { TiltCard } from "@/components/ui/TiltCard";
-import { liveSets } from "@/lib/data";
+import type { LiveSet } from "@/lib/data";
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 
 function ArrowButton({
@@ -39,8 +38,7 @@ function ArrowButton({
   );
 }
 
-export function SetsCarousel() {
-  const { t } = useLanguage();
+export function SetsCarousel({ sets, nowPlayingLabel }: { sets: LiveSet[]; nowPlayingLabel: string }) {
   const player = usePlayer();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
@@ -84,7 +82,7 @@ export function SetsCarousel() {
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {liveSets.map((set) => {
+        {sets.map((set) => {
           const isCurrent = player.track?.id === set.id;
           return (
             <RevealItem key={set.id} className="w-[78%] shrink-0 snap-start sm:w-[48%] lg:w-[31%]">
@@ -123,7 +121,7 @@ export function SetsCarousel() {
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
                   <div>
                     <p className="text-xs uppercase tracking-[0.25em] text-accent">
-                      {isCurrent ? t.projects.nowPlaying : set.kicker}
+                      {isCurrent ? nowPlayingLabel : set.kicker}
                     </p>
                     <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
                     {set.sub && <p className="mt-1 text-xs text-foreground/60">{set.sub}</p>}
