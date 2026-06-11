@@ -85,7 +85,8 @@ export type LiveSet = {
   sub?: string;
   edition?: string;
   cover: string;
-  watermark?: string;
+  /** Brand mark rendered discreetly on the cover */
+  watermark?: { src: string; alt: string };
 };
 
 export const liveSets: LiveSet[] = [
@@ -109,7 +110,7 @@ export const liveSets: LiveSet[] = [
     name: "Rinse Radio",
     sub: "La Passe D' avec Armel Bizzman",
     cover: "/images/cover-rinse.jpg",
-    watermark: "Rinse France",
+    watermark: { src: "/logos/rinse-france.png", alt: "Rinse France" },
   },
   {
     id: "cercle-opening",
@@ -206,7 +207,7 @@ export const clubs: {
   { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },
   { name: "Yardland", instagram: "https://www.instagram.com/yardland_/", logo: "/logos/yardland.png", showName: true },
   { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/", logo: "/logos/club-vendome.png" },
-  { name: "Folie's Pigalle", instagram: "https://www.instagram.com/foliespigalle/" },
-  { name: "Rinse France", instagram: "https://www.instagram.com/rinsefrance/" },
-  { name: "Pavillon Tilsitt", instagram: "https://www.instagram.com/pavillon_tilsitt/" },
+  { name: "Folie's Pigalle", instagram: "https://www.instagram.com/foliespigalle/", logo: "/logos/folies-pigalle.png" },
+  { name: "Rinse France", instagram: "https://www.instagram.com/rinsefrance/", logo: "/logos/rinse-france.png" },
+  { name: "Pavillon Tilsitt", instagram: "https://www.instagram.com/pavillon_tilsitt/", logo: "/logos/pavillon-tilsitt.png" },
 ];

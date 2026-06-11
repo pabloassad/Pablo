@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
@@ -111,9 +112,13 @@ export function SetsCarousel() {
                 )}
                 {/* Discreet brand mark — it suggests itself, never imposes */}
                 {set.watermark && (
-                  <span className="pointer-events-none absolute bottom-24 right-6 text-[10px] uppercase tracking-[0.35em] text-foreground/70">
-                    {set.watermark}
-                  </span>
+                  <Image
+                    src={set.watermark.src}
+                    alt={set.watermark.alt}
+                    width={120}
+                    height={24}
+                    className="pointer-events-none absolute bottom-24 right-6 h-5 w-auto object-contain opacity-70"
+                  />
                 )}
                 <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6">
                   <div>
