@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
@@ -69,9 +70,16 @@ export function ProjectsPageContent() {
                 href={club.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-28 items-center justify-center border-b border-r border-line px-4 transition-colors duration-500 hover:bg-white/[0.03] sm:h-32"
+                className="group flex h-28 flex-col items-center justify-center gap-3 border-b border-r border-line px-4 transition-colors duration-500 hover:bg-white/[0.03] sm:h-32"
               >
-                <span className="text-sm uppercase tracking-[0.25em] text-muted transition-all duration-500 group-hover:scale-105 group-hover:text-foreground group-hover:[text-shadow:0_0_24px_rgba(216,200,168,0.45)]">
+                <Image
+                  src={club.logo}
+                  alt={club.name}
+                  width={120}
+                  height={48}
+                  className="h-8 w-auto object-contain opacity-70 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0 sm:h-10"
+                />
+                <span className="text-[11px] uppercase tracking-[0.25em] text-muted transition-all duration-500 group-hover:text-foreground group-hover:[text-shadow:0_0_24px_rgba(216,200,168,0.45)]">
                   {club.name}
                 </span>
               </a>

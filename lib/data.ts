@@ -22,17 +22,24 @@ export const navLinks = [
 ];
 
 /*
- * Photography manifest. Drop the real files into /public/images with these
- * exact names — every component falls back to abstract gradient art until
- * the file exists, then picks the photo up automatically.
+ * Photography manifest — real files live in /public/images.
  */
 export const images = {
-  portraitAmber: "/images/pablito-amber.jpg", // crystal tee, warm brown backdrop
+  portraitAmber: "/images/pablito-amber.jpg", // warm-toned portrait
   portraitBeige: "/images/pablito-beige.jpg", // beige suit, seated editorial
   portraitDenim: "/images/pablito-denim.jpg", // denim jacket, daylight
-  liveClub: "/images/pablito-club.jpg", // hands up in the booth, red light
-  crowdBW: "/images/pablito-crowd.jpg", // black & white crowd, arms raised
+  liveClub: "/images/pablito-club.jpg", // hands up in the booth
+  crowdBW: "/images/pablito-crowd.png", // black & white crowd, arms raised
 };
+
+/* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
+export const cercleGallery = [
+  "/images/cercle-01.jpg",
+  "/images/cercle-02.jpg",
+  "/images/cercle-03.jpg",
+  "/images/cercle-04.jpg",
+  "/images/cercle-05.jpg",
+];
 
 export type ArtVariant = "amber" | "violet" | "teal" | "rose" | "slate" | "gold";
 
@@ -98,14 +105,14 @@ export const playerQueue: PlayerTrack[] = [
 ];
 
 /* Clubs & venues — each opens the venue's Instagram profile */
-export const clubs: { name: string; instagram: string }[] = [
-  { name: "La Cigale", instagram: "https://www.instagram.com/lacigaleofficiel/" },
-  { name: "Le Bridge", instagram: "https://www.instagram.com/bridgeparisclub/" },
-  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/" },
-  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/" },
-  { name: "Les Planches", instagram: "https://www.instagram.com/lesplanchesparis/" },
-  { name: "Volange", instagram: "https://www.instagram.com/volange_event/" },
-  { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/" },
-  { name: "Yardland", instagram: "https://www.instagram.com/yardland_/" },
-  { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/" },
+export const clubs: { name: string; instagram: string; logo: string }[] = [
+  { name: "La Cigale", instagram: "https://www.instagram.com/lacigaleofficiel/", logo: "/logos/la-cigale.png" },
+  { name: "Le Bridge", instagram: "https://www.instagram.com/bridgeparisclub/", logo: "/logos/le-bridge.png" },
+  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/", logo: "/logos/le-rouge.png" },
+  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/", logo: "/logos/la-nuit.png" },
+  { name: "Les Planches", instagram: "https://www.instagram.com/lesplanchesparis/", logo: "/logos/les-planches.png" },
+  { name: "Volange", instagram: "https://www.instagram.com/volange_event/", logo: "/logos/volange.png" },
+  { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },
+  { name: "Yardland", instagram: "https://www.instagram.com/yardland_/", logo: "/logos/yardland.png" },
+  { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/", logo: "/logos/club-vendome.png" },
 ];

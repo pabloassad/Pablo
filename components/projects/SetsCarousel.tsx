@@ -8,7 +8,7 @@ import { usePlayer } from "@/lib/player/PlayerProvider";
 import { RevealItem } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { TiltCard } from "@/components/ui/TiltCard";
-import { images, cercleSets } from "@/lib/data";
+import { cercleGallery, cercleSets } from "@/lib/data";
 import { PlayIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/ui/icons";
 
 function ArrowButton({
@@ -83,7 +83,7 @@ export function SetsCarousel() {
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {cercleSets.map((set) => {
+        {cercleSets.map((set, i) => {
           const isCurrent = player.track?.id === set.id;
           return (
             <RevealItem key={set.id} className="w-[78%] shrink-0 snap-start sm:w-[48%] lg:w-[31%]">
@@ -94,7 +94,7 @@ export function SetsCarousel() {
                   className="group relative block aspect-square w-full overflow-hidden rounded-2xl text-left"
                 >
                 <ArtImage
-                  src={images.liveClub}
+                  src={cercleGallery[i % cercleGallery.length]}
                   alt={`Le Cercle — ${set.name}`}
                   fallback="amber"
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 80vw"
