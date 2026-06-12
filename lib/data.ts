@@ -18,6 +18,7 @@ export const navLinks = [
   { href: "/", key: "home" } as const,
   { href: "/music", key: "music" } as const,
   { href: "/projects", key: "projects" } as const,
+  { href: "/service", key: "service" } as const,
   { href: "/contact", key: "contact" } as const,
 ];
 
@@ -40,7 +41,9 @@ export const images = {
   pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
   studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
   yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
-  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — private events
+  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service, private events
+  serviceStanding: "/images/service-standing.jpg", // denim outfit, white backdrop — service header
+  serviceLounge: "/images/service-lounge.jpg", // denim outfit, seated on the couch — service, compositions
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -90,14 +93,8 @@ export type LiveSet = {
   watermark?: { src: string; alt: string };
 };
 
-/* Le Cercle carousel — every recorded Cercle set, opening first then the editions */
+/* Le Cercle carousel — the recorded editions, then the opening set as the oldest */
 export const cercleLiveSets: LiveSet[] = [
-  {
-    id: "cercle-opening",
-    kicker: "Le Cercle",
-    name: "Opening Set",
-    cover: "/images/cover-opening.png",
-  },
   ...cercleSets.map((set, i) => ({
     id: set.id,
     kicker: "Le Cercle",
@@ -105,6 +102,12 @@ export const cercleLiveSets: LiveSet[] = [
     edition: set.edition,
     cover: cercleGallery[i],
   })),
+  {
+    id: "cercle-opening",
+    kicker: "Le Cercle",
+    name: "Opening Set",
+    cover: "/images/cover-opening.png",
+  },
 ];
 
 /*

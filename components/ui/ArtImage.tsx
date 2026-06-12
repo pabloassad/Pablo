@@ -11,6 +11,8 @@ interface ArtImageProps {
   alt: string;
   fallback?: ArtVariant;
   pattern?: "circle" | "lines" | "grid";
+  /** "soft" lightens the global colorimetry for warm, bright sections */
+  tone?: "default" | "soft";
   className?: string;
   imgClassName?: string;
   sizes?: string;
@@ -28,6 +30,7 @@ export function ArtImage({
   alt,
   fallback = "amber",
   pattern = "circle",
+  tone = "default",
   className,
   imgClassName,
   sizes,
@@ -54,7 +57,13 @@ export function ArtImage({
           fill
           sizes={sizes ?? "100vw"}
           priority={priority}
-          className={clsx("object-cover [filter:contrast(1.08)_saturate(0.88)_brightness(0.97)]", imgClassName)}
+          className={clsx(
+            "object-cover",
+            tone === "soft"
+              ? "[filter:contrast(1.05)_saturate(0.92)_brightness(1.02)]"
+              : "[filter:contrast(1.08)_saturate(0.88)_brightness(0.97)]",
+            imgClassName
+          )}
           onError={() => setFailed(true)}
         />
       )}

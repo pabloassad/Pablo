@@ -8,6 +8,7 @@ export const translations = {
       home: "Home",
       music: "Music",
       projects: "Projects",
+      service: "Service",
       contact: "Contact",
       menu: "Menu",
       close: "Close",
@@ -64,8 +65,8 @@ export const translations = {
       youtubeLine: "Full recordings, Le Cercle and beyond.",
       platforms: "Listen on",
       setsLiveLabel: "Sets live",
-      setsLiveTitle: "Beyond Le Cercle",
-      setsLiveIntro: "Club nights, radio and guest dates, playable on the site.",
+      setsLiveTitle: "Listen",
+      setsLiveIntro: "A glimpse of a few recorded sets.",
       nowPlaying: "Now playing",
     },
     projects: {
@@ -92,12 +93,20 @@ export const translations = {
       setsIntro: "Every date, recorded. A living archive.",
       setsPlay: "Play this set",
       nowPlaying: "Now playing",
-      premiumLabel: "Beyond the club",
-      premiumAxis: "The sound, the stage and the eye.",
-      premiumTitle: "Private events",
-      premiumIntro:
+      ctaTitle: "Book Pablito",
+      ctaButton: "Get in touch",
+    },
+    service: {
+      kicker: "Service",
+      title: "Made to measure",
+      intro:
+        "DJ sets for your events and original music for your projects. Two offers, one same requirement.",
+      eventsLabel: "Beyond the club",
+      eventsAxis: "The sound, the stage and the eye.",
+      eventsTitle: "Private events",
+      eventsIntro:
         "Pablito performs at your **weddings**, **private** parties, **corporate** events and **galas**. Every performance is designed to measure, to match your vision and your audience exactly.",
-      premiumPoints: [
+      eventsPoints: [
         {
           title: "Full equipment provided",
           line: "Professional sound system and stage lighting included in every performance. No external provider needed.",
@@ -111,7 +120,25 @@ export const translations = {
           line: "Whether the audience is 20 or 500 people, young or intergenerational, Pablito adapts in real time.",
         },
       ],
-      ctaTitle: "Book Pablito",
+      compositionsLabel: "Production",
+      compositionsTitle: "Custom compositions",
+      compositionsIntro:
+        "Pablito composes and produces **custom music** for **live shows**, **audiovisual productions** and **artists**. Every project is shaped by the universe, the audience and the artistic intentions of its commissioner.",
+      compositionsPoints: [
+        {
+          title: "Original compositions",
+          line: "Every creation is produced from scratch on FL Studio, shaped to the identity of the project.",
+        },
+        {
+          title: "Every format",
+          line: "Jingle, opening theme, sound design, background music, long form creation.",
+        },
+        {
+          title: "Built together",
+          line: "Exchanges with the commissioner are part of every step of the process.",
+        },
+      ],
+      ctaTitle: "Let's talk about your project",
       ctaButton: "Get in touch",
     },
     contact: {
@@ -155,6 +182,7 @@ export const translations = {
       home: "Accueil",
       music: "Musique",
       projects: "Projets",
+      service: "Service",
       contact: "Contact",
       menu: "Menu",
       close: "Fermer",
@@ -211,8 +239,8 @@ export const translations = {
       youtubeLine: "Enregistrements complets, Le Cercle et au-delà.",
       platforms: "Écouter sur",
       setsLiveLabel: "Sets live",
-      setsLiveTitle: "Au-delà du Cercle",
-      setsLiveIntro: "Soirées club, radio et dates invitées, à écouter sur le site.",
+      setsLiveTitle: "En écoute",
+      setsLiveIntro: "Un aperçu de quelques sets enregistrés.",
       nowPlaying: "En lecture",
     },
     projects: {
@@ -239,12 +267,20 @@ export const translations = {
       setsIntro: "Chaque date, enregistrée. Une archive vivante.",
       setsPlay: "Écouter ce set",
       nowPlaying: "En lecture",
-      premiumLabel: "Au-delà du club",
-      premiumAxis: "Le son, la scène et le regard.",
-      premiumTitle: "Événements privés",
-      premiumIntro:
+      ctaTitle: "Booker Pablito",
+      ctaButton: "Prendre contact",
+    },
+    service: {
+      kicker: "Service",
+      title: "Sur mesure",
+      intro:
+        "Des sets DJ pour vos événements et des créations musicales pour vos projets. Deux offres, une même exigence.",
+      eventsLabel: "Au-delà du club",
+      eventsAxis: "Le son, la scène et le regard.",
+      eventsTitle: "Événements privés",
+      eventsIntro:
         "Pablito intervient pour vos **mariages**, soirées **privées**, événements **corporate** et **galas**. Chaque prestation est pensée sur mesure pour correspondre exactement à votre vision et à votre public.",
-      premiumPoints: [
+      eventsPoints: [
         {
           title: "Matériel complet fourni",
           line: "Sono professionnelle et éclairage scénique inclus dans chaque prestation. Aucun prestataire externe nécessaire.",
@@ -258,7 +294,25 @@ export const translations = {
           line: "Qu'il s'agisse d'un public de 20 ou 500 personnes, jeune ou intergénérationnel, Pablito s'adapte en temps réel.",
         },
       ],
-      ctaTitle: "Booker Pablito",
+      compositionsLabel: "Production",
+      compositionsTitle: "Compositions sur mesure",
+      compositionsIntro:
+        "Pablito compose et produit des créations musicales **sur mesure** pour des **spectacles**, des **productions audiovisuelles** et des **artistes**. Chaque projet est pensé en fonction de l'univers, du public et des intentions artistiques du commanditaire.",
+      compositionsPoints: [
+        {
+          title: "Compositions originales",
+          line: "Chaque création est produite de zéro sur FL Studio, adaptée à l'identité du projet.",
+        },
+        {
+          title: "Tous formats",
+          line: "Jingle, générique, habillage sonore, musique de fond, création longue durée.",
+        },
+        {
+          title: "Travail en co-construction",
+          line: "Les échanges avec le commanditaire sont intégrés à chaque étape du processus.",
+        },
+      ],
+      ctaTitle: "Parlons de votre projet",
       ctaButton: "Prendre contact",
     },
     contact: {

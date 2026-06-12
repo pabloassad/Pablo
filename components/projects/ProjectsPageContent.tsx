@@ -61,62 +61,62 @@ export function ProjectsPageContent() {
             {t.projects.clubsTitle}
           </h2>
         </Reveal>
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
-          <RevealGroup
-            className="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
-            stagger={0.05}
-          >
-            {clubs.map((club) => (
-              <RevealItem key={club.name} className="h-full">
-                <a
-                  href={club.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={club.name}
-                  title={club.name}
-                  className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
-                >
-                  {club.logo ? (
-                    <Image
-                      src={club.logo}
-                      alt={club.name}
-                      width={160}
-                      height={36}
-                      className={
-                        club.compact
-                          ? "h-6 w-auto max-w-[120px] object-contain sm:h-8"
-                          : "h-7 w-auto max-w-[120px] object-contain sm:h-9"
-                      }
-                    />
-                  ) : (
-                    <span className="text-center text-sm uppercase tracking-[0.25em] text-foreground">
-                      {club.name}
-                    </span>
-                  )}
-                  {club.showName && (
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
-                      {club.name}
-                    </span>
-                  )}
-                </a>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-          <Reveal delay={0.1}>
-            <ArtImage
-              src={images.crowdEnergy}
-              alt="Pablito · foule"
-              fallback="slate"
-              sizes="(min-width: 1024px) 280px, 100vw"
-              className="h-[140px] w-full overflow-hidden rounded-2xl md:h-[180px] lg:aspect-video lg:h-auto"
-              imgClassName="object-cover object-[center_65%]"
-            />
-          </Reveal>
-        </div>
+        <RevealGroup
+          className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] items-center gap-x-12 gap-y-8"
+          stagger={0.05}
+        >
+          {clubs.map((club) => (
+            <RevealItem key={club.name} className="h-full">
+              <a
+                href={club.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={club.name}
+                title={club.name}
+                className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
+              >
+                {club.logo ? (
+                  <Image
+                    src={club.logo}
+                    alt={club.name}
+                    width={160}
+                    height={36}
+                    className={
+                      club.compact
+                        ? "h-6 w-auto max-w-[120px] object-contain sm:h-8"
+                        : "h-7 w-auto max-w-[120px] object-contain sm:h-9"
+                    }
+                  />
+                ) : (
+                  <span className="text-center text-sm uppercase tracking-[0.25em] text-foreground">
+                    {club.name}
+                  </span>
+                )}
+                {club.showName && (
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                    {club.name}
+                  </span>
+                )}
+              </a>
+            </RevealItem>
+          ))}
+        </RevealGroup>
         <Reveal delay={0.1}>
           <p className="mt-6 text-sm italic text-muted/70">{t.projects.collabsExtra}</p>
         </Reveal>
       </section>
+
+      {/* Crowd divider — full bleed, the image speaks alone */}
+      <Reveal className="mt-24" y={0}>
+        <ArtImage
+          src={images.crowdEnergy}
+          alt="Pablito · foule"
+          fallback="slate"
+          sizes="100vw"
+          className="h-[clamp(280px,45vw,520px)] w-full"
+          imgClassName="object-cover object-[center_30%]"
+        />
+      </Reveal>
 
       {/* B. Le Cercle — case study */}
       <section id="cercle" className="relative mt-32 scroll-mt-20 overflow-hidden">
@@ -220,55 +220,6 @@ export function ProjectsPageContent() {
         </div>
 
         <SetsCarousel sets={cercleLiveSets} nowPlayingLabel={t.projects.nowPlaying} />
-      </section>
-
-      {/* C. Private events */}
-      <section id="premium" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
-        <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
-            {t.projects.premiumLabel}
-          </span>
-        </Reveal>
-        <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <Reveal delay={0.05}>
-              <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
-                {t.projects.premiumTitle}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <p className="mt-2 text-sm italic tracking-wide text-accent/80">
-                {t.projects.premiumAxis}
-              </p>
-            </Reveal>
-          </div>
-          <Reveal delay={0.1}>
-            <p className="max-w-md text-sm leading-relaxed text-muted">
-              <Emph text={t.projects.premiumIntro} />
-            </p>
-          </Reveal>
-        </div>
-        <RevealGroup className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3 lg:grid-cols-4" stagger={0.08}>
-          <RevealItem className="min-h-48 bg-background lg:min-h-0">
-            <ArtImage
-              src={images.premiumPortrait}
-              alt="Pablito · portrait"
-              fallback="gold"
-              sizes="(min-width: 1024px) 25vw, 100vw"
-              className="h-full w-full"
-              imgClassName="object-cover object-[center_15%]"
-            />
-          </RevealItem>
-          {t.projects.premiumPoints.map((point, i) => (
-            <RevealItem key={point.title} className="bg-background">
-              <div className="group flex h-full flex-col gap-4 p-8 transition-colors duration-500 hover:bg-white/[0.02]">
-                <span className="text-xs tracking-[0.3em] text-accent/80">0{i + 1}</span>
-                <h3 className="text-xl font-medium tracking-tight">{point.title}</h3>
-                <p className="text-sm leading-relaxed text-muted">{point.line}</p>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
       </section>
 
       {/* CTA */}

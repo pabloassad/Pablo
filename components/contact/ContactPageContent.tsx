@@ -37,8 +37,8 @@ export function ContactPageContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 pb-32 pt-28 sm:px-8 lg:px-12 lg:pt-36">
-      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-        {/* Editorial visual + direct contact */}
+      <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        {/* Editorial column — title, intro, portrait */}
         <div>
           <Reveal>
             <span className="text-xs uppercase tracking-[0.4em] text-accent">
@@ -56,7 +56,21 @@ export function ContactPageContent() {
             </p>
           </Reveal>
 
-          <div className="mt-10 space-y-7">
+          <Reveal delay={0.18}>
+            <ArtImage
+              src={images.pabloCarre}
+              alt="Pablito · portrait"
+              fallback="amber"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="mt-12 aspect-square overflow-hidden rounded-2xl"
+              imgClassName="object-cover"
+            />
+          </Reveal>
+        </div>
+
+        {/* Action column — direct contact, then the form */}
+        <div>
+          <div className="space-y-7">
             <Reveal>
               <div className="flex flex-col gap-1.5">
                 <span className="block whitespace-nowrap text-xs uppercase tracking-[0.25em] text-muted">
@@ -120,22 +134,9 @@ export function ContactPageContent() {
               </div>
             </Reveal>
           </div>
-        </div>
 
-        {/* Portrait + minimal form */}
-        <div className="lg:pt-24">
-          <Reveal delay={0.06}>
-            <ArtImage
-              src={images.pabloCarre}
-              alt="Pablito · portrait"
-              fallback="amber"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="mb-8 aspect-square overflow-hidden rounded-2xl"
-              imgClassName="object-cover"
-            />
-          </Reveal>
           <Reveal delay={0.1}>
-            <div className="rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
+            <div className="mt-12 rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
               <ContactForm />
             </div>
           </Reveal>
