@@ -88,13 +88,12 @@ export function ServicePageContent() {
         <RevealGroup className={panel.group} stagger={0.08}>
           <RevealItem className={`min-h-48 lg:min-h-0 ${panel.cell}`}>
             <ArtImage
-              src={images.serviceLounge}
+              src={images.serviceEvents}
               alt="Pablito · portrait"
               fallback="gold"
-              tone="soft"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_30%]"
+              imgClassName="object-cover object-[center_20%] [transform:scaleX(-1)_scale(1.08)] origin-[center_25%]"
             />
           </RevealItem>
           {t.service.eventsPoints.map((point, i) => (
@@ -140,7 +139,7 @@ export function ServicePageContent() {
               tone="soft"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_35%]"
+              imgClassName="object-cover object-[center_38%] md:object-[center_35%]"
             />
           </RevealItem>
           {t.service.compositionsPoints.map((point, i) => (

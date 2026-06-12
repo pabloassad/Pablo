@@ -43,7 +43,7 @@ export const images = {
   studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
   yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
   premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service header
-  serviceLounge: "/images/service-lounge.jpg", // denim outfit, seated on the couch — service, private events
+  serviceEvents: "/images/service-events.jpg", // beige suit, seated close-up — service, private events
   studioFlStudio: "/images/studio-flstudio.jpg", // at the FL Studio rig — service, compositions
 };
 
@@ -243,6 +243,6 @@ export const clubs: {
   { name: "Volange", instagram: "https://www.instagram.com/volange_event/", logo: "/logos/volange.png" },
   { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },
   { name: "Yardland", instagram: "https://www.instagram.com/yardland_/", logo: "/logos/yardland.png", showName: true },
-  { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/", logo: "/logos/club-vendome.png" },
+  { name: "Club Vendôme", instagram: "https://www.instagram.com/le.vendome_club.paris/", logo: "/logos/club-vendome.png", logoClassName: "h-8 w-auto max-w-[130px] object-contain sm:h-11" },
   { name: "Rinse France", instagram: "https://www.instagram.com/rinsefrance/", logo: "/logos/rinse-france.png" },
 ];

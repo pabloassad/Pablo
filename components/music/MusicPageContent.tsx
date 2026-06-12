@@ -30,10 +30,13 @@ export function MusicPageContent() {
             priority
             sizes="100vw"
             className="absolute inset-0"
-            imgClassName="object-cover object-[center_20%]"
-          />
+            imgClassName="object-cover object-[center_70%]"
+          >
+            {/* Anchors the photo into the page background — no flat color block */}
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0)_0%,rgba(5,5,5,0.25)_45%,rgba(5,5,5,0.75)_75%,rgba(5,5,5,0.92)_100%)]" />
+          </ArtImage>
         </div>
-        <div className="bg-[#0B0B0E] px-5 pb-8 pt-6">
+        <div className="px-5 pb-8 pt-6">
           <Reveal>
             <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
           </Reveal>

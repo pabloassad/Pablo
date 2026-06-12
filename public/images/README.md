@@ -27,6 +27,6 @@ Logos and icons are excluded.
 - `studio-composition.jpg`  — at the DAW, studio (Home universe, Producer)
 - `studio-flstudio.jpg`     — at the FL Studio rig (Service, compositions)
 - `premium-portrait.jpg`    — beige suit, daylight portrait (Service header)
-- `service-lounge.jpg`      — denim outfit, seated on the couch (Service, private events)
+- `service-events.jpg`      — beige suit, seated close-up, mirrored (Service, private events)
 
 `extra/` holds the unused reserve shots. Venue logos live in `/public/logos`.
