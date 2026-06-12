@@ -7,7 +7,7 @@ import { ArtImage } from "@/components/ui/ArtImage";
 import { images, type ArtVariant } from "@/lib/data";
 
 const visuals: { src: string; fallback: ArtVariant; position: string }[] = [
-  { src: images.clubRed, fallback: "rose", position: "object-[center_30%]" },
+  { src: images.clubCrowd, fallback: "rose", position: "object-[center_35%]" },
   { src: images.studioComposition, fallback: "slate", position: "object-[center_40%]" },
 ];
 

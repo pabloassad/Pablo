@@ -82,9 +82,10 @@ export function ProjectsPageContent() {
                     width={160}
                     height={36}
                     className={
-                      club.compact
+                      club.logoClassName ??
+                      (club.compact
                         ? "h-6 w-auto max-w-[120px] object-contain sm:h-8"
-                        : "h-7 w-auto max-w-[120px] object-contain sm:h-9"
+                        : "h-7 w-auto max-w-[120px] object-contain sm:h-9")
                     }
                   />
                 ) : (
@@ -93,7 +94,7 @@ export function ProjectsPageContent() {
                   </span>
                 )}
                 {club.showName && (
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-muted">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-muted">
                     {club.name}
                   </span>
                 )}
@@ -135,6 +136,11 @@ export function ProjectsPageContent() {
                 <h2 className="mt-5 text-5xl font-semibold tracking-tight sm:text-6xl">
                   {t.projects.cercleTitle}
                 </h2>
+              </Reveal>
+              <Reveal delay={0.09}>
+                <p className="mt-3 text-[13px] text-foreground/65 sm:text-sm">
+                  <Emph text={t.projects.cercleSetsNote} />
+                </p>
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-foreground/85">

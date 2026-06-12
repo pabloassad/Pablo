@@ -117,6 +117,12 @@ export function Hero() {
               →
             </span>
             </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center px-2 py-3 text-xs uppercase tracking-[0.3em] text-muted transition-colors hover:text-accent"
+          >
+            {t.home.heroBooking}
+          </Link>
           </motion.div>
         </motion.div>
       </div>

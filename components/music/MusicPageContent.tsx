@@ -20,7 +20,39 @@ export function MusicPageContent() {
   return (
     <div className="pb-32">
       {/* Header — studio and composition */}
-      <header className="relative flex min-h-[85svh] items-end overflow-hidden sm:min-h-[70svh]">
+      {/* Mobile (<768px): stacked — photo above, text below on a solid background */}
+      <header className="md:hidden">
+        <div className="relative h-[52vw] min-h-[200px] max-h-[300px] w-full overflow-hidden">
+          <ArtImage
+            src={images.studioSession}
+            alt="Pablito · mains sur le clavier"
+            fallback="slate"
+            priority
+            sizes="100vw"
+            className="absolute inset-0"
+            imgClassName="object-cover object-[center_20%]"
+          />
+        </div>
+        <div className="bg-[#0B0B0E] px-5 pb-8 pt-6">
+          <Reveal>
+            <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h1 className="mt-5 text-5xl font-semibold tracking-tight">{t.music.title}</h1>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="mt-3 max-w-xs text-balance text-base text-muted">{t.music.intro}</p>
+          </Reveal>
+          <Reveal delay={0.18}>
+            <p className="mt-5 text-balance text-base leading-relaxed text-foreground/80">
+              <Emph text={t.music.flStudioIntro} />
+            </p>
+          </Reveal>
+        </div>
+      </header>
+
+      {/* Desktop/tablet (≥768px): overlay — photo behind, text over a gradient veil */}
+      <header className="relative hidden min-h-[70svh] items-end overflow-hidden md:flex">
         <ArtImage
           src={images.studioSession}
           alt="Pablito · mains sur le clavier"

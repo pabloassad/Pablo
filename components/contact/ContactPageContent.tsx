@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
+import { Emph } from "@/components/ui/Emph";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { contactEmail, contactPhone, images, socials } from "@/lib/data";
 import {
@@ -136,7 +137,13 @@ export function ContactPageContent() {
           </div>
 
           <Reveal delay={0.1}>
-            <div className="mt-12 rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
+            <p className="mt-12 max-w-lg text-balance text-sm leading-relaxed text-muted">
+              <Emph text={t.contact.bookingIntro} />
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.14}>
+            <div className="mt-6 rounded-2xl border border-line bg-background-elevated/40 p-7 sm:p-9">
               <ContactForm />
             </div>
           </Reveal>

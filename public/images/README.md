@@ -10,13 +10,13 @@ Logos and icons are excluded.
 
 - `pablito-amber.jpg`       — crystal tee portrait, warm backdrop (Home hero)
 - `pablito-beige.jpg`       — beige suit, seated editorial (Home profile)
-- `pablito-red.png`         — red light, club energy (Home universe Club)
+- `pablito-red.png`         — red light, club energy (Music sets BSB League)
 - `pablito-club.png`        — hands up in the booth (Projects, Le Cercle case study)
 - `pablito-crowd.png`       — black and white crowd (Projects hero)
 - `cercle-room.png`         — full room under the beams (Home, Cercle band)
 - `cercle-01..04.jpg`, `cercle-05.png` — one shot per recorded Cercle edition (Le Cercle carousel)
 - `cover-club.png`          — DJ from behind, crowd lit in pink (Projects, crowd divider)
-- `cover-bsb.png`           — crowd, hands up (Music sets BSB League)
+- `cover-bsb.png`           — crowd, hands up (Home universe Club)
 - `cover-radio.jpg`         — profile at the DAW (Music sets Rinse Radio)
 - `cover-yardland.png`      — mic in hand, black and white (Music sets Yardland)
 - `cover-opening.png`       — Le Cercle Opening set cover (Le Cercle carousel, last)
@@ -25,8 +25,8 @@ Logos and icons are excluded.
 - `live-champagne.png`      — champagne pour in the dark (Music, YouTube banner)
 - `studio-session.jpg`      — hands on the keyboard, studio (Music header)
 - `studio-composition.jpg`  — at the DAW, studio (Home universe, Producer)
-- `premium-portrait.jpg`    — beige suit, daylight portrait (Service, private events)
-- `service-standing.jpg`    — denim outfit, white backdrop (Service header)
-- `service-lounge.jpg`      — denim outfit, seated on the couch (Service, compositions)
+- `studio-flstudio.jpg`     — at the FL Studio rig (Service, compositions)
+- `premium-portrait.jpg`    — beige suit, daylight portrait (Service header)
+- `service-lounge.jpg`      — denim outfit, seated on the couch (Service, private events)
 
 `extra/` holds the unused reserve shots. Venue logos live in `/public/logos`.

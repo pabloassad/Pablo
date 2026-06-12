@@ -46,14 +46,14 @@ export function ServicePageContent() {
           </div>
           <Reveal delay={0.12}>
             <ArtImage
-              src={images.serviceStanding}
+              src={images.premiumPortrait}
               alt="Pablito · portrait"
               fallback="gold"
               tone="soft"
               priority
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="aspect-[3/4] overflow-hidden rounded-2xl"
-              imgClassName="object-cover object-[center_30%]"
+              imgClassName="object-cover object-[center_15%]"
             />
           </Reveal>
         </div>
@@ -88,13 +88,13 @@ export function ServicePageContent() {
         <RevealGroup className={panel.group} stagger={0.08}>
           <RevealItem className={`min-h-48 lg:min-h-0 ${panel.cell}`}>
             <ArtImage
-              src={images.premiumPortrait}
+              src={images.serviceLounge}
               alt="Pablito · portrait"
               fallback="gold"
               tone="soft"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_15%]"
+              imgClassName="object-cover object-[center_30%]"
             />
           </RevealItem>
           {t.service.eventsPoints.map((point, i) => (
@@ -134,13 +134,13 @@ export function ServicePageContent() {
         <RevealGroup className={panel.group} stagger={0.08}>
           <RevealItem className={`min-h-48 lg:min-h-0 ${panel.cell}`}>
             <ArtImage
-              src={images.serviceLounge}
-              alt="Pablito · portrait"
+              src={images.studioFlStudio}
+              alt="Pablito · studio"
               fallback="gold"
               tone="soft"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_30%]"
+              imgClassName="object-cover object-[center_35%]"
             />
           </RevealItem>
           {t.service.compositionsPoints.map((point, i) => (

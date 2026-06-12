@@ -18,6 +18,7 @@ export const translations = {
       heroTagline: "Creating connection through sound.",
       heroPlay: "Play the sound",
       heroProjects: "View projects",
+      heroBooking: "Booking",
       scroll: "Scroll",
       profileLabel: "Profile",
       profileQuote: "« Holà Pablito Que Pasa ? »",
@@ -26,6 +27,7 @@ export const translations = {
         "Born into the world of **hip-hop dance**, I discovered **deejaying** almost naturally, from childhood.",
         "From middle school on, between **beatmaking** and **piano** lessons, I sat in on my first **studio** sessions. Curiosity did the rest.",
         "Today, every **set** I build is an extension of that story. A way of **connecting people** through sound.",
+        "Pablito is available for **bookings** in clubs, private events and festivals.",
       ],
       duoLabel: "Universe",
       duo: [
@@ -79,6 +81,7 @@ export const translations = {
         "Including Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club and many more.",
       cercleLabel: "Signature project",
       cercleTitle: "Le Cercle",
+      cercleSetsNote: "Sets recorded during **official Le Cercle editions**.",
       cercleIntro:
         "Le Cercle is a festive event concept I built around one simple idea: **bringing people together** in an **elegant, convivial** setting where **music** is at the heart of the experience.",
       cercleBody:
@@ -145,6 +148,8 @@ export const translations = {
       kicker: "Contact",
       title: "Let's build something together",
       intro: "Bookings, collaborations, press: every project starts with a conversation.",
+      bookingIntro:
+        "For a **booking**, a **performance** or a **collaboration**, get in touch with Pablito directly.",
       emailLabel: "Email",
       phoneLabel: "Phone",
       socialLabel: "Follow",
@@ -192,6 +197,7 @@ export const translations = {
       heroTagline: "Créer du lien à travers le son.",
       heroPlay: "Lancer le son",
       heroProjects: "Voir les projets",
+      heroBooking: "Booking",
       scroll: "Défiler",
       profileLabel: "Profil",
       profileQuote: "« Holà Pablito Que Pasa ? »",
@@ -200,6 +206,7 @@ export const translations = {
         "Né dans l'univers de la **danse hip-hop**, j'ai découvert le **deejaying** presque naturellement, dès l'enfance.",
         "Dès le collège, entre **beatmaking** et cours de **piano**, j'ai ouvert mes premières sessions en **studio**. La curiosité a fait le reste.",
         "Aujourd'hui, chaque **set** que je construis est une extension de cette histoire. Une façon de **relier les gens** à travers le son.",
+        "Pablito est disponible pour des **bookings** en club, événements privés et festivals.",
       ],
       duoLabel: "Univers",
       duo: [
@@ -253,6 +260,7 @@ export const translations = {
         "Dont Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club et bien d'autres.",
       cercleLabel: "Projet signature",
       cercleTitle: "Le Cercle",
+      cercleSetsNote: "Les sets enregistrés lors des **éditions officielles du Cercle**.",
       cercleIntro:
         "Le Cercle est un concept d'événement festif que j'ai pensé autour d'une idée simple : **réunir des personnes** dans un cadre **élégant et convivial**, où la **musique** est au cœur de l'expérience.",
       cercleBody:
@@ -319,6 +327,8 @@ export const translations = {
       kicker: "Contact",
       title: "Construisons quelque chose ensemble",
       intro: "Bookings, collaborations, presse : chaque projet commence par une conversation.",
+      bookingIntro:
+        "Pour un **booking**, une **prestation** ou une **collaboration**, contactez directement Pablito.",
       emailLabel: "Email",
       phoneLabel: "Téléphone",
       socialLabel: "Suivre",

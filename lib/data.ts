@@ -30,7 +30,8 @@ export const images = {
   portraitAmber: "/images/pablito-amber.jpg", // crystal tee, warm backdrop — home hero
   portraitBeige: "/images/pablito-beige.jpg", // beige suit, seated editorial — profile
   liveClub: "/images/pablito-club.png", // hands up in the booth — cercle case study
-  clubRed: "/images/pablito-red.png", // red light, club energy — duo club
+  clubRed: "/images/pablito-red.png", // red light, club energy — BSB League cover
+  clubCrowd: "/images/cover-bsb.png", // black and white crowd, hands up — duo club
   cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
   liveViolet: "/images/live-violet.png", // violet beams over the floor — music page
   liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
@@ -41,9 +42,9 @@ export const images = {
   pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
   studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
   yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
-  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service, private events
-  serviceStanding: "/images/service-standing.jpg", // denim outfit, white backdrop — service header
-  serviceLounge: "/images/service-lounge.jpg", // denim outfit, seated on the couch — service, compositions
+  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service header
+  serviceLounge: "/images/service-lounge.jpg", // denim outfit, seated on the couch — service, private events
+  studioFlStudio: "/images/studio-flstudio.jpg", // at the FL Studio rig — service, compositions
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -126,7 +127,7 @@ export const liveSetsMusic: LiveSet[] = [
     kicker: "2024",
     name: "BSB League",
     sub: "Tournoi de basket de Gazo",
-    cover: "/images/cover-bsb.png",
+    cover: images.clubRed,
   },
   {
     id: "rinse-radio",
@@ -176,7 +177,7 @@ export const playerQueue: PlayerTrack[] = [
     title: "BSB League",
     subtitle: "Tournoi de basket de Gazo · 2024",
     art: "gold",
-    image: "/images/cover-bsb.png",
+    image: images.clubRed,
     source: "soundcloud",
     url: "https://soundcloud.com/user-143220564/bsb-league-pablito-mix",
   },
@@ -232,11 +233,12 @@ export const clubs: {
   logo?: string;
   showName?: boolean;
   compact?: boolean;
+  logoClassName?: string;
 }[] = [
   { name: "La Cigale", instagram: "https://www.instagram.com/lacigaleofficiel/", logo: "/logos/la-cigale.png" },
   { name: "Le Bridge", instagram: "https://www.instagram.com/bridgeparisclub/", logo: "/logos/le-bridge.png" },
-  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/", logo: "/logos/le-rouge.png", compact: true },
-  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/", logo: "/logos/la-nuit.png", compact: true },
+  { name: "Le Rouge", instagram: "https://www.instagram.com/lerougepigalleparis/", logo: "/logos/le-rouge.png", logoClassName: "h-8 w-auto max-w-[140px] object-contain sm:h-12" },
+  { name: "La Nuit", instagram: "https://www.instagram.com/la.nuit.paris/", logo: "/logos/la-nuit.png", logoClassName: "h-9 w-auto max-w-[150px] object-contain sm:h-[52px]" },
   { name: "Les Planches", instagram: "https://www.instagram.com/lesplanchesparis/", logo: "/logos/les-planches.png" },
   { name: "Volange", instagram: "https://www.instagram.com/volange_event/", logo: "/logos/volange.png" },
   { name: "Trinquet Village", instagram: "https://www.instagram.com/trinquetvillage/", logo: "/logos/trinquet-village.png" },
