@@ -20,13 +20,13 @@ Logos and icons are excluded.
 - `cover-radio.jpg`         — profile at the DAW (Music sets Rinse Radio)
 - `cover-yardland.png`      — mic in hand, black and white (Music sets Yardland)
 - `cover-opening.png`       — Le Cercle Opening set cover (Le Cercle carousel, last)
-- `cover-rinse.jpg`         — square portrait "Pablito carré" (Contact)
+- `pablito-portrait-night.png` — close b&w portrait, dark room (Contact)
 - `live-violet.png`         — violet beams over the floor (Music sets, Cercle highlight)
 - `live-champagne.png`      — champagne pour in the dark (Music, YouTube banner)
 - `studio-session.jpg`      — hands on the keyboard, studio (Music header)
 - `studio-composition.jpg`  — at the DAW, studio (Home universe, Producer)
 - `studio-flstudio.jpg`     — at the FL Studio rig (Service, compositions)
 - `premium-portrait.jpg`    — beige suit, daylight portrait (Service header)
-- `service-events.jpg`      — beige suit, seated close-up, mirrored (Service, private events)
+- `service-soiree.png`      — beige suit, seated on an ottoman (Service, private events)
 
 `extra/` holds the unused reserve shots. Venue logos live in `/public/logos`.

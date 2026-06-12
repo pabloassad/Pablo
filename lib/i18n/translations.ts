@@ -33,12 +33,12 @@ export const translations = {
       duo: [
         {
           title: "Club",
-          line: "Immersive sets engineered for the dancefloor.",
+          line: "Club sets, residencies and festivals.",
           href: "/projects",
         },
         {
           title: "Producer",
-          line: "Original productions with a distinct signature.",
+          line: "Compositions, remixes and edits made on FL Studio.",
           href: "/music",
         },
       ],
@@ -212,12 +212,12 @@ export const translations = {
       duo: [
         {
           title: "Club",
-          line: "Des sets immersifs pensés pour le dancefloor.",
+          line: "Sets en club, résidences et festivals.",
           href: "/projects",
         },
         {
           title: "Producteur",
-          line: "Des productions originales à la signature singulière.",
+          line: "Compositions, remixes et edits produits sur FL Studio.",
           href: "/music",
         },
       ],

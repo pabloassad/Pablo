@@ -39,11 +39,11 @@ export const images = {
   crowdEnergy: "/images/cover-club.png", // DJ from behind, crowd lit in pink — clubs module
   studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — music page header
   studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — home producer dial
-  pabloCarre: "/images/cover-rinse.jpg", // square portrait — contact page
+  pabloCarre: "/images/pablito-portrait-night.png", // close b&w portrait — contact page
   studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
   yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
   premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service header
-  serviceEvents: "/images/service-events.jpg", // beige suit, seated close-up — service, private events
+  serviceEvents: "/images/service-soiree.png", // beige suit, seated on ottoman — service, private events
   studioFlStudio: "/images/studio-flstudio.jpg", // at the FL Studio rig — service, compositions
 };
 
@@ -107,6 +107,7 @@ export const cercleLiveSets: LiveSet[] = [
     id: "cercle-opening",
     kicker: "Le Cercle",
     name: "Opening Set",
+    edition: "06",
     cover: "/images/cover-opening.png",
   },
 ];

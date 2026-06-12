@@ -93,7 +93,7 @@ export function ServicePageContent() {
               fallback="gold"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_20%] [transform:scaleX(-1)_scale(1.08)] origin-[center_25%]"
+              imgClassName="object-cover object-[center_20%]"
             />
           </RevealItem>
           {t.service.eventsPoints.map((point, i) => (
