@@ -20,9 +20,11 @@ const geistMono = Geist_Mono({
 
 // Brand display font — the same typeface the Pablito logo was traced from
 const kiona = localFont({
-  src: "./fonts/Kiona-Regular.ttf",
+  src: [
+    { path: "./fonts/Kiona-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Kiona-Bold.ttf", weight: "700", style: "normal" },
+  ],
   variable: "--font-kiona",
-  weight: "400",
   display: "swap",
 });
 

@@ -64,7 +64,7 @@ export function ContactPageContent() {
               fallback="amber"
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="mt-12 aspect-square overflow-hidden rounded-2xl"
-              imgClassName="object-cover object-[center_5%] sm:object-[center_10%]"
+              imgClassName="object-cover object-[center_2%] sm:object-[center_5%]"
             />
           </Reveal>
         </div>

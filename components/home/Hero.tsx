@@ -67,7 +67,7 @@ export function Hero() {
             {t.home.kicker}
           </motion.span>
 
-          <h1 className="mt-4 flex select-none flex-wrap font-brand text-[16vw] font-normal leading-[0.95] tracking-[0.05em] sm:text-[11vw] lg:text-[8.5rem]">
+          <h1 className="mt-4 flex select-none flex-wrap font-brand text-[16vw] font-bold uppercase leading-[0.95] tracking-[0.06em] sm:text-[11vw] lg:text-[8.5rem]">
             {NAME.split("").map((letter, i) => (
               <motion.span
                 key={`${letter}-${i}`}

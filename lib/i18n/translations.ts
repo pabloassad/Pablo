@@ -21,8 +21,6 @@ export const translations = {
       heroBooking: "Booking",
       scroll: "Scroll",
       profileIntro: "About",
-      profileQuote: "« Holà Pablito Que Pasa ? »",
-      profileSubQuote: "Me, at 12, recording my first vocal signature.",
       profileParas: [
         "Born into the world of **hip-hop dance**, I discovered **deejaying** almost naturally, from childhood.",
         "From middle school on, between **beatmaking** and **piano** lessons, I sat in on my first **studio** sessions. Curiosity did the rest.",
@@ -200,8 +198,6 @@ export const translations = {
       heroBooking: "Booking",
       scroll: "Défiler",
       profileIntro: "À propos",
-      profileQuote: "« Holà Pablito Que Pasa ? »",
-      profileSubQuote: "Moi, à 12 ans, en train d'enregistrer ma première signature vocale.",
       profileParas: [
         "Né dans l'univers de la **danse hip-hop**, j'ai découvert le **deejaying** presque naturellement, dès l'enfance.",
         "Dès le collège, entre **beatmaking** et cours de **piano**, j'ai ouvert mes premières sessions en **studio**. La curiosité a fait le reste.",

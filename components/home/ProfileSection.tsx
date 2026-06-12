@@ -31,10 +31,6 @@ export function ProfileSection() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
           </ArtImage>
-          {/* Childhood quote — a small personal aside, secondary to the intro */}
-          <p className="mt-4 text-sm italic text-muted">
-            {t.home.profileQuote} — {t.home.profileSubQuote}
-          </p>
         </motion.div>
 
         {/* Text */}
