@@ -28,7 +28,7 @@ export function ListenStrip() {
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-6 py-16 sm:px-8 md:flex-row md:items-center lg:px-12">
         <div>
           <Reveal>
-            <span className="text-xs uppercase tracking-[0.3em] text-accent">
+            <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
               {t.home.listenLabel}
             </span>
           </Reveal>

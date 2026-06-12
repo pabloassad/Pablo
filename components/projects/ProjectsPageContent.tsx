@@ -32,7 +32,7 @@ export function ProjectsPageContent() {
         </ArtImage>
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-40 sm:px-8 lg:px-12">
           <Reveal>
-            <span className="text-xs uppercase tracking-[0.4em] text-accent">
+            <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
               {t.projects.kicker}
             </span>
           </Reveal>
@@ -52,7 +52,7 @@ export function ProjectsPageContent() {
       {/* A. Booking — clubs & stages */}
       <section id="clubs" className="mx-auto mt-24 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             {t.projects.clubsLabel}
           </span>
         </Reveal>
@@ -128,7 +128,7 @@ export function ProjectsPageContent() {
           <div className="grid items-end gap-10 lg:grid-cols-2">
             <div>
               <Reveal>
-                <span className="text-xs uppercase tracking-[0.4em] text-accent">
+                <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
                   {t.projects.cercleLabel}
                 </span>
               </Reveal>
@@ -138,7 +138,7 @@ export function ProjectsPageContent() {
                 </h2>
               </Reveal>
               <Reveal delay={0.09}>
-                <p className="mt-3 text-[13px] text-foreground/65 sm:text-sm">
+                <p className="mt-3 text-[13px] text-foreground/75 sm:text-sm">
                   <Emph text={t.projects.cercleSetsNote} />
                 </p>
               </Reveal>
@@ -210,7 +210,7 @@ export function ProjectsPageContent() {
       {/* Live archive — every recorded set */}
       <section id="sets" className="mx-auto mt-32 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             {t.projects.setsLabel}
           </span>
         </Reveal>

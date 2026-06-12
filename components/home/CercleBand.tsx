@@ -33,7 +33,7 @@ export function CercleBand() {
           <div className="spin-slow h-[60vmin] w-[60vmin] rounded-full border border-white/[0.12]" />
         </div>
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.4em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
             {t.home.cercleLabel}
           </span>
         </Reveal>

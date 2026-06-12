@@ -29,7 +29,7 @@ export function ServicePageContent() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <Reveal>
-              <span className="text-xs uppercase tracking-[0.4em] text-accent">
+              <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
                 {t.service.kicker}
               </span>
             </Reveal>
@@ -62,7 +62,7 @@ export function ServicePageContent() {
       {/* A. Private events — migrated content, untouched wording */}
       <section id="events" className="mx-auto mt-28 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12">
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             {t.service.eventsLabel}
           </span>
         </Reveal>
@@ -114,7 +114,7 @@ export function ServicePageContent() {
         className="mx-auto mt-28 max-w-7xl scroll-mt-28 px-6 sm:px-8 lg:px-12"
       >
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             {t.service.compositionsLabel}
           </span>
         </Reveal>

@@ -124,7 +124,7 @@ export function SetsCarousel({ sets, nowPlayingLabel }: { sets: LiveSet[]; nowPl
                       {isCurrent ? nowPlayingLabel : set.kicker}
                     </p>
                     <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
-                    {set.sub && <p className="mt-1 text-xs text-foreground/60">{set.sub}</p>}
+                    {set.sub && <p className="mt-1 text-xs text-foreground/75">{set.sub}</p>}
                   </div>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
                     {isCurrent && player.isPlaying ? (

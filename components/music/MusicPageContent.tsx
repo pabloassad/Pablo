@@ -39,7 +39,7 @@ export function MusicPageContent() {
         </div>
         <div className="px-5 pb-8 pt-6">
           <Reveal>
-            <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
+            <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
           </Reveal>
           <Reveal delay={0.06}>
             <h1 className="mt-5 text-5xl font-semibold tracking-tight">{t.music.title}</h1>
@@ -70,7 +70,7 @@ export function MusicPageContent() {
         </ArtImage>
         <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-16 pt-32 sm:px-8 sm:pt-40 lg:px-12">
           <Reveal>
-            <span className="text-xs uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
+            <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">{t.music.kicker}</span>
           </Reveal>
           <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
             <Reveal delay={0.06}>
@@ -93,7 +93,7 @@ export function MusicPageContent() {
       {/* Sets live — Le Cercle highlight and every other recorded live set */}
       <section className="mx-auto mt-20 max-w-7xl px-6 sm:px-8 lg:px-12">
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">
             {t.music.setsLiveLabel}
           </span>
         </Reveal>
@@ -134,7 +134,7 @@ export function MusicPageContent() {
                 <h2 className="mt-1 text-xl font-medium tracking-tight sm:text-2xl">
                   {t.music.youtubeTitle}
                 </h2>
-                <p className="mt-1 text-sm text-foreground/70">{t.music.youtubeLine}</p>
+                <p className="mt-1 text-sm text-foreground/80">{t.music.youtubeLine}</p>
               </div>
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line text-foreground transition-all duration-300 group-hover:border-accent/60 group-hover:text-accent sm:h-12 sm:w-12">
                 <YoutubeIcon className="h-5 w-5" />
@@ -152,7 +152,7 @@ export function MusicPageContent() {
         <div className="mt-6 grid gap-5 lg:grid-cols-2">
           <Reveal className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
             <div className="flex items-center justify-between px-6 pt-5">
-              <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
+              <h2 className="text-sm font-medium uppercase tracking-[0.25em] text-muted">
                 {t.music.spotifyTitle} · Spotify
               </h2>
               <a
@@ -178,7 +178,7 @@ export function MusicPageContent() {
           </Reveal>
           <Reveal delay={0.08} className="overflow-hidden rounded-2xl border border-line bg-background-elevated/60">
             <div className="flex items-center justify-between px-6 pt-5">
-              <h2 className="text-sm uppercase tracking-[0.25em] text-muted">
+              <h2 className="text-sm font-medium uppercase tracking-[0.25em] text-muted">
                 {t.music.soundcloudTitle} · SoundCloud
               </h2>
               <a

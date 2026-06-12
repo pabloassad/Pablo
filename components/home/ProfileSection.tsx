@@ -12,7 +12,7 @@ export function ProfileSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="profile" className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-12">
+    <section id="profile" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         {/* Photo — left column on desktop, full width on mobile */}
         <motion.div
@@ -31,6 +31,10 @@ export function ProfileSection() {
           >
             <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
           </ArtImage>
+          {/* Childhood quote — a small personal aside, secondary to the intro */}
+          <p className="mt-4 text-sm italic text-muted">
+            {t.home.profileQuote} — {t.home.profileSubQuote}
+          </p>
         </motion.div>
 
         {/* Text */}
@@ -41,13 +45,12 @@ export function ProfileSection() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.1, ease }}
           >
-            <span className="text-xs uppercase tracking-[0.4em] text-accent">
+            <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
               {t.home.profileLabel}
             </span>
-            <blockquote className="mt-6 text-balance text-3xl font-light leading-snug tracking-tight sm:text-4xl">
-              {t.home.profileQuote}
-            </blockquote>
-            <p className="mt-3 text-sm italic text-muted">{t.home.profileSubQuote}</p>
+            <p className="mt-6 text-balance text-3xl font-light leading-snug tracking-tight sm:text-4xl">
+              {t.home.profileIntro}
+            </p>
           </motion.div>
 
           <motion.div

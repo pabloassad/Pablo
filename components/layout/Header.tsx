@@ -46,7 +46,7 @@ export function Header() {
                 width={1534}
                 height={202}
                 priority
-                className="h-[26px] w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-8"
+                className="h-[22px] w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-7"
               />
             </motion.span>
           </Link>
@@ -59,7 +59,7 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   className={clsx(
-                    "relative text-sm tracking-wide text-muted transition-colors duration-300 hover:text-foreground",
+                    "relative text-[13px] font-medium tracking-[0.04em] text-foreground/80 transition-colors duration-300 hover:text-foreground",
                     active && "text-foreground"
                   )}
                 >

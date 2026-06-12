@@ -19,7 +19,7 @@ export function SectionHeading({
     <div className={clsx("flex flex-col gap-5", align === "center" && "items-center text-center", className)}>
       {kicker && (
         <Reveal>
-          <span className="text-xs uppercase tracking-[0.3em] text-accent">{kicker}</span>
+          <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">{kicker}</span>
         </Reveal>
       )}
       <Reveal delay={0.05}>

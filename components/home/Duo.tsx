@@ -17,7 +17,7 @@ export function Duo() {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-28 sm:px-8 sm:pb-36 lg:px-12">
       <Reveal>
-        <span className="text-xs uppercase tracking-[0.3em] text-accent">{t.home.duoLabel}</span>
+        <span className="text-xs font-medium uppercase tracking-[0.3em] text-accent">{t.home.duoLabel}</span>
       </Reveal>
       <RevealGroup className="mt-8 grid gap-5 md:grid-cols-2" stagger={0.12}>
         {t.home.duo.map((item, i) => (
@@ -39,7 +39,7 @@ export function Duo() {
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 sm:p-9">
                 <div>
                   <h3 className="text-2xl font-medium tracking-tight sm:text-3xl">{item.title}</h3>
-                  <p className="mt-2 max-w-xs text-sm text-foreground/70">{item.line}</p>
+                  <p className="mt-2 max-w-xs text-sm text-foreground/80">{item.line}</p>
                 </div>
                 <span
                   aria-hidden
