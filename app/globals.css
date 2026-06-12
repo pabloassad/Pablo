@@ -154,10 +154,15 @@ body {
   animation: spin-slow 60s linear infinite;
 }
 
-/* Wordmark glow — subtle, on hover or via .logo-glow-active */
-.logo-glow {
-  transition: text-shadow 0.6s ease, color 0.4s ease;
-}
-.logo-glow:hover {
-  text-shadow: 0 0 24px rgba(216, 200, 168, 0.55);
+/* Reduced motion — neutralize CSS keyframes and transitions.
+   Framer-motion animations are already covered by MotionConfig reducedMotion="user". */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

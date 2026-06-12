@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,17 +32,22 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:h-20 lg:px-12">
-          <Link
-            href="/"
-            className="logo-glow text-lg font-semibold tracking-[0.25em] transition-colors duration-300 hover:text-accent"
-          >
+          <Link href="/" aria-label="Pablito" className="block">
             <motion.span
-              initial={{ opacity: 0, letterSpacing: "0.45em" }}
-              animate={{ opacity: 1, letterSpacing: "0.25em" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block"
             >
-              PABLITO
+              {/* Black wordmark inverted to white for the dark theme */}
+              <Image
+                src="/logos/pablito.png"
+                alt="Pablito"
+                width={1534}
+                height={202}
+                priority
+                className="h-[26px] w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-8"
+              />
             </motion.span>
           </Link>
 

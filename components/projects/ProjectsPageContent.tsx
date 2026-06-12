@@ -73,7 +73,7 @@ export function ProjectsPageContent() {
                 rel="noopener noreferrer"
                 aria-label={club.name}
                 title={club.name}
-                className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-opacity duration-500 hover:opacity-100"
+                className="group flex h-full min-h-16 flex-col items-center justify-center gap-3 opacity-75 transition-[opacity,transform] duration-500 hover:scale-[1.04] hover:opacity-100"
               >
                 {club.logo ? (
                   <Image
@@ -94,7 +94,7 @@ export function ProjectsPageContent() {
                   </span>
                 )}
                 {club.showName && (
-                  <span className="text-[10px] font-medium uppercase tracking-[0.3em] text-muted">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-muted">
                     {club.name}
                   </span>
                 )}

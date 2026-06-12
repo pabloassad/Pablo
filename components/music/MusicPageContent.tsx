@@ -20,8 +20,9 @@ export function MusicPageContent() {
   return (
     <div className="pb-32">
       {/* Header — studio and composition */}
-      {/* Mobile (<768px): stacked — photo above, text below on a solid background */}
-      <header className="md:hidden">
+      {/* Mobile (<768px): stacked — photo above, text below on a solid background.
+          pt-16 clears the fixed navbar (h-16 on mobile) so the photo never slides under it. */}
+      <header className="pt-16 md:hidden">
         <div className="relative h-[52vw] min-h-[200px] max-h-[300px] w-full overflow-hidden">
           <ArtImage
             src={images.studioSession}
@@ -30,7 +31,7 @@ export function MusicPageContent() {
             priority
             sizes="100vw"
             className="absolute inset-0"
-            imgClassName="object-cover object-[center_70%]"
+            imgClassName="object-cover object-[center_75%]"
           >
             {/* Anchors the photo into the page background — no flat color block */}
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0)_0%,rgba(5,5,5,0.25)_45%,rgba(5,5,5,0.75)_75%,rgba(5,5,5,0.92)_100%)]" />
@@ -63,7 +64,7 @@ export function MusicPageContent() {
           priority
           sizes="100vw"
           className="absolute inset-0"
-          imgClassName="object-cover object-[center_50%]"
+          imgClassName="object-cover object-[center_60%]"
         >
           <div className="absolute inset-0 bg-gradient-to-t from-background from-15% via-background/75 via-50% to-background/10" />
         </ArtImage>

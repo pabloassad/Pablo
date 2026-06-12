@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { socials, contactEmail } from "@/lib/data";
@@ -21,8 +22,14 @@ export function Footer() {
       <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 py-12 sm:px-8 lg:px-12">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div>
-            <p className="text-lg font-semibold tracking-[0.25em]">PABLITO</p>
-            <p className="mt-2 max-w-xs text-sm text-muted">{t.home.heroTagline}</p>
+            <Image
+              src="/logos/pablito.png"
+              alt="Pablito"
+              width={1534}
+              height={202}
+              className="h-6 w-auto invert opacity-70"
+            />
+            <p className="mt-3 max-w-xs text-sm text-muted">{t.home.heroTagline}</p>
           </div>
           <div className="flex gap-5">
             {socialLinks.map(({ href, label, Icon }) => (

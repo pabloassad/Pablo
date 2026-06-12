@@ -139,7 +139,7 @@ export function ServicePageContent() {
               tone="soft"
               sizes="(min-width: 1024px) 25vw, 100vw"
               className="h-full w-full"
-              imgClassName="object-cover object-[center_38%] md:object-[center_35%]"
+              imgClassName="object-cover object-[center_50%] md:object-[center_35%]"
             />
           </RevealItem>
           {t.service.compositionsPoints.map((point, i) => (

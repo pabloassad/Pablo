@@ -8,7 +8,7 @@ export function Marquee() {
   return (
     <div className="border-y border-line bg-background-elevated/40">
       <div className="relative overflow-hidden py-5">
-        <div className="animate-marquee flex w-max items-center gap-12 whitespace-nowrap pr-12">
+        <div className="animate-marquee flex w-max items-center gap-12 whitespace-nowrap pr-12 will-change-transform [backface-visibility:hidden]">
           {row.map((club, i) => (
             <a
               key={`${club.name}-${i}`}
