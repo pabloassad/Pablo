@@ -10,6 +10,22 @@ import { PlayIcon } from "@/components/ui/icons";
 
 const NAME = "PABLITO";
 
+// Kiona's "A" carries a crossbar; the Pablito logo doesn't. This is the Kiona Bold
+// "A" glyph (685×658 font units) with the bar removed, inlined so it scales and
+// colors with the surrounding text. Height 0.658em = the font's cap height.
+function BarlessA() {
+  return (
+    <svg
+      viewBox="0 0 685 658"
+      className="inline-block h-[0.658em] w-auto"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path fillRule="evenodd" d="M45 658 L350 0 L640 658 Z M169 658 L347 273 L517 658 Z" />
+    </svg>
+  );
+}
+
 export function Hero() {
   const { t } = useLanguage();
   const { playTrack } = usePlayer();
@@ -67,15 +83,20 @@ export function Hero() {
             {t.home.kicker}
           </motion.span>
 
-          <h1 className="mt-4 flex select-none flex-wrap font-brand text-[16vw] font-bold uppercase leading-[0.95] tracking-[0.06em] sm:text-[11vw] lg:text-[8.5rem]">
+          <h1
+            aria-label={NAME}
+            className="mt-4 flex select-none flex-wrap font-brand text-[16vw] font-bold uppercase leading-[0.95] tracking-[0.06em] sm:text-[11vw] lg:text-[8.5rem]"
+          >
             {NAME.split("").map((letter, i) => (
               <motion.span
                 key={`${letter}-${i}`}
+                aria-hidden
                 initial={{ opacity: 0, y: 80 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.3 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                className={letter === "A" ? "mr-[0.06em]" : undefined}
               >
-                {letter}
+                {letter === "A" ? <BarlessA /> : letter}
               </motion.span>
             ))}
           </h1>
