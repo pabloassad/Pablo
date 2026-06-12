@@ -46,7 +46,7 @@ export function Header() {
                 width={1534}
                 height={202}
                 priority
-                className="h-[22px] w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-7"
+                className="h-5 w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-6"
               />
             </motion.span>
           </Link>

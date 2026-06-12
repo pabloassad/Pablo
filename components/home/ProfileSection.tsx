@@ -45,12 +45,9 @@ export function ProfileSection() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, delay: 0.1, ease }}
           >
-            <span className="text-xs font-medium uppercase tracking-[0.4em] text-accent">
-              {t.home.profileLabel}
-            </span>
-            <p className="mt-6 text-balance text-3xl font-light leading-snug tracking-tight sm:text-4xl">
+            <h2 className="text-3xl font-medium tracking-tight sm:text-4xl">
               {t.home.profileIntro}
-            </p>
+            </h2>
           </motion.div>
 
           <motion.div

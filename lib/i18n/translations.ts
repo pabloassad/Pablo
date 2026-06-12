@@ -20,8 +20,7 @@ export const translations = {
       heroProjects: "View projects",
       heroBooking: "Booking",
       scroll: "Scroll",
-      profileLabel: "Profile",
-      profileIntro: "DJ, artist and producer, moving between Paris clubs and the studio.",
+      profileIntro: "About",
       profileQuote: "« Holà Pablito Que Pasa ? »",
       profileSubQuote: "Me, at 12, recording my first vocal signature.",
       profileParas: [
@@ -200,8 +199,7 @@ export const translations = {
       heroProjects: "Voir les projets",
       heroBooking: "Booking",
       scroll: "Défiler",
-      profileLabel: "Profil",
-      profileIntro: "DJ, artiste et producteur, entre les clubs parisiens et le studio.",
+      profileIntro: "À propos",
       profileQuote: "« Holà Pablito Que Pasa ? »",
       profileSubQuote: "Moi, à 12 ans, en train d'enregistrer ma première signature vocale.",
       profileParas: [
