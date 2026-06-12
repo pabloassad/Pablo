@@ -31,7 +31,7 @@ export function MusicPageContent() {
             priority
             sizes="100vw"
             className="absolute inset-0"
-            imgClassName="object-cover object-[center_75%]"
+            imgClassName="object-cover object-[center_60%]"
           >
             {/* Anchors the photo into the page background — no flat color block */}
             <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0)_0%,rgba(5,5,5,0.25)_45%,rgba(5,5,5,0.75)_75%,rgba(5,5,5,0.92)_100%)]" />

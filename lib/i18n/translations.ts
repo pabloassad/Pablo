@@ -36,7 +36,7 @@ export const translations = {
         },
         {
           title: "Producer",
-          line: "Compositions, remixes and edits made on FL Studio.",
+          line: "Compositions, remixes and edits.",
           href: "/music",
         },
       ],
@@ -213,7 +213,7 @@ export const translations = {
         },
         {
           title: "Producteur",
-          line: "Compositions, remixes et edits produits sur FL Studio.",
+          line: "Compositions, remixes et edits.",
           href: "/music",
         },
       ],
