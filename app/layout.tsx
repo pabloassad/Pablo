@@ -34,12 +34,12 @@ const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "DJ Pablito",
+    default: "Pablito",
     template: "%s · Pablito",
   },
   description: "DJ • Producteur • Paris",
   openGraph: {
-    title: "DJ Pablito",
+    title: "Pablito",
     description: "DJ • Producteur • Paris",
     url: siteUrl,
     type: "website",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "DJ Pablito",
+    title: "Pablito",
     description: "DJ • Producteur • Paris",
     images: [ogImageUrl],
   },
