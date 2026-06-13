@@ -28,7 +28,7 @@ function ArrowButton({
       aria-label={direction === "left" ? "Previous" : "Next"}
       aria-disabled={disabled}
       className={clsx(
-        "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-white/[0.06] backdrop-blur-md transition-all duration-200 hover:bg-white/[0.12] sm:flex",
+        "absolute top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-line bg-white/[0.06] backdrop-blur-md transition-all duration-300 hover:bg-white/[0.12] sm:flex",
         direction === "left" ? "-left-5" : "-right-5",
         disabled && "pointer-events-none opacity-30"
       )}
@@ -124,7 +124,7 @@ export function SetsCarousel({ sets, nowPlayingLabel }: { sets: LiveSet[]; nowPl
                       {isCurrent ? nowPlayingLabel : set.kicker}
                     </p>
                     <h4 className="mt-1 text-xl font-medium tracking-tight">{set.name}</h4>
-                    {set.sub && <p className="mt-1 text-xs text-foreground/75">{set.sub}</p>}
+                    {set.sub && <p className="mt-1 text-xs text-foreground/80">{set.sub}</p>}
                   </div>
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 group-hover:scale-105 group-hover:bg-accent">
                     {isCurrent && player.isPlaying ? (

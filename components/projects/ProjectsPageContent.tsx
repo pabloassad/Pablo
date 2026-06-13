@@ -42,7 +42,7 @@ export function ProjectsPageContent() {
             </h1>
           </Reveal>
           <Reveal delay={0.12}>
-            <p className="mt-5 max-w-md text-balance text-base text-foreground/75 sm:text-lg">
+            <p className="mt-5 max-w-md text-balance text-base text-foreground/80 sm:text-lg">
               {t.projects.intro}
             </p>
           </Reveal>
@@ -103,7 +103,7 @@ export function ProjectsPageContent() {
           ))}
         </RevealGroup>
         <Reveal delay={0.1}>
-          <p className="mt-6 text-sm italic text-muted/70">{t.projects.collabsExtra}</p>
+          <p className="mt-6 text-sm italic text-muted">{t.projects.collabsExtra}</p>
         </Reveal>
       </section>
 
@@ -138,12 +138,12 @@ export function ProjectsPageContent() {
                 </h2>
               </Reveal>
               <Reveal delay={0.09}>
-                <p className="mt-3 text-[13px] text-foreground/75 sm:text-sm">
+                <p className="mt-3 text-[13px] text-foreground/80 sm:text-sm">
                   <Emph text={t.projects.cercleSetsNote} />
                 </p>
               </Reveal>
               <Reveal delay={0.12}>
-                <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-foreground/85">
+                <p className="mt-6 max-w-lg text-balance text-lg leading-relaxed text-foreground/80">
                   <Emph text={t.projects.cercleIntro} />
                 </p>
               </Reveal>
@@ -198,7 +198,7 @@ export function ProjectsPageContent() {
                   value={String(cercleStats.partners.length)}
                   label={t.projects.statsPartners}
                 />
-                <p className="text-xs tracking-[0.15em] text-muted/70">
+                <p className="text-xs tracking-[0.15em] text-muted">
                   {cercleStats.partners.join(" · ")}
                 </p>
               </div>

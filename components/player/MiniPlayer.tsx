@@ -186,7 +186,7 @@ export function MiniPlayer() {
                 type="button"
                 onClick={player.previous}
                 aria-label={t.player.previous}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
                   <path d="M6 5h2v14H6V5Zm12.5.86v12.28a1 1 0 0 1-1.54.84L8.3 12.84a1 1 0 0 1 0-1.68l8.66-5.14a1 1 0 0 1 1.54.84Z" />
@@ -212,7 +212,7 @@ export function MiniPlayer() {
                 type="button"
                 onClick={player.next}
                 aria-label={t.player.next}
-                className="flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
+                className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
                   <path d="M16 5h2v14h-2V5ZM5.5 5.86v12.28a1 1 0 0 0 1.54.84l8.66-6.14a1 1 0 0 0 0-1.68L7.04 5.02a1 1 0 0 0-1.54.84Z" />
@@ -222,7 +222,7 @@ export function MiniPlayer() {
                 type="button"
                 onClick={player.close}
                 aria-label={t.player.close}
-                className="ml-1 flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
+                className="ml-1 flex h-10 w-10 items-center justify-center rounded-full text-muted transition-colors hover:text-foreground"
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" className="h-4 w-4">
                   <path d="M6 6l12 12M18 6L6 18" />

@@ -14,7 +14,7 @@ import { images } from "@/lib/data";
 const panel = {
   group: "mt-12 grid gap-px overflow-hidden rounded-2xl bg-[#ddd3c2] md:grid-cols-3 lg:grid-cols-4",
   cell: "bg-[#f0ebe3]",
-  number: "text-xs tracking-[0.3em] text-[#8a7456]",
+  number: "text-xs tracking-[0.3em] text-[#7a6446]",
   heading: "text-xl font-medium tracking-tight text-[#1f1b16]",
   body: "text-sm leading-relaxed text-[#5c5347]",
 };

@@ -87,6 +87,27 @@ body {
   color: var(--foreground);
 }
 
+/* Keyboard focus — visible accent ring on every interactive element.
+   Modern browsers clip the outline to the element's border-radius, so
+   pills and rounded cards get a matching rounded ring. Mouse/touch focus
+   (which isn't :focus-visible) stays clean. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Touch devices have no :hover — give a subtle press feedback instead.
+   Opacity-only (no transform) so nothing reflows or overlaps under the tap. */
+@media (hover: none) {
+  a:active,
+  button:active {
+    opacity: 0.72;
+  }
+}
+
 /* Subtle film-grain texture overlay used across the site */
 .grain {
   pointer-events: none;

@@ -52,7 +52,7 @@ export function SocialSidebar() {
           {copied ? (
             <CheckIcon className="h-[18px] w-[18px] text-accent transition-opacity duration-150" />
           ) : (
-            <CopyIcon className="h-[18px] w-[18px] transition-all duration-150 group-hover:-translate-y-0.5" />
+            <CopyIcon className="h-[18px] w-[18px] transition-all duration-300 group-hover:-translate-y-0.5" />
           )}
           {copied && (
             <span className="absolute right-7 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-foreground px-3 py-1 text-[11px] font-medium text-background">

@@ -79,7 +79,7 @@ export function Header() {
             <button
               type="button"
               onClick={toggleLocale}
-              className="flex items-center gap-1 rounded-full border border-line px-3 py-1.5 text-xs font-medium tracking-widest text-muted transition-colors duration-300 hover:border-accent/50 hover:text-foreground"
+              className="flex min-h-11 items-center gap-1 rounded-full border border-line px-3.5 py-2 text-xs font-medium tracking-widest text-muted transition-colors duration-300 hover:border-accent/50 hover:text-foreground"
               aria-label="Toggle language"
             >
               <span className={clsx(locale === "fr" && "text-accent")}>FR</span>
@@ -90,7 +90,7 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}
-              className="relative flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
+              className="relative flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
               aria-label={menuOpen ? t.nav.close : t.nav.menu}
               aria-expanded={menuOpen}
             >
