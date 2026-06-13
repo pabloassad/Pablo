@@ -28,19 +28,35 @@ const kiona = localFont({
   display: "swap",
 });
 
+const siteUrl = "https://djpablito.vercel.app";
+const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pablito.world"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Pablito · Creating connection through sound",
+    default: "DJ Pablito",
     template: "%s · Pablito",
   },
-  description:
-    "Pablito is a DJ, artist and music producer creating social connection through music: club nights, festival stages and premium events.",
+  description: "DJ • Producteur • Paris",
   openGraph: {
-    title: "Pablito · Creating connection through sound",
-    description:
-      "DJ, artist and music producer. Club and festival sets, original productions, and bespoke musical direction for premium events.",
+    title: "DJ Pablito",
+    description: "DJ • Producteur • Paris",
+    url: siteUrl,
     type: "website",
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "DJ Pablito",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DJ Pablito",
+    description: "DJ • Producteur • Paris",
+    images: [ogImageUrl],
   },
 };
 
