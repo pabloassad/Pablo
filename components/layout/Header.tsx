@@ -32,7 +32,7 @@ export function Header() {
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:h-20 lg:px-12">
-          <Link href="/" aria-label="Pablito" className="block">
+          <Link href="/" aria-label="Pablito" className="flex items-center">
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -46,7 +46,7 @@ export function Header() {
                 width={1534}
                 height={202}
                 priority
-                className="h-5 w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-6"
+                className="block h-5 w-auto invert transition-[filter,opacity] duration-300 hover:opacity-80 lg:h-6"
               />
             </motion.span>
           </Link>

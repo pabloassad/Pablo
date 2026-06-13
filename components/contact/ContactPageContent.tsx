@@ -63,8 +63,8 @@ export function ContactPageContent() {
               alt="Pablito · portrait"
               fallback="amber"
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="mt-12 aspect-square overflow-hidden rounded-2xl"
-              imgClassName="object-cover object-[center_2%] sm:object-[center_5%]"
+              className="mt-12 aspect-[3/4] overflow-hidden rounded-2xl md:aspect-[4/5] lg:aspect-[5/7]"
+              imgClassName="object-cover object-[center_10%] md:object-top"
             />
           </Reveal>
         </div>

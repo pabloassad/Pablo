@@ -48,7 +48,7 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "DJ Pablito",
+        alt: "Pablito",
       },
     ],
   },
