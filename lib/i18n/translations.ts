@@ -48,7 +48,7 @@ export const translations = {
       listenLabel: "Now streaming",
       listenTitle: "Listen while you browse",
       listenLine: "Launch the player. The music follows you across the site.",
-      ctaTitle: "Let's build something together",
+      ctaTitle: "Let's talk about your project",
       ctaButton: "Get in touch",
     },
     music: {
@@ -144,13 +144,14 @@ export const translations = {
     },
     contact: {
       kicker: "Contact",
-      title: "Let's build something together",
+      title: "Let's talk about your project",
       intro: "Bookings, collaborations, press: every project starts with a conversation.",
       bookingIntro:
         "For a **booking**, a **performance** or a **collaboration**, get in touch with Pablito directly.",
       emailLabel: "Email",
       phoneLabel: "Phone",
       socialLabel: "Follow",
+      pressKit: "Press Kit",
       formName: "Name",
       formEmail: "Email",
       formMessage: "Message",
@@ -225,7 +226,7 @@ export const translations = {
       listenLabel: "En écoute",
       listenTitle: "Écoutez en naviguant",
       listenLine: "Lancez le player. La musique vous suit sur tout le site.",
-      ctaTitle: "Construisons quelque chose ensemble",
+      ctaTitle: "Parlons de votre projet",
       ctaButton: "Prendre contact",
     },
     music: {
@@ -321,13 +322,14 @@ export const translations = {
     },
     contact: {
       kicker: "Contact",
-      title: "Construisons quelque chose ensemble",
+      title: "Parlons de votre projet",
       intro: "Bookings, collaborations, presse : chaque projet commence par une conversation.",
       bookingIntro:
         "Pour un **booking**, une **prestation** ou une **collaboration**, contactez directement Pablito.",
       emailLabel: "Email",
       phoneLabel: "Téléphone",
       socialLabel: "Suivre",
+      pressKit: "Press Kit",
       formName: "Nom",
       formEmail: "Email",
       formMessage: "Message",

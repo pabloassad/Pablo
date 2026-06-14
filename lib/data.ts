@@ -14,6 +14,9 @@ export const contactPhone = "+33 6 15 64 85 28";
 
 export const cercleInstagram = "https://www.instagram.com/lecercle.paris/";
 
+export const pressKitUrl =
+  "https://drive.google.com/drive/folders/1VxMX6NAM5UyVw02vwCxBGN1PBbrXRr2L?usp=sharing";
+
 export const navLinks = [
   { href: "/", key: "home" } as const,
   { href: "/music", key: "music" } as const,
@@ -122,6 +125,13 @@ export const liveSetsMusic: LiveSet[] = [
     kicker: "Le Cercle",
     name: cercleSets[0].name,
     cover: images.liveViolet,
+  },
+  {
+    id: cercleSets[1].id,
+    kicker: "Le Cercle",
+    name: "Set du Cercle Brésil",
+    sub: "Édition Brésil",
+    cover: cercleGallery[1],
   },
   {
     id: "bsb-league",

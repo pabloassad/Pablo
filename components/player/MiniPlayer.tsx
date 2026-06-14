@@ -56,12 +56,18 @@ export function MiniPlayer() {
   };
 
   // YouTube state sync: handshake then listen for end-of-video to auto-advance.
+  // Mobile browsers often ignore the `autoplay=1` URL param for embedded iframes,
+  // so nudge playback explicitly via the postMessage API while the player boots.
   useEffect(() => {
     if (!track || track.source !== "youtube") return;
 
     const handshake = window.setInterval(() => {
       iframeRef.current?.contentWindow?.postMessage(
         JSON.stringify({ event: "listening", id: "pablito-player", channel: "widget" }),
+        "*"
+      );
+      iframeRef.current?.contentWindow?.postMessage(
+        JSON.stringify({ event: "command", func: "playVideo", args: [] }),
         "*"
       );
     }, 600);
@@ -89,20 +95,27 @@ export function MiniPlayer() {
   }, [track?.id]);
 
   // SoundCloud has no start-time embed param: nudge the widget to the track's
-  // offset while it boots, then leave the listener in control.
+  // offset while it boots. Also nudge `play` for every track — mobile browsers
+  // often ignore the `auto_play=true` URL param for embedded iframes.
   useEffect(() => {
-    if (!track || track.source !== "soundcloud" || !track.startTime) return;
-    const seekMs = track.startTime * 1000;
-    const seek = window.setInterval(() => {
+    if (!track || track.source !== "soundcloud") return;
+    const seekMs = track.startTime ? track.startTime * 1000 : null;
+    const nudge = window.setInterval(() => {
+      if (seekMs !== null) {
+        iframeRef.current?.contentWindow?.postMessage(
+          JSON.stringify({ method: "seekTo", value: seekMs }),
+          "*"
+        );
+      }
       iframeRef.current?.contentWindow?.postMessage(
-        JSON.stringify({ method: "seekTo", value: seekMs }),
+        JSON.stringify({ method: "play" }),
         "*"
       );
     }, 800);
-    const stopSeek = window.setTimeout(() => window.clearInterval(seek), 4000);
+    const stopNudge = window.setTimeout(() => window.clearInterval(nudge), 4000);
     return () => {
-      window.clearInterval(seek);
-      window.clearTimeout(stopSeek);
+      window.clearInterval(nudge);
+      window.clearTimeout(stopNudge);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- re-arm per track
   }, [track?.id]);

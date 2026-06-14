@@ -6,13 +6,14 @@ import { Reveal } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Emph } from "@/components/ui/Emph";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { contactEmail, contactPhone, images, socials } from "@/lib/data";
+import { contactEmail, contactPhone, images, pressKitUrl, socials } from "@/lib/data";
 import {
   SpotifyIcon,
   SoundcloudIcon,
   YoutubeIcon,
   InstagramIcon,
   LinkIcon,
+  ExternalLinkIcon,
 } from "@/components/ui/icons";
 
 const socialLinks = [
@@ -133,6 +134,18 @@ export function ContactPageContent() {
                   ))}
                 </div>
               </div>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <a
+                href={pressKitUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-muted transition-colors duration-300 hover:text-foreground"
+              >
+                <ExternalLinkIcon className="h-4 w-4" />
+                {t.contact.pressKit}
+              </a>
             </Reveal>
           </div>
 
