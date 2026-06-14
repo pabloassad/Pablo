@@ -129,8 +129,7 @@ export const liveSetsMusic: LiveSet[] = [
   {
     id: cercleSets[1].id,
     kicker: "Le Cercle",
-    name: "Set du Cercle Brésil",
-    sub: "Édition Brésil",
+    name: cercleSets[1].name,
     cover: cercleGallery[1],
   },
   {
