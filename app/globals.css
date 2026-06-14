@@ -126,6 +126,15 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* Header glass needs to fully mask content scrolling underneath — a light
+   frosted tint lets bright text bleed through the blur as a visible ghost. */
+.glass-header {
+  background: var(--background);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .text-balance {
   text-wrap: balance;
 }

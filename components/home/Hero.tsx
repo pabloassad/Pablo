@@ -140,9 +140,12 @@ export function Hero() {
             </Link>
           <Link
             href="/contact"
-            className="inline-flex items-center px-2 py-3 text-xs uppercase tracking-[0.3em] text-muted transition-colors hover:text-accent"
+            className="group inline-flex items-center gap-2 px-2 py-3 text-sm font-medium text-foreground/90 transition-colors duration-300 hover:text-accent"
           >
             {t.home.heroBooking}
+            <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
           </motion.div>
         </motion.div>

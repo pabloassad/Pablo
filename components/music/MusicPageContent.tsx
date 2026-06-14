@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { ArtImage } from "@/components/ui/ArtImage";
@@ -16,6 +17,8 @@ import { YoutubeIcon } from "@/components/ui/icons";
 
 export function MusicPageContent() {
   const { t } = useLanguage();
+  const [spotifyLoaded, setSpotifyLoaded] = useState(false);
+  const [soundcloudLoaded, setSoundcloudLoaded] = useState(false);
 
   return (
     <div className="pb-32">
@@ -164,7 +167,10 @@ export function MusicPageContent() {
                 {t.music.openPlatform} ↗
               </a>
             </div>
-            <div className="p-4">
+            <div className="relative p-4">
+              {!spotifyLoaded && (
+                <div className="absolute inset-4 animate-pulse rounded-xl bg-white/[0.04]" />
+              )}
               <iframe
                 src={`https://open.spotify.com/embed/artist/${spotifyArtistId}?utm_source=generator&theme=0`}
                 title="Pablito on Spotify"
@@ -172,7 +178,8 @@ export function MusicPageContent() {
                 height="352"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
-                className="rounded-xl"
+                onLoad={() => setSpotifyLoaded(true)}
+                className={`rounded-xl transition-opacity duration-500 ${spotifyLoaded ? "opacity-100" : "opacity-0"}`}
               />
             </div>
           </Reveal>
@@ -190,7 +197,10 @@ export function MusicPageContent() {
                 {t.music.openPlatform} ↗
               </a>
             </div>
-            <div className="p-4">
+            <div className="relative p-4">
+              {!soundcloudLoaded && (
+                <div className="absolute inset-4 animate-pulse rounded-xl bg-white/[0.04]" />
+              )}
               <iframe
                 src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(
                   soundcloudProfileUrl
@@ -200,7 +210,8 @@ export function MusicPageContent() {
                 height="352"
                 allow="autoplay"
                 loading="lazy"
-                className="rounded-xl"
+                onLoad={() => setSoundcloudLoaded(true)}
+                className={`rounded-xl transition-opacity duration-500 ${soundcloudLoaded ? "opacity-100" : "opacity-0"}`}
               />
             </div>
           </Reveal>

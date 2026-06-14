@@ -28,7 +28,7 @@ export function Header() {
       <header
         className={clsx(
           "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-          scrolled || menuOpen ? "glass" : "bg-transparent border-transparent"
+          scrolled || menuOpen ? "glass-header" : "bg-transparent border-transparent"
         )}
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 sm:px-8 lg:h-20 lg:px-12">

@@ -139,12 +139,12 @@ export const translations = {
           line: "Exchanges with the commissioner are part of every step of the process.",
         },
       ],
-      ctaTitle: "Let's talk about your project",
+      ctaTitle: "Bring your vision to life",
       ctaButton: "Get in touch",
     },
     contact: {
       kicker: "Contact",
-      title: "Let's talk about your project",
+      title: "Let's connect",
       intro: "Bookings, collaborations, press: every project starts with a conversation.",
       bookingIntro:
         "For a **booking**, a **performance** or a **collaboration**, get in touch with Pablito directly.",
@@ -317,12 +317,12 @@ export const translations = {
           line: "Les échanges avec le commanditaire sont intégrés à chaque étape du processus.",
         },
       ],
-      ctaTitle: "Parlons de votre projet",
+      ctaTitle: "Donnez vie à votre projet",
       ctaButton: "Prendre contact",
     },
     contact: {
       kicker: "Contact",
-      title: "Parlons de votre projet",
+      title: "Entrons en contact",
       intro: "Bookings, collaborations, presse : chaque projet commence par une conversation.",
       bookingIntro:
         "Pour un **booking**, une **prestation** ou une **collaboration**, contactez directement Pablito.",

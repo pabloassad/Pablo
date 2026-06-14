@@ -8,7 +8,7 @@ import { images, type ArtVariant } from "@/lib/data";
 
 const visuals: { src: string; fallback: ArtVariant; position: string }[] = [
   { src: images.clubCrowd, fallback: "rose", position: "object-[center_35%]" },
-  { src: images.studioComposition, fallback: "slate", position: "object-[center_40%]" },
+  { src: images.studioComposition, fallback: "slate", position: "object-[center_40%] brightness-125" },
 ];
 
 export function Duo() {
@@ -34,7 +34,7 @@ export function Duo() {
                 className="absolute inset-0"
                 imgClassName={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] ${visuals[i].position}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/15 to-transparent" />
               </ArtImage>
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-7 sm:p-9">
                 <div>
