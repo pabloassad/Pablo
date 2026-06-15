@@ -1,12 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      { source: "/about", destination: "/", permanent: false },
-      { source: "/live", destination: "/projects", permanent: false },
-      { source: "/projects/:slug", destination: "/projects", permanent: false },
-    ];
+  images: {
+    // All imagery is local; AVIF/WebP for lighter payloads.
+    formats: ["image/avif", "image/webp"],
   },
 };
 

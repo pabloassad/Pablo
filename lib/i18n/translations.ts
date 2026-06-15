@@ -1,372 +1,543 @@
-export type Locale = "en" | "fr";
+// Bilingual content for the Pablo Assad portfolio.
+// The English is an *adaptation* for an international audience, not a literal
+// mirror of the French — the premium register has to hold in both languages.
 
-export const locales: Locale[] = ["en", "fr"];
+export type Locale = "fr" | "en";
 
-export const translations = {
-  en: {
-    nav: {
-      home: "Home",
-      music: "Music",
-      projects: "Projects",
-      service: "Service",
-      contact: "Contact",
-      menu: "Menu",
-      close: "Close",
-    },
-    home: {
-      kicker: "DJ / Producer",
-      heroTagline: "Creating connection through sound.",
-      heroPlay: "Play the sound",
-      heroProjects: "View projects",
-      heroBooking: "Booking",
-      scroll: "Scroll",
-      profileIntro: "About",
-      profileParas: [
-        "Born into the world of **hip-hop dance**, I discovered **deejaying** almost naturally, from childhood.",
-        "From middle school on, between **beatmaking** and **piano** lessons, I sat in on my first **studio** sessions. Curiosity did the rest.",
-        "Today, every **set** I build is an extension of that story. A way of **connecting people** through sound.",
-        "Pablito is available for **bookings** in clubs, private events and festivals.",
-      ],
-      duoLabel: "Universe",
-      duo: [
-        {
-          title: "Club",
-          line: "Club sets, residencies and festivals.",
-          href: "/projects",
-        },
-        {
-          title: "Producer",
-          line: "Compositions, remixes and edits.",
-          href: "/music",
-        },
-      ],
-      cercleLabel: "Signature project",
-      cercleTitle: "Le Cercle",
-      cercleLine: "No stage. No separation. One shared frequency.",
-      cercleCta: "Enter the circle",
-      cerclePlay: "Play the latest set",
-      listenLabel: "Now streaming",
-      listenTitle: "Listen while you browse",
-      listenLine: "Launch the player. The music follows you across the site.",
-      ctaTitle: "Let's talk about your project",
-      ctaButton: "Get in touch",
-    },
-    music: {
-      kicker: "Music",
-      title: "Sound Gallery",
-      intro: "Productions, edits and live recordings.",
-      flStudioIntro:
-        "Pablito creates his own **remixes**, **mashups** and **edits** on **FL Studio**. This production practice shapes a **singular musical identity**. Every set is built on original creations heard nowhere else.",
-      play: "Play",
-      openPlatform: "Open",
-      spotifyTitle: "Releases",
-      soundcloudTitle: "Mixes and edits",
-      youtubeTitle: "Live sets",
-      youtubeLine: "Full recordings, Le Cercle and beyond.",
-      platforms: "Listen on",
-      setsLiveLabel: "Sets live",
-      setsLiveTitle: "Listen",
-      setsLiveIntro: "A glimpse of a few recorded sets.",
-      nowPlaying: "Now playing",
-    },
-    projects: {
-      kicker: "Projects",
-      title: "The sound, the stage and the eye",
-      intro: "Three territories, one intention: turning a room into a shared moment.",
-      clubsLabel: "Booking",
-      clubsTitle: "Clubs and stages",
-      collabsExtra:
-        "Including Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club and many more.",
-      cercleLabel: "Signature project",
-      cercleTitle: "Le Cercle",
-      cercleSetsNote: "Sets recorded during **official Le Cercle editions**.",
-      cercleIntro:
-        "Le Cercle is a festive event concept I built around one simple idea: **bringing people together** in an **elegant, convivial** setting where **music** is at the heart of the experience.",
-      cercleBody:
-        "Since 2023, every edition rests on a **strong theme**, a carefully chosen **venue** and a musical atmosphere designed **to measure**.",
-      cercleInstagram: "Follow Le Cercle",
-      statsParticipants: "Participants per edition",
-      statsEditions: "Editions",
-      statsViews: "Cumulative views",
-      statsPartners: "Major partners",
-      setsLabel: "Live archive",
-      setsTitle: "Live sets",
-      setsIntro: "Every date, recorded. A living archive.",
-      setsPlay: "Play this set",
-      nowPlaying: "Now playing",
-      ctaTitle: "Book Pablito",
-      ctaButton: "Get in touch",
-    },
-    service: {
-      kicker: "Service",
-      title: "Made to measure",
-      intro:
-        "DJ sets for your events and original music for your projects. Two offers, one same requirement.",
-      eventsLabel: "Beyond the club",
-      eventsAxis: "The sound, the stage and the eye.",
-      eventsTitle: "Private events",
-      eventsIntro:
-        "Pablito performs at your **weddings**, **private** parties, **corporate** events and **galas**. Every performance is designed to measure, to match your vision and your audience exactly.",
-      eventsPoints: [
-        {
-          title: "Full equipment provided",
-          line: "Professional sound system and stage lighting included in every performance. No external provider needed.",
-        },
-        {
-          title: "Tailor-made music selection",
-          line: "Every playlist is built around your wishes, your story and the atmosphere you want.",
-        },
-        {
-          title: "Room reading",
-          line: "Whether the audience is 20 or 500 people, young or intergenerational, Pablito adapts in real time.",
-        },
-      ],
-      compositionsLabel: "Production",
-      compositionsTitle: "Custom compositions",
-      compositionsIntro:
-        "Pablito composes and produces **custom music** for **live shows**, **audiovisual productions** and **artists**. Every project is shaped by the universe, the audience and the artistic intentions of its commissioner.",
-      compositionsPoints: [
-        {
-          title: "Original compositions",
-          line: "Every creation is produced from scratch on FL Studio, shaped to the identity of the project.",
-        },
-        {
-          title: "Every format",
-          line: "Jingle, opening theme, sound design, background music, long form creation.",
-        },
-        {
-          title: "Built together",
-          line: "Exchanges with the commissioner are part of every step of the process.",
-        },
-      ],
-      ctaTitle: "Bring your vision to life",
-      ctaButton: "Get in touch",
-    },
-    contact: {
-      kicker: "Contact",
-      title: "Let's connect",
-      intro: "Bookings, collaborations, press: every project starts with a conversation.",
-      bookingIntro:
-        "For a **booking**, a **performance** or a **collaboration**, get in touch with Pablito directly.",
-      emailLabel: "Email",
-      phoneLabel: "Phone",
-      socialLabel: "Follow",
-      pressKit: "Press Kit",
-      formName: "Name",
-      formEmail: "Email",
-      formMessage: "Message",
-      formSubmit: "Send message",
-      sending: "Sending…",
-      success: "Thank you, your message has been sent.",
-      error: "Something went wrong. Please try again or email directly.",
-      validation: {
-        required: "This field is required",
-        email: "Please enter a valid email address",
-      },
-    },
-    player: {
-      nowPlaying: "Now playing",
-      play: "Play",
-      pause: "Pause",
-      next: "Next",
-      previous: "Previous",
-      expand: "Expand player",
-      collapse: "Collapse player",
-      close: "Close player",
-    },
-    footer: {
-      rights: "All rights reserved.",
-      privacy: "Privacy Policy",
-      copyLink: "Copy link",
-      linkCopied: "Link copied",
-    },
+export interface NavItem {
+  id: string;
+  label: string;
+}
+
+export interface Movement {
+  index: string;
+  title: string;
+  body: string;
+}
+
+export interface CaseStudy {
+  index: string;
+  client: string;
+  discipline: string;
+  title: string;
+  context: string;
+  role: string;
+  action: string;
+  result: string;
+  image: string;
+}
+
+export interface TimelineEntry {
+  year: string;
+  title: string;
+  place: string;
+  note?: string;
+}
+
+export interface Translations {
+  meta: {
+    title: string;
+    description: string;
+  };
+  nav: {
+    items: NavItem[];
+    cta: string;
+    langLabel: string;
+  };
+  hero: {
+    kicker: string;
+    name: string;
+    lineOne: string;
+    lineTwo: string;
+    intro: string;
+    scroll: string;
+  };
+  manifesto: {
+    label: string;
+    lead: string;
+    body: string[];
+    pull: string;
+    pillars: { title: string; text: string }[];
+  };
+  method: {
+    label: string;
+    title: string;
+    intro: string;
+    movements: Movement[];
+  };
+  work: {
+    label: string;
+    title: string;
+    intro: string;
+    cases: CaseStudy[];
+    contextLabel: string;
+    roleLabel: string;
+    actionLabel: string;
+    resultLabel: string;
+  };
+  craft: {
+    label: string;
+    title: string;
+    body: string[];
+    aside: string;
+  };
+  path: {
+    label: string;
+    title: string;
+    educationLabel: string;
+    education: TimelineEntry[];
+    experienceLabel: string;
+    experience: TimelineEntry[];
+    toolsLabel: string;
+    tools: string[];
+    signalLabel: string;
+    signal: string;
+  };
+  contact: {
+    label: string;
+    title: string;
+    lead: string;
+    emailLabel: string;
+    phoneLabel: string;
+    linkedinLabel: string;
+    email: string;
+    phone: string;
+    phoneHref: string;
+    linkedin: string;
+    linkedinHandle: string;
+    pdf: string;
+  };
+  footer: {
+    note: string;
+    rights: string;
+  };
+}
+
+const fr: Translations = {
+  meta: {
+    title: "Pablo Assad — Chef de projet communication",
+    description:
+      "Pablo Assad, chef de projet communication. Un regard de créatif, la rigueur d'un stratège. Création de marque, direction artistique et pilotage de projets.",
   },
-  fr: {
-    nav: {
-      home: "Accueil",
-      music: "Musique",
-      projects: "Projets",
-      service: "Service",
-      contact: "Contact",
-      menu: "Menu",
-      close: "Fermer",
-    },
-    home: {
-      kicker: "DJ / Producteur",
-      heroTagline: "Créer du lien à travers le son.",
-      heroPlay: "Lancer le son",
-      heroProjects: "Voir les projets",
-      heroBooking: "Booking",
-      scroll: "Défiler",
-      profileIntro: "À propos",
-      profileParas: [
-        "Né dans l'univers de la **danse hip-hop**, j'ai découvert le **deejaying** presque naturellement, dès l'enfance.",
-        "Dès le collège, entre **beatmaking** et cours de **piano**, j'ai ouvert mes premières sessions en **studio**. La curiosité a fait le reste.",
-        "Aujourd'hui, chaque **set** que je construis est une extension de cette histoire. Une façon de **relier les gens** à travers le son.",
-        "Pablito est disponible pour des **bookings** en club, événements privés et festivals.",
-      ],
-      duoLabel: "Univers",
-      duo: [
-        {
-          title: "Club",
-          line: "Sets en club, résidences et festivals.",
-          href: "/projects",
-        },
-        {
-          title: "Producteur",
-          line: "Compositions, remixes et edits.",
-          href: "/music",
-        },
-      ],
-      cercleLabel: "Projet signature",
-      cercleTitle: "Le Cercle",
-      cercleLine: "Pas de scène. Pas de séparation. Une fréquence partagée.",
-      cercleCta: "Entrer dans le cercle",
-      cerclePlay: "Écouter le dernier set",
-      listenLabel: "En écoute",
-      listenTitle: "Écoutez en naviguant",
-      listenLine: "Lancez le player. La musique vous suit sur tout le site.",
-      ctaTitle: "Parlons de votre projet",
-      ctaButton: "Prendre contact",
-    },
-    music: {
-      kicker: "Musique",
-      title: "Galerie sonore",
-      intro: "Productions, edits et enregistrements live.",
-      flStudioIntro:
-        "Pablito compose ses propres **remixes**, **mashups** et **edits** sur **FL Studio**. Cette pratique de production forge une **identité musicale singulière**. Chaque set s'appuie sur des créations originales qu'on n'entend nulle part ailleurs.",
-      play: "Écouter",
-      openPlatform: "Ouvrir",
-      spotifyTitle: "Sorties",
-      soundcloudTitle: "Mixes et edits",
-      youtubeTitle: "Sets live",
-      youtubeLine: "Enregistrements complets, Le Cercle et au-delà.",
-      platforms: "Écouter sur",
-      setsLiveLabel: "Sets live",
-      setsLiveTitle: "En écoute",
-      setsLiveIntro: "Un aperçu de quelques sets enregistrés.",
-      nowPlaying: "En lecture",
-    },
-    projects: {
-      kicker: "Projets",
-      title: "Le son, la scène et le regard",
-      intro: "Trois territoires, une intention : transformer une salle en moment partagé.",
-      clubsLabel: "Booking",
-      clubsTitle: "Clubs et scènes",
-      collabsExtra:
-        "Dont Hôtel Carlton's, Les Bains Douches, Paradisio, Folie's Pigalle, Pavillon Tilsitt, Vincennes Estival Club et bien d'autres.",
-      cercleLabel: "Projet signature",
-      cercleTitle: "Le Cercle",
-      cercleSetsNote: "Les sets enregistrés lors des **éditions officielles du Cercle**.",
-      cercleIntro:
-        "Le Cercle est un concept d'événement festif que j'ai pensé autour d'une idée simple : **réunir des personnes** dans un cadre **élégant et convivial**, où la **musique** est au cœur de l'expérience.",
-      cercleBody:
-        "Depuis 2023, chaque édition repose sur un **thème fort**, un **lieu** soigneusement choisi et une ambiance musicale pensée **sur mesure**.",
-      cercleInstagram: "Suivre Le Cercle",
-      statsParticipants: "Participants par édition",
-      statsEditions: "Éditions",
-      statsViews: "Vues cumulées",
-      statsPartners: "Partenaires majeurs",
-      setsLabel: "Archive live",
-      setsTitle: "Les sets",
-      setsIntro: "Chaque date, enregistrée. Une archive vivante.",
-      setsPlay: "Écouter ce set",
-      nowPlaying: "En lecture",
-      ctaTitle: "Booker Pablito",
-      ctaButton: "Prendre contact",
-    },
-    service: {
-      kicker: "Service",
-      title: "Sur mesure",
-      intro:
-        "Des sets DJ pour vos événements et des créations musicales pour vos projets. Deux offres, une même exigence.",
-      eventsLabel: "Au-delà du club",
-      eventsAxis: "Le son, la scène et le regard.",
-      eventsTitle: "Événements privés",
-      eventsIntro:
-        "Pablito intervient pour vos **mariages**, soirées **privées**, événements **corporate** et **galas**. Chaque prestation est pensée sur mesure pour correspondre exactement à votre vision et à votre public.",
-      eventsPoints: [
-        {
-          title: "Matériel complet fourni",
-          line: "Sono professionnelle et éclairage scénique inclus dans chaque prestation. Aucun prestataire externe nécessaire.",
-        },
-        {
-          title: "Sélection musicale sur mesure",
-          line: "Chaque playlist est construite en fonction de vos envies, de votre histoire et de l'ambiance souhaitée.",
-        },
-        {
-          title: "Lecture de salle",
-          line: "Qu'il s'agisse d'un public de 20 ou 500 personnes, jeune ou intergénérationnel, Pablito s'adapte en temps réel.",
-        },
-      ],
-      compositionsLabel: "Production",
-      compositionsTitle: "Compositions sur mesure",
-      compositionsIntro:
-        "Pablito compose et produit des créations musicales **sur mesure** pour des **spectacles**, des **productions audiovisuelles** et des **artistes**. Chaque projet est pensé en fonction de l'univers, du public et des intentions artistiques du commanditaire.",
-      compositionsPoints: [
-        {
-          title: "Compositions originales",
-          line: "Chaque création est produite de zéro sur FL Studio, adaptée à l'identité du projet.",
-        },
-        {
-          title: "Tous formats",
-          line: "Jingle, générique, habillage sonore, musique de fond, création longue durée.",
-        },
-        {
-          title: "Travail en co-construction",
-          line: "Les échanges avec le commanditaire sont intégrés à chaque étape du processus.",
-        },
-      ],
-      ctaTitle: "Donnez vie à votre projet",
-      ctaButton: "Prendre contact",
-    },
-    contact: {
-      kicker: "Contact",
-      title: "Entrons en contact",
-      intro: "Bookings, collaborations, presse : chaque projet commence par une conversation.",
-      bookingIntro:
-        "Pour un **booking**, une **prestation** ou une **collaboration**, contactez directement Pablito.",
-      emailLabel: "Email",
-      phoneLabel: "Téléphone",
-      socialLabel: "Suivre",
-      pressKit: "Press Kit",
-      formName: "Nom",
-      formEmail: "Email",
-      formMessage: "Message",
-      formSubmit: "Envoyer",
-      sending: "Envoi…",
-      success: "Merci, votre message a été envoyé.",
-      error: "Une erreur est survenue. Réessayez ou écrivez-nous directement.",
-      validation: {
-        required: "Ce champ est requis",
-        email: "Merci d'entrer une adresse email valide",
-      },
-    },
-    player: {
-      nowPlaying: "En lecture",
-      play: "Lecture",
-      pause: "Pause",
-      next: "Suivant",
-      previous: "Précédent",
-      expand: "Agrandir le player",
-      collapse: "Réduire le player",
-      close: "Fermer le player",
-    },
-    footer: {
-      rights: "Tous droits réservés.",
-      privacy: "Politique de confidentialité",
-      copyLink: "Copier le lien",
-      linkCopied: "Lien copié",
-    },
+  nav: {
+    items: [
+      { id: "manifeste", label: "Manifeste" },
+      { id: "methode", label: "Méthode" },
+      { id: "projets", label: "Projets" },
+      { id: "creation", label: "Création" },
+      { id: "parcours", label: "Parcours" },
+      { id: "contact", label: "Contact" },
+    ],
+    cta: "Me contacter",
+    langLabel: "EN",
   },
-} as const;
+  hero: {
+    kicker: "Communication · direction de projet",
+    name: "Pablo Assad",
+    lineOne: "Je ne fais pas",
+    lineTwo: "de la communication.",
+    intro:
+      "Chef de projet communication. Un regard de créatif, la rigueur d'un stratège — et l'oreille d'un compositeur pour trouver le tempo d'une marque.",
+    scroll: "Faire défiler",
+  },
+  manifesto: {
+    label: "Manifeste",
+    lead: "Je compose des marques.",
+    body: [
+      "Une marque, c'est une partition. Des idées qui doivent tenir ensemble, un tempo à trouver, une intensité à doser. Mon métier consiste à transformer une intention floue en un récit qui se voit, s'entend et se retient.",
+      "J'ai grandi entre deux disciplines — la création et la stratégie — et j'ai fini par refuser de choisir. Je conçois comme un artiste, je pilote comme un chef de projet. Tout le reste n'est que mise en œuvre.",
+    ],
+    pull: "Le créatif imagine, le stratège tranche. Je préfère faire les deux dans la même phrase.",
+    pillars: [
+      {
+        title: "Un regard d'artiste",
+        text: "Formé aux arts appliqués, je pense la forme autant que le fond. L'esthétique n'est jamais décorative : elle porte le message.",
+      },
+      {
+        title: "Une posture de communicant",
+        text: "Positionnement, ton, audience. Je construis des marques qui savent à qui elles parlent et pourquoi on devrait les écouter.",
+      },
+      {
+        title: "Une énergie d'entrepreneur",
+        text: "J'ai créé et piloté mes propres projets de bout en bout. Je sais ce que coûte une idée et ce que rapporte une exécution juste.",
+      },
+    ],
+  },
+  method: {
+    label: "Méthode",
+    title: "La partition",
+    intro:
+      "Quatre mouvements. De l'écoute d'une marque à sa mise en scène, une même logique : comprendre avant de produire, doser avant de diffuser.",
+    movements: [
+      {
+        index: "01",
+        title: "Écouter",
+        body: "Comprendre la marque, son marché et ses publics avant de la faire parler. Veille, diagnostic, intuition. C'est là que se décide tout le reste.",
+      },
+      {
+        index: "02",
+        title: "Composer",
+        body: "Donner une direction : un positionnement, un ton, une identité visuelle. Transformer une stratégie en une forme désirable et cohérente.",
+      },
+      {
+        index: "03",
+        title: "Orchestrer",
+        body: "Piloter les équipes, les budgets, les délais et les prestataires. Tenir le tempo du projet sans jamais perdre l'intention de départ.",
+      },
+      {
+        index: "04",
+        title: "Diffuser",
+        body: "Mettre en scène, lancer, mesurer, ajuster. Une marque ne vaut que par ce qu'elle laisse dans la tête des gens.",
+      },
+    ],
+  },
+  work: {
+    label: "Projets",
+    title: "Le répertoire",
+    intro:
+      "Cinq contextes, un même fil : prendre une marque là où elle est et l'amener un cran plus loin. Agences, association, projet entrepreneurial.",
+    contextLabel: "Contexte",
+    roleLabel: "Rôle",
+    actionLabel: "Action",
+    resultLabel: "Résultat",
+    cases: [
+      {
+        index: "01",
+        client: "Rosa Paris",
+        discipline: "Direction artistique & événementiel",
+        title: "Donner un visage à la cohésion",
+        context:
+          "Agence de communication. Mission de direction artistique et coordination d'un grand événement interne de cohésion (la Rosa Summer Party).",
+        role: "Direction artistique, conception des supports, coordination logistique.",
+        action:
+          "Conception de l'identité visuelle de l'événement et de l'ensemble de ses supports, puis pilotage de la production et de la logistique jusqu'au jour J.",
+        result:
+          "Un événement maîtrisé de bout en bout, une identité cohérente de l'invitation à la scénographie, et une expérience interne qui a renforcé le sentiment d'appartenance.",
+        image: "/images/premium-portrait.jpg",
+      },
+      {
+        index: "02",
+        client: "Le Cercle",
+        discipline: "Création de marque & brand content",
+        title: "Construire une marque de zéro",
+        context:
+          "Projet entrepreneurial. Une marque créée de toutes pièces, à piloter comme une entreprise : audience, contenu, fidélisation.",
+        role: "Fondateur, stratégie de marque et de contenu, pilotage opérationnel.",
+        action:
+          "Définition du positionnement et de l'univers de marque, production d'un brand content régulier, animation et fidélisation d'une communauté sur plusieurs éditions successives.",
+        result:
+          "Une marque devenue un repère pour son public, portée par une ligne éditoriale constante et une communauté qui revient — la preuve concrète d'un savoir-faire de bout en bout.",
+        image: "/images/pablito-amber.jpg",
+      },
+      {
+        index: "03",
+        client: "Riva Agency",
+        discipline: "Pilotage de missions clients",
+        title: "Tenir le cap, le budget et l'équipe",
+        context:
+          "Junior-agency du BUT Information-Communication. Missions réelles pour des clients (ESCE, ISG), avec budgets et équipe à gérer.",
+        role: "Pilotage de projet, relation client, gestion d'équipe et de budget.",
+        action:
+          "Cadrage des besoins clients, répartition du travail, suivi des budgets et des échéances, garantie de la cohérence entre la commande et le livrable.",
+        result:
+          "Des missions livrées dans les délais et le cadre fixé, et l'apprentissage décisif du métier : transformer une demande en résultat, avec une équipe et des contraintes réelles.",
+        image: "/images/pablito-beige.jpg",
+      },
+      {
+        index: "04",
+        client: "Volange",
+        discipline: "Branding & production de contenus",
+        title: "Faire monter une marque en notoriété",
+        context:
+          "Agence événementielle. Travail sur le branding et la notoriété de la marque Aguila.",
+        role: "Branding, réponse aux briefs créatifs, production de contenus.",
+        action:
+          "Traduction des briefs en partis pris créatifs, production de contenus alignés sur la marque et contribution à la cohérence de son image sur ses prises de parole.",
+        result:
+          "Une marque plus lisible et mieux incarnée, des contenus qui servent un même récit plutôt que de s'empiler au gré des opportunités.",
+        image: "/images/studio-composition.jpg",
+      },
+      {
+        index: "05",
+        client: "Fondament'All",
+        discipline: "Marque en transformation",
+        title: "Faire évoluer sans trahir",
+        context:
+          "Association culturelle (Champigny) en pleine transformation identitaire. Enjeu : faire évoluer la communication sans perdre la cohérence de marque.",
+        role: "Chargé de communication, accompagnement de la transition de marque.",
+        action:
+          "Diagnostic de l'identité existante au prisme des modèles de Kapferer et Aaker, puis recommandations pour faire évoluer le discours et les supports en préservant l'ADN de la structure.",
+        result:
+          "Une trajectoire de marque claire pour une association en mutation : du changement assumé, mais une cohérence préservée à chaque étape.",
+        image: "/images/extra/pablito-denim.jpg",
+      },
+    ],
+  },
+  craft: {
+    label: "Création",
+    title: "Avant la stratégie, il y a l'oreille",
+    body: [
+      "Je compose, je joue du piano, j'écris. Cette pratique n'est pas un à-côté : c'est elle qui aiguise mon métier.",
+      "La musique m'a appris ce qu'aucun manuel de marketing n'enseigne vraiment — sentir un rythme, lire une émotion dans une salle, savoir quand poser un silence. C'est exactement ce qu'on demande à une marque : entrer juste, au bon moment, avec la bonne intensité.",
+    ],
+    aside: "Une intuition créative qui se met au service de la stratégie, jamais l'inverse.",
+  },
+  path: {
+    label: "Parcours",
+    title: "Parcours & signaux",
+    educationLabel: "Formation",
+    education: [
+      { year: "2026", title: "Master Stratégie de communication", place: "Objectif rentrée — en recherche d'alternance" },
+      { year: "2023–26", title: "BUT Information-Communication", place: "Université Paris 8", note: "Major de promotion" },
+      { year: "2021–23", title: "BTS Communication", place: "Lycée Samuel de Champlain" },
+      { year: "—", title: "Bac STD2A — Arts appliqués", place: "Design, esthétique & fonction" },
+    ],
+    experienceLabel: "Expériences",
+    experience: [
+      { year: "", title: "Rosa Paris", place: "Direction artistique & événementiel" },
+      { year: "", title: "Volange", place: "Branding & contenus" },
+      { year: "", title: "Riva Agency", place: "Pilotage de missions clients" },
+      { year: "", title: "Fondament'All", place: "Communication — marque en transformation" },
+      { year: "", title: "Le Cercle", place: "Création de marque (projet entrepreneurial)" },
+    ],
+    toolsLabel: "Outils",
+    tools: ["Photoshop", "Illustrator", "Premiere Pro", "Figma", "FL Studio", "IA générative", "Firefly"],
+    signalLabel: "Distinction",
+    signal: "Major de promotion — moyenne supérieure à 15/20.",
+  },
+  contact: {
+    label: "Contact",
+    title: "Construisons quelque chose qui s'entend.",
+    lead:
+      "Recrutement, alternance, ou une marque à faire grandir ? Écrivez-moi — je réponds vite, et toujours par une vraie idée.",
+    emailLabel: "Email",
+    phoneLabel: "Téléphone",
+    linkedinLabel: "LinkedIn",
+    email: "pabloassad14@gmail.com",
+    phone: "06 15 64 85 28",
+    phoneHref: "+33615648528",
+    linkedin: "https://www.linkedin.com/in/pabloassad",
+    linkedinHandle: "in/pabloassad",
+    pdf: "Télécharger en PDF",
+  },
+  footer: {
+    note: "Composé à Paris.",
+    rights: "Tous droits réservés.",
+  },
+};
 
-type Widen<T> = T extends string
-  ? string
-  : T extends readonly (infer U)[]
-    ? readonly Widen<U>[]
-    : T extends object
-      ? { [K in keyof T]: Widen<T[K]> }
-      : T;
+const en: Translations = {
+  meta: {
+    title: "Pablo Assad — Communications Project Manager",
+    description:
+      "Pablo Assad, communications project manager. A creative's eye, a strategist's discipline. Brand building, art direction and project leadership.",
+  },
+  nav: {
+    items: [
+      { id: "manifeste", label: "Manifesto" },
+      { id: "methode", label: "Method" },
+      { id: "projets", label: "Work" },
+      { id: "creation", label: "Craft" },
+      { id: "parcours", label: "Path" },
+      { id: "contact", label: "Contact" },
+    ],
+    cta: "Get in touch",
+    langLabel: "FR",
+  },
+  hero: {
+    kicker: "Communications · project leadership",
+    name: "Pablo Assad",
+    lineOne: "I don't run",
+    lineTwo: "communications.",
+    intro:
+      "Communications project manager. A creative's eye, a strategist's discipline — and a composer's ear for finding a brand's tempo.",
+    scroll: "Scroll",
+  },
+  manifesto: {
+    label: "Manifesto",
+    lead: "I compose brands.",
+    body: [
+      "A brand is a score. Ideas that have to hold together, a tempo to find, an intensity to dose. My job is to turn a blurry intention into a story you can see, hear and remember.",
+      "I grew up between two disciplines — creation and strategy — and eventually refused to choose. I design like an artist and run projects like a manager. Everything else is just execution.",
+    ],
+    pull: "The creative imagines, the strategist decides. I'd rather do both in the same sentence.",
+    pillars: [
+      {
+        title: "An artist's eye",
+        text: "Trained in applied arts, I think about form as much as substance. Aesthetics are never decorative here — they carry the message.",
+      },
+      {
+        title: "A communicator's stance",
+        text: "Positioning, tone, audience. I build brands that know who they're talking to, and why anyone should listen.",
+      },
+      {
+        title: "A founder's drive",
+        text: "I've created and run my own projects end to end. I know what an idea costs — and what the right execution returns.",
+      },
+    ],
+  },
+  method: {
+    label: "Method",
+    title: "The score",
+    intro:
+      "Four movements. From listening to a brand to staging it, one logic throughout: understand before producing, dose before releasing.",
+    movements: [
+      {
+        index: "01",
+        title: "Listen",
+        body: "Understand the brand, its market and its audiences before making it speak. Research, diagnosis, instinct. Everything else is decided here.",
+      },
+      {
+        index: "02",
+        title: "Compose",
+        body: "Set a direction: a positioning, a tone, a visual identity. Turn a strategy into a form that is both desirable and coherent.",
+      },
+      {
+        index: "03",
+        title: "Orchestrate",
+        body: "Lead the teams, budgets, deadlines and partners. Hold the project's tempo without ever losing the original intent.",
+      },
+      {
+        index: "04",
+        title: "Release",
+        body: "Stage it, launch, measure, adjust. A brand is only worth what it leaves in people's minds.",
+      },
+    ],
+  },
+  work: {
+    label: "Work",
+    title: "The repertoire",
+    intro:
+      "Five contexts, one thread: take a brand where it stands and move it a notch further. Agencies, a cultural non-profit, an entrepreneurial venture.",
+    contextLabel: "Context",
+    roleLabel: "Role",
+    actionLabel: "Action",
+    resultLabel: "Result",
+    cases: [
+      {
+        index: "01",
+        client: "Rosa Paris",
+        discipline: "Art direction & events",
+        title: "Giving cohesion a face",
+        context:
+          "Communications agency. Art direction and coordination of a major internal cohesion event (the Rosa Summer Party).",
+        role: "Art direction, collateral design, logistics coordination.",
+        action:
+          "Designed the event's visual identity and full set of materials, then drove production and logistics all the way to the day itself.",
+        result:
+          "An event controlled end to end, a coherent identity from invitation to staging, and an internal experience that strengthened a sense of belonging.",
+        image: "/images/premium-portrait.jpg",
+      },
+      {
+        index: "02",
+        client: "Le Cercle",
+        discipline: "Brand building & content",
+        title: "Building a brand from zero",
+        context:
+          "Entrepreneurial venture. A brand built from scratch and run like a business: audience, content, loyalty.",
+        role: "Founder, brand & content strategy, hands-on operations.",
+        action:
+          "Defined the positioning and brand world, produced consistent brand content, and grew and retained a community across several successive editions.",
+        result:
+          "A brand that became a landmark for its audience — carried by a steady editorial line and a community that keeps coming back. End-to-end proof of craft.",
+        image: "/images/pablito-amber.jpg",
+      },
+      {
+        index: "03",
+        client: "Riva Agency",
+        discipline: "Client project leadership",
+        title: "Holding the course, the budget and the team",
+        context:
+          "The junior agency of the Information-Communication degree. Real client work (ESCE, ISG), with budgets and a team to manage.",
+        role: "Project leadership, client relations, team and budget management.",
+        action:
+          "Framed client needs, distributed the work, tracked budgets and deadlines, and kept the deliverable true to the brief.",
+        result:
+          "Projects delivered on time and on scope — and the decisive lesson of the craft: turning a request into a result, with a real team and real constraints.",
+        image: "/images/pablito-beige.jpg",
+      },
+      {
+        index: "04",
+        client: "Volange",
+        discipline: "Branding & content production",
+        title: "Lifting a brand's profile",
+        context: "Events agency. Branding and awareness work for the Aguila brand.",
+        role: "Branding, creative-brief response, content production.",
+        action:
+          "Translated briefs into creative directions, produced on-brand content, and helped keep its image coherent across communications.",
+        result:
+          "A clearer, better-embodied brand — content that serves one story instead of piling up with each opportunity.",
+        image: "/images/studio-composition.jpg",
+      },
+      {
+        index: "05",
+        client: "Fondament'All",
+        discipline: "Brand in transition",
+        title: "Evolving without betraying",
+        context:
+          "A cultural non-profit (Champigny) in the middle of an identity shift. The stake: evolve the communication without losing brand coherence.",
+        role: "Communications lead, support on the brand transition.",
+        action:
+          "Audited the existing identity through the Kapferer and Aaker models, then recommended how to evolve the discourse and materials while preserving the organisation's DNA.",
+        result:
+          "A clear brand trajectory for an organisation in flux: change owned openly, coherence preserved at every step.",
+        image: "/images/extra/pablito-denim.jpg",
+      },
+    ],
+  },
+  craft: {
+    label: "Craft",
+    title: "Before strategy, there's the ear",
+    body: [
+      "I compose, I play piano, I write. This practice isn't a sideline — it's what sharpens the work.",
+      "Music taught me what no marketing handbook really does: feeling a rhythm, reading the emotion in a room, knowing when to leave a silence. That's exactly what a brand is asked to do — to land right, at the right moment, with the right intensity.",
+    ],
+    aside: "A creative instinct put to work for strategy — never the other way around.",
+  },
+  path: {
+    label: "Path",
+    title: "Path & signals",
+    educationLabel: "Education",
+    education: [
+      { year: "2026", title: "MSc Communication Strategy", place: "Target intake — seeking a work-study placement" },
+      { year: "2023–26", title: "BUT Information-Communication", place: "Université Paris 8", note: "Top of class" },
+      { year: "2021–23", title: "BTS Communication", place: "Lycée Samuel de Champlain" },
+      { year: "—", title: "Baccalauréat STD2A — Applied Arts", place: "Design, aesthetics & function" },
+    ],
+    experienceLabel: "Experience",
+    experience: [
+      { year: "", title: "Rosa Paris", place: "Art direction & events" },
+      { year: "", title: "Volange", place: "Branding & content" },
+      { year: "", title: "Riva Agency", place: "Client project leadership" },
+      { year: "", title: "Fondament'All", place: "Communications — brand in transition" },
+      { year: "", title: "Le Cercle", place: "Brand building (entrepreneurial venture)" },
+    ],
+    toolsLabel: "Tools",
+    tools: ["Photoshop", "Illustrator", "Premiere Pro", "Figma", "FL Studio", "Generative AI", "Firefly"],
+    signalLabel: "Distinction",
+    signal: "Top of class — overall average above 15/20.",
+  },
+  contact: {
+    label: "Contact",
+    title: "Let's build something you can hear.",
+    lead:
+      "Hiring, a work-study placement, or a brand to grow? Write to me — I reply fast, and always with a real idea.",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    linkedinLabel: "LinkedIn",
+    email: "pabloassad14@gmail.com",
+    phone: "+33 6 15 64 85 28",
+    phoneHref: "+33615648528",
+    linkedin: "https://www.linkedin.com/in/pabloassad",
+    linkedinHandle: "in/pabloassad",
+    pdf: "Download as PDF",
+  },
+  footer: {
+    note: "Composed in Paris.",
+    rights: "All rights reserved.",
+  },
+};
 
-export type Translations = Widen<typeof translations.en>;
+export const locales: Locale[] = ["fr", "en"];
+
+export const translations: Record<Locale, Translations> = { fr, en };

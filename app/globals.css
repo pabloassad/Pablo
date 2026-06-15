@@ -1,68 +1,40 @@
 @import "tailwindcss";
 
+/* ───────────────────────── Design tokens ─────────────────────────
+   A bright, gallery-grade base. Warmth comes from a single amber accent,
+   used sparingly. No magic numbers downstream — everything maps here. */
 :root {
-  --background: #050505;
-  --background-elevated: #0c0c0e;
-  --foreground: #f5f5f3;
-  --muted: #9a9a9f;
-  --line: rgba(255, 255, 255, 0.08);
-  --accent: #d8c8a8;
-  --accent-soft: rgba(216, 200, 168, 0.18);
+  --paper: #f6f3ee; /* warm white base */
+  --paper-deep: #efeae1; /* alternating section ground */
+  --ink: #16130e; /* warm near-black */
+  --muted: #5c564c; /* AA body-muted on paper */
+  --faint: #a59d8f; /* decorative / labels */
+  --line: rgba(22, 19, 14, 0.12);
+  --accent: #e2622e; /* ambre solaire — the one accent */
+  --accent-deep: #b94918; /* AA-safe accent for small text/links */
+  --accent-soft: rgba(226, 98, 46, 0.12);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-background-elevated: var(--background-elevated);
-  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
   --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-brand: var(--font-kiona);
-  --animate-fade-up: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-fade-in: fade-in 1.4s ease forwards;
-  --animate-marquee: marquee 38s linear infinite;
-  --animate-glow: glow 6s ease-in-out infinite;
 
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(28px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes glow {
-    0%,
-    100% {
-      opacity: 0.35;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.6;
-      transform: scale(1.08);
-    }
-  }
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono-jetbrains);
+
+  /* Editorial type scale — large display, generous body. */
+  --text-display: clamp(3.25rem, 9vw, 9rem);
+  --text-display--line-height: 0.94;
+  --text-h2: clamp(2.25rem, 5vw, 4.5rem);
+  --text-h2--line-height: 1.02;
 }
 
 * {
@@ -70,37 +42,35 @@
 }
 
 html {
-  background: var(--background);
-  scroll-behavior: smooth;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), "Inter", "SF Pro Display", system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), "Inter", system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
   background: var(--accent-soft);
-  color: var(--foreground);
+  color: var(--ink);
 }
 
-/* Keyboard focus — visible accent ring on every interactive element.
-   Modern browsers clip the outline to the element's border-radius, so
-   pills and rounded cards get a matching rounded ring. Mouse/touch focus
-   (which isn't :focus-visible) stays clean. */
+/* Keyboard focus — visible amber ring on every interactive element. */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-deep);
   outline-offset: 3px;
+  border-radius: 2px;
 }
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Touch devices have no :hover — give a subtle press feedback instead.
-   Opacity-only (no transform) so nothing reflows or overlaps under the tap. */
+/* Touch devices have no :hover — subtle press feedback instead. */
 @media (hover: none) {
   a:active,
   button:active {
@@ -108,38 +78,36 @@ body {
   }
 }
 
-/* Subtle film-grain texture overlay used across the site */
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* ───────────────────────── Utilities ───────────────────────── */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
 }
-
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* Header glass needs to fully mask content scrolling underneath — a light
-   frosted tint lets bright text bleed through the blur as a visible ghost. */
-.glass-header {
-  background: var(--background);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
 }
 
 .text-balance {
   text-wrap: balance;
 }
+.text-pretty {
+  text-wrap: pretty;
+}
 
-/* Hide scrollbar for horizontal scroll containers */
+/* Eyebrow / section label — mono, tracked-out, with a leading tick. */
+.kicker {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Fine top hairline used to open sections. */
+.hairline {
+  height: 1px;
+  background: var(--line);
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -148,45 +116,33 @@ body {
   scrollbar-width: none;
 }
 
-.gradient-mask-b {
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+/* A whisper of paper grain — keeps large flats from looking flat. */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Mini-player equalizer bars */
-@keyframes eq-bounce {
-  0%,
-  100% {
-    height: 30%;
-  }
-  50% {
-    height: 100%;
-  }
+/* ───────────────────────── Lenis smooth scroll ───────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
-.eq-bar {
-  height: 30%;
-  animation: eq-bounce 0.9s ease-in-out infinite;
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
-.eq-paused {
-  animation-play-state: paused;
-  height: 30%;
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
-/* Slow rotating ring ornament (Le Cercle motif) */
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin-slow {
-  animation: spin-slow 60s linear infinite;
-}
-
-/* Reduced motion — neutralize CSS keyframes and transitions.
-   Framer-motion animations are already covered by MotionConfig reducedMotion="user". */
+/* ───────────────────────── Reduced motion ─────────────────────────
+   Framer Motion is covered by MotionConfig reducedMotion="user"; this
+   neutralizes raw CSS animations/transitions and the WebGL loop opts out
+   on its own via the matchMedia query. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -195,5 +151,38 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ───────────────────────── Print → PDF ─────────────────────────
+   The "Download as PDF" button opens the browser print dialog. This
+   stylesheet flattens the experience into a clean, recruiter-ready document. */
+@media print {
+  html,
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  section {
+    padding: 1.25rem 0 !important;
+    min-height: 0 !important;
+  }
+  .grain,
+  canvas {
+    display: none !important;
+  }
+  * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+    color: #000 !important;
   }
 }

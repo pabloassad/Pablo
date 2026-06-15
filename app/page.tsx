@@ -1,21 +1,21 @@
-import { Hero } from "@/components/home/Hero";
-import { Marquee } from "@/components/home/Marquee";
-import { ProfileSection } from "@/components/home/ProfileSection";
-import { Duo } from "@/components/home/Duo";
-import { CercleBand } from "@/components/home/CercleBand";
-import { ListenStrip } from "@/components/home/ListenStrip";
-import { FinalCta } from "@/components/home/FinalCta";
+import { Hero } from "@/components/chapters/Hero";
+import { Manifesto } from "@/components/chapters/Manifesto";
+import { Method } from "@/components/chapters/Method";
+import { Work } from "@/components/chapters/Work";
+import { Craft } from "@/components/chapters/Craft";
+import { Path } from "@/components/chapters/Path";
+import { Contact } from "@/components/chapters/Contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee />
-      <ProfileSection />
-      <Duo />
-      <CercleBand />
-      <ListenStrip />
-      <FinalCta />
+      <Manifesto />
+      <Method />
+      <Work />
+      <Craft />
+      <Path />
+      <Contact />
     </>
   );
 }

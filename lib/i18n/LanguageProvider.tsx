@@ -12,21 +12,25 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
-const STORAGE_KEY = "pablito-locale";
+const STORAGE_KEY = "pablo-locale";
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  // Default to French (primary audience: French agencies & the Master). The
+  // SSR HTML is rendered with lang="fr"; we reconcile to a stored/browser
+  // preference on the client to avoid a hydration mismatch.
+  const [locale, setLocaleState] = useState<Locale>("fr");
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
-    let initial: Locale = "en";
+    let initial: Locale = "fr";
     if (stored === "en" || stored === "fr") {
       initial = stored;
-    } else if (window.navigator.language.toLowerCase().startsWith("fr")) {
-      initial = "fr";
+    } else if (!window.navigator.language.toLowerCase().startsWith("fr")) {
+      initial = "en";
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate locale from client-only storage
     setLocaleState(initial);
+    document.documentElement.lang = initial;
   }, []);
 
   const setLocale = (next: Locale) => {
@@ -35,7 +39,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     document.documentElement.lang = next;
   };
 
-  const toggleLocale = () => setLocale(locale === "en" ? "fr" : "en");
+  const toggleLocale = () => setLocale(locale === "fr" ? "en" : "fr");
 
   return (
     <LanguageContext.Provider value={{ locale, setLocale, toggleLocale, t: translations[locale] }}>

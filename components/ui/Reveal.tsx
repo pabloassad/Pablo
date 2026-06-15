@@ -1,71 +1,45 @@
 "use client";
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { motion, type Variants } from "framer-motion";
+import type { ElementType, ReactNode } from "react";
+
+const variants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
+      delay: i * 0.08,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
 
 interface RevealProps {
   children: ReactNode;
-  delay?: number;
+  /** Stagger index — multiplied by 0.08s. */
+  delayIndex?: number;
   className?: string;
-  y?: number;
-  as?: "div" | "span";
+  as?: "div" | "span" | "li" | "p" | "h2" | "h3";
 }
 
-export function Reveal({ children, delay = 0, className, y = 28 }: RevealProps) {
+/**
+ * Fades + lifts its children into view once, the first time they enter the
+ * viewport. Reduced-motion users get an instant, static reveal via MotionConfig.
+ */
+export function Reveal({ children, delayIndex = 0, className, as = "div" }: RevealProps) {
+  const MotionTag = motion[as] as ElementType;
   return (
-    <motion.div
+    <MotionTag
       className={className}
+      variants={variants}
+      custom={delayIndex}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
     >
       {children}
-    </motion.div>
-  );
-}
-
-export function RevealGroup({
-  children,
-  className,
-  stagger = 0.1,
-}: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: { staggerChildren: stagger },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-export function RevealItem({ children, className, y = 24 }: RevealProps) {
-  return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } },
-      }}
-    >
-      {children}
-    </motion.div>
+    </MotionTag>
   );
 }
