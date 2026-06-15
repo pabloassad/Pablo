@@ -316,8 +316,8 @@ const fr: Translations = {
     email: "pabloassad14@gmail.com",
     phone: "06 15 64 85 28",
     phoneHref: "+33615648528",
-    linkedin: "https://www.linkedin.com/in/pabloassad",
-    linkedinHandle: "in/pabloassad",
+    linkedin: "https://www.linkedin.com/in/pablo-assad-40bb75189/",
+    linkedinHandle: "in/pablo-assad",
     pdf: "Télécharger en PDF",
   },
   footer: {
@@ -528,8 +528,8 @@ const en: Translations = {
     email: "pabloassad14@gmail.com",
     phone: "+33 6 15 64 85 28",
     phoneHref: "+33615648528",
-    linkedin: "https://www.linkedin.com/in/pabloassad",
-    linkedinHandle: "in/pabloassad",
+    linkedin: "https://www.linkedin.com/in/pablo-assad-40bb75189/",
+    linkedinHandle: "in/pablo-assad",
     pdf: "Download as PDF",
   },
   footer: {
