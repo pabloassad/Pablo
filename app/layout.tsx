@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
+import { Intro } from "@/components/ui/Intro";
 
 // Display — a contemporary, expressive serif (optical sizing on by default).
 const fraunces = Fraunces({
@@ -79,6 +80,7 @@ export default function RootLayout({
     >
       <body className="bg-paper text-ink min-h-screen">
         <Providers>
+          <Intro />
           <div className="grain" aria-hidden />
           <Nav />
           <main>{children}</main>

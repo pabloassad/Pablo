@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import type { TimelineEntry } from "@/lib/i18n/translations";
 
@@ -40,14 +41,12 @@ export function Path() {
         <Reveal>
           <SectionLabel index="05" label={p.label} />
         </Reveal>
-        <Reveal delayIndex={1}>
-          <h2
-            className="font-display mt-8 font-light"
-            style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-          >
-            {p.title}
-          </h2>
-        </Reveal>
+        <RevealText
+          as="h2"
+          text={p.title}
+          className="font-display mt-8 font-light"
+          style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+        />
 
         <div className="mt-16 grid gap-x-16 gap-y-14 md:grid-cols-2">
           <div>

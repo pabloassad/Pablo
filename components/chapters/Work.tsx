@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import type { CaseStudy } from "@/lib/i18n/translations";
 import { cn } from "@/lib/utils";
@@ -69,14 +70,12 @@ export function Work() {
             <Reveal>
               <SectionLabel index="03" label={w.label} />
             </Reveal>
-            <Reveal delayIndex={1}>
-              <h2
-                className="font-display mt-8 font-light"
-                style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-              >
-                {w.title}
-              </h2>
-            </Reveal>
+            <RevealText
+              as="h2"
+              text={w.title}
+              className="font-display mt-8 font-light"
+              style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+            />
           </div>
           <Reveal delayIndex={2} as="p" className="text-muted md:col-span-4 text-base leading-relaxed text-pretty">
             {w.intro}

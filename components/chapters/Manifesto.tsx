@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Manifesto() {
@@ -15,14 +16,12 @@ export function Manifesto() {
           <SectionLabel index="01" label={m.label} />
         </Reveal>
 
-        <Reveal delayIndex={1}>
-          <h2
-            className="font-display mt-10 max-w-4xl font-light text-pretty"
-            style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-          >
-            {m.lead}
-          </h2>
-        </Reveal>
+        <RevealText
+          as="h2"
+          text={m.lead}
+          className="font-display mt-10 max-w-4xl font-light text-pretty"
+          style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+        />
 
         <div className="mt-12 grid gap-10 md:grid-cols-12">
           <div className="space-y-6 md:col-span-7 md:col-start-1">

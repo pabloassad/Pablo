@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { RevealText } from "@/components/ui/RevealText";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
@@ -26,14 +26,12 @@ export function Contact() {
           </div>
         </Reveal>
 
-        <Reveal delayIndex={1}>
-          <h2
-            className="font-display mt-10 max-w-4xl font-light text-pretty"
-            style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-          >
-            {c.title}
-          </h2>
-        </Reveal>
+        <RevealText
+          as="h2"
+          text={c.title}
+          className="font-display mt-10 max-w-4xl font-light text-pretty"
+          style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+        />
 
         <Reveal delayIndex={2} as="p" className="mt-8 max-w-xl text-lg leading-relaxed text-paper/70 text-pretty">
           {c.lead}

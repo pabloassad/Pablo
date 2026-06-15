@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Craft() {
@@ -18,14 +19,12 @@ export function Craft() {
 
         <div className="mt-12 grid gap-12 md:grid-cols-12 md:items-center">
           <div className="md:col-span-6">
-            <Reveal delayIndex={1}>
-              <h2
-                className="font-display max-w-xl font-light text-pretty"
-                style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-              >
-                {c.title}
-              </h2>
-            </Reveal>
+            <RevealText
+              as="h2"
+              text={c.title}
+              className="font-display max-w-xl font-light text-pretty"
+              style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+            />
             <div className="mt-8 space-y-5">
               {c.body.map((p, i) => (
                 <Reveal key={i} delayIndex={i + 2} as="p" className="text-muted text-lg leading-relaxed text-pretty">

@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function Method() {
@@ -16,14 +17,12 @@ export function Method() {
             <Reveal>
               <SectionLabel index="02" label={m.label} />
             </Reveal>
-            <Reveal delayIndex={1}>
-              <h2
-                className="font-display mt-8 font-light"
-                style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
-              >
-                {m.title}
-              </h2>
-            </Reveal>
+            <RevealText
+              as="h2"
+              text={m.title}
+              className="font-display mt-8 font-light"
+              style={{ fontSize: "var(--text-h2)", lineHeight: "var(--text-h2--line-height)" }}
+            />
           </div>
           <Reveal delayIndex={2} as="p" className="text-muted md:col-span-4 text-base leading-relaxed text-pretty">
             {m.intro}

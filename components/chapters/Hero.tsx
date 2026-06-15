@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { Parallax } from "@/components/ui/Parallax";
 
 // Client-only WebGL — never rendered on the server.
 const SignatureWave = dynamic(
@@ -21,8 +22,12 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-6 pt-28 pb-20 sm:px-10 lg:px-16"
     >
-      {/* Signature frequency ribbon */}
-      <SignatureWave className="pointer-events-none absolute inset-x-0 top-1/2 -z-0 h-[42vh] w-full -translate-y-1/2 opacity-90" />
+      {/* Signature frequency ribbon — drifts gently with scroll for depth */}
+      <div className="pointer-events-none absolute inset-0 -z-0 flex items-center">
+        <Parallax distance={70} className="w-full">
+          <SignatureWave className="h-[42vh] w-full opacity-90" />
+        </Parallax>
+      </div>
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <motion.div
@@ -38,22 +43,26 @@ export function Hero() {
           className="font-display mt-6 max-w-5xl text-pretty"
           style={{ fontSize: "var(--text-display)", lineHeight: "var(--text-display--line-height)" }}
         >
-          <motion.span
-            className="block font-light"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease, delay: 0.1 }}
-          >
-            {h.lineOne}
-          </motion.span>
-          <motion.span
-            className="block font-light italic text-muted"
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease, delay: 0.22 }}
-          >
-            {h.lineTwo}
-          </motion.span>
+          <span className="block overflow-hidden" style={{ paddingBottom: "0.08em" }}>
+            <motion.span
+              className="block font-light will-change-transform"
+              initial={{ y: "110%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1, ease, delay: 0.1 }}
+            >
+              {h.lineOne}
+            </motion.span>
+          </span>
+          <span className="block overflow-hidden" style={{ paddingBottom: "0.08em" }}>
+            <motion.span
+              className="block font-light italic text-muted will-change-transform"
+              initial={{ y: "110%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1, ease, delay: 0.22 }}
+            >
+              {h.lineTwo}
+            </motion.span>
+          </span>
         </motion.h1>
 
         <motion.p
