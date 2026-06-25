@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Emph } from "@/components/ui/Emph";
-import { images } from "@/lib/data";
+import { images, profileVideoUrl } from "@/lib/data";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -21,16 +21,31 @@ export function ProfileSection() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.9, ease }}
         >
-          <ArtImage
-            src={images.portraitBeige}
-            alt="Pablito · portrait"
-            fallback="amber"
-            pattern="circle"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
-          >
-            <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
-          </ArtImage>
+          {profileVideoUrl ? (
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+              <video
+                src={profileVideoUrl}
+                poster={images.portraitBeige}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 h-full w-full object-cover [filter:contrast(1.08)_saturate(0.88)_brightness(0.97)]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
+            </div>
+          ) : (
+            <ArtImage
+              src={images.portraitBeige}
+              alt="Pablito · portrait"
+              fallback="amber"
+              pattern="circle"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)]"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
+            </ArtImage>
+          )}
         </motion.div>
 
         {/* Text */}

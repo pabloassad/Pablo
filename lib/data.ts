@@ -17,6 +17,13 @@ export const cercleInstagram = "https://www.instagram.com/lecercle.paris/";
 export const pressKitUrl =
   "https://drive.google.com/drive/folders/1VxMX6NAM5UyVw02vwCxBGN1PBbrXRr2L?usp=sharing";
 
+/*
+ * Home "profile" video — hosted externally (too large for the git repo), so
+ * the URL comes from an env var instead of a /public path. Unset in any
+ * environment, the section falls back to the portraitBeige photo.
+ */
+export const profileVideoUrl = process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL ?? "";
+
 export const navLinks = [
   { href: "/", key: "home" } as const,
   { href: "/music", key: "music" } as const,

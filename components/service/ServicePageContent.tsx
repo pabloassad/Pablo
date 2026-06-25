@@ -46,7 +46,7 @@ export function ServicePageContent() {
           </div>
           <Reveal delay={0.12}>
             <ArtImage
-              src={images.premiumPortrait}
+              src={images.portraitBeige}
               alt="Pablito · portrait"
               fallback="gold"
               tone="soft"
