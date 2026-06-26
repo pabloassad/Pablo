@@ -48,7 +48,7 @@ export const images = {
   cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
   liveViolet: "/images/live-violet.png", // violet beams over the floor — available
   boothSpread: "/images/pablito-booth-spread.png", // white shirt, arms wide at the booth — Saint-Valentin set
-  boothRaised: "/images/pablito-booth-raised.png", // arm raised in blue light at the booth — Brésil set
+  boothRaised: "/images/pablito-booth-raised.png", // arm raised in blue light at the booth — BSB League set
   liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
   crowdEnergy: "/images/cover-club.png", // DJ from behind, crowd lit in pink — clubs module
@@ -142,14 +142,14 @@ export const liveSetsMusic: LiveSet[] = [
     id: cercleSets[1].id,
     kicker: "Le Cercle",
     name: cercleSets[1].name,
-    cover: images.boothRaised,
+    cover: images.yardlandCover,
   },
   {
     id: "bsb-league",
     kicker: "2024",
     name: "BSB League",
     sub: "Tournoi de basket de Gazo",
-    cover: images.clubRed,
+    cover: images.boothRaised,
   },
   {
     id: "rinse-radio",
@@ -163,7 +163,7 @@ export const liveSetsMusic: LiveSet[] = [
     id: "yardland-2023",
     kicker: "2023",
     name: "Yardland",
-    cover: images.yardlandCover,
+    cover: images.clubRed,
   },
 ];
 
