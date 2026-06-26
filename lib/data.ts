@@ -46,7 +46,9 @@ export const images = {
   clubRed: "/images/pablito-red.png", // red light, club energy — BSB League cover
   clubCrowd: "/images/cover-bsb.png", // black and white crowd, hands up — duo club
   cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
-  liveViolet: "/images/live-violet.png", // violet beams over the floor — music page
+  liveViolet: "/images/live-violet.png", // violet beams over the floor — available
+  boothSpread: "/images/pablito-booth-spread.png", // white shirt, arms wide at the booth — Saint-Valentin set
+  boothRaised: "/images/pablito-booth-raised.png", // arm raised in blue light at the booth — Brésil set
   liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
   crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
   crowdEnergy: "/images/cover-club.png", // DJ from behind, crowd lit in pink — clubs module
@@ -134,13 +136,13 @@ export const liveSetsMusic: LiveSet[] = [
     id: cercleSets[0].id,
     kicker: "Le Cercle",
     name: cercleSets[0].name,
-    cover: images.liveViolet,
+    cover: images.boothSpread,
   },
   {
     id: cercleSets[1].id,
     kicker: "Le Cercle",
     name: cercleSets[1].name,
-    cover: cercleGallery[1],
+    cover: images.boothRaised,
   },
   {
     id: "bsb-league",
