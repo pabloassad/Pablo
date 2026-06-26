@@ -18,11 +18,14 @@ export const pressKitUrl =
   "https://drive.google.com/drive/folders/1VxMX6NAM5UyVw02vwCxBGN1PBbrXRr2L?usp=sharing";
 
 /*
- * Home "profile" video — hosted externally (too large for the git repo), so
- * the URL comes from an env var instead of a /public path. Unset in any
- * environment, the section falls back to the portraitBeige photo.
+ * Home "profile" video — hosted externally on Vercel Blob (too large for the
+ * git repo). The public URL is the default; NEXT_PUBLIC_PROFILE_VIDEO_URL can
+ * override it without a code change. Empty value falls back to the
+ * portraitBeige photo.
  */
-export const profileVideoUrl = process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL ?? "";
+export const profileVideoUrl =
+  process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL ||
+  "https://nedkcj0yzoauflft.public.blob.vercel-storage.com/FINALE%20PABLITO%20%281%29.mp4";
 
 export const navLinks = [
   { href: "/", key: "home" } as const,
