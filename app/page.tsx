@@ -1,20 +1,18 @@
 import { Hero } from "@/components/chapters/Hero";
-import { Manifesto } from "@/components/chapters/Manifesto";
-import { Method } from "@/components/chapters/Method";
-import { Work } from "@/components/chapters/Work";
+import { Journey } from "@/components/chapters/Journey";
+import { Catalogue } from "@/components/chapters/Catalogue";
 import { Craft } from "@/components/chapters/Craft";
-import { Path } from "@/components/chapters/Path";
+import { Tools } from "@/components/chapters/Tools";
 import { Contact } from "@/components/chapters/Contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Manifesto />
-      <Method />
-      <Work />
+      <Journey />
+      <Catalogue />
       <Craft />
-      <Path />
+      <Tools />
       <Contact />
     </>
   );

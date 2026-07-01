@@ -1,40 +1,47 @@
 @import "tailwindcss";
 
-/* ───────────────────────── Design tokens ─────────────────────────
-   A bright, gallery-grade base. Warmth comes from a single amber accent,
-   used sparingly. No magic numbers downstream — everything maps here. */
+/* ============================================================================
+   PABLO ASSAD — Swiss / International Typographic System
+   Monochrome, Helvetica-first, hierarchy by weight. No accent colour.
+   ========================================================================== */
 :root {
-  --paper: #f6f3ee; /* warm white base */
-  --paper-deep: #efeae1; /* alternating section ground */
-  --ink: #16130e; /* warm near-black */
-  --muted: #5c564c; /* AA body-muted on paper */
-  --faint: #a59d8f; /* decorative / labels */
-  --line: rgba(22, 19, 14, 0.12);
-  --accent: #e2622e; /* ambre solaire — the one accent */
-  --accent-deep: #b94918; /* AA-safe accent for small text/links */
-  --accent-soft: rgba(226, 98, 46, 0.12);
+  --paper: #ffffff;      /* pure gallery white */
+  --paper-2: #f2f1ee;    /* alternating ground / cards */
+  --ink: #0a0a0a;        /* near-black */
+  --mute: #6b6b6b;       /* AA secondary text */
+  --faint: #a3a3a3;      /* labels / decorative */
+  --line: rgba(10, 10, 10, 0.12);
+
+  /* Helvetica-first stacks. On macOS/iOS the visitor sees real Helvetica Neue;
+     elsewhere Inter (body) / Archivo (condensed display) take over — metrically
+     close so layout never shifts. */
+  --font-sans: -apple-system, "Helvetica Neue", "Helvetica", var(--font-inter),
+    Arial, sans-serif;
+  --font-display: "Helvetica Neue", -apple-system, var(--font-archivo),
+    "Helvetica", Arial, sans-serif;
 }
 
 @theme inline {
   --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
+  --color-paper-2: var(--paper-2);
   --color-ink: var(--ink);
-  --color-muted: var(--muted);
+  --color-mute: var(--mute);
+  --color-muted: var(--mute);
   --color-faint: var(--faint);
   --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-deep: var(--accent-deep);
-  --color-accent-soft: var(--accent-soft);
 
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-mono-jetbrains);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-sans);
 
-  /* Editorial type scale — large display, generous body. */
-  --text-display: clamp(3.25rem, 9vw, 9rem);
-  --text-display--line-height: 0.94;
-  --text-h2: clamp(2.25rem, 5vw, 4.5rem);
-  --text-h2--line-height: 1.02;
+  /* Editorial Swiss type scale — large display, tight tracking. */
+  --text-hero: clamp(3.25rem, 13vw, 13rem);
+  --text-hero--line-height: 0.9;
+  --text-h2: clamp(2.5rem, 7vw, 6.5rem);
+  --text-h2--line-height: 0.94;
+  --text-h3: clamp(1.5rem, 3vw, 2.75rem);
+  --text-h3--line-height: 1;
+  --text-lead: clamp(1.15rem, 2.1vw, 1.85rem);
 }
 
 * {
@@ -49,41 +56,38 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-sans), "Inter", system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv01";
+  font-family: var(--font-sans);
+  font-feature-settings: "kern", "ss01";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: var(--accent-soft);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
 }
 
-/* Keyboard focus — visible amber ring on every interactive element. */
 :focus-visible {
-  outline: 2px solid var(--accent-deep);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 1px;
 }
 :focus:not(:focus-visible) {
   outline: none;
 }
 
-/* Touch devices have no :hover — subtle press feedback instead. */
 @media (hover: none) {
   a:active,
   button:active {
-    opacity: 0.72;
+    opacity: 0.7;
   }
 }
 
 /* ───────────────────────── Utilities ───────────────────────── */
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
-}
-.font-mono {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .text-balance {
@@ -93,16 +97,16 @@ body {
   text-wrap: pretty;
 }
 
-/* Eyebrow / section label — mono, tracked-out, with a leading tick. */
+/* Eyebrow / label — Helvetica caps, tracked out. The Swiss "signal". */
 .kicker {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: var(--font-sans);
   font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--mute);
 }
 
-/* Fine top hairline used to open sections. */
 .hairline {
   height: 1px;
   background: var(--line);
@@ -116,13 +120,13 @@ body {
   scrollbar-width: none;
 }
 
-/* A whisper of paper grain — keeps large flats from looking flat. */
+/* A whisper of grain so large flats never look plasticky. */
 .grain {
   pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 60;
-  opacity: 0.035;
+  opacity: 0.02;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -139,10 +143,7 @@ html.lenis body {
   overflow: clip;
 }
 
-/* ───────────────────────── Reduced motion ─────────────────────────
-   Framer Motion is covered by MotionConfig reducedMotion="user"; this
-   neutralizes raw CSS animations/transitions and the WebGL loop opts out
-   on its own via the matchMedia query. */
+/* ───────────────────────── Reduced motion ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -154,9 +155,7 @@ html.lenis body {
   }
 }
 
-/* ───────────────────────── Print → PDF ─────────────────────────
-   The "Download as PDF" button opens the browser print dialog. This
-   stylesheet flattens the experience into a clean, recruiter-ready document. */
+/* ───────────────────────── Print → PDF ───────────────────────── */
 @media print {
   html,
   body {
@@ -165,10 +164,6 @@ html.lenis body {
   }
   .no-print {
     display: none !important;
-  }
-  .print-block {
-    break-inside: avoid;
-    page-break-inside: avoid;
   }
   section {
     padding: 1.25rem 0 !important;

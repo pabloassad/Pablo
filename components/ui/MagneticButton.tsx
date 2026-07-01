@@ -56,9 +56,9 @@ export function MagneticButton({
       rel={external ? "noopener noreferrer" : undefined}
       className={cn(
         "group inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium transition-colors duration-300",
-        variant === "solid" && "bg-ink text-paper hover:bg-accent",
-        variant === "invert" && "bg-accent text-ink hover:bg-paper",
-        variant === "outline" && "border border-ink/25 text-ink hover:border-accent hover:text-accent-deep",
+        variant === "solid" && "bg-ink text-paper hover:opacity-85",
+        variant === "invert" && "bg-paper text-ink hover:opacity-85",
+        variant === "outline" && "border border-ink/25 text-ink hover:border-ink",
         className,
       )}
     >

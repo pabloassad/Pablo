@@ -46,10 +46,10 @@ export function Nav() {
           : "border-b border-transparent py-5",
       )}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 sm:px-10 lg:px-16">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 sm:px-10 lg:px-16">
         <a href="#top" className="group flex items-center gap-2.5">
-          <span className="bg-accent block h-2 w-2 rounded-full transition-transform duration-500 group-hover:scale-125" aria-hidden />
-          <span className="font-display text-lg font-medium tracking-tight">Pablo Assad</span>
+          <span className="bg-ink block h-2 w-2 rounded-full transition-transform duration-500 group-hover:scale-125" aria-hidden />
+          <span className="font-display text-lg tracking-tight" style={{ fontWeight: 700 }}>Pablo Assad</span>
         </a>
 
         {/* Desktop links */}
@@ -67,7 +67,7 @@ export function Nav() {
                 {active === item.id && (
                   <motion.span
                     layoutId="nav-underline"
-                    className="bg-accent absolute -bottom-1.5 left-0 h-px w-full"
+                    className="bg-ink absolute -bottom-1.5 left-0 h-px w-full"
                   />
                 )}
               </a>
@@ -79,7 +79,7 @@ export function Nav() {
           <LangToggle className="hidden sm:flex" />
           <a
             href="#contact"
-            className="bg-ink text-paper hover:bg-accent hidden rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300 sm:inline-block"
+            className="bg-ink text-paper hidden rounded-full px-5 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-85 sm:inline-block"
           >
             {t.nav.cta}
           </a>

@@ -1,58 +1,51 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Inter, Archivo } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Intro } from "@/components/ui/Intro";
 
-// Display — a contemporary, expressive serif (optical sizing on by default).
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-});
-
-// Body — neutral, highly legible.
+// Libre fallback for the Helvetica stack — neutral grotesque, close metrics.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-// Accent — mono for kickers and section numbers (the "studio timecode" nod).
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono-jetbrains",
+// Condensed display fallback (Swiss poster feel) where Helvetica Neue is absent.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "700", "800", "900"],
 });
 
-const siteUrl = "https://pabloassad.vercel.app";
+const siteUrl = "https://pablo-portfolio-alpha.vercel.app";
 const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Pablo Assad — Chef de projet communication",
+    default: "Pablo Assad — Communication & direction de projet",
     template: "%s · Pablo Assad",
   },
   description:
-    "Pablo Assad, chef de projet communication. Un regard de créatif, la rigueur d'un stratège. Création de marque, direction artistique et pilotage de projets.",
+    "Pablo Assad — communication & direction de projet. Design graphique, direction artistique, brand content et production. Un catalogue visuel et un parcours.",
   keywords: [
     "Pablo Assad",
-    "chef de projet communication",
-    "stratégie de communication",
+    "communication",
     "direction artistique",
-    "création de marque",
-    "branding",
+    "design graphique",
+    "brand content",
+    "chef de projet communication",
     "alternance communication",
   ],
   authors: [{ name: "Pablo Assad" }],
   openGraph: {
-    title: "Pablo Assad — Chef de projet communication",
+    title: "Pablo Assad — Communication & direction de projet",
     description:
-      "Un regard de créatif, la rigueur d'un stratège. Je ne fais pas de la communication — je compose des marques.",
+      "Un regard de créatif, la rigueur d'un stratège. Design, direction artistique et production de contenus.",
     url: siteUrl,
     siteName: "Pablo Assad",
     locale: "fr_FR",
@@ -61,8 +54,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Assad — Chef de projet communication",
-    description: "Je ne fais pas de la communication — je compose des marques.",
+    title: "Pablo Assad — Communication & direction de projet",
+    description: "Un regard de créatif, la rigueur d'un stratège.",
     images: [ogImageUrl],
   },
   alternates: { canonical: siteUrl },
@@ -76,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased`}
+      className={`${inter.variable} ${archivo.variable} antialiased`}
     >
       <body className="bg-paper text-ink min-h-screen">
         <Providers>

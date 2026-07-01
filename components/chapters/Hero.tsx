@@ -1,15 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
-import { Parallax } from "@/components/ui/Parallax";
-
-// Client-only WebGL — never rendered on the server.
-const SignatureWave = dynamic(
-  () => import("@/components/webgl/SignatureWave").then((m) => m.SignatureWave),
-  { ssr: false },
-);
+import { RevealText } from "@/components/ui/RevealText";
+import { PortraitPlate } from "@/components/ui/PortraitPlate";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -20,76 +14,82 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-6 pt-28 pb-20 sm:px-10 lg:px-16"
+      className="relative flex min-h-[100svh] flex-col justify-center px-6 pt-28 pb-16 sm:px-10 lg:px-16"
     >
-      {/* Signature frequency ribbon — drifts gently with scroll for depth */}
-      <div className="pointer-events-none absolute inset-0 -z-0 flex items-center">
-        <Parallax distance={70} className="w-full">
-          <SignatureWave className="h-[42vh] w-full opacity-90" />
-        </Parallax>
-      </div>
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-12 items-center gap-x-8 gap-y-12">
+        {/* Type block */}
+        <div className="col-span-12 lg:col-span-8">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+            className="flex items-center gap-3"
+          >
+            <span className="hairline w-10" aria-hidden />
+            <span className="kicker">{h.eyebrow}</span>
+          </motion.div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
+          <RevealText
+            as="h1"
+            text={h.name}
+            className="font-display mt-6 uppercase"
+            style={{
+              fontSize: "var(--text-hero)",
+              lineHeight: "var(--text-hero--line-height)",
+            }}
+          />
+
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 sm:items-end">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease, delay: 0.35 }}
+              className="font-display text-ink max-w-md text-balance"
+              style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}
+            >
+              {h.statement}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease, delay: 0.45 }}
+              className="sm:pb-1"
+            >
+              <p className="text-mute max-w-xs text-base leading-relaxed">{h.intro}</p>
+              <span className="border-ink/30 text-ink mt-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium">
+                <span className="bg-ink h-1.5 w-1.5 rounded-full" aria-hidden />
+                {h.availability}
+              </span>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Portrait — becomes the particle canvas once the photo lands */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease }}
-          className="flex items-center gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, ease, delay: 0.5 }}
+          className="col-span-12 lg:col-span-4"
         >
-          <span className="kicker">{h.kicker}</span>
+          <PortraitPlate />
         </motion.div>
-
-        <motion.h1
-          className="font-display mt-6 max-w-5xl text-pretty"
-          style={{ fontSize: "var(--text-display)", lineHeight: "var(--text-display--line-height)" }}
-        >
-          <span className="block overflow-hidden" style={{ paddingBottom: "0.08em" }}>
-            <motion.span
-              className="block font-light will-change-transform"
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1, ease, delay: 0.1 }}
-            >
-              {h.lineOne}
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden" style={{ paddingBottom: "0.08em" }}>
-            <motion.span
-              className="block font-light italic text-muted will-change-transform"
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 1, ease, delay: 0.22 }}
-            >
-              {h.lineTwo}
-            </motion.span>
-          </span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease, delay: 0.42 }}
-          className="text-muted mt-10 max-w-xl text-lg leading-relaxed text-pretty"
-        >
-          <span className="text-ink font-medium">{h.name}.</span> {h.intro}
-        </motion.p>
       </div>
 
       {/* Scroll cue */}
       <motion.a
-        href="#manifeste"
+        href="#parcours"
         aria-label={h.scroll}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease, delay: 0.8 }}
-        className="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit items-center gap-2 text-faint hover:text-ink transition-colors"
+        className="text-faint hover:text-ink absolute inset-x-0 bottom-7 mx-auto flex w-fit items-center gap-2 transition-colors"
       >
         <span className="kicker">{h.scroll}</span>
         <motion.span
           aria-hidden
           animate={{ y: [0, 5, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="text-base"
         >
           ↓
         </motion.span>
