@@ -1,9 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { RevealText } from "@/components/ui/RevealText";
-import { PortraitPlate } from "@/components/ui/PortraitPlate";
+
+// Client-only WebGL — never rendered on the server.
+const ParticlePortrait = dynamic(
+  () => import("@/components/webgl/ParticlePortrait").then((m) => m.ParticlePortrait),
+  { ssr: false },
+);
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -65,14 +71,31 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Portrait — becomes the particle canvas once the photo lands */}
+        {/* Signature moment — the portrait as a living particle cloud */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.1, ease, delay: 0.5 }}
           className="col-span-12 lg:col-span-4"
         >
-          <PortraitPlate />
+          <figure className="relative">
+            <div className="relative w-full">
+              <ParticlePortrait
+                src="/portrait/portrait.jpg"
+                alt="Pablo Assad — portrait"
+                className="w-full"
+              />
+              {/* Swiss corner ticks */}
+              <span className="border-ink/40 absolute left-0 top-0 h-3 w-3 border-l border-t" aria-hidden />
+              <span className="border-ink/40 absolute right-0 top-0 h-3 w-3 border-r border-t" aria-hidden />
+              <span className="border-ink/40 absolute bottom-0 left-0 h-3 w-3 border-b border-l" aria-hidden />
+              <span className="border-ink/40 absolute bottom-0 right-0 h-3 w-3 border-b border-r" aria-hidden />
+            </div>
+            <figcaption className="mt-3 flex items-center justify-between">
+              <span className="kicker">Portrait</span>
+              <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em]">≈ 20 000 particules</span>
+            </figcaption>
+          </figure>
         </motion.div>
       </div>
 

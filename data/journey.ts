@@ -1,17 +1,17 @@
 import type { JourneyMilestone } from "@/lib/content/types";
 
 /**
- * The path — chronological, curated. `emphasis: 3` milestones get the most
- * visual weight on the timeline (the headline signals for recruiters & schools).
- * Add a milestone = add an entry; the scrollytelling layout adapts on its own.
+ * The path — chronological, sourced from Pablo's CV (2026). `emphasis: 3`
+ * milestones get the most visual weight (headline signals for recruiters &
+ * schools). Add a milestone = add an entry; the layout adapts on its own.
  */
 
 export const journey: JourneyMilestone[] = [
   {
     id: "std2a",
-    year: "2021",
+    year: "2020—23",
     title: { fr: "Bac STD2A — Arts appliqués", en: "Baccalauréat STD2A — Applied Arts" },
-    place: { fr: "Design, esthétique & fonction", en: "Design, aesthetics & function" },
+    place: { fr: "Lycée Nicolas Ledoux, Vincennes", en: "Lycée Nicolas Ledoux, Vincennes" },
     kind: "school",
     blurb: {
       fr: "La forme au service du fond. L'œil se forme ici.",
@@ -21,15 +21,51 @@ export const journey: JourneyMilestone[] = [
   },
   {
     id: "bts-com",
-    year: "2021—23",
+    year: "2023—25",
     title: { fr: "BTS Communication", en: "BTS Communication" },
     place: { fr: "Lycée Samuel de Champlain", en: "Lycée Samuel de Champlain" },
     kind: "school",
     emphasis: 1,
   },
   {
+    id: "rosa-paris",
+    year: "Juin 2024",
+    title: { fr: "Rosa Paris — Stage", en: "Rosa Paris — Internship" },
+    place: { fr: "Direction artistique, maquettes & exécution clients", en: "Art direction, client layouts & production" },
+    kind: "agency",
+    emphasis: 2,
+  },
+  {
+    id: "le-cercle",
+    year: "2024—",
+    title: { fr: "Le Cercle — Auto-entrepreneur", en: "Le Cercle — Founder" },
+    place: { fr: "Création de marque & pilotage artistique d'événements", en: "Brand building & artistic direction of events" },
+    kind: "venture",
+    blurb: {
+      fr: "Une marque créée de zéro et pilotée comme une entreprise, en parallèle des études.",
+      en: "A brand built from zero and run like a business, alongside my studies.",
+    },
+    emphasis: 2,
+  },
+  {
+    id: "volange",
+    year: "Nov—Déc 2024",
+    title: { fr: "Volange — Stage", en: "Volange — Internship" },
+    place: { fr: "Direction artistique & événementiel", en: "Art direction & events" },
+    kind: "agency",
+    emphasis: 2,
+  },
+  {
+    id: "riva",
+    year: "2025—",
+    title: { fr: "Riva", en: "Riva" },
+    place: { fr: "Projet entrepreneurial — en parallèle des études", en: "Entrepreneurial venture — alongside my studies" },
+    kind: "venture",
+    emphasis: 1,
+  },
+  {
     id: "but-infocom",
-    year: "2023—26",
+    year: "2025—26",
     title: { fr: "BUT Information-Communication", en: "BUT Information-Communication" },
     place: { fr: "Université Paris 8", en: "Université Paris 8" },
     kind: "school",
@@ -40,54 +76,10 @@ export const journey: JourneyMilestone[] = [
     emphasis: 3,
   },
   {
-    id: "rosa-paris",
-    year: "2024",
-    title: { fr: "Rosa Paris", en: "Rosa Paris" },
-    place: { fr: "Direction artistique & événementiel", en: "Art direction & events" },
-    kind: "agency",
-    emphasis: 2,
-  },
-  {
-    id: "volange",
-    year: "2024",
-    title: { fr: "Volange", en: "Volange" },
-    place: { fr: "Branding & production de contenus", en: "Branding & content production" },
-    kind: "agency",
-    emphasis: 2,
-  },
-  {
-    id: "riva",
-    year: "2025",
-    title: { fr: "Riva Agency", en: "Riva Agency" },
-    place: { fr: "Pilotage de missions clients (ESCE, ISG)", en: "Client project leadership (ESCE, ISG)" },
-    kind: "agency",
-    emphasis: 1,
-  },
-  {
-    id: "fondamentall",
-    year: "2023",
-    title: { fr: "Fondament'All", en: "Fondament'All" },
-    place: { fr: "Communication — marque en transformation", en: "Communications — brand in transition" },
-    kind: "venture",
-    emphasis: 1,
-  },
-  {
-    id: "le-cercle",
-    year: "2023—",
-    title: { fr: "Le Cercle", en: "Le Cercle" },
-    place: { fr: "Création de marque — projet entrepreneurial", en: "Brand building — entrepreneurial venture" },
-    kind: "venture",
-    blurb: {
-      fr: "Une marque créée de zéro, pilotée comme une entreprise.",
-      en: "A brand built from zero, run like a business.",
-    },
-    emphasis: 2,
-  },
-  {
     id: "master",
-    year: "2026",
+    year: "Sept. 2026",
     title: { fr: "Master Stratégie de communication", en: "MSc Communication Strategy" },
-    place: { fr: "Objectif — en recherche d'alternance", en: "Target intake — seeking a work-study placement" },
+    place: { fr: "La Sorbonne — en recherche d'alternance", en: "La Sorbonne — seeking a work-study placement" },
     kind: "goal",
     blurb: {
       fr: "La prochaine étape. En recherche d'une alternance en agence.",

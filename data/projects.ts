@@ -4,8 +4,8 @@ import type { Project, ProjectCategory, Localized } from "@/lib/content/types";
  * The catalogue. Add a production = add an entry here + drop its media in
  * public/works/<slug>/ and set status to "published". See CONTENT.md.
  *
- * Seeded from Pablo's real experiences as `placeholder` slots — the frames are
- * intentional and the grid stays beautiful while they fill in.
+ * Entries mirror the real productions in Pablo's asset drive; they flip to
+ * "published" the moment their cover image lands in public/works/.
  */
 
 export const categoryLabels: Record<ProjectCategory, Localized> = {
@@ -17,97 +17,113 @@ export const categoryLabels: Record<ProjectCategory, Localized> = {
 export const projects: Project[] = [
   // ── Design & Direction artistique ──────────────────────────────────────
   {
+    slug: "adonis",
+    category: "design",
+    title: { fr: "Adonis", en: "Adonis" },
+    year: "2026",
+    role: { fr: "Identité & direction artistique", en: "Identity & art direction" },
+    blurb: {
+      fr: "Identité complète d'un événement : affiche, costumes, teasers.",
+      en: "Full event identity: poster, costumes, teasers.",
+    },
+    status: "placeholder",
+  },
+  {
+    slug: "la-nuit-du-bac",
+    category: "design",
+    title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
+    year: "2026",
+    role: { fr: "Direction artistique · Affiche & teaser", en: "Art direction · Poster & teaser" },
+    status: "placeholder",
+  },
+  {
     slug: "rosa-summer-party",
     category: "design",
     title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
     client: "Rosa Paris",
     year: "2024",
-    role: {
-      fr: "Direction artistique · Identité d'événement",
-      en: "Art direction · Event identity",
-    },
+    role: { fr: "Direction artistique · Identité d'événement", en: "Art direction · Event identity" },
     blurb: {
-      fr: "Identité complète d'un événement interne, de l'invitation à la scénographie.",
-      en: "Full identity for an internal event, from invitation to staging.",
+      fr: "Identité d'un événement interne d'agence, de l'invitation à la scénographie.",
+      en: "Identity for an agency's internal event, from invitation to staging.",
     },
     status: "placeholder",
   },
   {
-    slug: "aguila-branding",
+    slug: "le-cercle",
     category: "design",
-    title: { fr: "Aguila — Branding", en: "Aguila — Branding" },
-    client: "Volange",
-    year: "2024",
-    role: { fr: "Branding · Direction artistique", en: "Branding · Art direction" },
+    title: { fr: "Le Cercle", en: "Le Cercle" },
+    year: "2024—",
+    role: { fr: "Fondateur · Marque & direction artistique", en: "Founder · Brand & art direction" },
     blurb: {
-      fr: "Montée en notoriété et cohérence visuelle d'une marque événementielle.",
-      en: "Awareness lift and visual coherence for an events brand.",
+      fr: "Une marque événementielle créée de zéro : identité, campagnes, contenus.",
+      en: "An events brand built from zero: identity, campaigns, content.",
     },
     status: "placeholder",
   },
   {
-    slug: "fondamentall-identite",
+    slug: "boss-lady",
     category: "design",
-    title: { fr: "Fondament'All — Évolution de marque", en: "Fondament'All — Brand evolution" },
-    client: "Fondament'All",
-    year: "2023",
-    role: { fr: "Communication · Diagnostic de marque", en: "Communications · Brand audit" },
-    blurb: {
-      fr: "Faire évoluer l'identité d'une association culturelle sans trahir son ADN.",
-      en: "Evolving a cultural non-profit's identity without betraying its DNA.",
-    },
+    title: { fr: "Boss Lady", en: "Boss Lady" },
+    year: "2026",
+    role: { fr: "Direction artistique · Affiche", en: "Art direction · Poster" },
     status: "placeholder",
   },
   {
-    slug: "design-graphique-01",
+    slug: "flashback",
     category: "design",
-    title: { fr: "Affiche & édition", en: "Poster & editorial" },
-    role: { fr: "Design graphique", en: "Graphic design" },
+    title: { fr: "Flashback", en: "Flashback" },
+    year: "2026",
+    role: { fr: "Design graphique · Affiche", en: "Graphic design · Poster" },
+    status: "placeholder",
+  },
+  {
+    slug: "miami-game",
+    category: "design",
+    title: { fr: "Miami Game", en: "Miami Game" },
+    year: "2026",
+    role: { fr: "Conception & présentation de projet", en: "Project design & presentation" },
     status: "placeholder",
   },
 
   // ── Vidéo & Brand content ──────────────────────────────────────────────
   {
-    slug: "le-cercle-brand-content",
+    slug: "ruby",
     category: "video",
-    title: { fr: "Le Cercle — Brand content", en: "Le Cercle — Brand content" },
-    client: "Le Cercle",
-    year: "2023—",
-    role: { fr: "Fondateur · Contenu & montage", en: "Founder · Content & editing" },
-    blurb: {
-      fr: "Une ligne éditoriale vidéo constante, portée sur plusieurs éditions.",
-      en: "A steady video editorial line, carried across several editions.",
-    },
+    title: { fr: "Ruby", en: "Ruby" },
+    year: "2026",
+    role: { fr: "Montage · Teasers d'événement", en: "Editing · Event teasers" },
     status: "placeholder",
   },
   {
-    slug: "montage-video-01",
+    slug: "fondamentall",
     category: "video",
-    title: { fr: "Aftermovie", en: "Aftermovie" },
-    role: { fr: "Montage vidéo", en: "Video editing" },
+    title: { fr: "Fondament'All", en: "Fondament'All" },
+    year: "2026",
+    role: { fr: "Animation de logo · Motion design", en: "Logo animation · Motion design" },
     status: "placeholder",
   },
   {
-    slug: "montage-video-02",
+    slug: "manifesto",
     category: "video",
-    title: { fr: "Contenu social", en: "Social content" },
-    role: { fr: "Montage · Motion", en: "Editing · Motion" },
+    title: { fr: "Manifesto", en: "Manifesto" },
+    role: { fr: "Réalisation & montage", en: "Direction & editing" },
     status: "placeholder",
   },
 
   // ── Son & Composition ──────────────────────────────────────────────────
   {
-    slug: "composition-01",
+    slug: "compositions",
     category: "sound",
-    title: { fr: "Composition originale", en: "Original composition" },
-    role: { fr: "Production musicale", en: "Music production" },
+    title: { fr: "Compositions originales", en: "Original compositions" },
+    role: { fr: "Production musicale — FL Studio, piano", en: "Music production — FL Studio, piano" },
     status: "placeholder",
   },
   {
-    slug: "composition-02",
+    slug: "sound-design",
     category: "sound",
-    title: { fr: "Sound design", en: "Sound design" },
-    role: { fr: "Production · Design sonore", en: "Production · Sound design" },
+    title: { fr: "Habillage sonore", en: "Sound design" },
+    role: { fr: "Design sonore pour teasers & contenus", en: "Sound design for teasers & content" },
     status: "placeholder",
   },
 ];
