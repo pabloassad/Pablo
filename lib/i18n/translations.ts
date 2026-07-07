@@ -28,6 +28,9 @@ export interface Translations {
     filterAll: string;
     comingSoon: string;
     roleLabel: string;
+    close: string;
+    detailSoon: string;
+    open: string;
   };
   craft: { label: string; title: string; body: string[]; aside: string };
   tools: { label: string; title: string; intro: string };
@@ -50,9 +53,9 @@ export interface Translations {
 
 const fr: Translations = {
   meta: {
-    title: "Pablo Assad — Communication & direction de projet",
+    title: "Pablo Assad — Communication et direction de projet",
     description:
-      "Pablo Assad — communication & direction de projet. Design graphique, direction artistique, brand content et production. Un catalogue visuel et un parcours.",
+      "Pablo Assad — communication et direction de projet. Design graphique, direction artistique, brand content et production. Un catalogue visuel et un parcours.",
   },
   nav: {
     items: [
@@ -84,14 +87,14 @@ const fr: Translations = {
     filterAll: "Tout",
     comingSoon: "À venir",
     roleLabel: "Rôle",
+    close: "Fermer",
+    detailSoon: "Visuels en cours d'ajout.",
+    open: "Voir le projet",
   },
   craft: {
     label: "Création",
     title: "Avant la stratégie, il y a l'oreille",
-    body: [
-      "Je compose, je monte, je conçois. Cette pratique n'est pas un à-côté — c'est elle qui aiguise le métier.",
-      "Sentir un rythme, lire une émotion, savoir quand poser un silence. C'est exactement ce qu'on demande à une marque.",
-    ],
+    body: ["Composer, monter, concevoir — la pratique aiguise le métier."],
     aside: "Une intuition créative au service de la stratégie. Jamais l'inverse.",
   },
   tools: {
@@ -118,9 +121,9 @@ const fr: Translations = {
 
 const en: Translations = {
   meta: {
-    title: "Pablo Assad — Communication & project leadership",
+    title: "Pablo Assad — Communication and project leadership",
     description:
-      "Pablo Assad — communication & project leadership. Graphic design, art direction, brand content and production. A visual catalogue and a path.",
+      "Pablo Assad — communication and project leadership. Graphic design, art direction, brand content and production. A visual catalogue and a path.",
   },
   nav: {
     items: [
@@ -152,14 +155,14 @@ const en: Translations = {
     filterAll: "All",
     comingSoon: "Coming soon",
     roleLabel: "Role",
+    close: "Close",
+    detailSoon: "Visuals on their way.",
+    open: "View project",
   },
   craft: {
     label: "Craft",
     title: "Before strategy, there's the ear",
-    body: [
-      "I compose, I edit, I design. This practice isn't a sideline — it's what sharpens the work.",
-      "Feeling a rhythm, reading emotion, knowing when to leave a silence. That's exactly what a brand is asked to do.",
-    ],
+    body: ["Composing, editing, designing — practice sharpens the work."],
     aside: "A creative instinct put to work for strategy. Never the other way around.",
   },
   tools: {

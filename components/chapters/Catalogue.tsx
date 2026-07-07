@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { ProjectModal } from "@/components/ui/ProjectModal";
 import { projects, categoryLabels } from "@/data/projects";
 import type { Project, ProjectCategory } from "@/lib/content/types";
 
@@ -14,16 +15,53 @@ type Filter = "all" | ProjectCategory;
 
 const CATS: ProjectCategory[] = ["design", "video", "sound"];
 const ease = [0.16, 1, 0.3, 1] as const;
+const HASH_PREFIX = "#projet-";
 
 export function Catalogue() {
   const { t, locale } = useLanguage();
   const w = t.work;
   const [filter, setFilter] = useState<Filter>("all");
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   const filtered = useMemo(
     () => (filter === "all" ? projects : projects.filter((p) => p.category === filter)),
     [filter],
   );
+  const openProject = useMemo(
+    () => projects.find((p) => p.slug === openSlug) ?? null,
+    [openSlug],
+  );
+
+  // Deep link: open from #projet-<slug> on load, keep the hash in sync.
+  useEffect(() => {
+    const fromHash = () => {
+      const h = window.location.hash;
+      if (h.startsWith(HASH_PREFIX)) {
+        const slug = decodeURIComponent(h.slice(HASH_PREFIX.length));
+        if (projects.some((p) => p.slug === slug)) {
+           
+          setOpenSlug(slug);
+        }
+      }
+    };
+    fromHash();
+    window.addEventListener("hashchange", fromHash);
+    return () => window.removeEventListener("hashchange", fromHash);
+  }, []);
+
+  const open = useCallback((slug: string, el: HTMLElement) => {
+    triggerRef.current = el;
+    setOpenSlug(slug);
+    history.replaceState(null, "", `${HASH_PREFIX}${slug}`);
+  }, []);
+
+  const close = useCallback(() => {
+    setOpenSlug(null);
+    history.replaceState(null, "", window.location.pathname);
+    triggerRef.current?.focus();
+    triggerRef.current = null;
+  }, []);
 
   return (
     <section id="projets" className="bg-paper-2 px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
@@ -73,8 +111,8 @@ export function Catalogue() {
           </div>
         </Reveal>
 
-        {/* Grid */}
-        <motion.ul layout className="mt-12 grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 lg:grid-cols-3">
+        {/* Grid — the productions are the heroines */}
+        <motion.ul layout className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => (
               <motion.li
@@ -85,12 +123,19 @@ export function Catalogue() {
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.5, ease, delay: (i % 3) * 0.05 }}
               >
-                <ProjectCard project={p} comingSoon={w.comingSoon} roleLabel={w.roleLabel} />
+                <ProjectCard
+                  project={p}
+                  comingSoon={w.comingSoon}
+                  openLabel={w.open}
+                  onOpen={open}
+                />
               </motion.li>
             ))}
           </AnimatePresence>
         </motion.ul>
       </div>
+
+      <ProjectModal project={openProject} onClose={close} />
     </section>
   );
 }
@@ -98,22 +143,28 @@ export function Catalogue() {
 function ProjectCard({
   project,
   comingSoon,
-  roleLabel,
+  openLabel,
+  onOpen,
 }: {
   project: Project;
   comingSoon: string;
-  roleLabel: string;
+  openLabel: string;
+  onOpen: (slug: string, el: HTMLElement) => void;
 }) {
   const { locale } = useLanguage();
   const isPlaceholder = project.status === "placeholder" || !project.cover;
 
   return (
-    <figure className="group">
-      <div className="border-line bg-paper relative aspect-[4/5] w-full overflow-hidden border">
+    <button
+      type="button"
+      onClick={(e) => onOpen(project.slug, e.currentTarget)}
+      aria-label={`${openLabel} — ${project.title[locale]}`}
+      className="group block w-full text-left"
+    >
+      <span className="border-line bg-paper relative block aspect-[4/5] w-full overflow-hidden border">
         {isPlaceholder ? (
           <>
-            {/* Faint particle field — intentional empty slot */}
-            <div
+            <span
               aria-hidden
               className="absolute inset-0 opacity-40 transition-opacity duration-500 group-hover:opacity-60"
               style={{
@@ -133,38 +184,36 @@ function ProjectCard({
             alt={project.title[locale]}
             fill
             sizes="(max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
         )}
 
-        {/* Index tick */}
-        <span className="text-ink/50 absolute left-3 top-3 font-display text-xs">
-          {String(indexOf(project)).padStart(2, "0")}
-        </span>
-      </div>
-
-      <figcaption className="mt-3">
-        <span className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
-          {categoryLabels[project.category][locale]}
-        </span>
-        <h3
-          className="font-display text-ink mt-1"
-          style={{ fontSize: "clamp(1.05rem,1.6vw,1.4rem)", fontWeight: 700, letterSpacing: "-0.01em" }}
+        {/* Hover veil — title + category surface on demand */}
+        <span
+          aria-hidden
+          className="absolute inset-x-0 bottom-0 translate-y-full bg-ink/85 px-4 py-3 backdrop-blur-sm transition-transform duration-400 ease-out group-hover:translate-y-0 group-focus-visible:translate-y-0"
         >
-          {project.title[locale]}
-        </h3>
-        {project.role && (
-          <p className="text-mute mt-1 text-sm">
-            <span className="text-faint">{roleLabel} — </span>
-            {project.role[locale]}
-          </p>
-        )}
-      </figcaption>
-    </figure>
-  );
-}
+          <span
+            className="font-display text-paper block truncate text-base"
+            style={{ fontWeight: 700, letterSpacing: "-0.01em" }}
+          >
+            {project.title[locale]}
+          </span>
+          <span className="text-paper/60 block text-[0.6rem] font-medium uppercase tracking-[0.16em]">
+            {categoryLabels[project.category][locale]}
+          </span>
+        </span>
+      </span>
 
-// Stable 1-based index within the full catalogue (for the tick number).
-function indexOf(project: Project) {
-  return projects.findIndex((p) => p.slug === project.slug) + 1;
+      {/* Whisper caption — always there on touch, minimal */}
+      <span className="mt-2 flex items-baseline justify-between gap-3 sm:hidden">
+        <span className="font-display text-ink truncate text-sm" style={{ fontWeight: 600 }}>
+          {project.title[locale]}
+        </span>
+        <span className="text-faint shrink-0 text-[0.6rem] uppercase tracking-[0.14em]">
+          {project.year ?? ""}
+        </span>
+      </span>
+    </button>
+  );
 }

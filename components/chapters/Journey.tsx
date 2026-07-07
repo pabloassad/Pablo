@@ -46,42 +46,48 @@ export function Journey() {
           </Reveal>
         </div>
 
-        {/* Timeline */}
-        <ol ref={listRef} className="relative mt-16 sm:mt-20">
-          {/* Rail + scroll-progress fill */}
+        {/* Timeline — one shared axis; rail and dots are centred on it. */}
+        <ol
+          ref={listRef}
+          className="relative mt-16 [--axis:0.25rem] sm:mt-20 sm:[--axis:8rem]"
+        >
+          {/* Rail + scroll-progress fill, centred on the axis */}
           <span
-            className="bg-line absolute left-0 top-2 h-full w-px sm:left-[8.5rem]"
+            className="bg-line absolute inset-y-2 w-px -translate-x-1/2"
+            style={{ left: "var(--axis)" }}
             aria-hidden
           />
           <motion.span
-            className="bg-ink absolute left-0 top-2 h-full w-px origin-top sm:left-[8.5rem]"
-            style={{ scaleY: reduced ? 1 : scaleY }}
+            className="bg-ink absolute inset-y-2 w-px origin-top -translate-x-1/2"
+            style={{ left: "var(--axis)", scaleY: reduced ? 1 : scaleY }}
             aria-hidden
           />
 
           {journey.map((m, i) => {
             const headline = m.emphasis === 3;
             return (
-              <li key={m.id} className="relative pl-6 sm:pl-0">
+              <li key={m.id} className="relative">
                 <Reveal
                   delayIndex={i % 3}
-                  className={`grid grid-cols-1 gap-1 py-6 sm:grid-cols-[8.5rem_1fr] sm:gap-8 sm:py-7 ${
+                  className={`grid grid-cols-1 gap-1 py-6 pl-6 sm:grid-cols-[6.5rem_3rem_1fr] sm:gap-0 sm:py-7 sm:pl-0 ${
                     headline ? "sm:py-9" : ""
                   }`}
                 >
-                  {/* Year + node */}
-                  <div className="relative sm:text-right">
+                  {/* Year — right-aligned against the axis; the node is centred
+                      on this very line, so it stays aligned for every variant */}
+                  <span className="font-display text-mute relative block text-sm tracking-tight sm:pt-0.5 sm:text-right">
+                    {m.year}
                     <span
-                      className={`absolute -left-6 top-1.5 h-2 w-2 rounded-full sm:left-auto sm:right-[-1.19rem] ${
+                      className={`absolute top-1/2 left-[calc(var(--axis)-1.5rem)] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full sm:left-[var(--axis)] ${
                         headline ? "bg-ink ring-paper ring-4" : "bg-ink/40"
                       }`}
                       aria-hidden
                     />
-                    <span className="font-display text-mute text-sm tracking-tight">{m.year}</span>
-                  </div>
+                  </span>
+                  <span aria-hidden className="hidden sm:block" />
 
                   {/* Content */}
-                  <div className="sm:pl-8">
+                  <div>
                     <span className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.18em]">
                       {kindLabel[m.kind][locale]}
                     </span>

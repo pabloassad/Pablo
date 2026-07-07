@@ -1,81 +1,69 @@
 # Ajouter du contenu au site (sans toucher au code de layout)
 
-Le site est **piloté par la donnée**. Pour ajouter une production ou un jalon de
-parcours, tu modifies un fichier de données et tu déposes tes médias. La mise en
-page s'adapte toute seule — et reste belle même à moitié remplie (les entrées
-`placeholder` s'affichent comme des cadres élégants « À venir »).
+Le site est **piloté par la donnée**. Ajouter une production = déposer des images
+au bon endroit + retoucher une entrée dans un fichier de données. La mise en
+page s'adapte seule, et reste belle à moitié remplie (les entrées `placeholder`
+s'affichent comme des cadres « À venir » intentionnels).
 
 ---
 
-## 1. Ajouter une production au catalogue
+## 1. Où déposer les visuels — convention
 
-**Fichier :** `data/projects.ts`
+```
+public/
+├── works/
+│   └── <slug>/          ← un dossier par projet (ex. adonis, le-cercle)
+│       ├── cover.jpg    ← LE visuel principal (obligatoire pour publier)
+│       ├── 01.jpg       ← visuels additionnels, dans l'ordre
+│       ├── 02.jpg
+│       └── …
+├── journey/             ← visuels de la timeline (optionnel)
+└── portrait/            ← photos de Pablo
+```
 
-1. Dépose tes médias dans `public/works/<slug>/` (ex. `public/works/rosa-summer-party/cover.jpg`).
-   - Images : **JPG/PNG, ≥ 2000px de large**, optimisées.
-   - `<slug>` = identifiant en minuscules-avec-tirets, unique.
-2. Trouve l'entrée correspondante (ou crée-en une) et complète-la :
+**Formats conseillés :**
+- **cover** : ratio **4:5** (portrait), **1600 px de large minimum**, JPG qualité 80-85 (ou WebP). Poids cible ≤ 500 Ko.
+- **visuels additionnels** : 1600-2000 px de large, JPG/WebP. PNG uniquement pour les aplats graphiques (flyers) si le JPG bave.
+- **vidéos** : ne pas déposer de MP4 > 5 Mo dans le repo. Préférer une version compressée courte (teaser ≤ 5 Mo) ou un lien YouTube/Vimeo non répertorié (le champ `media` acceptera bientôt les liens).
+
+## 2. Comment déposer (2 méthodes)
+
+**A. Via GitHub (recommandé, sans outil)** : ouvre
+`github.com/pabloassad/Pablo` → branche `claude/hopeful-darwin-oaplv4` →
+navigue vers `public/works/<slug>/` → **Add file → Upload files** → glisse tes
+images → **Commit**. Le site se redéploie automatiquement (~1 min).
+
+**B. En me donnant l'accès réseau** : si la politique réseau de l'environnement
+Claude Code autorise `drive.google.com` + `drive.usercontent.google.com` +
+`lh3.googleusercontent.com`, Claude peut aspirer le Drive, optimiser (resize,
+compression) et ranger tout seul.
+
+## 3. Publier un projet
+
+**Fichier :** `data/projects.ts` — trouve l'entrée du projet et :
 
 ```ts
 {
-  slug: "rosa-summer-party",
-  category: "design",              // "design" | "video" | "sound"
-  title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
-  client: "Rosa Paris",
-  year: "2024",
-  role: { fr: "Direction artistique", en: "Art direction" },
-  blurb: { fr: "Trois lignes max.", en: "Three lines max." },
-  cover: "/works/rosa-summer-party/cover.jpg",   // ← chemin du visuel
-  status: "published",             // ← passe de "placeholder" à "published"
+  slug: "adonis",
+  // …
+  cover: "/works/adonis/cover.jpg",          // ← ajoute le chemin
+  media: [
+    { src: "/works/adonis/01.jpg" },
+    { src: "/works/adonis/02.jpg" },
+  ],
+  status: "published",                        // ← passe de "placeholder" à "published"
 }
 ```
 
-3. Tant que `status` est `"placeholder"` (ou qu'il n'y a pas de `cover`), la carte
-   s'affiche comme un emplacement élégant. Dès que tu mets `cover` + `status:
-   "published"`, le visuel apparaît.
+Tant que `status` vaut `"placeholder"`, la carte affiche un cadre élégant
+« À venir » et la modale un aperçu propre — jamais un trou cassé.
 
-**Catégories disponibles :** `design`, `video`, `sound` (modifiables dans
-`categoryLabels` en haut du fichier).
+## 4. Timeline, outils, textes
 
----
-
-## 2. Ajouter un jalon au parcours
-
-**Fichier :** `data/journey.ts` — les jalons sont affichés dans l'ordre du tableau.
-
-```ts
-{
-  id: "mon-jalon",
-  year: "2025",
-  title: { fr: "Titre", en: "Title" },
-  place: { fr: "Contexte / lieu", en: "Context / place" },
-  kind: "agency",        // "school" | "agency" | "venture" | "goal"
-  blurb: { fr: "Optionnel.", en: "Optional." },
-  emphasis: 2,           // 1 = normal · 2 = notable · 3 = à la une (plus gros)
-}
-```
-
----
-
-## 3. Ajouter / modifier un outil
-
-**Fichier :** `data/tools.ts` — ajoute une entrée `{ name, group }`.
-Groupes : `design`, `motion`, `sound`, `ai` (voir `toolGroups`).
-Pour afficher un vrai logo monochrome plus tard : dépose un SVG dans
-`public/logos/<nom>.svg` et ajoute `logo: "/logos/<nom>.svg"` à l'entrée.
-
----
-
-## 4. Le portrait (particules)
-
-Dépose ta photo dans `public/portrait/` (visage net, fond uni, ≥ 2000px). Le
-composant `PortraitPlate` sera remplacé par le canvas de particules qui en dérive
-un nuage de points.
-
----
-
-## Textes de l'interface
-
-Les libellés et le peu de texte des sections vivent dans
-`lib/i18n/translations.ts` (FR + EN). Tout est typé : si tu oublies une langue,
-le build le signale.
+- **Parcours** : `data/journey.ts` (ordre du tableau = ordre affiché ;
+  `emphasis: 3` = jalon à la une).
+- **Outils** : `data/tools.ts` (`{ name, group }` ; groupes dans `toolGroups`).
+- **Textes d'interface** (FR + EN) : `lib/i18n/translations.ts` — tout est typé,
+  une langue oubliée fait échouer le build.
+- **Règle typographique** : pas de « & » dans les textes affichés — écrire
+  « et » (FR) / « and » (EN).

@@ -8,9 +8,9 @@ import type { Tool, ToolGroup } from "@/lib/content/types";
 
 export const toolGroups: ToolGroup[] = [
   { key: "design", label: { fr: "Design", en: "Design" } },
-  { key: "motion", label: { fr: "Motion & Vidéo", en: "Motion & Video" } },
+  { key: "motion", label: { fr: "Motion et Vidéo", en: "Motion and Video" } },
   { key: "sound", label: { fr: "Son", en: "Sound" } },
-  { key: "ai", label: { fr: "IA & Productivité", en: "AI & Productivity" } },
+  { key: "ai", label: { fr: "IA et Productivité", en: "AI and Productivity" } },
 ];
 
 export const tools: Tool[] = [

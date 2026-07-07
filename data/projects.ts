@@ -9,19 +9,19 @@ import type { Project, ProjectCategory, Localized } from "@/lib/content/types";
  */
 
 export const categoryLabels: Record<ProjectCategory, Localized> = {
-  design: { fr: "Design & Direction artistique", en: "Design & Art direction" },
-  video: { fr: "Vidéo & Brand content", en: "Video & Brand content" },
-  sound: { fr: "Son & Composition", en: "Sound & Composition" },
+  design: { fr: "Design et Direction artistique", en: "Design and Art direction" },
+  video: { fr: "Vidéo et Brand content", en: "Video and Brand content" },
+  sound: { fr: "Son et Composition", en: "Sound and Composition" },
 };
 
 export const projects: Project[] = [
-  // ── Design & Direction artistique ──────────────────────────────────────
+  // ── Design et Direction artistique ──────────────────────────────────────
   {
     slug: "adonis",
     category: "design",
     title: { fr: "Adonis", en: "Adonis" },
     year: "2026",
-    role: { fr: "Identité & direction artistique", en: "Identity & art direction" },
+    role: { fr: "Identité et direction artistique", en: "Identity and art direction" },
     blurb: {
       fr: "Identité complète d'un événement : affiche, costumes, teasers.",
       en: "Full event identity: poster, costumes, teasers.",
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     category: "design",
     title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
     year: "2026",
-    role: { fr: "Direction artistique · Affiche & teaser", en: "Art direction · Poster & teaser" },
+    role: { fr: "Direction artistique · Affiche et teaser", en: "Art direction · Poster and teaser" },
     status: "placeholder",
   },
   {
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     category: "design",
     title: { fr: "Le Cercle", en: "Le Cercle" },
     year: "2024—",
-    role: { fr: "Fondateur · Marque & direction artistique", en: "Founder · Brand & art direction" },
+    role: { fr: "Fondateur · Marque et direction artistique", en: "Founder · Brand and art direction" },
     blurb: {
       fr: "Une marque événementielle créée de zéro : identité, campagnes, contenus.",
       en: "An events brand built from zero: identity, campaigns, content.",
@@ -82,11 +82,11 @@ export const projects: Project[] = [
     category: "design",
     title: { fr: "Miami Game", en: "Miami Game" },
     year: "2026",
-    role: { fr: "Conception & présentation de projet", en: "Project design & presentation" },
+    role: { fr: "Conception et présentation de projet", en: "Project design and presentation" },
     status: "placeholder",
   },
 
-  // ── Vidéo & Brand content ──────────────────────────────────────────────
+  // ── Vidéo et Brand content ──────────────────────────────────────────────
   {
     slug: "ruby",
     category: "video",
@@ -107,11 +107,11 @@ export const projects: Project[] = [
     slug: "manifesto",
     category: "video",
     title: { fr: "Manifesto", en: "Manifesto" },
-    role: { fr: "Réalisation & montage", en: "Direction & editing" },
+    role: { fr: "Réalisation et montage", en: "Direction and editing" },
     status: "placeholder",
   },
 
-  // ── Son & Composition ──────────────────────────────────────────────────
+  // ── Son et Composition ──────────────────────────────────────────────────
   {
     slug: "compositions",
     category: "sound",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
     slug: "sound-design",
     category: "sound",
     title: { fr: "Habillage sonore", en: "Sound design" },
-    role: { fr: "Design sonore pour teasers & contenus", en: "Sound design for teasers & content" },
+    role: { fr: "Design sonore pour teasers et contenus", en: "Sound design for teasers and content" },
     status: "placeholder",
   },
 ];

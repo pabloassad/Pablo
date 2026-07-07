@@ -1,15 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { RevealText } from "@/components/ui/RevealText";
-
-// Client-only WebGL — never rendered on the server.
-const ParticlePortrait = dynamic(
-  () => import("@/components/webgl/ParticlePortrait").then((m) => m.ParticlePortrait),
-  { ssr: false },
-);
+import { Parallax } from "@/components/ui/Parallax";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -71,7 +66,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Signature moment — the portrait as a living particle cloud */}
+        {/* Portrait — sober Swiss plate (the 3D signature moment lands here) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -79,21 +74,26 @@ export function Hero() {
           className="col-span-12 lg:col-span-4"
         >
           <figure className="relative">
-            <div className="relative w-full">
-              <ParticlePortrait
-                src="/portrait/portrait.jpg"
-                alt="Pablo Assad — portrait"
-                className="w-full"
-              />
-              {/* Swiss corner ticks */}
-              <span className="border-ink/40 absolute left-0 top-0 h-3 w-3 border-l border-t" aria-hidden />
-              <span className="border-ink/40 absolute right-0 top-0 h-3 w-3 border-r border-t" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 left-0 h-3 w-3 border-b border-l" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 right-0 h-3 w-3 border-b border-r" aria-hidden />
-            </div>
+            <Parallax distance={40}>
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src="/portrait/portrait.jpg"
+                  alt="Pablo Assad — portrait"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover"
+                />
+                {/* Swiss corner ticks */}
+                <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
+                <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
+                <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
+                <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
+              </div>
+            </Parallax>
             <figcaption className="mt-3 flex items-center justify-between">
               <span className="kicker">Portrait</span>
-              <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em]">≈ 20 000 particules</span>
+              <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em]">Paris</span>
             </figcaption>
           </figure>
         </motion.div>
