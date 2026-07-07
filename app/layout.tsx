@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "design graphique",
     "brand content",
     "chef de projet communication",
-    "alternance communication",
   ],
   authors: [{ name: "Pablo Assad" }],
   openGraph: {

@@ -72,7 +72,7 @@ const fr: Translations = {
     name: "Pablo Assad",
     statement: "Je compose des marques.",
     intro: "Un regard de créatif, la rigueur d'un stratège.",
-    availability: "En recherche d'alternance — 2026",
+    availability: "Ouvert aux projets et collaborations",
     scroll: "Défiler",
   },
   journey: {
@@ -105,7 +105,7 @@ const fr: Translations = {
   contact: {
     label: "Contact",
     title: "Construisons quelque chose qui se retient.",
-    lead: "Alternance, recrutement, ou une marque à faire grandir ? Écrivez-moi.",
+    lead: "Un projet, un recrutement, ou une marque à faire grandir ? Écrivez-moi.",
     emailLabel: "Email",
     phoneLabel: "Téléphone",
     linkedinLabel: "LinkedIn",
@@ -140,7 +140,7 @@ const en: Translations = {
     name: "Pablo Assad",
     statement: "I compose brands.",
     intro: "A creative's eye, a strategist's discipline.",
-    availability: "Seeking a work-study placement — 2026",
+    availability: "Open to projects and collaborations",
     scroll: "Scroll",
   },
   journey: {
@@ -173,7 +173,7 @@ const en: Translations = {
   contact: {
     label: "Contact",
     title: "Let's build something that sticks.",
-    lead: "A placement, a role, or a brand to grow? Write to me.",
+    lead: "A project, a role, or a brand to grow? Write to me.",
     emailLabel: "Email",
     phoneLabel: "Phone",
     linkedinLabel: "LinkedIn",
