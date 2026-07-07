@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, type Variants } from "framer-motion";
-import type { ElementType, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -29,7 +29,8 @@ interface RevealProps {
  * viewport. Reduced-motion users get an instant, static reveal via MotionConfig.
  */
 export function Reveal({ children, delayIndex = 0, className, as = "div" }: RevealProps) {
-  const MotionTag = motion[as] as ElementType;
+  // Narrow cast: all motion.<tag> components share motion.div's prop surface.
+  const MotionTag = motion[as] as typeof motion.div;
   return (
     <MotionTag
       className={className}

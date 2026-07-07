@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import type { CSSProperties, ElementType } from "react";
+import type { CSSProperties } from "react";
 
 const container: Variants = {
   hidden: {},
@@ -37,7 +37,9 @@ export function RevealText({
   stagger = 0.055,
 }: RevealTextProps) {
   const reduced = useReducedMotion();
-  const Tag = (reduced ? as : motion[as]) as ElementType;
+  // Narrow cast: all motion.<tag> components share motion.div's prop surface;
+  // the reduced branch renders the plain HTML tag with the same base props.
+  const Tag = (reduced ? as : motion[as]) as unknown as typeof motion.div;
 
   if (reduced) {
     return (

@@ -112,6 +112,17 @@ body {
   background: var(--line);
 }
 
+/* ── Monolith 3D layer swaps ──
+   When the fixed 3D layer is active, the hero's static portrait yields its
+   whitespace to the sculpture (visibility keeps the layout), and the portrait
+   reappears in the Contact chapter. Without 3D, the swap never happens. */
+html[data-monolith="on"] .monolith-swap-out {
+  visibility: hidden;
+}
+html:not([data-monolith="on"]) .monolith-swap-in {
+  display: none;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

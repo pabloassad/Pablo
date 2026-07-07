@@ -73,7 +73,7 @@ export function Hero() {
           transition={{ duration: 1.1, ease, delay: 0.5 }}
           className="col-span-12 lg:col-span-4"
         >
-          <figure className="relative">
+          <figure className="monolith-swap-out relative">
             <Parallax distance={40}>
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
