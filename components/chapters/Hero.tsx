@@ -62,14 +62,14 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Portrait — sober Swiss plate (the 3D signature moment lands here) */}
+        {/* Portrait — Swiss plate */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.1, ease, delay: 0.5 }}
           className="col-span-12 lg:col-span-4"
         >
-          <figure className="vinyl-swap-out relative">
+          <figure className="relative">
             <Parallax distance={40}>
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image

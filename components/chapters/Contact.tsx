@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
@@ -38,28 +37,6 @@ export function Contact() {
             </Reveal>
           </div>
 
-          {/* Portrait plate — lives here while the 3D layer owns the hero */}
-          <Reveal delayIndex={2} className="vinyl-swap-in mt-8 hidden md:col-span-3 md:col-start-10 lg:block">
-            <figure className="relative">
-              <div className="relative aspect-[4/5] w-full overflow-hidden">
-                <Image
-                  src="/portrait/portrait.jpg"
-                  alt="Pablo Assad — portrait"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
-                <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
-                <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
-                <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
-                <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
-              </div>
-              <figcaption className="mt-2 flex items-center justify-between">
-                <span className="kicker">Pablo Assad</span>
-                <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em]">Paris</span>
-              </figcaption>
-            </figure>
-          </Reveal>
         </div>
 
         <Reveal delayIndex={2}>
