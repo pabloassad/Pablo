@@ -132,20 +132,32 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             <div className="no-scrollbar overflow-y-auto px-6 py-6 sm:px-8">
               {media.length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2">
-                  {media.map((m, i) => (
-                    <div
-                      key={m.src}
-                      className={`bg-paper-2 relative overflow-hidden ${i === 0 ? "sm:col-span-2 aspect-[16/10]" : "aspect-[4/5]"}`}
-                    >
-                      <Image
+                  {media.map((m, i) =>
+                    m.type === "video" ? (
+                      <video
+                        key={m.src}
                         src={m.src}
-                        alt={m.alt?.[locale] ?? project.title[locale]}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 896px"
-                        className="object-cover"
+                        controls
+                        playsInline
+                        preload="metadata"
+                        className="bg-ink max-h-[70svh] w-full sm:col-span-2"
+                        style={{ objectFit: "contain" }}
                       />
-                    </div>
-                  ))}
+                    ) : (
+                      <div
+                        key={m.src}
+                        className={`bg-paper-2 relative overflow-hidden ${i === 0 ? "sm:col-span-2 aspect-[16/10]" : "aspect-[4/5]"}`}
+                      >
+                        <Image
+                          src={m.src}
+                          alt={m.alt?.[locale] ?? project.title[locale]}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 896px"
+                          className={i === 0 ? "object-contain" : "object-cover"}
+                        />
+                      </div>
+                    ),
+                  )}
                 </div>
               ) : (
                 <div className="border-line bg-paper-2 relative flex aspect-[16/10] items-center justify-center overflow-hidden border">

@@ -3,9 +3,6 @@ import type { Project, ProjectCategory, Localized } from "@/lib/content/types";
 /**
  * The catalogue. Add a production = add an entry here + drop its media in
  * public/works/<slug>/ and set status to "published". See CONTENT.md.
- *
- * Entries mirror the real productions in Pablo's asset drive; they flip to
- * "published" the moment their cover image lands in public/works/.
  */
 
 export const categoryLabels: Record<ProjectCategory, Localized> = {
@@ -26,7 +23,14 @@ export const projects: Project[] = [
       fr: "Identité complète d'un événement : affiche, costumes, teasers.",
       en: "Full event identity: poster, costumes, teasers.",
     },
-    status: "placeholder",
+    cover: "/works/adonis/cover.webp",
+    media: [
+      { src: "/works/adonis/01.webp" },
+      { src: "/works/adonis/02.webp" },
+      { src: "/works/adonis/teaser-01.mp4", type: "video" },
+      { src: "/works/adonis/teaser-02.mp4", type: "video" },
+    ],
+    status: "published",
   },
   {
     slug: "la-nuit-du-bac",
@@ -59,7 +63,19 @@ export const projects: Project[] = [
       fr: "Une marque événementielle créée de zéro : identité, campagnes, contenus.",
       en: "An events brand built from zero: identity, campaigns, content.",
     },
-    status: "placeholder",
+    cover: "/works/le-cercle/cover.webp",
+    media: [
+      { src: "/works/le-cercle/01.webp" },
+      { src: "/works/le-cercle/02.webp" },
+      { src: "/works/le-cercle/03.webp" },
+      { src: "/works/le-cercle/04.webp" },
+      { src: "/works/le-cercle/05.webp" },
+      { src: "/works/le-cercle/06.webp" },
+      { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
+      { src: "/works/le-cercle/teaser-02.mp4", type: "video" },
+      { src: "/works/le-cercle/teaser-03.mp4", type: "video" },
+    ],
+    status: "published",
   },
   {
     slug: "boss-lady",
@@ -67,7 +83,9 @@ export const projects: Project[] = [
     title: { fr: "Boss Lady", en: "Boss Lady" },
     year: "2026",
     role: { fr: "Direction artistique · Affiche", en: "Art direction · Poster" },
-    status: "placeholder",
+    cover: "/works/boss-lady/cover.webp",
+    media: [{ src: "/works/boss-lady/01.webp" }],
+    status: "published",
   },
   {
     slug: "flashback",
@@ -93,7 +111,12 @@ export const projects: Project[] = [
     title: { fr: "Ruby", en: "Ruby" },
     year: "2026",
     role: { fr: "Montage · Teasers d'événement", en: "Editing · Event teasers" },
-    status: "placeholder",
+    cover: "/works/ruby/cover.webp",
+    media: [
+      { src: "/works/ruby/teaser-01.mp4", type: "video" },
+      { src: "/works/ruby/teaser-02.mp4", type: "video" },
+    ],
+    status: "published",
   },
   {
     slug: "fondamentall",
