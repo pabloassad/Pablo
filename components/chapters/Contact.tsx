@@ -39,7 +39,7 @@ export function Contact() {
           </div>
 
           {/* Portrait plate — lives here while the 3D layer owns the hero */}
-          <Reveal delayIndex={2} className="monolith-swap-in mt-8 hidden md:col-span-3 md:col-start-10 lg:block">
+          <Reveal delayIndex={2} className="vinyl-swap-in mt-8 hidden md:col-span-3 md:col-start-10 lg:block">
             <figure className="relative">
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image

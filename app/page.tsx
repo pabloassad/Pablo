@@ -1,4 +1,4 @@
-import { MonolithLayer } from "@/components/webgl/MonolithLayer";
+import { VinylLayer } from "@/components/webgl/VinylLayer";
 import { Hero } from "@/components/chapters/Hero";
 import { Journey } from "@/components/chapters/Journey";
 import { Catalogue } from "@/components/chapters/Catalogue";
@@ -9,7 +9,7 @@ import { Contact } from "@/components/chapters/Contact";
 export default function Home() {
   return (
     <>
-      <MonolithLayer />
+      <VinylLayer />
       <Hero />
       <Journey />
       <Catalogue />

@@ -58,10 +58,6 @@ export function Hero() {
               className="sm:pb-1"
             >
               <p className="text-mute max-w-xs text-base leading-relaxed">{h.intro}</p>
-              <span className="border-ink/30 text-ink mt-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-medium">
-                <span className="bg-ink h-1.5 w-1.5 rounded-full" aria-hidden />
-                {h.availability}
-              </span>
             </motion.div>
           </div>
         </div>
@@ -73,7 +69,7 @@ export function Hero() {
           transition={{ duration: 1.1, ease, delay: 0.5 }}
           className="col-span-12 lg:col-span-4"
         >
-          <figure className="monolith-swap-out relative">
+          <figure className="vinyl-swap-out relative">
             <Parallax distance={40}>
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image

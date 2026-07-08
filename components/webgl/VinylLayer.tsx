@@ -3,19 +3,18 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
-const MonolithScene = dynamic(
-  () => import("./MonolithScene").then((m) => m.MonolithScene),
-  { ssr: false },
-);
+const VinylScene = dynamic(() => import("./VinylScene").then((m) => m.VinylScene), {
+  ssr: false,
+});
 
 /**
- * Mounts the 3D layer only where it earns its keep: desktop, motion allowed,
- * WebGL available. While active, `data-monolith="on"` on <html> lets the CSS
- * swap the hero's static portrait out (the sculpture takes its place) — the
+ * Mounts the vinyl 3D layer only where it earns its keep: desktop, motion
+ * allowed, WebGL available. While active, `data-vinyl="on"` on <html> lets the
+ * CSS swap the hero's static portrait out (the record takes its place) — the
  * photo then lives in the Contact chapter. Everyone else keeps the static
  * hero portrait: graceful, never broken.
  */
-export function MonolithLayer() {
+export function VinylLayer() {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -28,8 +27,7 @@ export function MonolithLayer() {
         const probe = document.createElement("canvas");
         ok = Boolean(probe.getContext("webgl") ?? probe.getContext("experimental-webgl"));
       }
-      document.documentElement.dataset.monolith = ok ? "on" : "off";
-       
+      document.documentElement.dataset.vinyl = ok ? "on" : "off";
       setActive(ok);
     };
     decide();
@@ -45,7 +43,7 @@ export function MonolithLayer() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-20 no-print" aria-hidden>
-      <MonolithScene />
+      <VinylScene />
     </div>
   );
 }

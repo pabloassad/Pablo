@@ -17,7 +17,6 @@ export interface Translations {
     name: string;
     statement: string;
     intro: string;
-    availability: string;
     scroll: string;
   };
   journey: { label: string; title: string; intro: string };
@@ -72,7 +71,6 @@ const fr: Translations = {
     name: "Pablo Assad",
     statement: "Je compose des marques.",
     intro: "Un regard de créatif, la rigueur d'un stratège.",
-    availability: "Ouvert aux projets et collaborations",
     scroll: "Défiler",
   },
   journey: {
@@ -140,7 +138,6 @@ const en: Translations = {
     name: "Pablo Assad",
     statement: "I compose brands.",
     intro: "A creative's eye, a strategist's discipline.",
-    availability: "Open to projects and collaborations",
     scroll: "Scroll",
   },
   journey: {
