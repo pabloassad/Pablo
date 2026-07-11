@@ -131,7 +131,9 @@ export const projects: Project[] = [
     category: "video",
     title: { fr: "Manifesto", en: "Manifesto" },
     role: { fr: "Réalisation et montage", en: "Direction and editing" },
-    status: "placeholder",
+    cover: "/works/manifesto/cover.webp",
+    media: [{ src: "/works/manifesto/film-01.mp4", type: "video" }],
+    status: "published",
   },
 
   // ── Son et Composition ──────────────────────────────────────────────────
