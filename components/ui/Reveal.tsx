@@ -3,6 +3,10 @@
 import { motion, type Variants } from "framer-motion";
 import type { ReactNode } from "react";
 
+// La Mesure — entrances land on a shared beat (0.12s) rather than a smear of
+// arbitrary delays: elements arrive in time, like voices on a score.
+const BEAT = 0.12;
+
 const variants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({
@@ -10,7 +14,7 @@ const variants: Variants = {
     y: 0,
     transition: {
       duration: 0.9,
-      delay: i * 0.08,
+      delay: i * BEAT,
       ease: [0.16, 1, 0.3, 1],
     },
   }),

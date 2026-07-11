@@ -66,7 +66,7 @@ function Register({ label, items }: { label: string; items: JourneyMilestone[] }
 
       <ol
         ref={listRef}
-        className="relative mt-5 [--axis:0.25rem] sm:[--axis:7rem]"
+        className="relative mt-5 [--axis:0.25rem] sm:[--axis:8.5rem]"
       >
         <span
           className="bg-line absolute inset-y-1.5 w-px -translate-x-1/2"
@@ -83,9 +83,9 @@ function Register({ label, items }: { label: string; items: JourneyMilestone[] }
           <li key={m.id} className="relative">
             <Reveal
               delayIndex={i % 3}
-              className="grid grid-cols-1 gap-0.5 py-3 pl-6 sm:grid-cols-[6rem_2rem_1fr] sm:gap-0 sm:pl-0"
+              className="grid grid-cols-1 gap-0.5 py-3 pl-6 sm:grid-cols-[7.5rem_2rem_1fr] sm:gap-0 sm:pl-0"
             >
-              <span className="font-display text-mute relative block text-sm tracking-tight sm:text-right">
+              <span className="font-display text-mute relative block text-sm tracking-tight whitespace-nowrap sm:text-right">
                 {m.year}
                 <span
                   className={`absolute top-1/2 left-[calc(var(--axis)-1.5rem)] h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full sm:left-[var(--axis)] ${
@@ -104,8 +104,10 @@ function Register({ label, items }: { label: string; items: JourneyMilestone[] }
                   letterSpacing: "-0.015em",
                 }}
               >
-                {m.title[locale]}
-                <span className="text-faint font-sans text-sm font-normal"> · {m.place[locale]}</span>
+                {m.title[locale]}{" "}
+                <span className="text-faint inline-block font-sans text-sm font-normal whitespace-nowrap">
+                  · {m.place[locale]}
+                </span>
               </h3>
             </Reveal>
           </li>

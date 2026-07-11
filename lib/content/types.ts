@@ -14,6 +14,9 @@ export interface ProjectMedia {
   src: string;
   type?: "image" | "video";
   alt?: Localized;
+  /** Intrinsic size — lets layouts honour the production's native format. */
+  w?: number;
+  h?: number;
 }
 
 export interface ProjectMetric {
@@ -31,6 +34,8 @@ export interface Project {
   blurb?: Localized;
   /** Cover image path under /public. Omit while placeholder. */
   cover?: string;
+  coverW?: number;
+  coverH?: number;
   media?: ProjectMedia[];
   metrics?: ProjectMetric[];
   status: "published" | "placeholder";
