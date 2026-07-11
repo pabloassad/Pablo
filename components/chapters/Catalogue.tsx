@@ -17,7 +17,7 @@ const CATS: ProjectCategory[] = ["design", "video", "sound"];
 const ease = [0.16, 1, 0.3, 1] as const;
 const HASH_PREFIX = "#projet-";
 
-export function Catalogue() {
+export function Catalogue({ standalone = false }: { standalone?: boolean }) {
   const { t, locale } = useLanguage();
   const w = t.work;
   const [filter, setFilter] = useState<Filter>("all");
@@ -64,10 +64,13 @@ export function Catalogue() {
   }, []);
 
   return (
-    <section id="projets" className="bg-paper-2 px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
+    <section
+      id="projets"
+      className={`bg-paper-2 px-6 sm:px-10 lg:px-16 ${standalone ? "py-16 sm:py-20" : "py-24 sm:py-32"}`}
+    >
       <div className="mx-auto max-w-7xl">
         <Reveal>
-          <SectionLabel index="02" label={w.label} />
+          <SectionLabel index={standalone ? "01" : "02"} label={w.label} />
         </Reveal>
 
         <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">

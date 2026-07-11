@@ -97,7 +97,7 @@ export function Hero() {
 
       {/* Scroll cue */}
       <motion.a
-        href="#parcours"
+        href="#apropos"
         aria-label={h.scroll}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

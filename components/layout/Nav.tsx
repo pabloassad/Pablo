@@ -1,17 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { LangToggle } from "@/components/ui/LangToggle";
 import { cn } from "@/lib/utils";
 
+/**
+ * Two spaces, immediately legible: Présentation / Répertoire. The active tab
+ * carries an animated underline; the contact CTA always lands on the
+ * presentation page's contact chapter.
+ */
 export function Nav() {
   const { t } = useLanguage();
-  const items = t.nav.items;
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState<string>("");
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -20,22 +25,11 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    const sections = items
-      .map((i) => document.getElementById(i.id))
-      .filter((el): el is HTMLElement => Boolean(el));
-    if (!sections.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, [items]);
+  const onRepertoire = pathname.startsWith("/repertoire");
+  const tabs = [
+    { href: "/", label: t.nav.presentation, active: !onRepertoire },
+    { href: "/repertoire", label: t.nav.repertoire, active: onRepertoire },
+  ];
 
   return (
     <header
@@ -46,87 +40,53 @@ export function Nav() {
           : "border-b border-transparent py-5",
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 sm:px-10 lg:px-16">
-        <a href="#top" className="group flex items-center gap-2.5">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 sm:px-10 lg:px-16">
+        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
           <span className="bg-ink block h-2 w-2 rounded-full transition-transform duration-500 group-hover:scale-125" aria-hidden />
-          <span className="font-display text-lg tracking-tight" style={{ fontWeight: 700 }}>Pablo Assad</span>
-        </a>
+          <span className="font-display hidden text-lg tracking-tight sm:block" style={{ fontWeight: 700 }}>
+            Pablo Assad
+          </span>
+          <span className="font-display text-lg tracking-tight sm:hidden" style={{ fontWeight: 700 }}>
+            P.A.
+          </span>
+        </Link>
 
-        {/* Desktop links */}
-        <ul className="hidden items-center gap-7 lg:flex">
-          {items.map((item) => (
-            <li key={item.id}>
-              <a
-                href={`#${item.id}`}
+        {/* The two spaces */}
+        <ul className="flex items-center gap-6 sm:gap-8">
+          {tabs.map((tab) => (
+            <li key={tab.href}>
+              <Link
+                href={tab.href}
+                aria-current={tab.active ? "page" : undefined}
                 className={cn(
-                  "relative text-sm transition-colors duration-200",
-                  active === item.id ? "text-ink" : "text-muted hover:text-ink",
+                  "relative pb-1 text-sm font-medium transition-colors duration-200",
+                  tab.active ? "text-ink" : "text-mute hover:text-ink",
                 )}
               >
-                {item.label}
-                {active === item.id && (
+                {tab.label}
+                {tab.active && (
                   <motion.span
-                    layoutId="nav-underline"
-                    className="bg-ink absolute -bottom-1.5 left-0 h-px w-full"
+                    layoutId="nav-tab-underline"
+                    transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                    className="bg-ink absolute bottom-0 left-0 h-[2px] w-full"
                   />
                 )}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-5">
+        <div className="flex shrink-0 items-center gap-5">
           <LangToggle className="hidden sm:flex" />
           <a
-            href="#contact"
-            className="bg-ink text-paper hidden rounded-full px-5 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-85 sm:inline-block"
+            href={onRepertoire ? "/#contact" : "#contact"}
+            className="bg-ink text-paper hidden rounded-full px-5 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-85 md:inline-block"
           >
             {t.nav.cta}
           </a>
-
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Menu"
-            aria-expanded={menuOpen}
-            className="text-ink flex flex-col gap-1.5 lg:hidden"
-          >
-            <span className={cn("h-px w-6 bg-current transition-transform duration-300", menuOpen && "translate-y-[3.5px] rotate-45")} />
-            <span className={cn("h-px w-6 bg-current transition-transform duration-300", menuOpen && "-translate-y-[3.5px] -rotate-45")} />
-          </button>
+          <LangToggle className="flex sm:hidden" />
         </div>
       </nav>
-
-      {/* Mobile sheet */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-paper/95 border-line overflow-hidden border-t backdrop-blur-xl lg:hidden"
-          >
-            <ul className="flex flex-col gap-1 px-6 py-6 sm:px-10">
-              {items.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    onClick={() => setMenuOpen(false)}
-                    className="font-display text-ink block py-2 text-2xl font-light"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-              <li className="mt-4">
-                <LangToggle />
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }
