@@ -22,7 +22,7 @@ export interface Translations {
     toolsLabel: string;
     photoCaption: string;
   };
-  journey: { label: string; title: string };
+  journey: { label: string; title: string; educationLabel: string; experienceLabel: string };
   work: {
     label: string;
     title: string;
@@ -84,7 +84,7 @@ const fr: Translations = {
     toolsLabel: "Outils",
     photoCaption: "Paris",
   },
-  journey: { label: "Parcours", title: "Formations" },
+  journey: { label: "Parcours", title: "Repères", educationLabel: "Formation", experienceLabel: "Expériences" },
   work: {
     label: "Projets",
     title: "Répertoire",
@@ -156,7 +156,7 @@ const en: Translations = {
     toolsLabel: "Tools",
     photoCaption: "Paris",
   },
-  journey: { label: "Path", title: "Education" },
+  journey: { label: "Path", title: "Markers", educationLabel: "Education", experienceLabel: "Experience" },
   work: {
     label: "Work",
     title: "Portfolio",

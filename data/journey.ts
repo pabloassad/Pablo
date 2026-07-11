@@ -1,22 +1,19 @@
 import type { JourneyMilestone } from "@/lib/content/types";
 
 /**
- * The path — chronological, sourced from Pablo's CV (2026). `emphasis: 3`
- * milestones get the most visual weight (headline signals for recruiters &
- * schools). Add a milestone = add an entry; the layout adapts on its own.
+ * The markers — sourced from Pablo's CV (2026). Two registers of one block:
+ * kind "school" | "goal" → Formation column; everything else → Expériences.
+ * Titles + structure + year only; the layout stays silent by design.
  */
 
 export const journey: JourneyMilestone[] = [
+  // ── Formation ───────────────────────────────────────────────────────────
   {
     id: "std2a",
     year: "2020—23",
     title: { fr: "Bac STD2A — Arts appliqués", en: "Baccalauréat STD2A — Applied Arts" },
     place: { fr: "Lycée Nicolas Ledoux, Vincennes", en: "Lycée Nicolas Ledoux, Vincennes" },
     kind: "school",
-    blurb: {
-      fr: "La forme au service du fond. L'œil se forme ici.",
-      en: "Form in service of substance. The eye is trained here.",
-    },
     emphasis: 1,
   },
   {
@@ -28,51 +25,11 @@ export const journey: JourneyMilestone[] = [
     emphasis: 1,
   },
   {
-    id: "rosa-paris",
-    year: "Juin 2024",
-    title: { fr: "Rosa Paris — Stage", en: "Rosa Paris — Internship" },
-    place: { fr: "Direction artistique, maquettes et exécution clients", en: "Art direction, client layouts and production" },
-    kind: "agency",
-    emphasis: 2,
-  },
-  {
-    id: "le-cercle",
-    year: "2024—",
-    title: { fr: "Le Cercle — Auto-entrepreneur", en: "Le Cercle — Founder" },
-    place: { fr: "Création de marque et pilotage artistique d'événements", en: "Brand building and artistic direction of events" },
-    kind: "venture",
-    blurb: {
-      fr: "Une marque créée de zéro et pilotée comme une entreprise, en parallèle des études.",
-      en: "A brand built from zero and run like a business, alongside my studies.",
-    },
-    emphasis: 2,
-  },
-  {
-    id: "volange",
-    year: "Nov—Déc 2024",
-    title: { fr: "Volange — Stage", en: "Volange — Internship" },
-    place: { fr: "Direction artistique et événementiel", en: "Art direction and events" },
-    kind: "agency",
-    emphasis: 2,
-  },
-  {
-    id: "riva",
-    year: "2025—",
-    title: { fr: "Riva", en: "Riva" },
-    place: { fr: "Projet entrepreneurial — en parallèle des études", en: "Entrepreneurial venture — alongside my studies" },
-    kind: "venture",
-    emphasis: 1,
-  },
-  {
     id: "but-infocom",
     year: "2025—26",
     title: { fr: "BUT Information-Communication", en: "BUT Information-Communication" },
-    place: { fr: "Université Paris 8", en: "Université Paris 8" },
+    place: { fr: "Université Paris 8 · Major de promotion", en: "Université Paris 8 · Top of class" },
     kind: "school",
-    blurb: {
-      fr: "Major de promotion — moyenne supérieure à 15/20.",
-      en: "Top of class — overall average above 15/20.",
-    },
     emphasis: 3,
   },
   {
@@ -81,10 +38,56 @@ export const journey: JourneyMilestone[] = [
     title: { fr: "Master Stratégie de communication", en: "MSc Communication Strategy" },
     place: { fr: "La Sorbonne", en: "La Sorbonne" },
     kind: "goal",
-    blurb: {
-      fr: "La prochaine étape.",
-      en: "The next step.",
-    },
     emphasis: 3,
+  },
+
+  // ── Expériences ─────────────────────────────────────────────────────────
+  {
+    id: "fondamentall",
+    year: "2023",
+    title: { fr: "Fondament'All", en: "Fondament'All" },
+    place: { fr: "Association culturelle · Communication", en: "Cultural non-profit · Communications" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "fscf",
+    year: "2023",
+    title: { fr: "FSCF", en: "FSCF" },
+    place: { fr: "Formateur BAFA", en: "BAFA trainer" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "rosa-paris",
+    year: "Juin 2024",
+    title: { fr: "Rosa Paris", en: "Rosa Paris" },
+    place: { fr: "Stage · Direction artistique", en: "Internship · Art direction" },
+    kind: "agency",
+    emphasis: 2,
+  },
+  {
+    id: "le-cercle",
+    year: "2024—",
+    title: { fr: "Le Cercle", en: "Le Cercle" },
+    place: { fr: "Auto-entrepreneur · Marque événementielle", en: "Founder · Events brand" },
+    kind: "venture",
+    emphasis: 2,
+  },
+  {
+    id: "volange",
+    year: "Nov—Déc 2024",
+    title: { fr: "Volange", en: "Volange" },
+    place: { fr: "Stage · Direction artistique", en: "Internship · Art direction" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "riva",
+    year: "2025—",
+    title: { fr: "Riva Agency", en: "Riva Agency" },
+    place: { fr: "Projet entrepreneurial", en: "Entrepreneurial venture" },
+    kind: "venture",
+    emphasis: 2,
   },
 ];

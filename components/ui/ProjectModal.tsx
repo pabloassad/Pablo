@@ -23,25 +23,29 @@ interface ProjectModalProps {
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const { t, locale } = useLanguage();
   const panelRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const w = t.work;
 
-  // Scroll lock + Esc + focus trap while open.
+  // Scroll lock (page + Lenis) + Esc + focus trap while open.
   useEffect(() => {
     if (!project) return;
     const root = document.documentElement;
     const prevOverflow = root.style.overflow;
     root.style.overflow = "hidden";
+    // Lenis hijacks the wheel globally — freeze it so the panel owns scrolling.
+    window.__lenis?.stop();
 
     const panel = panelRef.current;
     const focusables = () =>
       panel
         ? Array.from(
             panel.querySelectorAll<HTMLElement>(
-              'button, a[href], [tabindex]:not([tabindex="-1"])',
+              'button, a[href], video, [tabindex]:not([tabindex="-1"])',
             ),
           )
         : [];
-    focusables()[0]?.focus();
+    // Focus the scroll body first so ↑/↓/PageDown scroll the gallery at once.
+    (scrollRef.current ?? focusables()[0])?.focus();
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -64,6 +68,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     document.addEventListener("keydown", onKey);
     return () => {
       root.style.overflow = prevOverflow;
+      window.__lenis?.start();
       document.removeEventListener("keydown", onKey);
     };
   }, [project, onClose]);
@@ -128,8 +133,15 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               </button>
             </div>
 
-            {/* Body — image-first */}
-            <div className="no-scrollbar overflow-y-auto px-6 py-6 sm:px-8">
+            {/* Body — image-first. data-lenis-prevent keeps Lenis's wheel
+                hijack out; overscroll-contain stops scroll chaining to the
+                page; tabIndex lets keyboard scrolling work immediately. */}
+            <div
+              ref={scrollRef}
+              data-lenis-prevent
+              tabIndex={-1}
+              className="grow touch-pan-y overflow-y-auto overscroll-contain px-6 py-6 outline-none sm:px-8"
+            >
               {media.length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {media.map((m, i) =>

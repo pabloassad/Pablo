@@ -18,6 +18,9 @@ export function SmoothScroll() {
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+    // Exposed so overlays (project modal) can freeze the page scroll while
+    // they own the wheel. See ProjectModal.
+    window.__lenis = lenis;
 
     let frame = 0;
     const raf = (time: number) => {
@@ -44,8 +47,15 @@ export function SmoothScroll() {
       cancelAnimationFrame(frame);
       document.removeEventListener("click", handleAnchorClick);
       lenis.destroy();
+      delete window.__lenis;
     };
   }, []);
 
   return null;
+}
+
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
 }
