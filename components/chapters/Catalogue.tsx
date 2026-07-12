@@ -10,6 +10,8 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ProjectModal } from "@/components/ui/ProjectModal";
 import { projects, categoryLabels } from "@/data/projects";
 import { pieces } from "@/data/pieces";
+import { audioTracks } from "@/data/audio";
+import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
 import type { Project, ProjectCategory, ProjectMedia } from "@/lib/content/types";
 
 type Filter = "all" | ProjectCategory;
@@ -45,11 +47,14 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
     [filter, pending],
   );
 
+  // Honest counts: each universe counts what it actually shows —
+  // projects, plus the poster wall for Image, plus the tracks for Son.
   const counts = useMemo(() => {
-    const map: Record<Filter, number> = { all: projects.length, design: 0, video: 0, sound: 0 };
+    const map: Record<Filter, number> = { all: 0, design: pieces.length, video: 0, sound: audioTracks.length };
     projects.forEach((p) => {
       map[p.category] += 1;
     });
+    map.all = map.design + map.video + map.sound;
     return map;
   }, []);
 
@@ -156,6 +161,9 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
               </motion.div>
             ))}
           </AnimatePresence>
+
+          {/* La Table d'écoute — the sound library owns the Son universe */}
+          {(filter === "all" || filter === "sound") && <SoundLibrary />}
 
           {/* Pieces — the poster wall: strong one-shot visuals, no chrome */}
           {(filter === "all" || filter === "design") && pieces.length > 0 && (
@@ -377,7 +385,7 @@ function MediaStrip({
       onPointerEnter={() => (pause.current = true)}
       onPointerLeave={() => (pause.current = false)}
       onPointerDown={() => (pause.current = true)}
-      className="no-scrollbar flex touch-pan-x snap-x gap-4 overflow-x-auto overscroll-x-contain"
+      className="no-scrollbar flex touch-pan-x snap-x items-center gap-4 overflow-x-auto overscroll-x-contain"
     >
       {strip.map((m) =>
         m.type === "video" ? (
@@ -387,7 +395,7 @@ function MediaStrip({
             key={m.src}
             type="button"
             onClick={(e) => onOpen(project.slug, e.currentTarget)}
-            className="group border-line bg-paper relative h-60 shrink-0 snap-start overflow-hidden border sm:h-72 lg:h-80"
+            className="group border-line bg-paper relative h-52 shrink-0 snap-start overflow-hidden border sm:h-64 lg:h-72"
             style={{ aspectRatio: `${m.w ?? 4} / ${m.h ?? 5}` }}
             aria-label={project.title[locale]}
           >
@@ -430,7 +438,7 @@ function VideoTile({
     <button
       type="button"
       onClick={onClick}
-      className="border-line bg-ink relative h-60 shrink-0 snap-start overflow-hidden border sm:h-72 lg:h-80"
+      className="border-line bg-ink relative h-64 shrink-0 snap-start overflow-hidden border sm:h-80 lg:h-96"
       style={{ aspectRatio: ratio }}
     >
       <video

@@ -91,14 +91,6 @@ export const projects: Project[] = [
     media: [{ src: "/works/manifesto/film-01.mp4", type: "video" }],
     status: "published",
   },
-  // ── Son ──────────────────────────────────────────────────────────────────
-  {
-    slug: "bibliotheque-sonore",
-    category: "sound",
-    title: { fr: "Bibliothèque sonore", en: "Sound library" },
-    role: { fr: "Compositions et commandes — lecteur en préparation", en: "Compositions and commissions — player in the making" },
-    status: "placeholder",
-  },
   {
     slug: "fondamentall",
     category: "video",

@@ -36,6 +36,19 @@ export interface Translations {
     back: string;
     pieces: string;
   };
+  sound: {
+    label: string;
+    title: string;
+    intro: string;
+    commissioned: string;
+    personal: string;
+    play: string;
+    pause: string;
+    seekLabel: string;
+    idle: string;
+    soon: string;
+    soonNote: string;
+  };
   craft: { label: string; title: string; body: string[]; aside: string };
   repCta: { kicker: string; title: string; sub: string; button: string };
   contact: {
@@ -98,6 +111,19 @@ const fr: Translations = {
     open: "Voir le projet",
     back: "Présentation",
     pieces: "Pièces détachées",
+  },
+  sound: {
+    label: "Son",
+    title: "La Table d'écoute",
+    intro: "Compositions et commandes. Cliquez, écoutez. Le reste du site peut attendre.",
+    commissioned: "Commandes",
+    personal: "Compositions personnelles",
+    play: "Lire",
+    pause: "Mettre en pause",
+    seekLabel: "Position de lecture",
+    idle: "Choisissez une piste",
+    soon: "Habillage sonore",
+    soonNote: "À venir",
   },
   craft: {
     label: "Création",
@@ -171,6 +197,19 @@ const en: Translations = {
     open: "View project",
     back: "About",
     pieces: "Single pieces",
+  },
+  sound: {
+    label: "Sound",
+    title: "The Listening Table",
+    intro: "Compositions and commissions. Click, listen. The rest of the site can wait.",
+    commissioned: "Commissions",
+    personal: "Personal compositions",
+    play: "Play",
+    pause: "Pause",
+    seekLabel: "Playback position",
+    idle: "Pick a track",
+    soon: "Sound design",
+    soonNote: "Coming soon",
   },
   craft: {
     label: "Craft",
