@@ -46,6 +46,9 @@ export interface Translations {
     pause: string;
     seekLabel: string;
     idle: string;
+    kindCommande: string;
+    kindJingle: string;
+    kindReportage: string;
     soon: string;
     soonNote: string;
   };
@@ -122,6 +125,9 @@ const fr: Translations = {
     pause: "Mettre en pause",
     seekLabel: "Position de lecture",
     idle: "Choisissez une piste",
+    kindCommande: "Commande",
+    kindJingle: "Jingle",
+    kindReportage: "Reportage",
     soon: "Habillage sonore",
     soonNote: "À venir",
   },
@@ -208,6 +214,9 @@ const en: Translations = {
     pause: "Pause",
     seekLabel: "Playback position",
     idle: "Pick a track",
+    kindCommande: "Commission",
+    kindJingle: "Jingle",
+    kindReportage: "Documentary",
     soon: "Sound design",
     soonNote: "Coming soon",
   },
