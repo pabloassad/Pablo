@@ -66,3 +66,27 @@ export interface ToolGroup {
   key: string;
   label: Localized;
 }
+
+/** A standalone production — one poster, one image, no dedicated project. */
+export interface Piece {
+  id: string;
+  title: Localized;
+  /** Path under /public. Omit while the visual is on its way. */
+  src?: string;
+  w?: number;
+  h?: number;
+  year?: string;
+}
+
+export type TrackKind = "commande" | "jingle" | "reportage" | "perso";
+
+/** One track of the sound library. */
+export interface AudioTrack {
+  id: string;
+  title: string;
+  file: string;
+  kind: TrackKind;
+  context: Localized;
+  bpm?: number;
+  year?: string;
+}

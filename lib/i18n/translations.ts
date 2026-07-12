@@ -34,6 +34,7 @@ export interface Translations {
     detailSoon: string;
     open: string;
     back: string;
+    pieces: string;
   };
   craft: { label: string; title: string; body: string[]; aside: string };
   repCta: { kicker: string; title: string; sub: string; button: string };
@@ -96,6 +97,7 @@ const fr: Translations = {
     detailSoon: "Visuels en cours d'ajout.",
     open: "Voir le projet",
     back: "Présentation",
+    pieces: "Pièces détachées",
   },
   craft: {
     label: "Création",
@@ -168,6 +170,7 @@ const en: Translations = {
     detailSoon: "Visuals on their way.",
     open: "View project",
     back: "About",
+    pieces: "Single pieces",
   },
   craft: {
     label: "Craft",

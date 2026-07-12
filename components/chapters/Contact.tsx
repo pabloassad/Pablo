@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
@@ -23,7 +24,7 @@ export function Contact() {
           <SectionLabel index="05" label={c.label} />
         </Reveal>
 
-        <div className="grid gap-10 md:grid-cols-12 md:items-start">
+        <div className="grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-8">
             <RevealText
               as="h2"
@@ -37,6 +38,29 @@ export function Contact() {
             </Reveal>
           </div>
 
+          {/* The face you'll be writing to */}
+          <Reveal delayIndex={2} className="max-w-xs md:col-span-3 md:col-start-10 md:max-w-none">
+            <figure className="relative">
+              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
+                <Image
+                  src="/portrait/exterieur-01.webp"
+                  alt="Pablo Assad — portrait"
+                  fill
+                  sizes="(max-width: 768px) 320px, 25vw"
+                  className="object-cover"
+                  style={{ objectPosition: "62% 22%" }}
+                />
+                <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
+                <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
+                <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
+                <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
+              </div>
+              <figcaption className="mt-2 flex items-center justify-between">
+                <span className="kicker">Pablo Assad</span>
+                <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em] whitespace-nowrap">Paris</span>
+              </figcaption>
+            </figure>
+          </Reveal>
         </div>
 
         <Reveal delayIndex={2}>

@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 const COVERS = [
   "/works/adonis/cover.webp",
-  "/works/le-cercle/cover.webp",
+  "/works/le-cercle/02.webp",
   "/works/boss-lady/cover.webp",
 ];
 

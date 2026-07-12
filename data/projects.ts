@@ -3,16 +3,17 @@ import type { Project, ProjectCategory, Localized } from "@/lib/content/types";
 /**
  * The catalogue. Add a production = add an entry here + drop its media in
  * public/works/<slug>/ and set status to "published". See CONTENT.md.
+ * Standalone one-shot visuals live in data/pieces.ts; sound in data/audio.ts.
  */
 
 export const categoryLabels: Record<ProjectCategory, Localized> = {
-  design: { fr: "Design et Direction artistique", en: "Design and Art direction" },
-  video: { fr: "Vidéo et Brand content", en: "Video and Brand content" },
-  sound: { fr: "Son et Composition", en: "Sound and Composition" },
+  design: { fr: "Image", en: "Image" },
+  video: { fr: "Vidéo", en: "Video" },
+  sound: { fr: "Son", en: "Sound" },
 };
 
 export const projects: Project[] = [
-  // ── Design et Direction artistique ──────────────────────────────────────
+  // ── Image ────────────────────────────────────────────────────────────────
   {
     slug: "adonis",
     category: "design",
@@ -28,32 +29,11 @@ export const projects: Project[] = [
     coverH: 1920,
     media: [
       { src: "/works/adonis/01.webp", w: 1080, h: 1440 },
-      { src: "/works/adonis/02.webp", w: 1080, h: 1440 },
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
+      { src: "/works/adonis/02.webp", w: 1080, h: 1440 },
       { src: "/works/adonis/teaser-02.mp4", type: "video" },
     ],
     status: "published",
-  },
-  {
-    slug: "la-nuit-du-bac",
-    category: "design",
-    title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
-    year: "2026",
-    role: { fr: "Direction artistique · Affiche et teaser", en: "Art direction · Poster and teaser" },
-    status: "placeholder",
-  },
-  {
-    slug: "rosa-summer-party",
-    category: "design",
-    title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
-    client: "Rosa Paris",
-    year: "2024",
-    role: { fr: "Direction artistique · Identité d'événement", en: "Art direction · Event identity" },
-    blurb: {
-      fr: "Identité d'un événement interne d'agence, de l'invitation à la scénographie.",
-      en: "Identity for an agency's internal event, from invitation to staging.",
-    },
-    status: "placeholder",
   },
   {
     slug: "le-cercle",
@@ -65,41 +45,21 @@ export const projects: Project[] = [
       fr: "Une marque événementielle créée de zéro : identité, campagnes, contenus.",
       en: "An events brand built from zero: identity, campaigns, content.",
     },
-    cover: "/works/le-cercle/cover.webp",
-    coverW: 1080,
-    coverH: 1920,
     media: [
-      { src: "/works/le-cercle/01.webp", w: 1600, h: 900 },
       { src: "/works/le-cercle/02.webp", w: 1080, h: 1920 },
+      { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
       { src: "/works/le-cercle/03.webp", w: 1400, h: 1400 },
       { src: "/works/le-cercle/04.webp", w: 1400, h: 1400 },
-      { src: "/works/le-cercle/05.webp", w: 1400, h: 1400 },
-      { src: "/works/le-cercle/06.webp", w: 1400, h: 1400 },
-      { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
       { src: "/works/le-cercle/teaser-02.mp4", type: "video" },
+      { src: "/works/le-cercle/07.webp", w: 1080, h: 1920 },
+      { src: "/works/le-cercle/teaser-04.mp4", type: "video" },
+      { src: "/works/le-cercle/05.webp", w: 1400, h: 1400 },
       { src: "/works/le-cercle/teaser-03.mp4", type: "video" },
+      { src: "/works/le-cercle/06.webp", w: 1400, h: 1400 },
+      { src: "/works/le-cercle/teaser-05.mp4", type: "video" },
+      { src: "/works/le-cercle/01.webp", w: 1600, h: 900 },
     ],
     status: "published",
-  },
-  {
-    slug: "boss-lady",
-    category: "design",
-    title: { fr: "Boss Lady", en: "Boss Lady" },
-    year: "2026",
-    role: { fr: "Direction artistique · Affiche", en: "Art direction · Poster" },
-    cover: "/works/boss-lady/cover.webp",
-    coverW: 1080,
-    coverH: 1920,
-    media: [{ src: "/works/boss-lady/01.webp", w: 1600, h: 1600 }],
-    status: "published",
-  },
-  {
-    slug: "flashback",
-    category: "design",
-    title: { fr: "Flashback", en: "Flashback" },
-    year: "2026",
-    role: { fr: "Design graphique · Affiche", en: "Graphic design · Poster" },
-    status: "placeholder",
   },
   {
     slug: "miami-game",
@@ -110,16 +70,13 @@ export const projects: Project[] = [
     status: "placeholder",
   },
 
-  // ── Vidéo et Brand content ──────────────────────────────────────────────
+  // ── Vidéo ────────────────────────────────────────────────────────────────
   {
     slug: "ruby",
     category: "video",
     title: { fr: "Ruby", en: "Ruby" },
     year: "2026",
     role: { fr: "Montage · Teasers d'événement", en: "Editing · Event teasers" },
-    cover: "/works/ruby/cover.webp",
-    coverW: 1024,
-    coverH: 1280,
     media: [
       { src: "/works/ruby/teaser-01.mp4", type: "video" },
       { src: "/works/ruby/teaser-02.mp4", type: "video" },
@@ -127,38 +84,27 @@ export const projects: Project[] = [
     status: "published",
   },
   {
+    slug: "manifesto",
+    category: "video",
+    title: { fr: "Manifesto", en: "Manifesto" },
+    role: { fr: "Réalisation et montage · POV Média", en: "Direction and editing · POV Média" },
+    media: [{ src: "/works/manifesto/film-01.mp4", type: "video" }],
+    status: "published",
+  },
+  // ── Son ──────────────────────────────────────────────────────────────────
+  {
+    slug: "bibliotheque-sonore",
+    category: "sound",
+    title: { fr: "Bibliothèque sonore", en: "Sound library" },
+    role: { fr: "Compositions et commandes — lecteur en préparation", en: "Compositions and commissions — player in the making" },
+    status: "placeholder",
+  },
+  {
     slug: "fondamentall",
     category: "video",
     title: { fr: "Fondament'All", en: "Fondament'All" },
     year: "2026",
     role: { fr: "Animation de logo · Motion design", en: "Logo animation · Motion design" },
-    status: "placeholder",
-  },
-  {
-    slug: "manifesto",
-    category: "video",
-    title: { fr: "Manifesto", en: "Manifesto" },
-    role: { fr: "Réalisation et montage", en: "Direction and editing" },
-    cover: "/works/manifesto/cover.webp",
-    coverW: 1024,
-    coverH: 1280,
-    media: [{ src: "/works/manifesto/film-01.mp4", type: "video" }],
-    status: "published",
-  },
-
-  // ── Son et Composition ──────────────────────────────────────────────────
-  {
-    slug: "compositions",
-    category: "sound",
-    title: { fr: "Compositions originales", en: "Original compositions" },
-    role: { fr: "Production musicale — FL Studio, piano", en: "Music production — FL Studio, piano" },
-    status: "placeholder",
-  },
-  {
-    slug: "sound-design",
-    category: "sound",
-    title: { fr: "Habillage sonore", en: "Sound design" },
-    role: { fr: "Design sonore pour teasers et contenus", en: "Sound design for teasers and content" },
     status: "placeholder",
   },
 ];

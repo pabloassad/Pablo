@@ -9,6 +9,7 @@ import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ProjectModal } from "@/components/ui/ProjectModal";
 import { projects, categoryLabels } from "@/data/projects";
+import { pieces } from "@/data/pieces";
 import type { Project, ProjectCategory, ProjectMedia } from "@/lib/content/types";
 
 type Filter = "all" | ProjectCategory;
@@ -32,14 +33,8 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
   const triggerRef = useRef<HTMLElement | null>(null);
 
   // The important work first: published rows, in data order.
-  const published = useMemo(
-    () => projects.filter((p) => p.status === "published" && p.cover),
-    [],
-  );
-  const pending = useMemo(
-    () => projects.filter((p) => p.status !== "published" || !p.cover),
-    [],
-  );
+  const published = useMemo(() => projects.filter((p) => p.status === "published"), []);
+  const pending = useMemo(() => projects.filter((p) => p.status !== "published"), []);
 
   const rows = useMemo(
     () => (filter === "all" ? published : published.filter((p) => p.category === filter)),
@@ -162,6 +157,76 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
             ))}
           </AnimatePresence>
 
+          {/* Pieces — the poster wall: strong one-shot visuals, no chrome */}
+          {(filter === "all" || filter === "design") && pieces.length > 0 && (
+            <Reveal className="border-line mt-2 border-t pt-8 pb-6">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
+                  {String(rows.length + 1).padStart(2, "0")}
+                </span>
+                <span className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.2em]">
+                  {w.pieces}
+                </span>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-4">
+                {pieces.map((piece) =>
+                  piece.src ? (
+                    <figure key={piece.id} className="group">
+                      <div
+                        className="border-line bg-paper relative h-60 overflow-hidden border sm:h-72"
+                        style={{ aspectRatio: `${piece.w ?? 4} / ${piece.h ?? 5}` }}
+                      >
+                        <Image
+                          src={piece.src}
+                          alt={piece.title[locale]}
+                          fill
+                          sizes="(max-width: 640px) 60vw, 320px"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <figcaption className="mt-2 flex items-baseline justify-between gap-3">
+                        <span className="font-display text-ink truncate text-sm" style={{ fontWeight: 600 }}>
+                          {piece.title[locale]}
+                        </span>
+                        {piece.year && (
+                          <span className="text-faint shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
+                            {piece.year}
+                          </span>
+                        )}
+                      </figcaption>
+                    </figure>
+                  ) : (
+                    <figure key={piece.id}>
+                      <div
+                        className="border-line bg-paper relative h-60 overflow-hidden border sm:h-72"
+                        style={{ aspectRatio: "3 / 4" }}
+                      >
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 opacity-40"
+                          style={{
+                            backgroundImage: "radial-gradient(rgba(10,10,10,0.25) 1px, transparent 1.4px)",
+                            backgroundSize: "9px 9px",
+                            maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+                            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+                          }}
+                        />
+                        <span className="text-faint absolute right-3 top-3 text-[0.6rem] font-medium uppercase tracking-[0.18em]">
+                          {w.comingSoon}
+                        </span>
+                      </div>
+                      <figcaption className="mt-2">
+                        <span className="font-display text-mute truncate text-sm" style={{ fontWeight: 600 }}>
+                          {piece.title[locale]}
+                        </span>
+                      </figcaption>
+                    </figure>
+                  ),
+                )}
+              </div>
+            </Reveal>
+          )}
+
           {/* Coming soon — quiet slots, never broken holes */}
           {pendingFiltered.length > 0 && (
             <Reveal className="border-line mt-2 border-t pt-8 pb-4">
@@ -206,7 +271,9 @@ function ProjectRow({
 
   const strip: ProjectMedia[] = useMemo(
     () => [
-      { src: project.cover as string, w: project.coverW, h: project.coverH },
+      ...(project.cover
+        ? [{ src: project.cover, w: project.coverW, h: project.coverH }]
+        : []),
       ...(project.media ?? []).filter((m) => m.src !== project.cover),
     ],
     [project],

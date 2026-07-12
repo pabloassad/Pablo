@@ -14,10 +14,10 @@ export default function Home() {
       <Journey />
       <Craft />
       <FullBleed
-        src="/portrait/exterieur-01.webp"
-        alt="Pablo Assad — portrait"
-        caption="Paris"
-        focal="62% 24%"
+        src="/portrait/studio-01.webp"
+        alt="Pablo Assad — en studio"
+        caption="Studio · Paris"
+        focal="54% 32%"
       />
       <RepertoireCta />
       <Contact />
