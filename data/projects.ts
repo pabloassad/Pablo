@@ -28,9 +28,10 @@ export const projects: Project[] = [
     coverW: 1080,
     coverH: 1920,
     media: [
-      { src: "/works/adonis/01.webp", w: 1080, h: 1440 },
+      { src: "/works/adonis/teaser-03.mp4", type: "video" },
+      { src: "/works/adonis/01.webp", w: 1600, h: 900 },
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
-      { src: "/works/adonis/02.webp", w: 1080, h: 1440 },
+      { src: "/works/adonis/teaser-04.mp4", type: "video" },
       { src: "/works/adonis/teaser-02.mp4", type: "video" },
     ],
     status: "published",

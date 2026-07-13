@@ -19,16 +19,33 @@ export const pieces: Piece[] = [
   {
     id: "rosa-summer-party",
     title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
+    src: "/works/rosa-summer-party/flyer.webp",
+    w: 1600,
+    h: 2242,
     year: "2024",
   },
   {
     id: "flashback",
     title: { fr: "Flashback", en: "Flashback" },
+    src: "/works/flashback/flyer.webp",
+    w: 1080,
+    h: 1920,
     year: "2026",
   },
   {
     id: "la-nuit-du-bac",
     title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
+    src: "/works/la-nuit-du-bac/flyer.webp",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
+    id: "sunset",
+    title: { fr: "Sunset", en: "Sunset" },
+    src: "/works/pieces-sunset.webp",
+    w: 1080,
+    h: 1920,
     year: "2026",
   },
 ];

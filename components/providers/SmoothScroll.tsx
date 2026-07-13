@@ -11,7 +11,10 @@ import Lenis from "lenis";
 export function SmoothScroll() {
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
+    // Touch devices keep native scrolling — smoother, and immune to the
+    // wheel-hijack conflicts that can wedge the page under a finger.
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    if (prefersReduced || coarse) return;
 
     const lenis = new Lenis({
       duration: 1.1,

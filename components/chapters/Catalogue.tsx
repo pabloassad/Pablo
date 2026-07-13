@@ -385,7 +385,7 @@ function MediaStrip({
       onPointerEnter={() => (pause.current = true)}
       onPointerLeave={() => (pause.current = false)}
       onPointerDown={() => (pause.current = true)}
-      className="no-scrollbar flex touch-pan-x snap-x items-center gap-4 overflow-x-auto overscroll-x-contain"
+      className="no-scrollbar flex snap-x items-center gap-4 overflow-x-auto overscroll-x-contain"
     >
       {strip.map((m) =>
         m.type === "video" ? (

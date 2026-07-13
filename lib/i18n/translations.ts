@@ -67,6 +67,7 @@ export interface Translations {
     linkedin: string;
     linkedinHandle: string;
     cta: string;
+    cv: string;
   };
   footer: { note: string; rights: string };
 }
@@ -156,6 +157,7 @@ const fr: Translations = {
     linkedin: "https://www.linkedin.com/in/pablo-assad-40bb75189/",
     linkedinHandle: "in/pablo-assad",
     cta: "Écrire un email",
+    cv: "Télécharger le CV",
   },
   footer: { note: "Composé à Paris", rights: "Tous droits réservés." },
 };
@@ -245,6 +247,7 @@ const en: Translations = {
     linkedin: "https://www.linkedin.com/in/pablo-assad-40bb75189/",
     linkedinHandle: "in/pablo-assad",
     cta: "Send an email",
+    cv: "Download the CV",
   },
   footer: { note: "Composed in Paris", rights: "All rights reserved." },
 };

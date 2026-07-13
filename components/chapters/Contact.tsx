@@ -64,10 +64,22 @@ export function Contact() {
         </div>
 
         <Reveal delayIndex={2}>
-          <MagneticButton href={`mailto:${c.email}`} variant="solid" className="mt-10">
-            {c.cta}
-            <span aria-hidden>→</span>
-          </MagneticButton>
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <MagneticButton href={`mailto:${c.email}`} variant="solid">
+              {c.cta}
+              <span aria-hidden>→</span>
+            </MagneticButton>
+            <a
+              href="/cv/CV-Pablo-Assad-2026.pdf"
+              download="CV-Pablo-Assad-2026.pdf"
+              className="group border-ink/25 text-ink hover:border-ink inline-flex items-center gap-2.5 rounded-full border px-7 py-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-300"
+            >
+              {c.cv}
+              <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:translate-y-0.5">
+                ↓
+              </span>
+            </a>
+          </div>
         </Reveal>
 
         <ul className="border-line mt-16 grid gap-px overflow-hidden border-t sm:grid-cols-3">

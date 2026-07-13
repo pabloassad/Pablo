@@ -37,7 +37,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "sacre-coeur",
     title: "Sacré Cœur",
-    file: "/works/sound-design/sacre-coeur.wav",
+    file: "/works/sound-design/sacre-coeur.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
     bpm: 124,
@@ -45,7 +45,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "stand-and-the-word",
     title: "Stand and the Word",
-    file: "/works/sound-design/stand-and-the-word.wav",
+    file: "/works/sound-design/stand-and-the-word.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
     bpm: 122,
@@ -53,7 +53,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "liberta",
     title: "Liberta",
-    file: "/works/sound-design/liberta.wav",
+    file: "/works/sound-design/liberta.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
   },
@@ -91,7 +91,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "ladysoul",
     title: "Ladysoul",
-    file: "/works/sound-design/ladysoul.wav",
+    file: "/works/sound-design/ladysoul.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
     bpm: 110,
