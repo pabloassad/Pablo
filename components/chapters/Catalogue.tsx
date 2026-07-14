@@ -277,15 +277,18 @@ function ProjectRow({
 }) {
   const { locale } = useLanguage();
 
-  const strip: ProjectMedia[] = useMemo(
-    () => [
+  // Videos lead, then images — the moving work catches the eye first.
+  const strip: ProjectMedia[] = useMemo(() => {
+    const all = [
       ...(project.cover
         ? [{ src: project.cover, w: project.coverW, h: project.coverH }]
         : []),
       ...(project.media ?? []).filter((m) => m.src !== project.cover),
-    ],
-    [project],
-  );
+    ];
+    const videos = all.filter((m) => m.type === "video");
+    const images = all.filter((m) => m.type !== "video");
+    return [...videos, ...images];
+  }, [project]);
 
   return (
     <article className="border-line border-t py-10 first:border-t-0 sm:py-12">
@@ -325,14 +328,22 @@ function ProjectRow({
           </div>
         </div>
 
-        {/* The sheet — media in their native formats, visible at once */}
-        <MediaStrip strip={strip} project={project} onOpen={onOpen} />
+        {/* The sheet — media laid out in justified tiers: uniform heights,
+            native ratios, everything visible at once, nothing overflowing */}
+        <MediaMosaic strip={strip} project={project} onOpen={onOpen} />
       </div>
     </article>
   );
 }
 
-function MediaStrip({
+/**
+ * Justified tiers ("étages", à la Rémi Gatteaux / GLGTH): media pack into rows
+ * of uniform height that fill the width edge to edge, each tile keeping its
+ * native aspect ratio — nothing overflows, nothing looks oversized next to a
+ * thumbnail. The last row stays at target height, left-aligned, rather than
+ * stretching. Video ratios settle on metadata load, then the layout re-packs.
+ */
+function MediaMosaic({
   strip,
   project,
   onOpen,
@@ -342,91 +353,107 @@ function MediaStrip({
   onOpen: (slug: string, el: HTMLElement) => void;
 }) {
   const { locale } = useLanguage();
-  const scroller = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const [width, setWidth] = useState(0);
   const [inView, setInView] = useState(false);
-  const pause = useRef(false);
-  const dir = useRef(1);
-
-  // Slow drift — the sheet breathes on its own; any touch takes over.
-  useEffect(() => {
-    if (reduced || !inView) return;
-    const el = scroller.current;
-    if (!el) return;
-    let raf = 0;
-    const step = () => {
-      raf = requestAnimationFrame(step);
-      if (pause.current) return;
-      const max = el.scrollWidth - el.clientWidth;
-      if (max <= 4) return;
-      el.scrollLeft += 0.35 * dir.current;
-      if (el.scrollLeft >= max - 1) dir.current = -1;
-      else if (el.scrollLeft <= 1) dir.current = 1;
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [reduced, inView]);
+  // Measured video aspect ratios (w/h), keyed by src.
+  const [videoAr, setVideoAr] = useState<Record<string, number>>({});
 
   useEffect(() => {
-    const el = scroller.current;
+    const el = ref.current;
     if (!el) return;
+    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
+    ro.observe(el);
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
-      { threshold: 0.2 },
+      { threshold: 0.15 },
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      ro.disconnect();
+      io.disconnect();
+    };
   }, []);
 
+  const GAP = 10;
+  const targetH = width < 640 ? 190 : width < 1024 ? 240 : 280;
+
+  // Greedy justification into rows.
+  const rows = useMemo(() => {
+    if (!width) return [];
+    const arOf = (m: ProjectMedia) =>
+      m.type === "video" ? (videoAr[m.src] ?? 0.5625) : (m.w ?? 4) / (m.h ?? 5);
+    const out: { items: { m: ProjectMedia; w: number }[]; h: number }[] = [];
+    let line: ProjectMedia[] = [];
+    let arSum = 0;
+    for (const m of strip) {
+      line.push(m);
+      arSum += arOf(m);
+      const rowW = arSum * targetH + GAP * (line.length - 1);
+      if (rowW >= width) {
+        const avail = width - GAP * (line.length - 1);
+        const h = avail / arSum;
+        out.push({ h, items: line.map((it) => ({ m: it, w: arOf(it) * h })) });
+        line = [];
+        arSum = 0;
+      }
+    }
+    if (line.length) {
+      const h = Math.min(targetH, (width - GAP * (line.length - 1)) / arSum);
+      out.push({ h, items: line.map((it) => ({ m: it, w: arOf(it) * h })) });
+    }
+    return out;
+  }, [strip, width, targetH, videoAr]);
+
   return (
-    <div
-      ref={scroller}
-      data-lenis-prevent
-      onPointerEnter={() => (pause.current = true)}
-      onPointerLeave={() => (pause.current = false)}
-      onPointerDown={() => (pause.current = true)}
-      className="no-scrollbar flex snap-x items-center gap-4 overflow-x-auto overscroll-x-contain"
-    >
-      {strip.map((m) =>
-        m.type === "video" ? (
-          <VideoTile key={m.src} media={m} active={inView && !reduced} onClick={(e) => onOpen(project.slug, e.currentTarget)} />
-        ) : (
-          <button
-            key={m.src}
-            type="button"
-            onClick={(e) => onOpen(project.slug, e.currentTarget)}
-            className="group border-line bg-paper relative h-52 shrink-0 snap-start overflow-hidden border sm:h-64 lg:h-72"
-            style={{ aspectRatio: `${m.w ?? 4} / ${m.h ?? 5}` }}
-            aria-label={project.title[locale]}
-          >
-            <Image
-              src={m.src}
-              alt={m.alt?.[locale] ?? project.title[locale]}
-              fill
-              sizes="(max-width: 640px) 60vw, 400px"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-          </button>
-        ),
-      )}
+    <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
+      {rows.map((row, ri) => (
+        <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
+          {row.items.map(({ m, w }) => (
+            <button
+              key={m.src}
+              type="button"
+              onClick={(e) => onOpen(project.slug, e.currentTarget)}
+              aria-label={project.title[locale]}
+              className={`group border-line relative shrink-0 overflow-hidden border ${m.type === "video" ? "bg-ink" : "bg-paper"}`}
+              style={{ width: w, height: row.h }}
+            >
+              {m.type === "video" ? (
+                <MosaicVideo
+                  media={m}
+                  active={inView && !reduced}
+                  onMeta={(ar) => setVideoAr((prev) => (prev[m.src] === ar ? prev : { ...prev, [m.src]: ar }))}
+                />
+              ) : (
+                <Image
+                  src={m.src}
+                  alt={m.alt?.[locale] ?? project.title[locale]}
+                  fill
+                  sizes="(max-width: 640px) 60vw, 400px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      ))}
     </div>
   );
 }
 
-function VideoTile({
+function MosaicVideo({
   media,
   active,
-  onClick,
+  onMeta,
 }: {
   media: ProjectMedia;
   active: boolean;
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onMeta: (ar: number) => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [ratio, setRatio] = useState("9 / 16");
 
-  // Muted autoplay only while the sheet is on screen; motion-averse users get
-  // the still first frame.
+  // Muted autoplay only while the sheet is on screen.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -435,12 +462,7 @@ function VideoTile({
   }, [active]);
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="border-line bg-ink relative h-64 shrink-0 snap-start overflow-hidden border sm:h-80 lg:h-96"
-      style={{ aspectRatio: ratio }}
-    >
+    <>
       <video
         ref={videoRef}
         src={media.src}
@@ -450,14 +472,13 @@ function VideoTile({
         preload="metadata"
         onLoadedMetadata={(e) => {
           const v = e.currentTarget;
-          if (v.videoWidth && v.videoHeight) setRatio(`${v.videoWidth} / ${v.videoHeight}`);
+          if (v.videoWidth && v.videoHeight) onMeta(v.videoWidth / v.videoHeight);
         }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
-      {/* Sound-off tick — an honest label, not a chrome control */}
       <span className="text-paper/80 absolute bottom-2.5 right-3 text-[0.6rem] font-medium uppercase tracking-[0.15em]">
         ▶ muet
       </span>
-    </button>
+    </>
   );
 }

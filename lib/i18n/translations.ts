@@ -49,6 +49,7 @@ export interface Translations {
     kindCommande: string;
     kindJingle: string;
     kindReportage: string;
+    close: string;
     soon: string;
     soonNote: string;
   };
@@ -129,6 +130,7 @@ const fr: Translations = {
     kindCommande: "Commande",
     kindJingle: "Jingle",
     kindReportage: "Reportage",
+    close: "Fermer le lecteur",
     soon: "Habillage sonore",
     soonNote: "À venir",
   },
@@ -219,6 +221,7 @@ const en: Translations = {
     kindCommande: "Commission",
     kindJingle: "Jingle",
     kindReportage: "Documentary",
+    close: "Close player",
     soon: "Sound design",
     soonNote: "Coming soon",
   },

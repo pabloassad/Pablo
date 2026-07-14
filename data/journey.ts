@@ -43,6 +43,22 @@ export const journey: JourneyMilestone[] = [
 
   // ── Expériences ─────────────────────────────────────────────────────────
   {
+    id: "benzene",
+    year: "2020",
+    title: { fr: "Benzene", en: "Benzene" },
+    place: { fr: "Stage · Sound design et musique", en: "Internship · Sound design and music" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "philharmonie",
+    year: "2020",
+    title: { fr: "Philharmonie de Paris", en: "Philharmonie de Paris" },
+    place: { fr: "Stage", en: "Internship" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
     id: "fondamentall",
     year: "2023",
     title: { fr: "Fondament'All", en: "Fondament'All" },
