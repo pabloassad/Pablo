@@ -71,7 +71,7 @@ export function SoundLibrary() {
 
           {/* Waveform — inline, live on the active track, scrubbable */}
           <div className="col-span-3 mt-3 flex items-center gap-4 sm:col-span-1 sm:col-start-3 sm:mt-0">
-            <Waveform trackId={track.id} active={active} seekable bars={64} dark className="h-9 flex-1" />
+            <Waveform trackId={track.id} file={track.file} active={active} seekable dark className="h-9 flex-1" />
             {active && (
               <div className="hidden shrink-0 items-center gap-2 sm:flex">
                 <button type="button" onClick={() => skip(-10)} aria-label="-10s" className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">−10</button>
@@ -80,12 +80,11 @@ export function SoundLibrary() {
             )}
           </div>
 
-          {/* Meta — bpm + duration/time */}
+          {/* Meta — elapsed / duration */}
           <div className="col-start-3 row-start-1 text-right sm:col-start-4 sm:row-start-auto">
             <span className="text-paper/45 block text-[0.7rem] tabular-nums whitespace-nowrap">
               {active ? `${formatTime((durations[track.id] ?? 0) * progress)} / ${formatTime(durations[track.id])}` : formatTime(durations[track.id])}
             </span>
-            {track.bpm && <span className="text-paper/35 block text-[0.65rem] whitespace-nowrap">{track.bpm} bpm</span>}
           </div>
         </div>
       </li>
@@ -94,7 +93,7 @@ export function SoundLibrary() {
 
   return (
     <Reveal className="mt-2">
-      <div className="bg-ink text-paper -mx-6 px-6 py-12 sm:-mx-10 sm:px-10 sm:py-16 lg:-mx-16 lg:px-16">
+      <div id="son" className="bg-ink text-paper -mx-3 scroll-mt-24 px-3 py-12 sm:-mx-6 sm:px-6 sm:py-16 lg:-mx-8 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           {/* Header */}
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -162,14 +161,10 @@ export function SoundLibrary() {
             </div>
           )}
 
-          {/* Sound design — the slot is ready */}
-          <div className="border-paper/10 mt-10 flex items-baseline gap-3 border-t pt-5">
-            <span className="bg-paper/30 h-1.5 w-1.5 shrink-0 self-center rounded-full" aria-hidden />
-            <span className="font-display text-paper/60 text-base" style={{ fontWeight: 600 }}>
-              {s.soon}
-            </span>
-            <span className="text-paper/40 text-xs whitespace-nowrap">{s.soonNote}</span>
-          </div>
+          {/* One-line note: the sound-design skill, kept as a mention */}
+          <p className="border-paper/10 text-paper/45 mt-10 border-t pt-5 text-xs">
+            {s.designer}
+          </p>
         </div>
       </div>
     </Reveal>

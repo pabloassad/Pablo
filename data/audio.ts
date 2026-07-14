@@ -2,8 +2,7 @@ import type { AudioTrack } from "@/lib/content/types";
 
 /**
  * The sound library — Pablo's compositions and commissioned work.
- * Files live in public/works/sound-design/. BPM comes from the sessions
- * themselves (La Mesure: the site displays tempo like a score).
+ * Files live in public/works/sound-design/.
  * kind: "commande" | "jingle" | "reportage" → commissioned; "perso" → personal.
  */
 
@@ -15,7 +14,6 @@ export const audioTracks: AudioTrack[] = [
     file: "/works/sound-design/crazyfunk.wav",
     kind: "commande",
     context: { fr: "Composée sur mesure pour Bonduelle", en: "Composed for the Bonduelle brand" },
-    bpm: 112,
   },
   {
     id: "pov-media",
@@ -30,25 +28,15 @@ export const audioTracks: AudioTrack[] = [
     file: "/works/sound-design/dantokpa.mp3",
     kind: "reportage",
     context: { fr: "Reportage culturel et danse · France–Bénin", en: "Culture and dance documentary · France–Benin" },
-    bpm: 121,
   },
 
-  // ── Compositions personnelles ───────────────────────────────────────────
+  // ── Compositions personnelles (ordre défini) ─────────────────────────────
   {
-    id: "sacre-coeur",
-    title: "Sacré Cœur",
-    file: "/works/sound-design/sacre-coeur.mp3",
+    id: "dassa",
+    title: "Dassa",
+    file: "/works/sound-design/dassa.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 124,
-  },
-  {
-    id: "stand-and-the-word",
-    title: "Stand and the Word",
-    file: "/works/sound-design/stand-and-the-word.mp3",
-    kind: "perso",
-    context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 122,
   },
   {
     id: "liberta",
@@ -58,19 +46,11 @@ export const audioTracks: AudioTrack[] = [
     context: { fr: "Composition personnelle", en: "Personal composition" },
   },
   {
-    id: "monday",
-    title: "Monday",
-    file: "/works/sound-design/monday.wav",
+    id: "ladysoul",
+    title: "Ladysoul",
+    file: "/works/sound-design/ladysoul.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
-  },
-  {
-    id: "dassa",
-    title: "Dassa",
-    file: "/works/sound-design/dassa.mp3",
-    kind: "perso",
-    context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 113,
   },
   {
     id: "rose",
@@ -78,7 +58,13 @@ export const audioTracks: AudioTrack[] = [
     file: "/works/sound-design/rose.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 120,
+  },
+  {
+    id: "sacre-coeur",
+    title: "Sacré Cœur",
+    file: "/works/sound-design/sacre-coeur.mp3",
+    kind: "perso",
+    context: { fr: "Composition personnelle", en: "Personal composition" },
   },
   {
     id: "mansa",
@@ -86,15 +72,13 @@ export const audioTracks: AudioTrack[] = [
     file: "/works/sound-design/mansa.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 108,
   },
   {
-    id: "ladysoul",
-    title: "Ladysoul",
-    file: "/works/sound-design/ladysoul.mp3",
+    id: "stand-and-the-word",
+    title: "Stand and the Word",
+    file: "/works/sound-design/stand-and-the-word.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
-    bpm: 110,
   },
   {
     id: "demon",
@@ -102,6 +86,12 @@ export const audioTracks: AudioTrack[] = [
     file: "/works/sound-design/demon.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle · extrait", en: "Personal composition · excerpt" },
-    bpm: 130,
+  },
+  {
+    id: "monday",
+    title: "Monday",
+    file: "/works/sound-design/monday.wav",
+    kind: "perso",
+    context: { fr: "Composition personnelle", en: "Personal composition" },
   },
 ];

@@ -27,11 +27,11 @@ const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Pablo Assad — Communication et direction de projet",
+    default: "Pablo Assad · Communication et direction de projet",
     template: "%s · Pablo Assad",
   },
   description:
-    "Pablo Assad — communication et direction de projet. Design graphique, direction artistique, brand content et production. Un catalogue visuel et un parcours.",
+    "Pablo Assad · communication et direction de projet. Design graphique, direction artistique, brand content et production. Un catalogue visuel et un parcours.",
   keywords: [
     "Pablo Assad",
     "communication",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Pablo Assad" }],
   openGraph: {
-    title: "Pablo Assad — Communication et direction de projet",
+    title: "Pablo Assad · Communication et direction de projet",
     description:
       "Un regard de créatif, la rigueur d'un stratège. Design, direction artistique et production de contenus.",
     url: siteUrl,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Assad — Communication et direction de projet",
+    title: "Pablo Assad · Communication et direction de projet",
     description: "Un regard de créatif, la rigueur d'un stratège.",
     images: [ogImageUrl],
   },

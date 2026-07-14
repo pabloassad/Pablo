@@ -35,6 +35,10 @@ export interface Translations {
     open: string;
     back: string;
     pieces: string;
+    flowVisual: string;
+    flowSound: string;
+    soundOn: string;
+    soundOff: string;
   };
   sound: {
     label: string;
@@ -50,8 +54,7 @@ export interface Translations {
     kindJingle: string;
     kindReportage: string;
     close: string;
-    soon: string;
-    soonNote: string;
+    designer: string;
     more: string;
     less: string;
   };
@@ -77,9 +80,9 @@ export interface Translations {
 
 const fr: Translations = {
   meta: {
-    title: "Pablo Assad — Communication et direction de projet",
+    title: "Pablo Assad · Communication et direction de projet",
     description:
-      "Pablo Assad — communication et direction de projet. Un regard de créatif, la rigueur d'un stratège. Présentation, parcours et pratique créative.",
+      "Pablo Assad · communication et direction de projet. Un regard de créatif, la rigueur d'un stratège. Présentation, parcours et pratique créative.",
   },
   repertoireMeta: {
     title: "Répertoire",
@@ -88,7 +91,7 @@ const fr: Translations = {
   },
   nav: { presentation: "Présentation", repertoire: "Répertoire", cta: "Me contacter" },
   hero: {
-    eyebrow: "Communication · Direction de projet",
+    eyebrow: "Communication · Direction de projet",
     name: "Pablo Assad",
     statement: "Je compose des marques.",
     intro: "Un regard de créatif, la rigueur d'un stratège.",
@@ -109,7 +112,7 @@ const fr: Translations = {
   work: {
     label: "Projets",
     title: "Répertoire",
-    intro: "Productions et réalisations. Design, image, son.",
+    intro: "Productions et réalisations. Design, image, son.",
     filterAll: "Tout",
     comingSoon: "À venir",
     roleLabel: "Rôle",
@@ -118,6 +121,10 @@ const fr: Translations = {
     open: "Voir le projet",
     back: "Présentation",
     pieces: "Pièces détachées",
+    flowVisual: "Visuel",
+    flowSound: "Son",
+    soundOn: "Activer le son",
+    soundOff: "Couper le son",
   },
   sound: {
     label: "Son",
@@ -133,8 +140,7 @@ const fr: Translations = {
     kindJingle: "Jingle",
     kindReportage: "Reportage",
     close: "Fermer le lecteur",
-    soon: "Habillage sonore",
-    soonNote: "À venir",
+    designer: "Également sound designer — habillage sonore et compositions sur mesure, sur demande.",
     more: "Voir plus",
     less: "Voir moins",
   },
@@ -170,9 +176,9 @@ const fr: Translations = {
 
 const en: Translations = {
   meta: {
-    title: "Pablo Assad — Communication and project leadership",
+    title: "Pablo Assad · Communication and project leadership",
     description:
-      "Pablo Assad — communication and project leadership. A creative's eye, a strategist's discipline. Introduction, path and creative practice.",
+      "Pablo Assad · communication and project leadership. A creative's eye, a strategist's discipline. Introduction, path and creative practice.",
   },
   repertoireMeta: {
     title: "Portfolio",
@@ -181,7 +187,7 @@ const en: Translations = {
   },
   nav: { presentation: "About", repertoire: "Portfolio", cta: "Get in touch" },
   hero: {
-    eyebrow: "Communication · Project leadership",
+    eyebrow: "Communication · Project leadership",
     name: "Pablo Assad",
     statement: "I compose brands.",
     intro: "A creative's eye, a strategist's discipline.",
@@ -202,7 +208,7 @@ const en: Translations = {
   work: {
     label: "Work",
     title: "Portfolio",
-    intro: "Productions and selected work. Design, image, sound.",
+    intro: "Productions and selected work. Design, image, sound.",
     filterAll: "All",
     comingSoon: "Coming soon",
     roleLabel: "Role",
@@ -211,6 +217,10 @@ const en: Translations = {
     open: "View project",
     back: "About",
     pieces: "Single pieces",
+    flowVisual: "Visual",
+    flowSound: "Sound",
+    soundOn: "Unmute",
+    soundOff: "Mute",
   },
   sound: {
     label: "Sound",
@@ -226,8 +236,7 @@ const en: Translations = {
     kindJingle: "Jingle",
     kindReportage: "Documentary",
     close: "Close player",
-    soon: "Sound design",
-    soonNote: "Coming soon",
+    designer: "Also a sound designer — scoring and bespoke composition on request.",
     more: "Show more",
     less: "Show less",
   },

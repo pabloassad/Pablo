@@ -62,6 +62,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Line-breaking hygiene — no orphans/widows, balanced short lines, and never
+   a mid-word break. Sense-groups are additionally glued with &nbsp; in the
+   i18n copy where a clean line start matters (e.g. "Design, image, son"). */
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+blockquote,
+figcaption {
+  text-wrap: balance;
+}
+* {
+  overflow-wrap: break-word;
+}
+
 ::selection {
   background: var(--ink);
   color: var(--paper);

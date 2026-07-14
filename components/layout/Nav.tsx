@@ -42,7 +42,6 @@ export function Nav() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 sm:px-10 lg:px-16">
         <Link href="/" className="group flex shrink-0 items-center gap-2.5">
-          <span className="bg-ink block h-2 w-2 rounded-full transition-transform duration-500 group-hover:scale-125" aria-hidden />
           <span className="font-display hidden text-lg tracking-tight sm:block" style={{ fontWeight: 700 }}>
             Pablo Assad
           </span>

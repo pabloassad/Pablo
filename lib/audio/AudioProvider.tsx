@@ -36,6 +36,12 @@ interface AudioState {
   stop: () => void;
   /** Live analyser — null until the first play. */
   getAnalyser: () => AnalyserNode | null;
+  /** id of the video currently allowed to sound (one at a time), or null. */
+  soundingVideo: string | null;
+  /** A video asks for the floor: mutes every other source (table + videos). */
+  requestVideoSound: (id: string) => void;
+  /** A video gives the floor back (only if it still holds it). */
+  releaseVideoSound: (id: string) => void;
 }
 
 const Ctx = createContext<AudioState | undefined>(undefined);
@@ -49,6 +55,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [durations, setDurations] = useState<Record<string, number>>({});
+  const [soundingVideo, setSoundingVideo] = useState<string | null>(null);
 
   const ensureGraph = useCallback(() => {
     if (!audioRef.current) {
@@ -73,6 +80,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     (track: AudioTrack) => {
       const el = ensureGraph();
       ctxRef.current?.resume();
+      setSoundingVideo(null); // the table takes the floor — hush the videos
       if (audioRef.current?.src.endsWith(encodeURI(track.file)) !== true) {
         el.src = track.file;
         setCurrent(track);
@@ -84,6 +92,17 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     },
     [ensureGraph],
   );
+
+  // One sound at a time across the site: a video claiming sound hushes the
+  // table; the table playing hushes the videos (handled in play()).
+  const requestVideoSound = useCallback((id: string) => {
+    audioRef.current?.pause();
+    setSoundingVideo(id);
+  }, []);
+
+  const releaseVideoSound = useCallback((id: string) => {
+    setSoundingVideo((v) => (v === id ? null : v));
+  }, []);
 
   const toggle = useCallback(
     (track: AudioTrack) => {
@@ -143,7 +162,20 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
   return (
     <Ctx.Provider
-      value={{ current, playing, progress, durations, toggle, seek, skip, stop, getAnalyser }}
+      value={{
+        current,
+        playing,
+        progress,
+        durations,
+        toggle,
+        seek,
+        skip,
+        stop,
+        getAnalyser,
+        soundingVideo,
+        requestVideoSound,
+        releaseVideoSound,
+      }}
     >
       {children}
     </Ctx.Provider>
