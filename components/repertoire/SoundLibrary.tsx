@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { useAudio, formatTime } from "@/lib/audio/AudioProvider";
@@ -19,6 +20,7 @@ export function SoundLibrary() {
   const { t, locale } = useLanguage();
   const s = t.sound;
   const { current, playing, durations, progress, toggle, skip } = useAudio();
+  const [expanded, setExpanded] = useState(false);
 
   const commissioned = useMemo(() => audioTracks.filter((tr) => tr.kind !== "perso"), []);
   const personal = useMemo(() => audioTracks.filter((tr) => tr.kind === "perso"), []);
@@ -113,18 +115,52 @@ export function SoundLibrary() {
             <p className="text-paper/60 max-w-xs text-sm leading-relaxed">{s.intro}</p>
           </div>
 
-          {/* Score — commissioned first, then personal */}
-          {[
-            { label: s.commissioned, list: commissioned, offset: 0 },
-            { label: s.personal, list: personal, offset: commissioned.length },
-          ].map((group) => (
-            <div key={group.label} className="mt-10">
-              <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
-                {group.label}
-              </span>
-              <ol className="mt-3">{group.list.map((track) => renderRow(track))}</ol>
+          {/* Score — the commissions are the vitrine, always open */}
+          <div className="mt-10">
+            <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
+              {s.commissioned}
+            </span>
+            <ol className="mt-3">{commissioned.map((track) => renderRow(track))}</ol>
+          </div>
+
+          {/* Personal compositions — folded behind "Voir plus", fluid expand */}
+          {personal.length > 0 && (
+            <div className="mt-8">
+              <AnimatePresence initial={false}>
+                {expanded && (
+                  <motion.div
+                    key="perso"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ overflow: "hidden" }}
+                  >
+                    <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
+                      {s.personal}
+                    </span>
+                    <ol className="mt-3">{personal.map((track) => renderRow(track))}</ol>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <button
+                type="button"
+                onClick={() => setExpanded((v) => !v)}
+                aria-expanded={expanded}
+                className="group mt-6 flex w-full items-center gap-4 text-[0.65rem] font-medium uppercase tracking-[0.2em]"
+              >
+                <span className="bg-paper/15 h-px flex-1" aria-hidden />
+                <span className="text-paper/55 group-hover:text-paper flex items-center gap-2 whitespace-nowrap transition-colors">
+                  {expanded ? s.less : `${s.more} · ${personal.length}`}
+                  <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-y-0.5">
+                    {expanded ? "↑" : "↓"}
+                  </span>
+                </span>
+                <span className="bg-paper/15 h-px flex-1" aria-hidden />
+              </button>
             </div>
-          ))}
+          )}
 
           {/* Sound design — the slot is ready */}
           <div className="border-paper/10 mt-10 flex items-baseline gap-3 border-t pt-5">

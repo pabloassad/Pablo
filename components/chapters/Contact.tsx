@@ -43,12 +43,12 @@ export function Contact() {
             <figure className="relative">
               <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
                 <Image
-                  src="/portrait/exterieur-01.webp"
+                  src="/portrait/exterieur-02.webp"
                   alt="Pablo Assad — portrait"
                   fill
                   sizes="(max-width: 768px) 320px, 25vw"
                   className="object-cover"
-                  style={{ objectPosition: "62% 22%" }}
+                  style={{ objectPosition: "42% 18%" }}
                 />
                 <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
                 <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />

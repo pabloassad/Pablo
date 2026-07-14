@@ -52,6 +52,8 @@ export interface Translations {
     close: string;
     soon: string;
     soonNote: string;
+    more: string;
+    less: string;
   };
   craft: { label: string; title: string; body: string[]; aside: string };
   repCta: { kicker: string; title: string; sub: string; button: string };
@@ -133,6 +135,8 @@ const fr: Translations = {
     close: "Fermer le lecteur",
     soon: "Habillage sonore",
     soonNote: "À venir",
+    more: "Voir plus",
+    less: "Voir moins",
   },
   craft: {
     label: "Création",
@@ -224,6 +228,8 @@ const en: Translations = {
     close: "Close player",
     soon: "Sound design",
     soonNote: "Coming soon",
+    more: "Show more",
+    less: "Show less",
   },
   craft: {
     label: "Craft",

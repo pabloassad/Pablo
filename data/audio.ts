@@ -19,10 +19,10 @@ export const audioTracks: AudioTrack[] = [
   },
   {
     id: "pov-media",
-    title: "POV Média",
+    title: "Grand Angle",
     file: "/works/sound-design/pov-media.mp3",
     kind: "jingle",
-    context: { fr: "Jingle du média POV Média", en: "Jingle for POV Média" },
+    context: { fr: "Jingle d'antenne · POV Média", en: "Station jingle · POV Média" },
   },
   {
     id: "dantokpa",
