@@ -73,26 +73,6 @@ export const projects: Project[] = [
 
   // ── Vidéo ────────────────────────────────────────────────────────────────
   {
-    slug: "ruby",
-    category: "video",
-    title: { fr: "Ruby", en: "Ruby" },
-    year: "2026",
-    role: { fr: "Montage · Teasers d'événement", en: "Editing · Event teasers" },
-    media: [
-      { src: "/works/ruby/teaser-01.mp4", type: "video" },
-      { src: "/works/ruby/teaser-02.mp4", type: "video" },
-    ],
-    status: "published",
-  },
-  {
-    slug: "manifesto",
-    category: "video",
-    title: { fr: "Manifesto", en: "Manifesto" },
-    role: { fr: "Réalisation et montage · POV Média", en: "Direction and editing · POV Média" },
-    media: [{ src: "/works/manifesto/film-01.mp4", type: "video" }],
-    status: "published",
-  },
-  {
     slug: "fondamentall",
     category: "video",
     title: { fr: "Fondament'All", en: "Fondament'All" },

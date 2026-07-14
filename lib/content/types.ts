@@ -67,12 +67,14 @@ export interface ToolGroup {
   label: Localized;
 }
 
-/** A standalone production — one poster, one image, no dedicated project. */
+/** A standalone production — one strong visual (image or video), no project. */
 export interface Piece {
   id: string;
   title: Localized;
   /** Path under /public. Omit while the visual is on its way. */
   src?: string;
+  /** "image" (default) or "video" — video pieces autoplay muted in view. */
+  type?: "image" | "video";
   w?: number;
   h?: number;
   year?: string;

@@ -17,7 +17,7 @@ export default function Home() {
         src="/portrait/studio-01.webp"
         alt="Pablo Assad — en studio"
         caption="Studio · Paris"
-        focal="54% 32%"
+        focal="46% 32%"
       />
       <RepertoireCta />
       <Contact />

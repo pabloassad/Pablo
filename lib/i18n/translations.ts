@@ -136,9 +136,9 @@ const fr: Translations = {
   },
   craft: {
     label: "Création",
-    title: "Avant la stratégie, il y a l'oreille",
-    body: ["Composer, monter, concevoir : la pratique aiguise le métier."],
-    aside: "Une intuition créative au service de la stratégie. Jamais l'inverse.",
+    title: "On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.",
+    body: [],
+    aside: "Antoine de Saint-Exupéry",
   },
   repCta: {
     kicker: "Le travail",
@@ -227,9 +227,9 @@ const en: Translations = {
   },
   craft: {
     label: "Craft",
-    title: "Before strategy, there's the ear",
-    body: ["Composing, editing, designing: practice sharpens the work."],
-    aside: "A creative instinct put to work for strategy. Never the other way around.",
+    title: "One sees clearly only with the heart. What is essential is invisible to the eye.",
+    body: [],
+    aside: "Antoine de Saint-Exupéry",
   },
   repCta: {
     kicker: "The work",

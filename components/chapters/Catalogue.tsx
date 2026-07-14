@@ -12,7 +12,7 @@ import { projects, categoryLabels } from "@/data/projects";
 import { pieces } from "@/data/pieces";
 import { audioTracks } from "@/data/audio";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
-import type { Project, ProjectCategory, ProjectMedia } from "@/lib/content/types";
+import type { Project, ProjectCategory, ProjectMedia, Piece } from "@/lib/content/types";
 
 type Filter = "all" | ProjectCategory;
 
@@ -47,16 +47,34 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
     [filter, pending],
   );
 
+  // Detached pieces split by medium — images feed the Image universe, moving
+  // pieces (Ruby, Manifesto) feed Vidéo.
+  const imagePieces = useMemo(() => pieces.filter((p) => (p.type ?? "image") !== "video"), []);
+  const videoPieces = useMemo(() => pieces.filter((p) => p.type === "video"), []);
+
+  // The wall shows the pieces that belong to the active universe.
+  const visiblePieces = useMemo(() => {
+    if (filter === "sound") return [];
+    if (filter === "design") return imagePieces;
+    if (filter === "video") return videoPieces;
+    return pieces;
+  }, [filter, imagePieces, videoPieces]);
+
   // Honest counts: each universe counts what it actually shows —
-  // projects, plus the poster wall for Image, plus the tracks for Son.
+  // projects, plus its detached pieces, plus the tracks for Son.
   const counts = useMemo(() => {
-    const map: Record<Filter, number> = { all: 0, design: pieces.length, video: 0, sound: audioTracks.length };
+    const map: Record<Filter, number> = {
+      all: 0,
+      design: imagePieces.length,
+      video: videoPieces.length,
+      sound: audioTracks.length,
+    };
     projects.forEach((p) => {
       map[p.category] += 1;
     });
     map.all = map.design + map.video + map.sound;
     return map;
-  }, []);
+  }, [imagePieces.length, videoPieces.length]);
 
   const openProject = useMemo(
     () => projects.find((p) => p.slug === openSlug) ?? null,
@@ -165,8 +183,9 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
           {/* La Table d'écoute — the sound library owns the Son universe */}
           {(filter === "all" || filter === "sound") && <SoundLibrary />}
 
-          {/* Pieces — the poster wall: strong one-shot visuals, no chrome */}
-          {(filter === "all" || filter === "design") && pieces.length > 0 && (
+          {/* Pièces détachées — a borderless, edge-to-edge wall of one-shot
+              visuals (images and moving pieces), packed into justified tiers */}
+          {visiblePieces.length > 0 && (
             <Reveal className="border-line mt-2 border-t pt-8 pb-6">
               <div className="flex items-baseline gap-3">
                 <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
@@ -176,62 +195,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
                   {w.pieces}
                 </span>
               </div>
-              <div className="mt-6 flex flex-wrap gap-4">
-                {pieces.map((piece) =>
-                  piece.src ? (
-                    <figure key={piece.id} className="group">
-                      <div
-                        className="border-line bg-paper relative h-60 overflow-hidden border sm:h-72"
-                        style={{ aspectRatio: `${piece.w ?? 4} / ${piece.h ?? 5}` }}
-                      >
-                        <Image
-                          src={piece.src}
-                          alt={piece.title[locale]}
-                          fill
-                          sizes="(max-width: 640px) 60vw, 320px"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                        />
-                      </div>
-                      <figcaption className="mt-2 flex items-baseline justify-between gap-3">
-                        <span className="font-display text-ink truncate text-sm" style={{ fontWeight: 600 }}>
-                          {piece.title[locale]}
-                        </span>
-                        {piece.year && (
-                          <span className="text-faint shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
-                            {piece.year}
-                          </span>
-                        )}
-                      </figcaption>
-                    </figure>
-                  ) : (
-                    <figure key={piece.id}>
-                      <div
-                        className="border-line bg-paper relative h-60 overflow-hidden border sm:h-72"
-                        style={{ aspectRatio: "3 / 4" }}
-                      >
-                        <span
-                          aria-hidden
-                          className="absolute inset-0 opacity-40"
-                          style={{
-                            backgroundImage: "radial-gradient(rgba(10,10,10,0.25) 1px, transparent 1.4px)",
-                            backgroundSize: "9px 9px",
-                            maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
-                            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
-                          }}
-                        />
-                        <span className="text-faint absolute right-3 top-3 text-[0.6rem] font-medium uppercase tracking-[0.18em]">
-                          {w.comingSoon}
-                        </span>
-                      </div>
-                      <figcaption className="mt-2">
-                        <span className="font-display text-mute truncate text-sm" style={{ fontWeight: 600 }}>
-                          {piece.title[locale]}
-                        </span>
-                      </figcaption>
-                    </figure>
-                  ),
-                )}
-              </div>
+              <PieceWall pieces={visiblePieces} comingSoonLabel={w.comingSoon} />
             </Reveal>
           )}
 
@@ -376,8 +340,8 @@ function MediaMosaic({
     };
   }, []);
 
-  const GAP = 10;
-  const targetH = width < 640 ? 190 : width < 1024 ? 240 : 280;
+  const GAP = 6;
+  const targetH = width < 640 ? 240 : width < 1024 ? 340 : 420;
 
   // Greedy justification into rows.
   const rows = useMemo(() => {
@@ -416,7 +380,7 @@ function MediaMosaic({
               type="button"
               onClick={(e) => onOpen(project.slug, e.currentTarget)}
               aria-label={project.title[locale]}
-              className={`group border-line relative shrink-0 overflow-hidden border ${m.type === "video" ? "bg-ink" : "bg-paper"}`}
+              className={`group relative shrink-0 overflow-hidden ${m.type === "video" ? "bg-ink" : "bg-paper-2"}`}
               style={{ width: w, height: row.h }}
             >
               {m.type === "video" ? (
@@ -430,7 +394,7 @@ function MediaMosaic({
                   src={m.src}
                   alt={m.alt?.[locale] ?? project.title[locale]}
                   fill
-                  sizes="(max-width: 640px) 60vw, 400px"
+                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, 560px"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               )}
@@ -476,8 +440,173 @@ function MosaicVideo({
         }}
         className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
-      <span className="text-paper/80 absolute bottom-2.5 right-3 text-[0.6rem] font-medium uppercase tracking-[0.15em]">
-        ▶ muet
+      <span aria-hidden className="text-paper/70 absolute bottom-2.5 right-3 text-[0.6rem]">
+        ▶
+      </span>
+    </>
+  );
+}
+
+/**
+ * The detached-pieces wall — the same justified-tier packing as the project
+ * sheets, but chrome-free: no borders, tight gutters, near full-bleed tiles,
+ * no two rows alike. Titles surface only on hover so the visuals lead; video
+ * pieces autoplay muted while the wall is on screen; a missing visual becomes
+ * a quiet placeholder rather than a hole.
+ */
+function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLabel: string }) {
+  const { locale } = useLanguage();
+  const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
+  const [width, setWidth] = useState(0);
+  const [inView, setInView] = useState(false);
+  const [videoAr, setVideoAr] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
+    ro.observe(el);
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
+      { threshold: 0.1 },
+    );
+    io.observe(el);
+    return () => {
+      ro.disconnect();
+      io.disconnect();
+    };
+  }, []);
+
+  const GAP = 6;
+  const targetH = width < 640 ? 260 : width < 1024 ? 340 : 420;
+
+  const arOf = useCallback(
+    (p: Piece) =>
+      p.type === "video"
+        ? (videoAr[p.src ?? p.id] ?? (p.w ?? 16) / (p.h ?? 9))
+        : (p.w ?? 3) / (p.h ?? 4),
+    [videoAr],
+  );
+
+  // Greedy justification into rows — identical grammar to the project sheets.
+  const rows = useMemo(() => {
+    if (!width) return [];
+    const out: { items: { p: Piece; w: number }[]; h: number }[] = [];
+    let line: Piece[] = [];
+    let arSum = 0;
+    for (const p of pieces) {
+      line.push(p);
+      arSum += arOf(p);
+      const rowW = arSum * targetH + GAP * (line.length - 1);
+      if (rowW >= width) {
+        const avail = width - GAP * (line.length - 1);
+        const h = avail / arSum;
+        out.push({ h, items: line.map((it) => ({ p: it, w: arOf(it) * h })) });
+        line = [];
+        arSum = 0;
+      }
+    }
+    if (line.length) {
+      const h = Math.min(targetH, (width - GAP * (line.length - 1)) / arSum);
+      out.push({ h, items: line.map((it) => ({ p: it, w: arOf(it) * h })) });
+    }
+    return out;
+  }, [pieces, width, targetH, arOf]);
+
+  return (
+    <div ref={ref} className="mt-6 flex flex-col" style={{ gap: GAP }}>
+      {rows.map((row, ri) => (
+        <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
+          {row.items.map(({ p, w }) => (
+            <figure
+              key={p.id}
+              className={`group relative shrink-0 overflow-hidden ${p.type === "video" ? "bg-ink" : "bg-paper-2"}`}
+              style={{ width: w, height: row.h }}
+            >
+              {p.src ? (
+                p.type === "video" ? (
+                  <PieceVideo
+                    piece={p}
+                    active={inView && !reduced}
+                    onMeta={(ar) =>
+                      setVideoAr((prev) => (prev[p.src!] === ar ? prev : { ...prev, [p.src!]: ar }))
+                    }
+                  />
+                ) : (
+                  <Image
+                    src={p.src}
+                    alt={p.title[locale]}
+                    fill
+                    sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, 520px"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                )
+              ) : (
+                <span
+                  aria-hidden
+                  className="absolute inset-0 opacity-60"
+                  style={{
+                    backgroundImage: "radial-gradient(rgba(10,10,10,0.22) 1px, transparent 1.4px)",
+                    backgroundSize: "9px 9px",
+                    maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+                    WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+                  }}
+                />
+              )}
+
+              {/* Discrete caption — surfaces on hover/focus, silent otherwise */}
+              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-3 bg-gradient-to-t from-ink/70 to-transparent px-3 pt-8 pb-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <span className="font-display text-paper truncate text-sm" style={{ fontWeight: 600 }}>
+                  {p.title[locale]}
+                </span>
+                <span className="text-paper/70 shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
+                  {p.src ? p.year : comingSoonLabel}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PieceVideo({
+  piece,
+  active,
+  onMeta,
+}: {
+  piece: Piece;
+  active: boolean;
+  onMeta: (ar: number) => void;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (active) v.play().catch(() => {});
+    else v.pause();
+  }, [active]);
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        src={piece.src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        onLoadedMetadata={(e) => {
+          const v = e.currentTarget;
+          if (v.videoWidth && v.videoHeight) onMeta(v.videoWidth / v.videoHeight);
+        }}
+        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+      />
+      <span aria-hidden className="text-paper/70 absolute bottom-2.5 right-3 text-[0.6rem]">
+        ▶
       </span>
     </>
   );
