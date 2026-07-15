@@ -280,6 +280,9 @@ function MediaMosaic({
 
   const GAP = 6;
   const targetH = width < 640 ? 240 : width < 1024 ? 360 : width < 1600 ? 480 : 560;
+  // The opening row runs taller — the block's accroche (videos lead it) reads
+  // big without turning the flow into a wall of video.
+  const heroH = Math.round(targetH * 1.42);
 
   const rows = useMemo(() => {
     if (!width) return [];
@@ -291,7 +294,8 @@ function MediaMosaic({
     for (const m of strip) {
       line.push(m);
       arSum += arOf(m);
-      const rowW = arSum * targetH + GAP * (line.length - 1);
+      const rowTarget = out.length === 0 ? heroH : targetH;
+      const rowW = arSum * rowTarget + GAP * (line.length - 1);
       if (rowW >= width) {
         const avail = width - GAP * (line.length - 1);
         const h = avail / arSum;
@@ -301,11 +305,12 @@ function MediaMosaic({
       }
     }
     if (line.length) {
-      const h = Math.min(targetH, (width - GAP * (line.length - 1)) / arSum);
+      const cap = out.length === 0 ? heroH : targetH;
+      const h = Math.min(cap, (width - GAP * (line.length - 1)) / arSum);
       out.push({ h, items: line.map((it) => ({ m: it, w: arOf(it) * h })) });
     }
     return out;
-  }, [strip, width, targetH, videoAr]);
+  }, [strip, width, targetH, heroH, videoAr]);
 
   return (
     <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
@@ -601,7 +606,7 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
                   active={inView && !reduced}
                   onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
                   comingSoonLabel={comingSoonLabel}
-                  style={{ flex: arOf(p) }}
+                  style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
                 />
               ))}
             </div>

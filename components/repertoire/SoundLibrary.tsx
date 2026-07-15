@@ -69,15 +69,20 @@ export function SoundLibrary() {
             <span className="text-paper/50 block truncate text-xs">{track.context[locale]}</span>
           </div>
 
-          {/* Waveform — inline, live on the active track, scrubbable */}
+          {/* Waveform — inline, scrubbable; click starts/repositions playback.
+              The ±10 controls keep their space at all times so activating a
+              track never reflows (and never "zooms") the waveform. */}
           <div className="col-span-3 mt-3 flex items-center gap-4 sm:col-span-1 sm:col-start-3 sm:mt-0">
             <Waveform track={track} active={active} dark className="h-9 flex-1" />
-            {active && (
-              <div className="hidden shrink-0 items-center gap-2 sm:flex">
-                <button type="button" onClick={() => skip(-10)} aria-label="-10s" className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">−10</button>
-                <button type="button" onClick={() => skip(10)} aria-label="+10s" className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">+10</button>
-              </div>
-            )}
+            <div
+              className={`hidden shrink-0 items-center gap-2 transition-opacity duration-200 sm:flex ${
+                active ? "opacity-100" : "pointer-events-none opacity-0"
+              }`}
+              aria-hidden={!active}
+            >
+              <button type="button" onClick={() => skip(-10)} aria-label="-10s" tabIndex={active ? 0 : -1} className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">−10</button>
+              <button type="button" onClick={() => skip(10)} aria-label="+10s" tabIndex={active ? 0 : -1} className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">+10</button>
+            </div>
           </div>
 
           {/* Meta — elapsed / duration */}
