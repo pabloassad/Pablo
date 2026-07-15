@@ -60,7 +60,7 @@ export function MiniPlayer() {
                     {current.context[locale]}
                   </span>
                 </div>
-                <Waveform trackId={current.id} file={current.file} active seekable dark className="h-9 flex-1" />
+                <Waveform track={current} active dark className="h-9 flex-1" />
               </div>
 
               {/* Time */}

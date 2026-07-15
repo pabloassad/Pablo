@@ -90,7 +90,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "monday",
     title: "Monday",
-    file: "/works/sound-design/monday.wav",
+    file: "/works/sound-design/monday.mp3",
     kind: "perso",
     context: { fr: "Composition personnelle", en: "Personal composition" },
   },

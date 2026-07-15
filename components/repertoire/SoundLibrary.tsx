@@ -71,7 +71,7 @@ export function SoundLibrary() {
 
           {/* Waveform — inline, live on the active track, scrubbable */}
           <div className="col-span-3 mt-3 flex items-center gap-4 sm:col-span-1 sm:col-start-3 sm:mt-0">
-            <Waveform trackId={track.id} file={track.file} active={active} seekable dark className="h-9 flex-1" />
+            <Waveform track={track} active={active} dark className="h-9 flex-1" />
             {active && (
               <div className="hidden shrink-0 items-center gap-2 sm:flex">
                 <button type="button" onClick={() => skip(-10)} aria-label="-10s" className="text-paper/60 hover:text-paper text-[0.7rem] font-medium tracking-tight transition-colors">−10</button>
@@ -111,7 +111,12 @@ export function SoundLibrary() {
                 {s.title}
               </h3>
             </div>
-            <p className="text-paper/60 max-w-xs text-sm leading-relaxed">{s.intro}</p>
+            <div className="max-w-xs">
+              <p className="font-display text-paper text-xl" style={{ fontWeight: 700, letterSpacing: "-0.01em" }}>
+                {s.author}
+              </p>
+              <p className="text-paper/60 mt-2 text-sm leading-relaxed text-pretty">{s.intro}</p>
+            </div>
           </div>
 
           {/* Score — the commissions are the vitrine, always open */}

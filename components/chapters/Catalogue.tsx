@@ -115,7 +115,19 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
 function FlowAnchor() {
   const { t } = useLanguage();
+  const reduced = useReducedMotion();
   const [onSound, setOnSound] = useState(false);
+  // Hidden at the very top — the header should breathe on arrival; the anchor
+  // materialises once exploration begins (reduced-motion: shown from the start).
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const update = () => setRevealed(reduced || window.scrollY > 72);
+    update();
+    if (reduced) return;
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, [reduced]);
 
   useEffect(() => {
     const el = document.getElementById("son");
@@ -130,6 +142,7 @@ function FlowAnchor() {
 
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation(); // don't also trigger the global Lenis anchor handler
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -139,13 +152,20 @@ function FlowAnchor() {
     }`;
 
   return (
-    <div className="sticky top-14 z-30 -mx-3 mb-6 flex justify-center sm:top-16 sm:-mx-6 lg:-mx-8">
-      <div className="border-line bg-paper/80 flex items-center gap-4 rounded-full border px-4 py-1.5 backdrop-blur-xl">
-        <a href="#visuel" onClick={go("visuel")} className={item(!onSound)}>
+    <div
+      className="pointer-events-none sticky top-14 z-30 -mx-3 mb-6 flex justify-center transition-[opacity,transform] duration-500 ease-out sm:top-16 sm:-mx-6 lg:-mx-8"
+      style={{
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? "translateY(0)" : "translateY(-8px)",
+      }}
+      aria-hidden={!revealed}
+    >
+      <div className="border-line bg-paper/80 pointer-events-auto flex items-center gap-4 rounded-full border px-4 py-1.5 backdrop-blur-xl">
+        <a href="#visuel" onClick={go("visuel")} className={item(!onSound)} tabIndex={revealed ? 0 : -1}>
           {t.work.flowVisual}
         </a>
         <span className="bg-line h-3 w-px" aria-hidden />
-        <a href="#son" onClick={go("son")} className={item(onSound)}>
+        <a href="#son" onClick={go("son")} className={item(onSound)} tabIndex={revealed ? 0 : -1}>
           {t.work.flowSound}
         </a>
       </div>
@@ -168,16 +188,14 @@ function ProjectRow({
 }) {
   const { locale } = useLanguage();
 
-  // Videos lead, then images — the moving work catches the eye first.
-  const strip: ProjectMedia[] = useMemo(() => {
-    const all = [
+  // Media in data order — the author sequences the sheet.
+  const strip: ProjectMedia[] = useMemo(
+    () => [
       ...(project.cover ? [{ src: project.cover, w: project.coverW, h: project.coverH }] : []),
       ...(project.media ?? []).filter((m) => m.src !== project.cover),
-    ];
-    const videos = all.filter((m) => m.type === "video");
-    const images = all.filter((m) => m.type !== "video");
-    return [...videos, ...images];
-  }, [project]);
+    ],
+    [project],
+  );
 
   return (
     <article className="border-line border-t py-8 first:border-t-0 sm:py-10">
@@ -200,6 +218,11 @@ function ProjectRow({
               <span className="whitespace-nowrap">{categoryLabels[project.category][locale]}</span>
               {project.year && <span className="whitespace-nowrap">{` · ${project.year}`}</span>}
             </p>
+            {project.descriptor && (
+              <p className="text-faint/80 mt-1.5 text-[0.62rem] tracking-[0.03em]">
+                {project.descriptor[locale]}
+              </p>
+            )}
             <button
               type="button"
               onClick={(e) => onOpen(project.slug, e.currentTarget)}
@@ -427,14 +450,67 @@ function VideoTile({
   );
 }
 
+/** A single piece figure that fills whatever flex slot it's given. */
+function PieceFigure({
+  p,
+  active,
+  onMeta,
+  comingSoonLabel,
+  style,
+}: {
+  p: Piece;
+  active: boolean;
+  onMeta: (ar: number) => void;
+  comingSoonLabel: string;
+  style?: React.CSSProperties;
+}) {
+  const { locale } = useLanguage();
+  return (
+    <figure className="group bg-paper-2 relative h-full min-w-0 overflow-hidden" style={style}>
+      {p.src ? (
+        p.type === "video" ? (
+          <VideoTile id={`piece:${p.id}`} src={p.src} title={p.title[locale]} active={active} onMeta={onMeta} />
+        ) : (
+          <Image
+            src={p.src}
+            alt={p.title[locale]}
+            fill
+            sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 560px"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          />
+        )
+      ) : (
+        <span
+          aria-hidden
+          className="absolute inset-0 opacity-60"
+          style={{
+            backgroundImage: "radial-gradient(rgba(10,10,10,0.22) 1px, transparent 1.4px)",
+            backgroundSize: "9px 9px",
+            maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
+          }}
+        />
+      )}
+      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-3 bg-gradient-to-t from-ink/70 to-transparent px-3 pt-8 pb-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="font-display text-paper truncate text-sm" style={{ fontWeight: 600 }}>
+          {p.title[locale]}
+        </span>
+        <span className="text-paper/70 shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
+          {p.src ? p.year : comingSoonLabel}
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
+
 /**
  * The detached-pieces wall — same justified grammar as the sheets, chrome-free,
- * folded straight into the flow (no rubric). Titles surface on hover; video
- * pieces autoplay muted and can be un-muted like any other; a missing visual
- * becomes a quiet placeholder.
+ * folded straight into the flow (no rubric). Pieces sharing a `pair` id (e.g.
+ * Rosa's flyer + menu) travel together as one unit, side by side at every
+ * width. Titles surface on hover; video pieces autoplay muted and can be
+ * un-muted; a missing visual becomes a quiet placeholder.
  */
 function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLabel: string }) {
-  const { locale } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [width, setWidth] = useState(0);
@@ -466,80 +542,69 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
     [videoAr],
   );
 
+  const setMeta = useCallback(
+    (src: string, ar: number) => setVideoAr((prev) => (prev[src] === ar ? prev : { ...prev, [src]: ar })),
+    [],
+  );
+
+  // Group consecutive same-pair pieces into one unit; its aspect ratio is the
+  // sum of its members' — so the unit packs as a single tile that never splits.
+  const units = useMemo(() => {
+    const out: { id: string; members: Piece[]; ar: number }[] = [];
+    for (const p of pieces) {
+      const last = out[out.length - 1];
+      if (p.pair && last && last.members[0].pair === p.pair) {
+        last.members.push(p);
+        last.ar += arOf(p);
+      } else {
+        out.push({ id: p.id, members: [p], ar: arOf(p) });
+      }
+    }
+    return out;
+  }, [pieces, arOf]);
+
   const rows = useMemo(() => {
     if (!width) return [];
-    const out: { items: { p: Piece; w: number }[]; h: number }[] = [];
-    let line: Piece[] = [];
+    type Unit = (typeof units)[number];
+    const out: { items: { u: Unit; w: number }[]; h: number }[] = [];
+    let line: Unit[] = [];
     let arSum = 0;
-    for (const p of pieces) {
-      line.push(p);
-      arSum += arOf(p);
+    for (const u of units) {
+      line.push(u);
+      arSum += u.ar;
       const rowW = arSum * targetH + GAP * (line.length - 1);
       if (rowW >= width) {
         const avail = width - GAP * (line.length - 1);
         const h = avail / arSum;
-        out.push({ h, items: line.map((it) => ({ p: it, w: arOf(it) * h })) });
+        out.push({ h, items: line.map((it) => ({ u: it, w: it.ar * h })) });
         line = [];
         arSum = 0;
       }
     }
     if (line.length) {
       const h = Math.min(targetH, (width - GAP * (line.length - 1)) / arSum);
-      out.push({ h, items: line.map((it) => ({ p: it, w: arOf(it) * h })) });
+      out.push({ h, items: line.map((it) => ({ u: it, w: it.ar * h })) });
     }
     return out;
-  }, [pieces, width, targetH, arOf]);
+  }, [units, width, targetH]);
 
   return (
     <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
       {rows.map((row, ri) => (
         <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-          {row.items.map(({ p, w }) => (
-            <figure
-              key={p.id}
-              className="group bg-paper-2 relative shrink-0 overflow-hidden"
-              style={{ width: w, height: row.h }}
-            >
-              {p.src ? (
-                p.type === "video" ? (
-                  <VideoTile
-                    id={`piece:${p.id}`}
-                    src={p.src}
-                    title={p.title[locale]}
-                    active={inView && !reduced}
-                    onMeta={(ar) => setVideoAr((prev) => (prev[p.src!] === ar ? prev : { ...prev, [p.src!]: ar }))}
-                  />
-                ) : (
-                  <Image
-                    src={p.src}
-                    alt={p.title[locale]}
-                    fill
-                    sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 560px"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-                )
-              ) : (
-                <span
-                  aria-hidden
-                  className="absolute inset-0 opacity-60"
-                  style={{
-                    backgroundImage: "radial-gradient(rgba(10,10,10,0.22) 1px, transparent 1.4px)",
-                    backgroundSize: "9px 9px",
-                    maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
-                    WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, #000 25%, transparent 75%)",
-                  }}
+          {row.items.map(({ u, w }) => (
+            <div key={u.id} className="flex shrink-0" style={{ width: w, height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
+              {u.members.map((p) => (
+                <PieceFigure
+                  key={p.id}
+                  p={p}
+                  active={inView && !reduced}
+                  onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
+                  comingSoonLabel={comingSoonLabel}
+                  style={{ flex: arOf(p) }}
                 />
-              )}
-
-              <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-3 bg-gradient-to-t from-ink/70 to-transparent px-3 pt-8 pb-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                <span className="font-display text-paper truncate text-sm" style={{ fontWeight: 600 }}>
-                  {p.title[locale]}
-                </span>
-                <span className="text-paper/70 shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
-                  {p.src ? p.year : comingSoonLabel}
-                </span>
-              </figcaption>
-            </figure>
+              ))}
+            </div>
           ))}
         </div>
       ))}

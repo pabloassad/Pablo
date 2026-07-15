@@ -3,34 +3,39 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAudio } from "@/lib/audio/AudioProvider";
 import { loadPeaks, downsample } from "@/lib/audio/peaks";
+import type { AudioTrack } from "@/lib/content/types";
 
 /**
- * The waveform — Pablo's signature, so it has to be sharp.
+ * The waveform — Pablo's signature, so it has to be sharp AND playable.
  * The canvas is sized in *physical* pixels (× devicePixelRatio) and the bar
  * count follows the real component width, so it stays crisp on Retina and at
  * any size, before and after resize. The active track shows its true RMS
  * envelope (decoded once, cached); idle rows carry a quiet deterministic
  * pattern. The played portion is inked; the rest stays faint. Redraws only
  * when something actually changes — never per animation frame.
+ *
+ * Clicking (or tapping) the waveform starts playback at the clicked position:
+ * if this isn't the active track it loads into the global player and starts
+ * there; if it is, it seeks and keeps playing. Dragging scrubs. The play
+ * button and keyboard control remain the accessible primary.
  */
 export function Waveform({
-  trackId,
-  file,
+  track,
   active,
   seekable = true,
   dark = true,
   className,
 }: {
-  trackId: string;
-  /** Source file — lets the active waveform load its real peaks. */
-  file?: string;
+  track: AudioTrack;
   active: boolean;
   seekable?: boolean;
   /** true = paper bars on ink ground; false = ink bars on paper ground. */
   dark?: boolean;
   className?: string;
 }) {
-  const { playing, progress, seek } = useAudio();
+  const { playing, progress, seek, playAt } = useAudio();
+  const trackId = track.id;
+  const file = track.file;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 0, h: 0, dpr: 1 });
@@ -121,42 +126,54 @@ export function Waveform({
     }
   }, [size, bars, peaks, active, progress, playing, dark, seeded]);
 
-  const handleSeek = (clientX: number, el: HTMLElement) => {
+  // Map an x position to a ratio and act on it: seek if this is the active
+  // track, otherwise start this track at that point in the global player.
+  const scrubTo = (clientX: number, el: HTMLElement) => {
     const r = el.getBoundingClientRect();
-    seek((clientX - r.left) / r.width);
+    const ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    if (active) seek(ratio);
+    else playAt(track, ratio);
   };
 
   return (
     <div
       ref={wrapRef}
       className={className}
-      role={seekable && active ? "slider" : undefined}
-      aria-label={seekable && active ? "Position" : undefined}
+      role={seekable ? "slider" : undefined}
+      aria-label={seekable ? `Position — ${track.title}` : undefined}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={seekable && active ? Math.round(progress * 100) : undefined}
-      tabIndex={seekable && active ? 0 : -1}
-      style={{ touchAction: seekable && active ? "pan-y" : undefined, cursor: seekable && active ? "pointer" : undefined }}
+      tabIndex={seekable ? 0 : -1}
+      style={{ touchAction: seekable ? "pan-y" : undefined, cursor: seekable ? "pointer" : undefined }}
       onPointerDown={
-        seekable && active
+        seekable
           ? (e) => {
               e.currentTarget.setPointerCapture(e.pointerId);
-              handleSeek(e.clientX, e.currentTarget);
+              scrubTo(e.clientX, e.currentTarget);
             }
           : undefined
       }
       onPointerMove={
-        seekable && active
+        seekable
           ? (e) => {
-              if (e.buttons > 0) handleSeek(e.clientX, e.currentTarget);
+              if (e.buttons > 0 && active) scrubTo(e.clientX, e.currentTarget);
             }
           : undefined
       }
       onKeyDown={
-        seekable && active
+        seekable
           ? (e) => {
-              if (e.key === "ArrowRight") seek(Math.min(1, progress + 0.03));
-              if (e.key === "ArrowLeft") seek(Math.max(0, progress - 0.03));
+              if (e.key === "ArrowRight") {
+                if (active) seek(Math.min(1, progress + 0.03));
+                else playAt(track, 0);
+              } else if (e.key === "ArrowLeft") {
+                if (active) seek(Math.max(0, progress - 0.03));
+                else playAt(track, 0);
+              } else if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                playAt(track, active ? progress : 0);
+              }
             }
           : undefined
       }

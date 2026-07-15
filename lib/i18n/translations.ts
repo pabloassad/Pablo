@@ -43,6 +43,7 @@ export interface Translations {
   sound: {
     label: string;
     title: string;
+    author: string;
     intro: string;
     commissioned: string;
     personal: string;
@@ -129,7 +130,8 @@ const fr: Translations = {
   sound: {
     label: "Son",
     title: "La Table d'écoute",
-    intro: "Compositions et commandes. Cliquez, écoutez. Le reste du site peut attendre.",
+    author: "Je compose.",
+    intro: "Des compositions originales, de moi — commandes de marque et pièces personnelles. Cliquez, écoutez.",
     commissioned: "Commandes",
     personal: "Compositions personnelles",
     play: "Lire",
@@ -225,7 +227,8 @@ const en: Translations = {
   sound: {
     label: "Sound",
     title: "The Listening Table",
-    intro: "Compositions and commissions. Click, listen. The rest of the site can wait.",
+    author: "I compose.",
+    intro: "Original compositions, mine — brand commissions and personal pieces. Click, listen.",
     commissioned: "Commissions",
     personal: "Personal compositions",
     play: "Play",

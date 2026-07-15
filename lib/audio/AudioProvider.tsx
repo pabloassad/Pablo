@@ -15,8 +15,11 @@ import type { AudioTrack } from "@/lib/content/types";
 /**
  * Global audio state — one <audio> element for the whole site, hoisted above
  * every list and page. Playback survives filtering, scrolling and route
- * changes; one track at a time is guaranteed by construction. The Web Audio
- * analyser feeds every waveform (row + mini player). No autoplay, ever.
+ * changes; one track at a time is guaranteed by construction.
+ *
+ * The element streams natively (Range requests, low memory) and is NOT routed
+ * through a Web Audio graph: the waveform reads pre-decoded peaks, so nothing
+ * competes with playback on the audio thread — no crackle, no lag. No autoplay.
  */
 
 const ordered: AudioTrack[] = [
@@ -31,11 +34,11 @@ interface AudioState {
   progress: number;
   durations: Record<string, number>;
   toggle: (track: AudioTrack) => void;
+  /** Load (if needed) + play a track starting at ratio 0..1. */
+  playAt: (track: AudioTrack, ratio: number) => void;
   seek: (ratio: number) => void;
   skip: (seconds: number) => void;
   stop: () => void;
-  /** Live analyser — null until the first play. */
-  getAnalyser: () => AnalyserNode | null;
   /** id of the video currently allowed to sound (one at a time), or null. */
   soundingVideo: string | null;
   /** A video asks for the floor: mutes every other source (table + videos). */
@@ -48,8 +51,8 @@ const Ctx = createContext<AudioState | undefined>(undefined);
 
 export function AudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const ctxRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
+  // Ratio to apply once the freshly loaded track knows its duration.
+  const pendingSeekRef = useRef<number | null>(null);
 
   const [current, setCurrent] = useState<AudioTrack | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -57,44 +60,42 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const [durations, setDurations] = useState<Record<string, number>>({});
   const [soundingVideo, setSoundingVideo] = useState<string | null>(null);
 
-  const ensureGraph = useCallback(() => {
+  const ensureAudio = useCallback(() => {
     if (!audioRef.current) {
       const el = new Audio();
       el.preload = "none";
       audioRef.current = el;
     }
-    if (!ctxRef.current && typeof AudioContext !== "undefined") {
-      const ctx = new AudioContext();
-      const analyser = ctx.createAnalyser();
-      analyser.fftSize = 256;
-      const source = ctx.createMediaElementSource(audioRef.current);
-      source.connect(analyser);
-      analyser.connect(ctx.destination);
-      ctxRef.current = ctx;
-      analyserRef.current = analyser;
-    }
     return audioRef.current;
   }, []);
 
-  const play = useCallback(
-    (track: AudioTrack) => {
-      const el = ensureGraph();
-      ctxRef.current?.resume();
+  const isCurrentSrc = (el: HTMLAudioElement, file: string) =>
+    el.src.endsWith(encodeURI(file));
+
+  // Load (if needed) + play, optionally from a given ratio.
+  const playAt = useCallback(
+    (track: AudioTrack, ratio: number) => {
+      const el = ensureAudio();
       setSoundingVideo(null); // the table takes the floor — hush the videos
-      if (audioRef.current?.src.endsWith(encodeURI(track.file)) !== true) {
+      if (!isCurrentSrc(el, track.file)) {
         el.src = track.file;
         setCurrent(track);
         setProgress(0);
+        pendingSeekRef.current = ratio > 0 ? ratio : null;
       } else {
         setCurrent(track);
+        if (ratio > 0 && el.duration) el.currentTime = ratio * el.duration;
+        else if (ratio > 0) pendingSeekRef.current = ratio;
       }
       el.play().catch(() => {});
     },
-    [ensureGraph],
+    [ensureAudio],
   );
 
+  const play = useCallback((track: AudioTrack) => playAt(track, 0), [playAt]);
+
   // One sound at a time across the site: a video claiming sound hushes the
-  // table; the table playing hushes the videos (handled in play()).
+  // table; the table playing hushes the videos (handled in playAt()).
   const requestVideoSound = useCallback((id: string) => {
     audioRef.current?.pause();
     setSoundingVideo(id);
@@ -137,7 +138,13 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     const onTime = () => setProgress(el.duration ? el.currentTime / el.duration : 0);
-    const onMeta = () => setDurations((d) => ({ ...d, [current.id]: el.duration }));
+    const onMeta = () => {
+      setDurations((d) => ({ ...d, [current.id]: el.duration }));
+      if (pendingSeekRef.current != null && el.duration) {
+        el.currentTime = pendingSeekRef.current * el.duration;
+        pendingSeekRef.current = null;
+      }
+    };
     const onEnded = () => {
       const idx = ordered.findIndex((tr) => tr.id === current.id);
       const next = ordered[idx + 1];
@@ -158,8 +165,6 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     };
   }, [current, play]);
 
-  const getAnalyser = useCallback(() => analyserRef.current, []);
-
   return (
     <Ctx.Provider
       value={{
@@ -168,10 +173,10 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         progress,
         durations,
         toggle,
+        playAt,
         seek,
         skip,
         stop,
-        getAnalyser,
         soundingVideo,
         requestVideoSound,
         releaseVideoSound,

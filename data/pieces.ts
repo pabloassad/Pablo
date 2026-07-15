@@ -33,6 +33,7 @@ export const pieces: Piece[] = [
     w: 1600,
     h: 2242,
     year: "2024",
+    pair: "rosa",
   },
   {
     id: "rosa-cocktail",
@@ -41,6 +42,7 @@ export const pieces: Piece[] = [
     w: 1414,
     h: 2000,
     year: "2024",
+    pair: "rosa",
   },
   {
     id: "flashback",
@@ -60,6 +62,15 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
+    id: "miami-game",
+    title: { fr: "Miami Game", en: "Miami Game" },
+    src: "/works/miami-game/flyer-01.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
     id: "la-nuit-du-bac",
     title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
     src: "/works/la-nuit-du-bac/flyer.webp",
@@ -68,11 +79,28 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
+    id: "paradise",
+    title: { fr: "Paradise — identité", en: "Paradise — identity" },
+    src: "/works/paradise.webp",
+    w: 1920,
+    h: 1080,
+    year: "2026",
+  },
+  {
     id: "sunset",
     title: { fr: "Sunset", en: "Sunset" },
     src: "/works/pieces-sunset.webp",
     w: 1080,
     h: 1920,
+    year: "2026",
+  },
+  {
+    id: "fondamentall",
+    title: { fr: "Fondament'All — logo animé", en: "Fondament'All — animated logo" },
+    src: "/works/fondamentall/logo-01.mp4",
+    type: "video",
+    w: 1920,
+    h: 1080,
     year: "2026",
   },
   {

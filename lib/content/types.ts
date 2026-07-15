@@ -31,6 +31,8 @@ export interface Project {
   client?: string;
   year?: string;
   role?: Localized;
+  /** Discrete factual descriptor, e.g. "Marque événementielle". */
+  descriptor?: Localized;
   blurb?: Localized;
   /** Cover image path under /public. Omit while placeholder. */
   cover?: string;
@@ -78,6 +80,8 @@ export interface Piece {
   w?: number;
   h?: number;
   year?: string;
+  /** Pieces sharing a pair id render side by side as one unit, all widths. */
+  pair?: string;
 }
 
 export type TrackKind = "commande" | "jingle" | "reportage" | "perso";

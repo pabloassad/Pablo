@@ -115,6 +115,13 @@ figcaption {
   text-wrap: pretty;
 }
 
+/* Skip layout/paint for off-screen sections — cheaper scroll, no jump thanks
+   to the reserved intrinsic size. Applied to static, below-the-fold chapters. */
+.cv-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+
 /* Eyebrow / label — Helvetica caps, tracked out. The Swiss "signal". */
 .kicker {
   font-family: var(--font-sans);

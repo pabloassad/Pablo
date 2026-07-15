@@ -18,7 +18,7 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" className="bg-paper px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
+    <section id="contact" className="cv-section bg-paper px-6 py-24 sm:px-10 sm:py-32 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionLabel index="05" label={c.label} />

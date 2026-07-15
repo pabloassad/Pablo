@@ -23,7 +23,7 @@ export function Journey() {
   const experiences = journey.filter((m) => m.kind !== "school" && m.kind !== "goal");
 
   return (
-    <section id="parcours" className="bg-paper px-6 py-20 sm:px-10 sm:py-24 lg:px-16">
+    <section id="parcours" className="cv-section bg-paper px-6 py-20 sm:px-10 sm:py-24 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionLabel index="02" label={j.label} />
