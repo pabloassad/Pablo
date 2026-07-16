@@ -82,6 +82,8 @@ export interface Piece {
   year?: string;
   /** Pieces sharing a pair id render side by side as one unit, all widths. */
   pair?: string;
+  /** Row-height multiplier (>1) to feature this piece bigger. Default 1. */
+  feature?: number;
 }
 
 export type TrackKind = "commande" | "jingle" | "reportage" | "perso";

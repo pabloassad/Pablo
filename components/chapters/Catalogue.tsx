@@ -173,6 +173,57 @@ function FlowAnchor() {
   );
 }
 
+/**
+ * Justified rows ("étages"): pack items into rows of a common height that fill
+ * the width edge to edge, each keeping its native ratio — no crop, no bands.
+ * `featureOf` (>1) makes an item's row taller (fewer items → bigger). Rules:
+ * every row is closed (filled) except a non-full last row, which keeps natural
+ * height rather than stretching; and a lone item never sits alone on the last
+ * row (it borrows a neighbour). One helper for both projects and pieces.
+ */
+type JRow<T> = { items: { it: T; w: number }[]; h: number };
+function justifyRows<T>(
+  items: T[],
+  width: number,
+  gap: number,
+  baseH: number,
+  arOf: (it: T) => number,
+  featureOf: (it: T) => number = () => 1,
+): JRow<T>[] {
+  if (!width || !items.length) return [];
+  const lines: T[][] = [];
+  let line: T[] = [];
+  let arSum = 0;
+  let maxFeat = 1;
+  for (const it of items) {
+    line.push(it);
+    arSum += arOf(it);
+    maxFeat = Math.max(maxFeat, featureOf(it));
+    if (arSum * baseH * maxFeat + gap * (line.length - 1) >= width) {
+      lines.push(line);
+      line = [];
+      arSum = 0;
+      maxFeat = 1;
+    }
+  }
+  if (line.length) lines.push(line);
+  // No orphan: a single item on the last row borrows one from the previous row.
+  const last = lines[lines.length - 1];
+  if (lines.length >= 2 && last.length === 1) {
+    const prev = lines[lines.length - 2];
+    if (prev.length >= 2) last.unshift(prev.pop() as T);
+  }
+  return lines.map((row, i) => {
+    const sum = row.reduce((s, it) => s + arOf(it), 0);
+    const feat = Math.max(1, ...row.map(featureOf));
+    const avail = width - gap * (row.length - 1);
+    const full = avail / sum;
+    const isLast = i === lines.length - 1 && lines.length > 1;
+    const h = isLast ? Math.min(baseH * feat, full) : full;
+    return { h, items: row.map((it) => ({ it, w: arOf(it) * h })) };
+  });
+}
+
 /* ── One project = one contact sheet ──────────────────────────────────── */
 
 function ProjectRow({
@@ -199,43 +250,35 @@ function ProjectRow({
 
   return (
     <article className="border-line border-t py-8 first:border-t-0 sm:py-10">
-      <div className="grid gap-4 lg:grid-cols-[13rem_1fr]">
-        {/* Meta — the bar number, the name, the door to the detail */}
-        <div className="flex flex-row items-baseline gap-x-5 gap-y-2 px-1 lg:flex-col lg:items-start sm:px-2">
-          <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <div>
-            <button type="button" onClick={(e) => onOpen(project.slug, e.currentTarget)} className="group text-left">
-              <h3
-                className="font-display text-ink transition-colors duration-200 group-hover:text-mute text-balance"
-                style={{ fontSize: "clamp(1.35rem,2.4vw,2rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
-              >
-                {project.title[locale]}
-              </h3>
-            </button>
-            <p className="text-faint mt-2 text-[0.65rem] font-medium uppercase tracking-[0.16em]">
-              <span className="whitespace-nowrap">{categoryLabels[project.category][locale]}</span>
-              {project.year && <span className="whitespace-nowrap">{` · ${project.year}`}</span>}
-            </p>
-            {project.descriptor && (
-              <p className="text-faint/80 mt-1.5 text-[0.62rem] tracking-[0.03em]">
-                {project.descriptor[locale]}
-              </p>
-            )}
-            <button
-              type="button"
-              onClick={(e) => onOpen(project.slug, e.currentTarget)}
-              className="group text-ink mt-4 hidden items-center gap-2 text-sm font-medium lg:inline-flex"
-            >
-              {openLabel}
-              <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
-            </button>
-          </div>
-        </div>
+      {/* Header on top, full-width — no left title column, so no white band. */}
+      <header className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-1 px-1 sm:px-2">
+        <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <button type="button" onClick={(e) => onOpen(project.slug, e.currentTarget)} className="group text-left">
+          <h3
+            className="font-display text-ink transition-colors duration-200 group-hover:text-mute text-balance"
+            style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+          >
+            {project.title[locale]}
+          </h3>
+        </button>
+        <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
+          <span className="whitespace-nowrap">{categoryLabels[project.category][locale]}</span>
+          {project.year && <span className="whitespace-nowrap">{` · ${project.year}`}</span>}
+          {project.descriptor && <span className="whitespace-nowrap">{` · ${project.descriptor[locale]}`}</span>}
+        </p>
+        <button
+          type="button"
+          onClick={(e) => onOpen(project.slug, e.currentTarget)}
+          className="group text-ink ml-auto hidden items-center gap-2 text-sm font-medium sm:inline-flex"
+        >
+          {openLabel}
+          <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
+        </button>
+      </header>
 
-        <MediaMosaic strip={strip} project={project} onOpen={onOpen} />
-      </div>
+      <MediaMosaic strip={strip} project={project} onOpen={onOpen} />
     </article>
   );
 }
@@ -280,43 +323,21 @@ function MediaMosaic({
 
   const GAP = 6;
   const targetH = width < 640 ? 240 : width < 1024 ? 360 : width < 1600 ? 480 : 560;
-  // The opening row runs taller — the block's accroche (videos lead it) reads
-  // big without turning the flow into a wall of video.
-  const heroH = Math.round(targetH * 1.42);
+  const HERO = 1.42; // the opening row runs taller — the block's accroche
 
   const rows = useMemo(() => {
-    if (!width) return [];
     const arOf = (m: ProjectMedia) =>
       m.type === "video" ? (videoAr[m.src] ?? 0.5625) : (m.w ?? 4) / (m.h ?? 5);
-    const out: { items: { m: ProjectMedia; w: number }[]; h: number }[] = [];
-    let line: ProjectMedia[] = [];
-    let arSum = 0;
-    for (const m of strip) {
-      line.push(m);
-      arSum += arOf(m);
-      const rowTarget = out.length === 0 ? heroH : targetH;
-      const rowW = arSum * rowTarget + GAP * (line.length - 1);
-      if (rowW >= width) {
-        const avail = width - GAP * (line.length - 1);
-        const h = avail / arSum;
-        out.push({ h, items: line.map((it) => ({ m: it, w: arOf(it) * h })) });
-        line = [];
-        arSum = 0;
-      }
-    }
-    if (line.length) {
-      const cap = out.length === 0 ? heroH : targetH;
-      const h = Math.min(cap, (width - GAP * (line.length - 1)) / arSum);
-      out.push({ h, items: line.map((it) => ({ m: it, w: arOf(it) * h })) });
-    }
-    return out;
-  }, [strip, width, targetH, heroH, videoAr]);
+    // First media is the accroche — its row runs taller (videos lead Adonis).
+    const featureOf = (m: ProjectMedia) => (m === strip[0] ? HERO : 1);
+    return justifyRows(strip, width, GAP, targetH, arOf, featureOf);
+  }, [strip, width, targetH, videoAr]);
 
   return (
     <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
       {rows.map((row, ri) => (
         <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-          {row.items.map(({ m, w }) =>
+          {row.items.map(({ it: m, w }) =>
             m.type === "video" ? (
               <div key={m.src} className="bg-paper-2 relative shrink-0 overflow-hidden" style={{ width: w, height: row.h }}>
                 <VideoTile
@@ -553,51 +574,33 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
   );
 
   // Group consecutive same-pair pieces into one unit; its aspect ratio is the
-  // sum of its members' — so the unit packs as a single tile that never splits.
+  // sum of its members', its feature the max — so the unit packs as a single
+  // tile that never splits and can be featured bigger.
   const units = useMemo(() => {
-    const out: { id: string; members: Piece[]; ar: number }[] = [];
+    const out: { id: string; members: Piece[]; ar: number; feature: number }[] = [];
     for (const p of pieces) {
       const last = out[out.length - 1];
       if (p.pair && last && last.members[0].pair === p.pair) {
         last.members.push(p);
         last.ar += arOf(p);
+        last.feature = Math.max(last.feature, p.feature ?? 1);
       } else {
-        out.push({ id: p.id, members: [p], ar: arOf(p) });
+        out.push({ id: p.id, members: [p], ar: arOf(p), feature: p.feature ?? 1 });
       }
     }
     return out;
   }, [pieces, arOf]);
 
-  const rows = useMemo(() => {
-    if (!width) return [];
-    type Unit = (typeof units)[number];
-    const out: { items: { u: Unit; w: number }[]; h: number }[] = [];
-    let line: Unit[] = [];
-    let arSum = 0;
-    for (const u of units) {
-      line.push(u);
-      arSum += u.ar;
-      const rowW = arSum * targetH + GAP * (line.length - 1);
-      if (rowW >= width) {
-        const avail = width - GAP * (line.length - 1);
-        const h = avail / arSum;
-        out.push({ h, items: line.map((it) => ({ u: it, w: it.ar * h })) });
-        line = [];
-        arSum = 0;
-      }
-    }
-    if (line.length) {
-      const h = Math.min(targetH, (width - GAP * (line.length - 1)) / arSum);
-      out.push({ h, items: line.map((it) => ({ u: it, w: it.ar * h })) });
-    }
-    return out;
-  }, [units, width, targetH]);
+  const rows = useMemo(
+    () => justifyRows(units, width, GAP, targetH, (u) => u.ar, (u) => u.feature),
+    [units, width, targetH],
+  );
 
   return (
     <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
       {rows.map((row, ri) => (
         <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-          {row.items.map(({ u, w }) => (
+          {row.items.map(({ it: u, w }) => (
             <div key={u.id} className="flex shrink-0" style={{ width: w, height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
               {u.members.map((p) => (
                 <PieceFigure
