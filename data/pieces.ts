@@ -113,12 +113,4 @@ export const pieces: Piece[] = [
     h: 1920,
     year: "2026",
   },
-  {
-    id: "showcase-la-chine",
-    title: { fr: "Showcase · La Chine", en: "Showcase · La Chine" },
-    src: "/works/showcase-la-chine.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-  },
 ];
