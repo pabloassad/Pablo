@@ -63,17 +63,26 @@ export function Waveform({
     [trackId],
   );
 
-  // Load the real peaks for the active track, once, cached.
+  // Decode the real peaks once the waveform nears the viewport — every row
+  // shows its true shape from the start, so clicking never swaps the drawing
+  // from a placeholder to the real one. Cached, so each file decodes once.
   useEffect(() => {
-    if (!active || !file) return;
-    let alive = true;
-    loadPeaks(file)
-      .then((p) => alive && setPeaks(p))
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, [active, file]);
+    const el = wrapRef.current;
+    if (!el || !file) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          loadPeaks(file)
+            .then(setPeaks)
+            .catch(() => {});
+        }
+      },
+      { rootMargin: "300px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [file]);
 
   // Track the real drawing box (CSS px) and the device pixel ratio.
   useEffect(() => {
@@ -104,8 +113,9 @@ export function Waveform({
 
     const gap = size.w < 480 ? 1 : 1.4;
     const bw = Math.max(1, (w - gap * (bars - 1)) / bars);
-    const values =
-      active && peaks ? downsample(peaks, bars) : seeded(bars).map((v) => v * (active ? 1 : 0.7));
+    // Real peaks as soon as they are decoded (all rows) — seeded only as the
+    // brief placeholder before the decode lands.
+    const values = peaks ? downsample(peaks, bars) : seeded(bars);
     const playedTo = active ? progress : 0;
     const base = dark ? "242,241,238" : "10,10,10";
     const round = Math.min(bw / 2, 1.5);

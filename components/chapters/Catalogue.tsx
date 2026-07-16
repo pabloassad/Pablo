@@ -96,7 +96,17 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
           ))}
 
           {pieces.length > 0 && (
-            <Reveal className="border-line mt-6 border-t pt-6">
+            <Reveal className="border-line mt-8 border-t pt-6">
+              {/* Mark the shift: these are standalone, independent projects. */}
+              <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
+                <h3
+                  className="font-display text-ink uppercase"
+                  style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+                >
+                  {w.pieces}
+                </h3>
+                <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
+              </header>
               <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} />
             </Reveal>
           )}
@@ -300,9 +310,7 @@ function MediaMosaic({
 }) {
   const { locale } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
   const [width, setWidth] = useState(0);
-  const [inView, setInView] = useState(false);
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -310,15 +318,7 @@ function MediaMosaic({
     if (!el) return;
     const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
     ro.observe(el);
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
-      { threshold: 0.1 },
-    );
-    io.observe(el);
-    return () => {
-      ro.disconnect();
-      io.disconnect();
-    };
+    return () => ro.disconnect();
   }, []);
 
   const GAP = 6;
@@ -344,7 +344,6 @@ function MediaMosaic({
                   id={`${project.slug}:${m.src}`}
                   src={m.src}
                   title={project.title[locale]}
-                  active={inView && !reduced}
                   onMeta={(ar) => setVideoAr((prev) => (prev[m.src] === ar ? prev : { ...prev, [m.src]: ar }))}
                   onOpen={(el) => onOpen(project.slug, el)}
                 />
@@ -386,14 +385,12 @@ function VideoTile({
   id,
   src,
   title,
-  active,
   onMeta,
   onOpen,
 }: {
   id: string;
   src: string;
   title: string;
-  active: boolean;
   onMeta?: (ar: number) => void;
   onOpen?: (el: HTMLElement) => void;
 }) {
@@ -402,14 +399,41 @@ function VideoTile({
   const reduced = useReducedMotion();
   const ref = useRef<HTMLVideoElement>(null);
   const timer = useRef<number | undefined>(undefined);
+  const wasVisible = useRef(false);
+  const [visible, setVisible] = useState(false);
   const sounding = soundingVideo === id;
+
+  // The tile plays only once it is actually on screen (crossing the central
+  // band of the viewport), so nothing runs ahead below the fold.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    const io = new IntersectionObserver((entries) => setVisible(entries[0].isIntersecting), {
+      threshold: 0,
+      rootMargin: "-25% 0px -25% 0px",
+    });
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
-    if (active || sounding) v.play().catch(() => {});
-    else v.pause();
-  }, [active, sounding]);
+    if ((visible && !reduced) || sounding) {
+      // Rewind to the intro the moment the tile comes into view (not mid-loop).
+      if (visible && !wasVisible.current && !sounding) {
+        try {
+          v.currentTime = 0;
+        } catch {
+          /* not seekable yet — will start at 0 anyway on first play */
+        }
+      }
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+    wasVisible.current = visible;
+  }, [visible, sounding, reduced]);
 
   useEffect(() => {
     const v = ref.current;
@@ -418,8 +442,8 @@ function VideoTile({
 
   // Don't let a scrolled-away tile keep sounding off screen.
   useEffect(() => {
-    if (!active && sounding) releaseVideoSound(id);
-  }, [active, sounding, id, releaseVideoSound]);
+    if (!visible && sounding) releaseVideoSound(id);
+  }, [visible, sounding, id, releaseVideoSound]);
 
   const enter = () => {
     if (reduced) return;
@@ -479,13 +503,11 @@ function VideoTile({
 /** A single piece figure that fills whatever flex slot it's given. */
 function PieceFigure({
   p,
-  active,
   onMeta,
   comingSoonLabel,
   style,
 }: {
   p: Piece;
-  active: boolean;
   onMeta: (ar: number) => void;
   comingSoonLabel: string;
   style?: React.CSSProperties;
@@ -495,7 +517,7 @@ function PieceFigure({
     <figure className="group bg-paper-2 relative h-full min-w-0 overflow-hidden" style={style}>
       {p.src ? (
         p.type === "video" ? (
-          <VideoTile id={`piece:${p.id}`} src={p.src} title={p.title[locale]} active={active} onMeta={onMeta} />
+          <VideoTile id={`piece:${p.id}`} src={p.src} title={p.title[locale]} onMeta={onMeta} />
         ) : (
           <Image
             src={p.src}
@@ -538,9 +560,7 @@ function PieceFigure({
  */
 function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLabel: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
   const [width, setWidth] = useState(0);
-  const [inView, setInView] = useState(false);
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -548,15 +568,7 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
     if (!el) return;
     const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
     ro.observe(el);
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setInView(e.isIntersecting)),
-      { threshold: 0.08 },
-    );
-    io.observe(el);
-    return () => {
-      ro.disconnect();
-      io.disconnect();
-    };
+    return () => ro.disconnect();
   }, []);
 
   const GAP = 6;
@@ -606,7 +618,6 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
                 <PieceFigure
                   key={p.id}
                   p={p}
-                  active={inView && !reduced}
                   onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
                   comingSoonLabel={comingSoonLabel}
                   style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
