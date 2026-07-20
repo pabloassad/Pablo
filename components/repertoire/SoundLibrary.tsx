@@ -88,7 +88,7 @@ export function SoundLibrary() {
 
           {/* Meta — elapsed / duration */}
           <div className="col-start-3 row-start-1 text-right sm:col-start-4 sm:row-start-auto">
-            <span className="text-paper/45 block text-[0.7rem] tabular-nums whitespace-nowrap">
+            <span className="mono text-paper/45 block text-[0.7rem] whitespace-nowrap">
               {active ? `${formatTime((durations[track.id] ?? 0) * progress)} / ${formatTime(durations[track.id])}` : formatTime(durations[track.id])}
             </span>
           </div>

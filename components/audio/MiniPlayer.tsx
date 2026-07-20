@@ -64,7 +64,7 @@ export function MiniPlayer() {
               </div>
 
               {/* Time */}
-              <span className="text-paper/50 hidden shrink-0 text-[0.7rem] tabular-nums whitespace-nowrap sm:block">
+              <span className="mono text-paper/50 hidden shrink-0 text-[0.7rem] whitespace-nowrap sm:block">
                 {formatTime((durations[current.id] ?? 0) * progress)} / {formatTime(durations[current.id])}
               </span>
 

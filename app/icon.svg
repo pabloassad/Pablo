@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="10" fill="#0a0a0a"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-weight="700" font-size="34" letter-spacing="-2" fill="#f2f1ee">PA</text>
+  <rect x="20" y="50" width="10" height="2.5" fill="#f2f1ee"/>
+  <rect x="34" y="50" width="10" height="2.5" fill="#f2f1ee"/>
+</svg>

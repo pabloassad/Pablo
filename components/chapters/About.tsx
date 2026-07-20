@@ -59,7 +59,7 @@ export function About() {
                     alt="Pablo Assad"
                     fill
                     sizes="(max-width: 768px) 100vw, 42vw"
-                    className="object-cover"
+                    className="object-cover -scale-x-100"
                     style={{ objectPosition: "24% 30%" }}
                   />
                 </motion.div>

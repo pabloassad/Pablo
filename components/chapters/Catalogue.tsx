@@ -295,7 +295,7 @@ function ProjectRow({
     <article className="border-line border-t py-8 first:border-t-0 sm:py-10">
       {/* Header on top, full-width — no left title column, so no white band. */}
       <header className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-1 px-1 sm:px-2">
-        <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
+        <span className="mono text-faint text-sm" aria-hidden>
           {String(index + 1).padStart(2, "0")}
         </span>
         <h3

@@ -52,7 +52,11 @@ export function RevealText({
   const words = text.split(" ");
 
   return (
+    // key={text}: a language switch swaps the words; without a remount the new
+    // words keep the hidden state of a "once" reveal that already fired and
+    // stay invisible. Remounting re-runs the reveal cleanly.
     <Tag
+      key={text}
       className={className}
       style={style}
       variants={container}

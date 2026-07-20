@@ -12,13 +12,31 @@
   --faint: #a3a3a3;      /* labels / decorative */
   --line: rgba(10, 10, 10, 0.12);
 
-  /* Helvetica-first stacks. On macOS/iOS the visitor sees real Helvetica Neue;
-     elsewhere Inter (body) / Archivo (condensed display) take over — metrically
-     close so layout never shifts. */
-  --font-sans: -apple-system, "Helvetica Neue", "Helvetica", var(--font-inter),
-    Arial, sans-serif;
-  --font-display: "Helvetica Neue", -apple-system, var(--font-archivo),
-    "Helvetica", Arial, sans-serif;
+  /* Helvetica-first stacks. "Helvetica Neue Web" is the self-hosted licensed
+     cut (drop the woff2 files in public/fonts/ — see public/fonts/README.md);
+     until then macOS/iOS shows real Helvetica Neue and everyone else falls back
+     to Inter (body) / Archivo (condensed display), metrically close so layout
+     never shifts. */
+  --font-sans: "Helvetica Neue Web", -apple-system, "Helvetica Neue", "Helvetica",
+    var(--font-inter), Arial, sans-serif;
+  --font-display: "Helvetica Neue Web", "Helvetica Neue", -apple-system,
+    var(--font-archivo), "Helvetica", Arial, sans-serif;
+  --font-numeric: var(--font-mono-real), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* Self-hosted Helvetica Neue — no-op until the licensed files are present, so
+   the build never breaks; the browser falls through the stack meanwhile. */
+@font-face {
+  font-family: "Helvetica Neue Web";
+  src: url("/fonts/HelveticaNeue-Roman.woff2") format("woff2");
+  font-weight: 400 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue Web";
+  src: url("/fonts/HelveticaNeue-Bold.woff2") format("woff2");
+  font-weight: 700 900;
+  font-display: swap;
 }
 
 @theme inline {
@@ -32,7 +50,7 @@
 
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
-  --font-mono: var(--font-sans);
+  --font-mono: var(--font-numeric);
 
   /* Editorial Swiss type scale — large display, tight tracking. */
   --text-hero: clamp(3.25rem, 13vw, 13rem);
@@ -117,6 +135,13 @@ figcaption {
 }
 .text-pretty {
   text-wrap: pretty;
+}
+
+/* Metadata register: numbers, timecodes, bar counts — the studio-console mono. */
+.mono {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum", "zero";
+  letter-spacing: 0;
 }
 
 /* Skip layout/paint for off-screen sections — cheaper scroll, no jump thanks

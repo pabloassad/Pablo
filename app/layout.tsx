@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Archivo } from "next/font/google";
+import { Inter, Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { Nav } from "@/components/layout/Nav";
@@ -19,6 +19,15 @@ const archivo = Archivo({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "700", "800", "900"],
+});
+
+// Monospace accent for metadata — bar numbers, timecodes, durations: the
+// "studio console" register that pairs with the waveform.
+const mono = IBM_Plex_Mono({
+  variable: "--font-mono-real",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 import { siteUrl } from "@/lib/site";
@@ -68,7 +77,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${inter.variable} ${archivo.variable} antialiased`}
+      className={`${inter.variable} ${archivo.variable} ${mono.variable} antialiased`}
     >
       <body className="bg-paper text-ink min-h-screen">
         <Providers>
