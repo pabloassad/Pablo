@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
@@ -178,6 +179,48 @@ export function SoundLibrary() {
           <p className="border-paper/10 text-paper/45 mt-10 border-t pt-5 text-xs">
             {s.designer}
           </p>
+
+          {/* The close: the ink runs to the end of the page, so the Répertoire
+              finishes on a deliberate contact note instead of a white mass. */}
+          <div className="border-paper/10 mt-16 border-t pt-10">
+            <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.22em]">
+              {t.contact.label}
+            </span>
+            <a
+              href={`mailto:${t.contact.email}`}
+              className="font-display text-paper hover:text-paper/70 mt-3 block break-all uppercase transition-colors"
+              style={{ fontSize: "clamp(1.3rem,3.6vw,3rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+            >
+              {t.contact.email}
+            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 pb-2 text-sm">
+              <a
+                href={t.contact.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-paper/60 hover:text-paper font-medium transition-colors"
+              >
+                {t.contact.linkedinHandle}
+              </a>
+              <Link href="/" className="group text-paper/60 hover:text-paper inline-flex items-center gap-2 font-medium transition-colors">
+                <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:-translate-x-1">←</span>
+                {t.work.back}
+              </Link>
+              <button
+                type="button"
+                onClick={() =>
+                  window.scrollTo({
+                    top: 0,
+                    behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                  })
+                }
+                className="group text-paper/60 hover:text-paper ml-auto inline-flex items-center gap-2 font-medium transition-colors"
+              >
+                {t.work.backToTop}
+                <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">↑</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </Reveal>

@@ -15,7 +15,7 @@ export function Footer() {
           {t.footer.note} <span className="text-paper/35">· ♩ = 120</span>
         </span>
         <span className="text-xs whitespace-nowrap">
-          © {year} — {t.footer.rights}
+          © {year} · {t.footer.rights}
         </span>
       </div>
     </footer>

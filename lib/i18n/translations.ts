@@ -36,6 +36,7 @@ export interface Translations {
     back: string;
     pieces: string;
     piecesNote: string;
+    backToTop: string;
     flowVisual: string;
     flowSound: string;
     soundOn: string;
@@ -125,6 +126,7 @@ const fr: Translations = {
     back: "Présentation",
     pieces: "Pièces détachées",
     piecesNote: "Projets indépendants",
+    backToTop: "Retour en haut",
     flowVisual: "Visuel",
     flowSound: "Son",
     soundOn: "Activer le son",
@@ -223,6 +225,7 @@ const en: Translations = {
     back: "About",
     pieces: "Single pieces",
     piecesNote: "Standalone projects",
+    backToTop: "Back to top",
     flowVisual: "Visual",
     flowSound: "Sound",
     soundOn: "Unmute",

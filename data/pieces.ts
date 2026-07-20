@@ -84,7 +84,7 @@ export const pieces: Piece[] = [
     id: "paradise",
     title: { fr: "Paradise · identité", en: "Paradise · identity" },
     src: "/works/paradise.webp",
-    w: 1920,
+    w: 960,
     h: 1080,
     year: "2026",
   },

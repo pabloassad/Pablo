@@ -55,11 +55,12 @@ export function About() {
                   className="absolute inset-0"
                 >
                   <Image
-                    src="/portrait/studio-02.webp"
+                    src="/portrait/denim.webp"
                     alt="Pablo Assad"
                     fill
                     sizes="(max-width: 768px) 100vw, 42vw"
                     className="object-cover"
+                    style={{ objectPosition: "24% 30%" }}
                   />
                 </motion.div>
                 <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
