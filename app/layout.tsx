@@ -21,8 +21,9 @@ const archivo = Archivo({
   weight: ["400", "500", "700", "800", "900"],
 });
 
-const siteUrl = "https://pablo-portfolio-alpha.vercel.app";
-const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
+import { siteUrl } from "@/lib/site";
+
+const ogImageUrl = `${siteUrl}/og.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,9 +43,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Pablo Assad" }],
   openGraph: {
-    title: "Pablo Assad · Communication et direction de projet",
-    description:
-      "Un regard de créatif, la rigueur d'un stratège. Design, direction artistique et production de contenus.",
+    title: "Pablo Assad · Portfolio",
+    description: "Communication et direction de projet. Design, image, son.",
     url: siteUrl,
     siteName: "Pablo Assad",
     locale: "fr_FR",
@@ -53,8 +53,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Assad · Communication et direction de projet",
-    description: "Un regard de créatif, la rigueur d'un stratège.",
+    title: "Pablo Assad · Portfolio",
+    description: "Communication et direction de projet. Design, image, son.",
     images: [ogImageUrl],
   },
   alternates: { canonical: siteUrl },

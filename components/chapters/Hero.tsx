@@ -1,17 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /**
- * The poster hero: the name set edge to edge in condensed Helvetica, two
- * stacked lines, with a restrained portrait plate tucked under the second
- * line — a Swiss affiche where the type does the talking and the photograph
- * stays a controlled accent. Scroll drifts the name up and the plate against
- * it. Static under reduced-motion.
+ * The poster hero, type only: the name set edge to edge in condensed
+ * Helvetica, two stacked lines — a Swiss affiche where the typography does
+ * all the talking. Scroll drifts the name up. Static under reduced-motion.
  */
 export function Hero() {
   const { t } = useLanguage();
@@ -20,7 +17,6 @@ export function Hero() {
 
   const { scrollY } = useScroll();
   const nameY = useTransform(scrollY, [0, 720], [0, -90]);
-  const plateY = useTransform(scrollY, [0, 720], [0, 60]);
 
   const line = (text: string, delay: number) => (
     <motion.span
@@ -48,37 +44,6 @@ export function Hero() {
 
       {/* The poster: name edge to edge, portrait plate under the second line */}
       <div className="relative mt-4 flex-1">
-        {/* Portrait plate — right side, behind the type (desktop) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease, delay: 0.55 }}
-          style={reduced ? undefined : { y: plateY }}
-          className="absolute right-4 top-[18%] z-0 hidden w-[26vw] max-w-[400px] md:block lg:right-8"
-        >
-          <figure>
-            <div className="relative aspect-[4/5] w-full overflow-hidden">
-              <Image
-                src="/portrait/portrait-2.webp"
-                alt="Pablo Assad, portrait"
-                fill
-                priority
-                sizes="26vw"
-                className="object-cover"
-                style={{ objectPosition: "50% 30%" }}
-              />
-              <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
-              <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
-            </div>
-            <figcaption className="mt-2 flex items-center justify-between">
-              <span className="kicker">Portrait</span>
-              <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em]">Paris</span>
-            </figcaption>
-          </figure>
-        </motion.div>
-
         {/* The name — h1, two lines, edge to edge */}
         <motion.h1
           style={reduced ? undefined : { y: nameY }}
@@ -94,25 +59,6 @@ export function Hero() {
           </span>
         </motion.h1>
 
-        {/* Portrait — mobile, in flow under the name */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.1, ease, delay: 0.5 }}
-          className="mt-8 px-4 md:hidden"
-        >
-          <div className="relative aspect-[4/5] w-full max-w-sm overflow-hidden">
-            <Image
-              src="/portrait/portrait-2.webp"
-              alt="Pablo Assad, portrait"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-              style={{ objectPosition: "50% 30%" }}
-            />
-          </div>
-        </motion.div>
       </div>
 
       {/* Statement block — stacked left, clear of the portrait plate */}

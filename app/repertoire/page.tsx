@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Catalogue } from "@/components/chapters/Catalogue";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Répertoire",
@@ -8,10 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pablo Assad · Répertoire",
     description: "Productions et réalisations, en images.",
-    url: "https://pablo-portfolio-alpha.vercel.app/repertoire",
-    images: [{ url: "/works/adonis/cover.webp", width: 1024, height: 1280, alt: "Répertoire — Pablo Assad" }],
+    url: `${siteUrl}/repertoire`,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Pablo Assad · Portfolio" }],
   },
-  alternates: { canonical: "https://pablo-portfolio-alpha.vercel.app/repertoire" },
+  alternates: { canonical: `${siteUrl}/repertoire` },
 };
 
 export default function RepertoirePage() {
