@@ -180,18 +180,21 @@ export function SoundLibrary() {
             {s.designer}
           </p>
 
-          {/* The close: the ink runs quietly to the end of the page. */}
+          {/* The close: the ink runs quietly to the end of the page. On phones
+              the three links form a tidy grid (LinkedIn on top, Présentation
+              and Retour en haut aligned to the two edges); a single row on
+              desktop. */}
           <div className="border-paper/10 mt-16 border-t pt-10">
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pb-2 text-sm">
+            <div className="grid grid-cols-2 items-center gap-4 pb-2 text-sm sm:flex">
               <a
                 href={t.contact.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-paper/60 hover:text-paper font-medium transition-colors"
+                className="text-paper/60 hover:text-paper col-span-2 font-medium transition-colors sm:col-auto"
               >
                 {t.contact.linkedinHandle}
               </a>
-              <Link href="/" className="group text-paper/60 hover:text-paper inline-flex items-center gap-2 font-medium transition-colors">
+              <Link href="/" className="group text-paper/60 hover:text-paper inline-flex items-center gap-2 justify-self-start font-medium transition-colors">
                 <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:-translate-x-1">←</span>
                 {t.work.back}
               </Link>
@@ -203,7 +206,7 @@ export function SoundLibrary() {
                     behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
                   })
                 }
-                className="group text-paper/60 hover:text-paper ml-auto inline-flex items-center gap-2 font-medium transition-colors"
+                className="group text-paper/60 hover:text-paper inline-flex items-center gap-2 justify-self-end font-medium transition-colors sm:ml-auto"
               >
                 {t.work.backToTop}
                 <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:-translate-y-0.5">↑</span>
