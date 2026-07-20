@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useAudio } from "@/lib/audio/AudioProvider";
 import { Reveal } from "@/components/ui/Reveal";
@@ -129,55 +129,29 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 }
 
 /**
- * The Répertoire curtain: the flagship Adonis screen video opens full viewport
- * with the title over it, and the first scroll folds it down into a full-width
- * band (height driven by scroll, 1:1, no hijack — touch stays native). Under
- * reduced-motion it renders as a static band, no scrub, no autoplay.
+ * The Répertoire opening: an assertive title, then the flagship Adonis screen
+ * video full width, edge to edge, as the very first row — already the work,
+ * zero delay, and the grid follows immediately.
  */
 function RepertoireHero() {
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
-  const [vh, setVh] = useState(0);
-
-  useEffect(() => {
-    const set = () => setVh(window.innerHeight);
-    set();
-    window.addEventListener("resize", set, { passive: true });
-    return () => window.removeEventListener("resize", set);
-  }, []);
-
-  const { scrollY } = useScroll();
-  const NAV = 60; // fixed nav clearance
-  const height = useTransform(
-    scrollY,
-    [0, Math.max(1, vh * 0.45)],
-    [Math.max(1, vh - NAV), Math.max(1, vh * 0.56)],
-  );
-  const fade = useTransform(scrollY, [0, Math.max(1, vh * 0.32)], [1, 0]);
-  const ready = vh > 0 && !reduced;
 
   return (
-    <div className="-mx-3 sm:-mx-6 lg:-mx-8">
-      <motion.div
-        style={ready ? { height } : undefined}
-        className={`bg-paper-2 relative overflow-hidden ${
-          ready ? "" : reduced ? "h-[56svh]" : "h-[calc(100svh-3.75rem)]"
-        }`}
-      >
+    <div className="pt-8 sm:pt-10">
+      <div className="mx-auto max-w-[2100px] px-1 sm:px-2">
+        <RevealText
+          as="h2"
+          text={t.work.title}
+          className="font-display uppercase text-balance"
+          style={{ fontSize: "clamp(3rem,9vw,9rem)", lineHeight: 0.9, fontWeight: 800, letterSpacing: "-0.03em" }}
+        />
+        <Reveal delayIndex={1} as="p" className="text-mute mt-4 max-w-md text-base leading-relaxed text-pretty">
+          {t.work.intro}
+        </Reveal>
+      </div>
+      <div className="relative mt-8 h-[58svh] overflow-hidden sm:h-[68svh] -mx-3 sm:-mx-6 lg:-mx-8">
         <VideoTile id="hero:adonis-ecran" src={HERO_SRC} title="Adonis" />
-        <motion.div
-          style={ready ? { opacity: fade } : undefined}
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-ink/55 to-transparent px-4 pt-24 pb-6 sm:px-8 sm:pb-8"
-        >
-          <h2
-            className="font-display text-paper uppercase"
-            style={{ fontSize: "clamp(3rem,9.5vw,10rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.88 }}
-          >
-            {t.work.title}
-          </h2>
-          <p className="text-paper/80 mt-3 max-w-md text-sm text-pretty sm:text-base">{t.work.intro}</p>
-        </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -193,7 +167,7 @@ function FlowAnchor() {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const update = () => setRevealed(reduced || window.scrollY > Math.max(96, window.innerHeight * 0.55));
+    const update = () => setRevealed(reduced || window.scrollY > 240);
     update();
     if (reduced) return;
     window.addEventListener("scroll", update, { passive: true });

@@ -180,20 +180,9 @@ export function SoundLibrary() {
             {s.designer}
           </p>
 
-          {/* The close: the ink runs to the end of the page, so the Répertoire
-              finishes on a deliberate contact note instead of a white mass. */}
+          {/* The close: the ink runs quietly to the end of the page. */}
           <div className="border-paper/10 mt-16 border-t pt-10">
-            <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.22em]">
-              {t.contact.label}
-            </span>
-            <a
-              href={`mailto:${t.contact.email}`}
-              className="font-display text-paper hover:text-paper/70 mt-3 block break-all uppercase transition-colors"
-              style={{ fontSize: "clamp(1.3rem,3.6vw,3rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
-            >
-              {t.contact.email}
-            </a>
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 pb-2 text-sm">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3 pb-2 text-sm">
               <a
                 href={t.contact.linkedin}
                 target="_blank"

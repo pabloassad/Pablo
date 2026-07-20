@@ -38,28 +38,22 @@ export function Contact() {
             </Reveal>
           </div>
 
-          {/* The face you'll be writing to */}
+          {/* A quiet object note: the boombox bag, music carried everywhere */}
           <Reveal delayIndex={2} className="max-w-xs md:col-span-3 md:col-start-10 md:max-w-none">
-            <figure className="relative">
-              <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
-                <Image
-                  src="/portrait/exterieur-02.webp"
-                  alt="Pablo Assad, portrait"
-                  fill
-                  sizes="(max-width: 768px) 320px, 25vw"
-                  className="object-cover"
-                  style={{ objectPosition: "42% 18%" }}
-                />
-                <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
-                <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
-                <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
-                <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
-              </div>
-              <figcaption className="mt-2 flex items-center justify-between">
-                <span className="kicker">Pablo Assad</span>
-                <span className="text-faint text-[0.65rem] uppercase tracking-[0.15em] whitespace-nowrap">Paris</span>
-              </figcaption>
-            </figure>
+            <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
+              <Image
+                src="/portrait/sac.webp"
+                alt="Sac imprimé radiocassette"
+                fill
+                sizes="(max-width: 768px) 320px, 25vw"
+                className="object-cover"
+                style={{ objectPosition: "42% 72%" }}
+              />
+              <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
+              <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
+              <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
+              <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
+            </div>
           </Reveal>
         </div>
 

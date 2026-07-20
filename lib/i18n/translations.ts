@@ -79,7 +79,7 @@ export interface Translations {
     cta: string;
     cv: string;
   };
-  footer: { note: string; rights: string };
+  footer: { rights: string };
 }
 
 const fr: Translations = {
@@ -165,7 +165,7 @@ const fr: Translations = {
   },
   contact: {
     label: "Contact",
-    title: "Construisons quelque chose qui se retient.",
+    title: "Travaillons ensemble.",
     lead: "Un projet, un recrutement, ou une marque à faire grandir ? Écrivez-moi.",
     emailLabel: "Email",
     phoneLabel: "Téléphone",
@@ -178,7 +178,7 @@ const fr: Translations = {
     cta: "Écrire un email",
     cv: "Télécharger le CV",
   },
-  footer: { note: "Composé à Paris", rights: "Tous droits réservés." },
+  footer: { rights: "Tous droits réservés." },
 };
 
 const en: Translations = {
@@ -264,7 +264,7 @@ const en: Translations = {
   },
   contact: {
     label: "Contact",
-    title: "Let's build something that sticks.",
+    title: "Let's work together.",
     lead: "A project, a role, or a brand to grow? Write to me.",
     emailLabel: "Email",
     phoneLabel: "Phone",
@@ -277,7 +277,7 @@ const en: Translations = {
     cta: "Send an email",
     cv: "Download the CV",
   },
-  footer: { note: "Composed in Paris", rights: "All rights reserved." },
+  footer: { rights: "All rights reserved." },
 };
 
 export const locales: Locale[] = ["fr", "en"];
