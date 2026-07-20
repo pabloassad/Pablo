@@ -45,7 +45,7 @@ export const projects: Project[] = [
     slug: "le-cercle",
     category: "design",
     title: { fr: "Le Cercle", en: "Le Cercle" },
-    year: "2024—",
+    year: "2024-26",
     role: {
       fr: "Fondateur · Marque événementielle et direction artistique",
       en: "Founder · Events brand and art direction",

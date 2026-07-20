@@ -10,15 +10,15 @@ export const journey: JourneyMilestone[] = [
   // ── Formation ───────────────────────────────────────────────────────────
   {
     id: "std2a",
-    year: "2020—23",
-    title: { fr: "Bac STD2A — Arts appliqués", en: "Baccalauréat STD2A — Applied Arts" },
+    year: "2020-23",
+    title: { fr: "Bac STD2A, Arts appliqués", en: "Baccalauréat STD2A, Applied Arts" },
     place: { fr: "Lycée Nicolas Ledoux, Vincennes", en: "Lycée Nicolas Ledoux, Vincennes" },
     kind: "school",
     emphasis: 1,
   },
   {
     id: "bts-com",
-    year: "2023—25",
+    year: "2023-25",
     title: { fr: "BTS Communication", en: "BTS Communication" },
     place: { fr: "Lycée Samuel de Champlain", en: "Lycée Samuel de Champlain" },
     kind: "school",
@@ -26,7 +26,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     id: "but-infocom",
-    year: "2025—26",
+    year: "2025-26",
     title: { fr: "BUT Information-Communication", en: "BUT Information-Communication" },
     place: { fr: "Université Paris 8 · Major de promotion", en: "Université Paris 8 · Top of class" },
     kind: "school",
@@ -84,7 +84,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     id: "le-cercle",
-    year: "2024—",
+    year: "2024-26",
     title: { fr: "Le Cercle", en: "Le Cercle" },
     place: { fr: "Auto-entrepreneur · Marque événementielle", en: "Founder · Events brand" },
     kind: "venture",
@@ -92,7 +92,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     id: "volange",
-    year: "Nov—Déc 2024",
+    year: "Nov-Déc 2024",
     title: { fr: "Volange", en: "Volange" },
     place: { fr: "Stage · Direction artistique", en: "Internship · Art direction" },
     kind: "agency",
@@ -100,7 +100,7 @@ export const journey: JourneyMilestone[] = [
   },
   {
     id: "riva",
-    year: "2025—",
+    year: "2025-26",
     title: { fr: "Riva Agency", en: "Riva Agency" },
     place: { fr: "Projet entrepreneurial", en: "Entrepreneurial venture" },
     kind: "venture",

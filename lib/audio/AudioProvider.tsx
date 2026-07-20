@@ -196,5 +196,5 @@ export function useAudio() {
 export function formatTime(sec?: number) {
   return sec && Number.isFinite(sec)
     ? `${Math.floor(sec / 60)}:${String(Math.floor(sec % 60)).padStart(2, "0")}`
-    : "—";
+    : "";
 }

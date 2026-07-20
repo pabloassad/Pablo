@@ -44,8 +44,12 @@
   --text-lead: clamp(1.15rem, 2.1vw, 1.85rem);
 }
 
-* {
-  border-color: var(--line);
+/* Default border colour lives in the base layer so utility classes (e.g. the
+   nav's border-transparent at the top of the page) can override it again. */
+@layer base {
+  * {
+    border-color: var(--line);
+  }
 }
 
 html {

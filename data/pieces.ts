@@ -24,7 +24,7 @@ export const pieces: Piece[] = [
   },
   {
     id: "rosa-cocktail",
-    title: { fr: "Rosa Summer Party — carte cocktails", en: "Rosa Summer Party — cocktail menu" },
+    title: { fr: "Rosa Summer Party · carte cocktails", en: "Rosa Summer Party · cocktail menu" },
     src: "/works/rosa-summer-party/carte.webp",
     w: 1414,
     h: 2000,
@@ -82,7 +82,7 @@ export const pieces: Piece[] = [
   },
   {
     id: "paradise",
-    title: { fr: "Paradise — identité", en: "Paradise — identity" },
+    title: { fr: "Paradise · identité", en: "Paradise · identity" },
     src: "/works/paradise.webp",
     w: 1920,
     h: 1080,
@@ -98,7 +98,7 @@ export const pieces: Piece[] = [
   },
   {
     id: "fondamentall",
-    title: { fr: "Fondament'All — logo animé", en: "Fondament'All — animated logo" },
+    title: { fr: "Fondament'All · logo animé", en: "Fondament'All · animated logo" },
     src: "/works/fondamentall/logo-01.mp4",
     type: "video",
     w: 1920,

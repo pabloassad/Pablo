@@ -46,6 +46,7 @@ export interface Translations {
     title: string;
     author: string;
     intro: string;
+    intro2: string;
     commissioned: string;
     personal: string;
     play: string;
@@ -61,7 +62,7 @@ export interface Translations {
     less: string;
   };
   craft: { label: string; title: string; body: string[]; aside: string };
-  repCta: { kicker: string; title: string; sub: string; button: string };
+  repCta: { title: string; sub: string; button: string };
   contact: {
     label: string;
     title: string;
@@ -133,7 +134,8 @@ const fr: Translations = {
     label: "Son",
     title: "La Table d'écoute",
     author: "Je compose.",
-    intro: "Des compositions originales, de moi — commandes de marque et pièces personnelles. Cliquez, écoutez.",
+    intro: "Des compositions originales, commandes de marque et pièces personnelles.",
+    intro2: "Cliquez, écoutez.",
     commissioned: "Commandes",
     personal: "Compositions personnelles",
     play: "Lire",
@@ -144,7 +146,7 @@ const fr: Translations = {
     kindJingle: "Jingle",
     kindReportage: "Reportage",
     close: "Fermer le lecteur",
-    designer: "Également sound designer — habillage sonore et compositions sur mesure, sur demande.",
+    designer: "Également sound designer : habillage sonore et compositions sur mesure, sur demande.",
     more: "Voir plus",
     less: "Voir moins",
   },
@@ -155,7 +157,6 @@ const fr: Translations = {
     aside: "Antoine de Saint-Exupéry",
   },
   repCta: {
-    kicker: "Le travail",
     title: "Voir le Répertoire",
     sub: "Productions et réalisations, en images.",
     button: "Entrer",
@@ -231,7 +232,8 @@ const en: Translations = {
     label: "Sound",
     title: "The Listening Table",
     author: "I compose.",
-    intro: "Original compositions, mine — brand commissions and personal pieces. Click, listen.",
+    intro: "Original compositions, brand commissions and personal pieces.",
+    intro2: "Click, listen.",
     commissioned: "Commissions",
     personal: "Personal compositions",
     play: "Play",
@@ -242,7 +244,7 @@ const en: Translations = {
     kindJingle: "Jingle",
     kindReportage: "Documentary",
     close: "Close player",
-    designer: "Also a sound designer — scoring and bespoke composition on request.",
+    designer: "Also a sound designer: scoring and bespoke composition on request.",
     more: "Show more",
     less: "Show less",
   },
@@ -253,7 +255,6 @@ const en: Translations = {
     aside: "Antoine de Saint-Exupéry",
   },
   repCta: {
-    kicker: "The work",
     title: "Enter the Portfolio",
     sub: "Productions and selected work, in pictures.",
     button: "Enter",

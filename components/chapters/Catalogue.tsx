@@ -170,7 +170,11 @@ function FlowAnchor() {
       }}
       aria-hidden={!revealed}
     >
-      <div className="border-line bg-paper/80 pointer-events-auto flex items-center gap-4 rounded-full border px-4 py-1.5 backdrop-blur-xl">
+      <div
+        className={`border-line bg-paper/80 flex items-center gap-4 rounded-full border px-4 py-1.5 backdrop-blur-xl ${
+          revealed ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
         <a href="#visuel" onClick={go("visuel")} className={item(!onSound)} tabIndex={revealed ? 0 : -1}>
           {t.work.flowVisual}
         </a>

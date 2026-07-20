@@ -46,7 +46,7 @@ export function SoundLibrary() {
             type="button"
             onClick={() => toggle(track)}
             aria-pressed={isPlaying}
-            aria-label={`${isPlaying ? s.pause : s.play} — ${track.title}`}
+            aria-label={`${isPlaying ? s.pause : s.play}, ${track.title}`}
             className={`flex h-9 w-9 items-center justify-center rounded-full border transition-colors ${
               active ? "border-paper bg-paper text-ink" : "border-paper/25 hover:border-paper"
             }`}
@@ -120,7 +120,10 @@ export function SoundLibrary() {
               <p className="font-display text-paper text-xl" style={{ fontWeight: 700, letterSpacing: "-0.01em" }}>
                 {s.author}
               </p>
-              <p className="text-paper/60 mt-2 text-sm leading-relaxed text-pretty">{s.intro}</p>
+              <p className="text-paper/60 mt-2 text-sm leading-relaxed">
+                <span className="block">{s.intro}</span>
+                <span className="block">{s.intro2}</span>
+              </p>
             </div>
           </div>
 

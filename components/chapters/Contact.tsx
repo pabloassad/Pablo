@@ -44,7 +44,7 @@ export function Contact() {
               <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
                 <Image
                   src="/portrait/exterieur-02.webp"
-                  alt="Pablo Assad — portrait"
+                  alt="Pablo Assad, portrait"
                   fill
                   sizes="(max-width: 768px) 320px, 25vw"
                   className="object-cover"

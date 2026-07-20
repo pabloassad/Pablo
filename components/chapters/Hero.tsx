@@ -74,7 +74,7 @@ export function Hero() {
               <div className="relative aspect-[4/5] w-full overflow-hidden">
                 <Image
                   src="/portrait/portrait.jpg"
-                  alt="Pablo Assad — portrait"
+                  alt="Pablo Assad, portrait"
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 33vw"

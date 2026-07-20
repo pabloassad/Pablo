@@ -18,8 +18,13 @@ export const metadata: Metadata = {
 export default function RepertoirePage() {
   return (
     <>
-      <div className="pt-14 sm:pt-16" aria-hidden />
-      <Catalogue standalone />
+      {/* The whole top zone shares the section ground (paper-2), so nothing
+          draws a floating edge under the transparent nav at scroll 0. The
+          header line then appears with the navbar's own scrolled state. */}
+      <div className="bg-paper-2">
+        <div className="pt-14 sm:pt-16" aria-hidden />
+        <Catalogue standalone />
+      </div>
       <BackToPresentation />
     </>
   );

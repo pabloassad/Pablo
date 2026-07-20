@@ -150,7 +150,7 @@ export function Waveform({
       ref={wrapRef}
       className={className}
       role={seekable ? "slider" : undefined}
-      aria-label={seekable ? `Position — ${track.title}` : undefined}
+      aria-label={seekable ? `Position, ${track.title}` : undefined}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={seekable && active ? Math.round(progress * 100) : undefined}

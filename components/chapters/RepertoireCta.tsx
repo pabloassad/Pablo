@@ -59,11 +59,8 @@ export function RepertoireCta() {
             </div>
 
             <div className="relative z-10 max-w-2xl">
-              <span className="text-paper/50 text-[0.65rem] font-medium uppercase tracking-[0.22em]">
-                {c.kicker}
-              </span>
               <span
-                className="font-display text-paper mt-4 block uppercase transition-transform duration-500 ease-out group-hover:translate-x-2"
+                className="font-display text-paper block uppercase transition-transform duration-500 ease-out group-hover:translate-x-2"
                 style={{ fontSize: "clamp(2rem,5.5vw,4.5rem)", lineHeight: 0.95, fontWeight: 800, letterSpacing: "-0.02em" }}
               >
                 {c.title}

@@ -27,7 +27,7 @@ export const audioTracks: AudioTrack[] = [
     title: "Dantokpa",
     file: "/works/sound-design/dantokpa.mp3",
     kind: "reportage",
-    context: { fr: "Reportage culturel et danse · France–Bénin", en: "Culture and dance documentary · France–Benin" },
+    context: { fr: "Reportage culturel et danse · France-Bénin", en: "Culture and dance documentary · France-Benin" },
   },
 
   // ── Compositions personnelles (ordre défini) ─────────────────────────────
