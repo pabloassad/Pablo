@@ -4,7 +4,6 @@ import { Journey } from "@/components/chapters/Journey";
 import { Craft } from "@/components/chapters/Craft";
 import { RepertoireCta } from "@/components/chapters/RepertoireCta";
 import { Contact } from "@/components/chapters/Contact";
-import { Outro } from "@/components/chapters/Outro";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
       <Craft />
       <RepertoireCta />
       <Contact />
-      <Outro />
     </>
   );
 }

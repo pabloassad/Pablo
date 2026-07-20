@@ -8,13 +8,12 @@ import { useAudio } from "@/lib/audio/AudioProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { ProjectModal } from "@/components/ui/ProjectModal";
+import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
 import { projects, categoryLabels } from "@/data/projects";
 import { pieces } from "@/data/pieces";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
 import type { Project, ProjectMedia, Piece } from "@/lib/content/types";
 
-const HASH_PREFIX = "#projet-";
 // The dedicated hero video that opens the Répertoire full screen (cut for
 // this page). It lives only in the hero, never inline in a sheet.
 const HERO_SRC = "/works/adonis/hero.mp4";
@@ -30,42 +29,13 @@ const HERO_SRC = "/works/adonis/hero.mp4";
 export function Catalogue({ standalone = false }: { standalone?: boolean }) {
   const { t } = useLanguage();
   const w = t.work;
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
-  const triggerRef = useRef<HTMLElement | null>(null);
+  // One click = the piece alone, larger, centre screen. No dedicated panel.
+  const [expanded, setExpanded] = useState<LightboxMedia | null>(null);
 
   const published = useMemo(() => projects.filter((p) => p.status === "published"), []);
 
-  const openProject = useMemo(
-    () => projects.find((p) => p.slug === openSlug) ?? null,
-    [openSlug],
-  );
-
-  // Deep link: open from #projet-<slug> on load, keep the hash in sync.
-  useEffect(() => {
-    const fromHash = () => {
-      const h = window.location.hash;
-      if (h.startsWith(HASH_PREFIX)) {
-        const slug = decodeURIComponent(h.slice(HASH_PREFIX.length));
-        if (projects.some((p) => p.slug === slug)) setOpenSlug(slug);
-      }
-    };
-    fromHash();
-    window.addEventListener("hashchange", fromHash);
-    return () => window.removeEventListener("hashchange", fromHash);
-  }, []);
-
-  const open = useCallback((slug: string, el: HTMLElement) => {
-    triggerRef.current = el;
-    setOpenSlug(slug);
-    history.replaceState(null, "", `${HASH_PREFIX}${slug}`);
-  }, []);
-
-  const close = useCallback(() => {
-    setOpenSlug(null);
-    history.replaceState(null, "", window.location.pathname);
-    triggerRef.current?.focus();
-    triggerRef.current = null;
-  }, []);
+  const expand = useCallback((m: LightboxMedia) => setExpanded(m), []);
+  const collapse = useCallback(() => setExpanded(null), []);
 
   return (
     <section
@@ -99,7 +69,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
         {/* One flow: published projects, then the detached pieces, no headings */}
         <div className="mt-8">
           {published.map((p, i) => (
-            <ProjectRow key={p.slug} project={p} index={i} openLabel={w.open} onOpen={open} />
+            <ProjectRow key={p.slug} project={p} index={i} onExpand={expand} />
           ))}
 
           {pieces.length > 0 && (
@@ -114,7 +84,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
                 </h3>
                 <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
               </header>
-              <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} />
+              <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} onExpand={expand} />
             </Reveal>
           )}
         </div>
@@ -123,7 +93,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
       {/* The closing movement */}
       <SoundLibrary />
 
-      <ProjectModal project={openProject} onClose={close} />
+      <Lightbox media={expanded} onClose={collapse} />
     </section>
   );
 }
@@ -164,7 +134,7 @@ function RepertoireHero() {
           ready ? "" : reduced ? "h-[56svh]" : "h-[calc(100svh-3.75rem)]"
         }`}
       >
-        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" />
+        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" silent />
         <motion.div
           style={ready ? { opacity: fade } : undefined}
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-ink/55 to-transparent px-4 pt-24 pb-6 sm:px-8 sm:pb-8"
@@ -304,13 +274,11 @@ function justifyRows<T>(
 function ProjectRow({
   project,
   index,
-  openLabel,
-  onOpen,
+  onExpand,
 }: {
   project: Project;
   index: number;
-  openLabel: string;
-  onOpen: (slug: string, el: HTMLElement) => void;
+  onExpand: (m: LightboxMedia) => void;
 }) {
   const { locale } = useLanguage();
 
@@ -330,30 +298,20 @@ function ProjectRow({
         <span className="font-display text-faint text-sm tracking-tight" aria-hidden>
           {String(index + 1).padStart(2, "0")}
         </span>
-        <button type="button" onClick={(e) => onOpen(project.slug, e.currentTarget)} className="group text-left">
-          <h3
-            className="font-display text-ink transition-colors duration-200 group-hover:text-mute text-balance"
-            style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
-          >
-            {project.title[locale]}
-          </h3>
-        </button>
+        <h3
+          className="font-display text-ink text-balance"
+          style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+        >
+          {project.title[locale]}
+        </h3>
         <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
           <span className="whitespace-nowrap">{categoryLabels[project.category][locale]}</span>
           {project.year && <span className="whitespace-nowrap">{` · ${project.year}`}</span>}
           {project.descriptor && <span className="whitespace-nowrap">{` · ${project.descriptor[locale]}`}</span>}
         </p>
-        <button
-          type="button"
-          onClick={(e) => onOpen(project.slug, e.currentTarget)}
-          className="group text-ink ml-auto hidden items-center gap-2 text-sm font-medium sm:inline-flex"
-        >
-          {openLabel}
-          <span aria-hidden className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1">→</span>
-        </button>
       </header>
 
-      <MediaMosaic strip={strip} project={project} onOpen={onOpen} />
+      <MediaMosaic strip={strip} project={project} onExpand={onExpand} />
     </article>
   );
 }
@@ -367,11 +325,11 @@ function ProjectRow({
 function MediaMosaic({
   strip,
   project,
-  onOpen,
+  onExpand,
 }: {
   strip: ProjectMedia[];
   project: Project;
-  onOpen: (slug: string, el: HTMLElement) => void;
+  onExpand: (m: LightboxMedia) => void;
 }) {
   const { locale } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
@@ -410,15 +368,19 @@ function MediaMosaic({
                   src={m.src}
                   title={project.title[locale]}
                   onMeta={(ar) => setVideoAr((prev) => (prev[m.src] === ar ? prev : { ...prev, [m.src]: ar }))}
-                  onOpen={(el) => onOpen(project.slug, el)}
+                  onExpand={() =>
+                    onExpand({ src: m.src, type: "video", alt: project.title[locale], ar: videoAr[m.src] ?? 0.5625 })
+                  }
                 />
               </div>
             ) : (
               <button
                 key={m.src}
                 type="button"
-                onClick={(e) => onOpen(project.slug, e.currentTarget)}
-                aria-label={project.title[locale]}
+                onClick={() =>
+                  onExpand({ src: m.src, alt: m.alt?.[locale] ?? project.title[locale], ar: (m.w ?? 4) / (m.h ?? 5) })
+                }
+                aria-label={m.alt?.[locale] ?? project.title[locale]}
                 className="group bg-paper-2 relative shrink-0 overflow-hidden"
                 style={{ width: w, height: row.h }}
               >
@@ -451,13 +413,17 @@ function VideoTile({
   src,
   title,
   onMeta,
-  onOpen,
+  onExpand,
+  silent = false,
 }: {
   id: string;
   src: string;
   title: string;
   onMeta?: (ar: number) => void;
-  onOpen?: (el: HTMLElement) => void;
+  /** Click the tile to see it isolated and larger. */
+  onExpand?: () => void;
+  /** Hero use: no speaker control, no hover-sound (footage without audio). */
+  silent?: boolean;
 }) {
   const { t } = useLanguage();
   const { soundingVideo, requestVideoSound, releaseVideoSound } = useAudio();
@@ -511,10 +477,11 @@ function VideoTile({
   }, [visible, sounding, id, releaseVideoSound]);
 
   const enter = () => {
-    if (reduced) return;
+    if (reduced || silent) return;
     timer.current = window.setTimeout(() => requestVideoSound(id), 250);
   };
   const leave = () => {
+    if (silent) return;
     window.clearTimeout(timer.current);
     releaseVideoSound(id);
   };
@@ -534,9 +501,10 @@ function VideoTile({
         }}
         className="h-full w-full scale-[1.004] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
-      {onOpen && (
-        <button type="button" onClick={(e) => onOpen(e.currentTarget)} aria-label={title} className="absolute inset-0" />
+      {onExpand && (
+        <button type="button" onClick={onExpand} aria-label={title} className="absolute inset-0" />
       )}
+      {!silent && (
       <button
         type="button"
         onClick={(e) => {
@@ -561,6 +529,7 @@ function VideoTile({
           )}
         </svg>
       </button>
+      )}
     </div>
   );
 }
@@ -569,28 +538,44 @@ function VideoTile({
 function PieceFigure({
   p,
   onMeta,
+  onExpand,
   comingSoonLabel,
   style,
 }: {
   p: Piece;
   onMeta: (ar: number) => void;
+  onExpand: (m: LightboxMedia) => void;
   comingSoonLabel: string;
   style?: React.CSSProperties;
 }) {
   const { locale } = useLanguage();
+  const ar = (p.w ?? 3) / (p.h ?? 4);
   return (
     <figure className="group bg-paper-2 relative h-full min-w-0 overflow-hidden" style={style}>
       {p.src ? (
         p.type === "video" ? (
-          <VideoTile id={`piece:${p.id}`} src={p.src} title={p.title[locale]} onMeta={onMeta} />
-        ) : (
-          <Image
+          <VideoTile
+            id={`piece:${p.id}`}
             src={p.src}
-            alt={p.title[locale]}
-            fill
-            sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 560px"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            title={p.title[locale]}
+            onMeta={onMeta}
+            onExpand={() => onExpand({ src: p.src!, type: "video", alt: p.title[locale], ar })}
           />
+        ) : (
+          <button
+            type="button"
+            onClick={() => onExpand({ src: p.src!, alt: p.title[locale], ar })}
+            aria-label={p.title[locale]}
+            className="absolute inset-0"
+          >
+            <Image
+              src={p.src}
+              alt={p.title[locale]}
+              fill
+              sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 560px"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+          </button>
         )
       ) : (
         <span
@@ -623,7 +608,7 @@ function PieceFigure({
  * width. Titles surface on hover; video pieces autoplay muted and can be
  * un-muted; a missing visual becomes a quiet placeholder.
  */
-function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLabel: string }) {
+function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
@@ -684,6 +669,7 @@ function PieceWall({ pieces, comingSoonLabel }: { pieces: Piece[]; comingSoonLab
                   key={p.id}
                   p={p}
                   onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
+                  onExpand={onExpand}
                   comingSoonLabel={comingSoonLabel}
                   style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
                 />

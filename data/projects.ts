@@ -30,8 +30,6 @@ export const projects: Project[] = [
     coverW: 1080,
     coverH: 1920,
     media: [
-      // The screen video (V3) leads the block — a strong moving accroche.
-      { src: "/works/adonis/ecran.mp4", type: "video" },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },
       { src: "/works/adonis/teaser-03.mp4", type: "video" },
       { src: "/works/adonis/08.webp", w: 2000, h: 2828 },

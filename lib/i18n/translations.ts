@@ -29,10 +29,7 @@ export interface Translations {
     intro: string;
     filterAll: string;
     comingSoon: string;
-    roleLabel: string;
     close: string;
-    detailSoon: string;
-    open: string;
     back: string;
     pieces: string;
     piecesNote: string;
@@ -119,10 +116,7 @@ const fr: Translations = {
     intro: "Productions et réalisations. Design, image, son.",
     filterAll: "Tout",
     comingSoon: "À venir",
-    roleLabel: "Rôle",
     close: "Fermer",
-    detailSoon: "Visuels en cours d'ajout.",
-    open: "Voir le projet",
     back: "Présentation",
     pieces: "Pièces détachées",
     piecesNote: "Projets indépendants",
@@ -218,10 +212,7 @@ const en: Translations = {
     intro: "Productions and selected work. Design, image, sound.",
     filterAll: "All",
     comingSoon: "Coming soon",
-    roleLabel: "Role",
     close: "Close",
-    detailSoon: "Visuals on their way.",
-    open: "View project",
     back: "About",
     pieces: "Single pieces",
     piecesNote: "Standalone projects",
