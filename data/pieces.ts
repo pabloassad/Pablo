@@ -81,14 +81,6 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
-    id: "paradise",
-    title: { fr: "Paradise · identité", en: "Paradise · identity" },
-    src: "/works/paradise.webp",
-    w: 960,
-    h: 1080,
-    year: "2026",
-  },
-  {
     id: "la-nuit-du-bac",
     title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
     src: "/works/la-nuit-du-bac/flyer.webp",
@@ -104,6 +96,7 @@ export const pieces: Piece[] = [
     w: 1920,
     h: 1080,
     year: "2026",
+    feature: 0.8,
   },
   {
     id: "sunset",
@@ -112,5 +105,15 @@ export const pieces: Piece[] = [
     w: 1080,
     h: 1920,
     year: "2026",
+    feature: 0.8,
+  },
+  {
+    id: "paradise",
+    title: { fr: "Paradise · identité", en: "Paradise · identity" },
+    src: "/works/paradise-solo.webp",
+    w: 960,
+    h: 1080,
+    year: "2026",
+    feature: 0.8,
   },
 ];

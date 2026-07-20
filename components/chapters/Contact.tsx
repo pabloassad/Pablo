@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
@@ -38,23 +37,6 @@ export function Contact() {
             </Reveal>
           </div>
 
-          {/* A quiet object note: the boombox bag, music carried everywhere */}
-          <Reveal delayIndex={2} className="max-w-xs md:col-span-3 md:col-start-10 md:max-w-none">
-            <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[4/5]">
-              <Image
-                src="/portrait/sac.webp"
-                alt="Sac imprimé radiocassette"
-                fill
-                sizes="(max-width: 768px) 320px, 25vw"
-                className="object-cover"
-                style={{ objectPosition: "42% 72%" }}
-              />
-              <span className="border-ink/40 absolute left-0 top-0 z-10 h-3 w-3 border-l border-t" aria-hidden />
-              <span className="border-ink/40 absolute right-0 top-0 z-10 h-3 w-3 border-r border-t" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 left-0 z-10 h-3 w-3 border-b border-l" aria-hidden />
-              <span className="border-ink/40 absolute bottom-0 right-0 z-10 h-3 w-3 border-b border-r" aria-hidden />
-            </div>
-          </Reveal>
         </div>
 
         <Reveal delayIndex={2}>

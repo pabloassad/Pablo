@@ -15,6 +15,7 @@ export const toolGroups: ToolGroup[] = [
 
 export const tools: Tool[] = [
   { name: "Photoshop", group: "design" },
+  { name: "Lightroom", group: "design" },
   { name: "Illustrator", group: "design" },
   { name: "InDesign", group: "design" },
 

@@ -107,7 +107,7 @@ const fr: Translations = {
     body: [
       "Je m'appelle Pablo. Formé aux arts appliqués avant la communication, je suis passé par l'agence, l'associatif et l'entrepreneuriat, toujours du côté où l'on fabrique.",
       "Concevoir une identité, cadrer un projet, tenir un budget : j'aime que les idées tiennent debout.",
-      "La créativité n'est pas ma touche finale. C'est mon point de départ.",
+      "Avant chaque projet, je prends de la hauteur. C'est là que les bonnes idées se trouvent.",
     ],
     toolsLabel: "Outils",
     photoCaption: "Paris",
@@ -206,7 +206,7 @@ const en: Translations = {
     body: [
       "I'm Pablo. Trained in applied arts before communication, I've worked agency side, with non profits, and as a founder, always where things get made.",
       "Shaping an identity, framing a project, holding a budget: I like ideas that stand up.",
-      "Creativity isn't my finishing touch. It's where I start.",
+      "Before any project, I step back. That's where the good ideas are.",
     ],
     toolsLabel: "Tools",
     photoCaption: "Paris",
