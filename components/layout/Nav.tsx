@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
@@ -43,8 +42,9 @@ export function Nav() {
     >
       {/* Three balanced groups on one baseline: monogram · the two spaces · FR/EN + CTA */}
       <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 sm:px-10 lg:px-16">
-        <Link href="/" aria-label="Pablo Assad" className="justify-self-start">
-          <Image src="/icon.svg" alt="Pablo Assad" width={30} height={30} priority className="block h-[30px] w-[30px]" />
+        <Link href="/" className="font-display justify-self-start text-lg tracking-tight" style={{ fontWeight: 700 }}>
+          <span className="hidden sm:inline">Pablo Assad</span>
+          <span className="sm:hidden">P.A.</span>
         </Link>
 
         {/* The two spaces — centred */}

@@ -42,7 +42,7 @@ export function Hero() {
         transition={{ duration: 1.1, ease, delay: 0.5 }}
         style={reduced ? undefined : { y: plateY }}
       >
-        <div className="relative aspect-[4/5] w-full overflow-hidden">
+        <div className="relative aspect-square w-full overflow-hidden sm:aspect-[4/5]">
           <Image
             src="/portrait/hero-2.webp"
             alt="Pablo Assad, portrait"
@@ -85,7 +85,7 @@ export function Hero() {
           >
             <span
               className="block"
-              style={{ fontSize: "clamp(3.5rem, 15vw, 15rem)", lineHeight: 0.84, letterSpacing: "-0.04em", fontWeight: 800 }}
+              style={{ fontSize: "clamp(3rem, 14vw, 15rem)", lineHeight: 0.84, letterSpacing: "-0.04em", fontWeight: 800 }}
             >
               {line("Pablo", 0.12)}
               {line("Assad", 0.24)}
@@ -113,8 +113,10 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Portrait column */}
-        <div className="order-1 mx-auto w-full max-w-[19rem] sm:max-w-sm lg:order-2 lg:col-span-4 lg:mx-0 lg:max-w-none">
+        {/* Portrait column — on phones the plate runs full width, flush with the
+            text's own margins (no centring inset), so photo and type share one
+            clean column. Constrained again from sm upward. */}
+        <div className="order-1 w-full sm:max-w-sm lg:order-2 lg:col-span-4 lg:max-w-none">
           {plate}
         </div>
       </div>
