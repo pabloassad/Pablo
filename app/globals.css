@@ -9,34 +9,19 @@
   --paper-2: #f2f1ee;    /* alternating ground / cards */
   --ink: #0a0a0a;        /* near-black */
   --mute: #6b6b6b;       /* AA secondary text */
-  --faint: #a3a3a3;      /* labels / decorative */
+  --faint: #767676;      /* labels; AA-safe (4.5:1 on paper) */
   --line: rgba(10, 10, 10, 0.12);
 
-  /* Helvetica-first stacks. "Helvetica Neue Web" is the self-hosted licensed
-     cut (drop the woff2 files in public/fonts/ — see public/fonts/README.md);
-     until then macOS/iOS shows real Helvetica Neue and everyone else falls back
-     to Inter (body) / Archivo (condensed display), metrically close so layout
-     never shifts. */
-  --font-sans: "Helvetica Neue Web", -apple-system, "Helvetica Neue", "Helvetica",
-    var(--font-inter), Arial, sans-serif;
-  --font-display: "Helvetica Neue Web", "Helvetica Neue", -apple-system,
-    var(--font-archivo), "Helvetica", Arial, sans-serif;
+  /* Helvetica-first stacks. On macOS/iOS the visitor sees real Helvetica Neue;
+     elsewhere Inter (body) / Archivo (condensed display) take over — metrically
+     close so layout never shifts. To ship the licensed Helvetica Neue to every
+     visitor, drop the woff2 in public/fonts/ and re-add an @font-face (see
+     public/fonts/README.md); left out here so the site never 404s a font. */
+  --font-sans: -apple-system, "Helvetica Neue", "Helvetica", var(--font-inter),
+    Arial, sans-serif;
+  --font-display: "Helvetica Neue", -apple-system, var(--font-archivo),
+    "Helvetica", Arial, sans-serif;
   --font-numeric: var(--font-mono-real), ui-monospace, "SFMono-Regular", Menlo, monospace;
-}
-
-/* Self-hosted Helvetica Neue — no-op until the licensed files are present, so
-   the build never breaks; the browser falls through the stack meanwhile. */
-@font-face {
-  font-family: "Helvetica Neue Web";
-  src: url("/fonts/HelveticaNeue-Roman.woff2") format("woff2");
-  font-weight: 400 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Helvetica Neue Web";
-  src: url("/fonts/HelveticaNeue-Bold.woff2") format("woff2");
-  font-weight: 700 900;
-  font-display: swap;
 }
 
 @theme inline {
@@ -44,7 +29,6 @@
   --color-paper-2: var(--paper-2);
   --color-ink: var(--ink);
   --color-mute: var(--mute);
-  --color-muted: var(--mute);
   --color-faint: var(--faint);
   --color-line: var(--line);
 
@@ -82,6 +66,9 @@ body {
   font-feature-settings: "kern", "ss01";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Belt-and-braces against sub-pixel/scrollbar-induced sideways drift.
+     `clip` (not `hidden`) keeps position: sticky working. */
+  overflow-x: clip;
 }
 
 /* Line-breaking hygiene — no orphans/widows, balanced short lines, and never

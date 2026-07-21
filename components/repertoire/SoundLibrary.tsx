@@ -88,7 +88,7 @@ export function SoundLibrary() {
 
           {/* Meta — elapsed / duration */}
           <div className="col-start-3 row-start-1 text-right sm:col-start-4 sm:row-start-auto">
-            <span className="mono text-paper/45 block text-[0.7rem] whitespace-nowrap">
+            <span className="mono text-paper/70 block text-[0.7rem] whitespace-nowrap">
               {active ? `${formatTime((durations[track.id] ?? 0) * progress)} / ${formatTime(durations[track.id])}` : formatTime(durations[track.id])}
             </span>
           </div>
@@ -130,7 +130,7 @@ export function SoundLibrary() {
 
           {/* Score — the commissions are the vitrine, always open */}
           <div className="mt-10">
-            <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
+            <span className="text-paper/70 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
               {s.commissioned}
             </span>
             <ol className="mt-3">{commissioned.map((track) => renderRow(track))}</ol>
@@ -149,7 +149,7 @@ export function SoundLibrary() {
                     transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                     style={{ overflow: "hidden" }}
                   >
-                    <span className="text-paper/45 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
+                    <span className="text-paper/70 text-[0.65rem] font-medium uppercase tracking-[0.2em]">
                       {s.personal}
                     </span>
                     <ol className="mt-3">{personal.map((track) => renderRow(track))}</ol>
@@ -176,7 +176,7 @@ export function SoundLibrary() {
           )}
 
           {/* One-line note: the sound-design skill, kept as a mention */}
-          <p className="border-paper/10 text-paper/45 mt-10 border-t pt-5 text-xs">
+          <p className="border-paper/10 text-paper/70 mt-10 border-t pt-5 text-xs">
             {s.designer}
           </p>
 

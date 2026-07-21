@@ -19,8 +19,9 @@ export function Hero() {
   const reduced = useReducedMotion();
 
   const { scrollY } = useScroll();
-  const nameY = useTransform(scrollY, [0, 700], [0, -60]);
-  const plateY = useTransform(scrollY, [0, 700], [0, 48]);
+  // Gentle drift — a hint of parallax, not a slide.
+  const nameY = useTransform(scrollY, [0, 700], [0, -26]);
+  const plateY = useTransform(scrollY, [0, 700], [0, 18]);
 
   const line = (text: string, delay: number) => (
     <motion.span
@@ -113,29 +114,10 @@ export function Hero() {
         </div>
 
         {/* Portrait column */}
-        <div className="order-1 mx-auto w-full max-w-sm lg:order-2 lg:col-span-4 lg:mx-0 lg:max-w-none">
+        <div className="order-1 mx-auto w-full max-w-[19rem] sm:max-w-sm lg:order-2 lg:col-span-4 lg:mx-0 lg:max-w-none">
           {plate}
         </div>
       </div>
-
-      {/* Scroll cue */}
-      <motion.a
-        href="#apropos"
-        aria-label={h.scroll}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease, delay: 0.9 }}
-        className="text-faint hover:text-ink absolute inset-x-0 bottom-7 mx-auto flex w-fit items-center gap-2 transition-colors"
-      >
-        <span className="kicker">{h.scroll}</span>
-        <motion.span
-          aria-hidden
-          animate={reduced ? undefined : { y: [0, 5, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          ↓
-        </motion.span>
-      </motion.a>
     </section>
   );
 }

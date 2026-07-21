@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
@@ -40,25 +41,21 @@ export function Nav() {
           : "border-b border-transparent py-5",
       )}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 sm:px-10 lg:px-16">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
-          <span className="font-display hidden text-lg tracking-tight sm:block" style={{ fontWeight: 700 }}>
-            Pablo Assad
-          </span>
-          <span className="font-display text-lg tracking-tight sm:hidden" style={{ fontWeight: 700 }}>
-            P.A.
-          </span>
+      {/* Three balanced groups on one baseline: monogram · the two spaces · FR/EN + CTA */}
+      <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 sm:px-10 lg:px-16">
+        <Link href="/" aria-label="Pablo Assad" className="justify-self-start">
+          <Image src="/icon.svg" alt="Pablo Assad" width={30} height={30} priority className="block h-[30px] w-[30px]" />
         </Link>
 
-        {/* The two spaces */}
-        <ul className="flex items-center gap-6 sm:gap-8">
+        {/* The two spaces — centred */}
+        <ul className="flex items-center gap-7 justify-self-center sm:gap-9">
           {tabs.map((tab) => (
             <li key={tab.href}>
               <Link
                 href={tab.href}
                 aria-current={tab.active ? "page" : undefined}
                 className={cn(
-                  "relative pb-1 text-sm font-medium transition-colors duration-200",
+                  "relative py-1 text-sm font-medium transition-colors duration-200",
                   tab.active ? "text-ink" : "text-mute hover:text-ink",
                 )}
               >
@@ -67,7 +64,7 @@ export function Nav() {
                   <motion.span
                     layoutId="nav-tab-underline"
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    className="bg-ink absolute bottom-0 left-0 h-[2px] w-full"
+                    className="bg-ink absolute -bottom-0.5 left-0 h-[2px] w-full"
                   />
                 )}
               </Link>
@@ -75,15 +72,14 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex shrink-0 items-center gap-5">
-          <LangToggle className="hidden sm:flex" />
+        <div className="flex shrink-0 items-center gap-5 justify-self-end">
+          <LangToggle />
           <a
             href={onRepertoire ? "/#contact" : "#contact"}
             className="bg-ink text-paper hidden rounded-full px-5 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-85 md:inline-block"
           >
             {t.nav.cta}
           </a>
-          <LangToggle className="flex sm:hidden" />
         </div>
       </nav>
     </header>

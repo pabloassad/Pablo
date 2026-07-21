@@ -57,7 +57,6 @@ export const projects: Project[] = [
       { src: "/works/le-cercle/01.webp", w: 1920, h: 1080 },
       { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
       { src: "/works/le-cercle/02.webp", w: 1080, h: 1920 },
-      { src: "/works/le-cercle/09.webp", w: 1920, h: 1080 },
       { src: "/works/le-cercle/teaser-02.mp4", type: "video" },
       { src: "/works/le-cercle/03.webp", w: 1400, h: 1400 },
       { src: "/works/le-cercle/04.webp", w: 1400, h: 1400 },

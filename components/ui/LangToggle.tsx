@@ -25,7 +25,7 @@ export function LangToggle({ className }: { className?: string }) {
             aria-pressed={locale === code}
             className={cn(
               "uppercase transition-colors duration-200",
-              locale === code ? "text-ink" : "text-faint hover:text-muted",
+              locale === code ? "text-ink" : "text-faint hover:text-ink",
             )}
           >
             {code}

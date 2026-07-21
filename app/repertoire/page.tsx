@@ -10,7 +10,16 @@ export const metadata: Metadata = {
     title: "Pablo Assad · Répertoire",
     description: "Productions et réalisations, en images.",
     url: `${siteUrl}/repertoire`,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Pablo Assad · Portfolio" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Pablo Assad · Portfolio" }],
+    siteName: "Pablo Assad",
+    locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pablo Assad · Répertoire",
+    description: "Productions et réalisations, en images.",
+    images: ["/og.jpg"],
   },
   alternates: { canonical: `${siteUrl}/repertoire` },
 };

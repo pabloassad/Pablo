@@ -17,6 +17,9 @@ import type { Project, ProjectMedia, Piece } from "@/lib/content/types";
 // The dedicated hero video that opens the Répertoire full screen (cut for
 // this page). It lives only in the hero, never inline in a sheet.
 const HERO_SRC = "/works/adonis/hero.mp4";
+// Every video ships a ~40 KB poster next to it (same name, -poster.webp) so a
+// still paints instantly and the clip is fetched only when needed.
+const posterFor = (src: string) => src.replace(/\.mp4$/, "-poster.webp");
 
 /**
  * The Répertoire, unsequenced: one continuous visual flow — every published
@@ -130,21 +133,21 @@ function RepertoireHero() {
     <div className="-mx-3 sm:-mx-6 lg:-mx-8">
       <motion.div
         style={ready ? { height } : undefined}
-        className={`bg-paper-2 relative overflow-hidden ${
+        className={`bg-ink relative overflow-hidden ${
           ready ? "" : reduced ? "h-[56svh]" : "h-[calc(100svh-3.75rem)]"
         }`}
       >
-        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" silent />
+        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" silent eager />
         <motion.div
           style={ready ? { opacity: fade } : undefined}
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-ink/55 to-transparent px-4 pt-24 pb-6 sm:px-8 sm:pb-8"
         >
-          <h2
+          <h1
             className="font-display text-paper uppercase"
             style={{ fontSize: "clamp(3rem,9.5vw,10rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.88 }}
           >
             {t.work.title}
-          </h2>
+          </h1>
           <p className="text-paper/80 mt-3 max-w-md text-sm text-pretty sm:text-base">{t.work.intro}</p>
         </motion.div>
       </motion.div>
@@ -415,6 +418,7 @@ function VideoTile({
   onMeta,
   onExpand,
   silent = false,
+  eager = false,
 }: {
   id: string;
   src: string;
@@ -424,19 +428,44 @@ function VideoTile({
   onExpand?: () => void;
   /** Hero use: no speaker control, no hover-sound (footage without audio). */
   silent?: boolean;
+  /** Above-the-fold (hero): mount + preload immediately for an instant start. */
+  eager?: boolean;
 }) {
   const { t } = useLanguage();
   const { soundingVideo, requestVideoSound, releaseVideoSound } = useAudio();
   const reduced = useReducedMotion();
+  const boxRef = useRef<HTMLDivElement>(null);
   const ref = useRef<HTMLVideoElement>(null);
   const timer = useRef<number | undefined>(undefined);
   const wasVisible = useRef(false);
+  // The heavy <video> is only rendered once the tile nears the viewport; until
+  // then the ~40 KB poster carries the frame. This is what keeps the grid from
+  // pulling every clip at once (was 32 mp4 / 302 MB on one mobile load).
+  const [mounted, setMounted] = useState(eager);
   const [visible, setVisible] = useState(false);
   const sounding = soundingVideo === id;
+  const poster = posterFor(src);
 
-  // The tile plays only once it is actually on screen (crossing the central
-  // band of the viewport), so nothing runs ahead below the fold.
   useEffect(() => {
+    if (mounted) return;
+    const el = boxRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (e) => {
+        if (e[0].isIntersecting) {
+          setMounted(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "700px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [mounted]);
+
+  // Play only once the tile crosses the central band; rewind to the intro on entry.
+  useEffect(() => {
+    if (!mounted) return;
     const v = ref.current;
     if (!v) return;
     const io = new IntersectionObserver((entries) => setVisible(entries[0].isIntersecting), {
@@ -445,13 +474,12 @@ function VideoTile({
     });
     io.observe(v);
     return () => io.disconnect();
-  }, []);
+  }, [mounted]);
 
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
     if ((visible && !reduced) || sounding) {
-      // Rewind to the intro the moment the tile comes into view (not mid-loop).
       if (visible && !wasVisible.current && !sounding) {
         try {
           v.currentTime = 0;
@@ -464,14 +492,13 @@ function VideoTile({
       v.pause();
     }
     wasVisible.current = visible;
-  }, [visible, sounding, reduced]);
+  }, [visible, sounding, reduced, mounted]);
 
   useEffect(() => {
     const v = ref.current;
     if (v) v.muted = !sounding;
-  }, [sounding]);
+  }, [sounding, mounted]);
 
-  // Don't let a scrolled-away tile keep sounding off screen.
   useEffect(() => {
     if (!visible && sounding) releaseVideoSound(id);
   }, [visible, sounding, id, releaseVideoSound]);
@@ -487,20 +514,25 @@ function VideoTile({
   };
 
   return (
-    <div className="absolute inset-0" onPointerEnter={enter} onPointerLeave={leave}>
-      <video
-        ref={ref}
-        src={src}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onLoadedMetadata={(e) => {
-          const v = e.currentTarget;
-          if (v.videoWidth && v.videoHeight) onMeta?.(v.videoWidth / v.videoHeight);
-        }}
-        className="h-full w-full scale-[1.004] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-      />
+    <div ref={boxRef} className="absolute inset-0" onPointerEnter={enter} onPointerLeave={leave}>
+      {/* Poster — instant paint, always under the (lazily mounted) video */}
+      <Image src={poster} alt="" fill sizes="(max-width:1024px) 60vw, 640px" className="object-cover" />
+      {mounted && (
+        <video
+          ref={ref}
+          src={src}
+          poster={poster}
+          muted
+          loop
+          playsInline
+          preload={eager ? "auto" : "none"}
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget;
+            if (v.videoWidth && v.videoHeight) onMeta?.(v.videoWidth / v.videoHeight);
+          }}
+          className="absolute inset-0 h-full w-full scale-[1.004] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
+      )}
       {onExpand && (
         <button type="button" onClick={onExpand} aria-label={title} className="absolute inset-0" />
       )}

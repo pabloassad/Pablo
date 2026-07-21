@@ -11,7 +11,7 @@ export const audioTracks: AudioTrack[] = [
   {
     id: "crazyfunk",
     title: "Crazyfunk",
-    file: "/works/sound-design/crazyfunk.wav",
+    file: "/works/sound-design/crazyfunk.mp3",
     kind: "commande",
     context: { fr: "Composée sur mesure pour Bonduelle", en: "Composed for the Bonduelle brand" },
   },

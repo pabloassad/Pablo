@@ -32,7 +32,7 @@ const mono = IBM_Plex_Mono({
 
 import { siteUrl } from "@/lib/site";
 
-const ogImageUrl = `${siteUrl}/og.png`;
+const ogImageUrl = `${siteUrl}/og.jpg`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
