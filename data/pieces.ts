@@ -63,6 +63,15 @@ export const pieces: Piece[] = [
 
   // ── The rest — portrait / landscape rhythm ───────────────────────────────
   {
+    id: "versatile",
+    title: { fr: "Versatile", en: "Versatile" },
+    src: "/works/versatile/teaser-01.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
     id: "ruby",
     title: { fr: "Ruby", en: "Ruby" },
     src: "/works/ruby/teaser-01.mp4",

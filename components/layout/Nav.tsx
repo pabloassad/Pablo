@@ -72,13 +72,20 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="flex shrink-0 items-center gap-5 justify-self-end">
+        <div className="flex shrink-0 items-center gap-3 justify-self-end sm:gap-5">
           <LangToggle />
+          {/* Contact stays reachable everywhere: a compact envelope on phones,
+              the full pill from sm up. */}
           <a
             href={onRepertoire ? "/#contact" : "#contact"}
-            className="bg-ink text-paper hidden rounded-full px-5 py-2 text-sm font-medium transition-opacity duration-300 hover:opacity-85 md:inline-block"
+            aria-label={t.nav.cta}
+            className="bg-ink text-paper flex h-9 w-9 items-center justify-center rounded-full transition-opacity duration-300 hover:opacity-85 sm:h-auto sm:w-auto sm:px-5 sm:py-2 sm:text-sm sm:font-medium"
           >
-            {t.nav.cta}
+            <svg className="sm:hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <rect x="3" y="5" width="18" height="14" rx="2" />
+              <path d="m3 7 9 6 9-6" />
+            </svg>
+            <span className="hidden sm:inline">{t.nav.cta}</span>
           </a>
         </div>
       </nav>

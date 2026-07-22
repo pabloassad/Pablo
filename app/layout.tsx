@@ -69,6 +69,23 @@ export const metadata: Metadata = {
   alternates: { canonical: siteUrl },
 };
 
+// Person schema — lets search engines tie the site to the real Pablo Assad
+// (name, role, location, LinkedIn) for a richer knowledge panel / SERP.
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Pablo Assad",
+  url: siteUrl,
+  jobTitle: "Communication et direction de projet",
+  email: "mailto:pabloassad14@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Paris",
+    addressCountry: "FR",
+  },
+  sameAs: ["https://www.linkedin.com/in/pablo-assad-40bb75189/"],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -80,6 +97,10 @@ export default function RootLayout({
       className={`${inter.variable} ${archivo.variable} ${mono.variable} antialiased`}
     >
       <body className="bg-paper text-ink min-h-screen">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+        />
         <Providers>
           <Intro />
           <div className="grain" aria-hidden />

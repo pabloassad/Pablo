@@ -153,7 +153,7 @@ export function Waveform({
       aria-label={seekable ? `Position, ${track.title}` : undefined}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuenow={seekable && active ? Math.round(progress * 100) : undefined}
+      aria-valuenow={seekable ? (active ? Math.round(progress * 100) : 0) : undefined}
       tabIndex={seekable ? 0 : -1}
       style={{ touchAction: seekable ? "pan-y" : undefined, cursor: seekable ? "pointer" : undefined }}
       onPointerDown={

@@ -23,11 +23,13 @@ export function Hero() {
   const nameY = useTransform(scrollY, [0, 700], [0, -26]);
   const plateY = useTransform(scrollY, [0, 700], [0, 18]);
 
+  // The name is the LCP element — reveal it fast (a short fade-up, minimal
+  // delay) so the largest paint isn't held behind a long opacity animation.
   const line = (text: string, delay: number) => (
     <motion.span
-      initial={{ opacity: 0, y: "0.35em" }}
+      initial={{ opacity: 0, y: "0.28em" }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, ease, delay }}
+      transition={{ duration: 0.5, ease, delay }}
       className="block will-change-transform"
     >
       {text}
@@ -48,7 +50,7 @@ export function Hero() {
             alt="Pablo Assad, portrait"
             fill
             priority
-            sizes="(max-width: 1024px) 100vw, 34vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 60vw, 34vw"
             className="object-cover"
             style={{ objectPosition: "50% 18%" }}
           />
@@ -67,7 +69,9 @@ export function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden px-4 pt-24 pb-10 sm:px-6 sm:pt-28 lg:px-8">
-      <div className="grid items-center gap-x-10 gap-y-8 lg:grid-cols-12">
+      {/* Capped + centred so the affiche stays a tight composition on ultrawide
+          instead of stranding the name and portrait either side of a dead band. */}
+      <div className="mx-auto grid w-full max-w-[1600px] items-center gap-x-10 gap-y-8 lg:grid-cols-12">
         {/* Type column */}
         <div className="order-2 lg:order-1 lg:col-span-8">
           <motion.div
@@ -87,8 +91,8 @@ export function Hero() {
               className="block"
               style={{ fontSize: "clamp(3rem, 14vw, 15rem)", lineHeight: 0.84, letterSpacing: "-0.04em", fontWeight: 800 }}
             >
-              {line("Pablo", 0.12)}
-              {line("Assad", 0.24)}
+              {line("Pablo", 0.04)}
+              {line("Assad", 0.1)}
             </span>
           </motion.h1>
 

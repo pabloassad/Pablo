@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useAudio } from "@/lib/audio/AudioProvider";
+import { useElementWidth } from "@/lib/hooks/useElementWidth";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -335,17 +336,8 @@ function MediaMosaic({
   onExpand: (m: LightboxMedia) => void;
 }) {
   const { locale } = useLanguage();
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+  const [ref, width] = useElementWidth<HTMLDivElement>();
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
 
   const GAP = 6;
   const targetH = width < 640 ? 240 : width < 1024 ? 360 : width < 1600 ? 480 : 560;
@@ -641,17 +633,8 @@ function PieceFigure({
  * un-muted; a missing visual becomes a quiet placeholder.
  */
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
+  const [ref, width] = useElementWidth<HTMLDivElement>();
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
 
   const GAP = 6;
   const targetH = width < 640 ? 260 : width < 1024 ? 360 : width < 1600 ? 460 : 540;

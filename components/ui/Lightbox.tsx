@@ -79,6 +79,8 @@ function LightboxVideo({ media }: { media: LightboxMedia }) {
 export function Lightbox({ media, onClose }: { media: LightboxMedia | null; onClose: () => void }) {
   const { t } = useLanguage();
   const reduced = useReducedMotion();
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!media) return;
@@ -86,14 +88,44 @@ export function Lightbox({ media, onClose }: { media: LightboxMedia | null; onCl
     const prev = root.style.overflow;
     root.style.overflow = "hidden";
     window.__lenis?.stop();
+
+    // Return focus to whatever opened the lightbox once it closes.
+    const opener = document.activeElement as HTMLElement | null;
+    // Move focus in — next frame, after the dialog has mounted.
+    const raf = requestAnimationFrame(() => closeRef.current?.focus());
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      // Trap Tab within the dialog so keyboard focus never leaks to the page.
+      if (e.key === "Tab") {
+        const root = dialogRef.current;
+        if (!root) return;
+        const focusables = root.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const activeEl = document.activeElement;
+        if (e.shiftKey && activeEl === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && activeEl === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKey);
     return () => {
       root.style.overflow = prev;
       window.__lenis?.start();
       document.removeEventListener("keydown", onKey);
+      cancelAnimationFrame(raf);
+      opener?.focus?.();
     };
   }, [media, onClose]);
 
@@ -102,6 +134,7 @@ export function Lightbox({ media, onClose }: { media: LightboxMedia | null; onCl
       {media && (
         <motion.div
           key="lightbox"
+          ref={dialogRef}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -134,6 +167,7 @@ export function Lightbox({ media, onClose }: { media: LightboxMedia | null; onCl
 
           <button
             type="button"
+            ref={closeRef}
             onClick={onClose}
             aria-label={t.work.close}
             className="text-paper/80 hover:text-paper absolute right-5 top-4 text-2xl leading-none transition-colors sm:right-8 sm:top-6"
