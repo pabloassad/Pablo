@@ -28,7 +28,10 @@ export function Intro() {
     setShow(true);
     const root = document.documentElement;
     root.style.overflow = "hidden";
-    const timer = setTimeout(() => setShow(false), 850);
+    // Kept short so the hero (the LCP element) is uncovered quickly on a real
+    // first visit; the card then dissolves uniformly rather than sliding the
+    // top-placed portrait off last.
+    const timer = setTimeout(() => setShow(false), 500);
     return () => clearTimeout(timer);
   }, [reduced]);
 
@@ -48,15 +51,16 @@ export function Intro() {
           key="intro"
           aria-hidden
           className="fixed inset-0 z-[100] flex items-center justify-center bg-ink"
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <motion.div
             className="text-center"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="kicker text-paper/55">Portfolio</span>
             <p className="font-display mt-3 text-4xl font-light text-paper sm:text-6xl">
