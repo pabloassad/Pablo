@@ -93,12 +93,12 @@ function Cover({ study, onExpand }: { study: CaseStudy; onExpand: (lb: LightboxM
 /** A numbered prose block: mono index + label, then the body. */
 function Block({ index, label, children }: { index: string; label: string; children: React.ReactNode }) {
   return (
-    <Reveal className="border-line grid gap-3 border-t py-8 sm:grid-cols-[8rem_1fr] sm:gap-8 sm:py-10">
+    <Reveal className="border-line grid gap-2 border-t py-8 sm:grid-cols-[8rem_1fr] sm:items-baseline sm:gap-8 sm:py-12">
       <div className="flex items-baseline gap-3">
         <span className="mono text-faint text-sm">{index}</span>
         <span className="kicker">{label}</span>
       </div>
-      <div className="max-w-2xl">{children}</div>
+      <div className="max-w-3xl">{children}</div>
     </Reveal>
   );
 }
@@ -151,7 +151,9 @@ export function CaseStudyView({
         </p>
       </div>
 
-      <Cover study={study} onExpand={setExpanded} />
+      {/* Featured projects already show all their visuals on the Répertoire —
+          the detail page is the explanations only, no duplicate content. */}
+      {!study.featured && <Cover study={study} onExpand={setExpanded} />}
 
       {/* Story */}
       <div className="mx-auto mt-12 max-w-5xl sm:mt-16">
@@ -166,10 +168,10 @@ export function CaseStudyView({
           </p>
         </Block>
         <Block index="03" label={w.caseDecisions}>
-          <ul className="space-y-4">
+          <ul className="space-y-5">
             {study.decisions.map((d, i) => (
-              <li key={i} className="text-mute flex gap-3 text-lg font-light leading-relaxed text-pretty">
-                <span className="mono text-faint mt-1 shrink-0 text-xs" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
+              <li key={i} className="text-mute flex gap-4 text-lg font-light leading-relaxed text-pretty">
+                <span className="bg-ink/30 mt-[0.7em] h-px w-5 shrink-0" aria-hidden />
                 <span><RichText text={d[locale]} /></span>
               </li>
             ))}
@@ -189,8 +191,8 @@ export function CaseStudyView({
         )}
       </div>
 
-      {/* Media */}
-      {study.media && study.media.length > 0 && (
+      {/* Media — only for non-featured cases (featured show theirs on the Répertoire) */}
+      {!study.featured && study.media && study.media.length > 0 && (
         <div className="mx-auto mt-14 flex max-w-5xl flex-col gap-3 sm:mt-20">
           {study.media.map((m) => (
             <Reveal key={m.src}>

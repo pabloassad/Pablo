@@ -47,25 +47,47 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
   const others = useMemo(() => caseStudies.filter((c) => !c.featured), []);
 
   // Returning from a case study: land back exactly where the visitor left, not
-  // at the top. Restored across a few frames while the media grids settle their
-  // heights (Lenis-aware).
+  // at the top. The page is held invisible until the media grids have settled
+  // their heights, then restored once and revealed — so there is no flash of a
+  // wrong scroll position while the layout grows.
+  const [restoring, setRestoring] = useState(false);
   useEffect(() => {
     if (!standalone) return;
     const y = takeRepertoireScroll();
     if (y === null) return;
-    const restore = () => {
-      const l = window.__lenis;
-      if (l) l.scrollTo(y, { immediate: true });
-      else window.scrollTo(0, y);
+    setRestoring(true);
+    let cancelled = false;
+    let frames = 0;
+    // Re-assert the scroll every frame (beating Lenis / hash anchoring) but only
+    // once the page has grown tall enough to actually reach y; reveal the moment
+    // it is settled there. Hidden throughout, so no wrong position ever shows.
+    const loop = () => {
+      if (cancelled) return;
+      frames++;
+      const canReach = document.documentElement.scrollHeight - window.innerHeight >= y - 2;
+      if (canReach) {
+        const l = window.__lenis;
+        if (l) l.scrollTo(y, { immediate: true });
+        else window.scrollTo(0, y);
+      }
+      const atY = Math.abs(window.scrollY - y) < 4;
+      if ((canReach && atY) || frames > 90) {
+        requestAnimationFrame(() => !cancelled && setRestoring(false));
+        return;
+      }
+      requestAnimationFrame(loop);
     };
-    const timers = [0, 60, 160, 320, 500].map((d) => window.setTimeout(restore, d));
-    return () => timers.forEach(clearTimeout);
+    requestAnimationFrame(loop);
+    return () => {
+      cancelled = true;
+    };
   }, [standalone]);
 
   return (
     <section
       id="projets"
       className={`bg-paper-2 px-3 sm:px-6 lg:px-8 ${standalone ? "pt-0 pb-0" : "py-24"}`}
+      style={restoring ? { opacity: 0 } : { opacity: 1, transition: "opacity 0.25s ease" }}
     >
       {standalone ? (
         <RepertoireHero />
@@ -92,12 +114,12 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
       {/* Études de cas — the wow: featured projects lead with their full visuals
           and key figures inline, then the rest as a compact index. */}
-      <div id="cas" className="mx-auto mt-8 max-w-[2100px] scroll-mt-28">
+      <div id="cas" className="mx-auto mt-12 max-w-[2100px] scroll-mt-28">
         <Reveal as="div">
           <header className="mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
             <h2
               className="font-display text-ink uppercase"
-              style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+              style={{ fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95 }}
             >
               {w.casesTitle}
             </h2>
@@ -111,13 +133,13 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
       </div>
 
       {/* Pièces détachées — a wide selection, the rest behind "see more" */}
-      <div id="visuel" className="mx-auto mt-20 max-w-[2100px] scroll-mt-28">
+      <div id="visuel" className="mx-auto mt-28 max-w-[2100px] scroll-mt-28">
         {pieces.length > 0 && (
           <Reveal>
             <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
               <h2
                 className="font-display text-ink uppercase"
-                style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+                style={{ fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95 }}
               >
                 {w.pieces}
               </h2>
@@ -210,7 +232,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
     ...(study.cover ? [{ src: study.cover, type: study.coverType, w: study.coverW, h: study.coverH }] : []),
     ...(study.media ?? []),
   ];
-  const meta = [study.role[locale], study.year].filter(Boolean) as string[];
+  const meta = [study.role[locale], study.client ? "Client" : null, study.year].filter(Boolean) as string[];
 
   return (
     <Reveal as="div">
@@ -247,18 +269,6 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
             >
               <RichText text={study.result[locale]} strongClass="text-ink font-bold" />
             </p>
-            {study.metrics && study.metrics.length > 0 && (
-              <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
-                {study.metrics.map((mt, i) => (
-                  <div key={i}>
-                    <dt className="font-display text-ink text-2xl sm:text-3xl" style={{ fontWeight: 800, letterSpacing: "-0.02em" }}>
-                      {mt.value}
-                    </dt>
-                    <dd className="text-faint mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.14em]">{mt.label[locale]}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
           </div>
           <Link
             href={`/repertoire/${study.slug}`}

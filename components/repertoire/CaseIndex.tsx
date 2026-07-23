@@ -82,12 +82,6 @@ export function CaseList({ cases, startNumber = 0 }: { cases: CaseStudy[]; start
                 <RichText text={study.result[locale]} />
               </p>
             </div>
-            <span
-              aria-hidden
-              className="text-faint shrink-0 pr-1 text-lg transition-transform duration-300 ease-out group-hover:translate-x-1"
-            >
-              →
-            </span>
           </Link>
         </li>
       ))}

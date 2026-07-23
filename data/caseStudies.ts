@@ -75,8 +75,8 @@ export const caseStudies: CaseStudy[] = [
       en: "Strategic support · Art direction",
     },
     result: {
-      fr: "Une marque rendue identifiable : **1000+ participants** par édition, **250k impressions**.",
-      en: "A brand made recognisable: **1000+ guests** per edition, **250k impressions**.",
+      fr: "**1000+ participants** par édition, **250k impressions** par campagne.",
+      en: "**1000+ guests** per edition, **250k impressions** per campaign.",
     },
     cover: "/works/adonis/cover.webp",
     coverW: 1080,
