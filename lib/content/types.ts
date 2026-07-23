@@ -107,6 +107,9 @@ export interface CaseStudy {
   coverType?: "image" | "video";
   coverW?: number;
   coverH?: number;
+  /** Brand logo (transparent PNG) shown as the index thumbnail on a light
+   *  ground — used for cases without a cover image. */
+  logo?: string;
   context: Localized;
   challenge: Localized;
   decisions: Localized[];

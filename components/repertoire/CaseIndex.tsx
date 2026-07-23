@@ -4,12 +4,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { RichText } from "@/components/ui/RichText";
+import { saveRepertoireScroll } from "@/lib/repertoireScroll";
 import type { CaseStudy } from "@/lib/content/types";
 
 const posterFor = (src: string) => src.replace(/\.mp4$/, "-poster.webp");
 
-/** Thumbnail for a study — the cover still, or a typographic card if none. */
+/** Thumbnail for a study — the brand logo on a light card, else the cover
+ *  still, else a typographic card. */
 function Thumb({ study }: { study: CaseStudy }) {
+  if (study.logo) {
+    return (
+      <div className="border-line bg-paper flex h-full w-full items-center justify-center border p-2.5">
+        <span className="relative block h-full w-full">
+          <Image src={study.logo} alt="" fill sizes="80px" className="object-contain" />
+        </span>
+      </div>
+    );
+  }
   const src = study.cover
     ? study.coverType === "video"
       ? posterFor(study.cover)
@@ -49,6 +60,7 @@ export function CaseList({ cases, startNumber = 0 }: { cases: CaseStudy[]; start
         <li key={study.slug}>
           <Link
             href={`/repertoire/${study.slug}`}
+            onClick={saveRepertoireScroll}
             className="group border-line hover:bg-paper/60 flex items-center gap-4 border-t py-4 transition-colors last:border-b sm:gap-6"
           >
             <span className="mono text-faint hidden text-sm sm:block" aria-hidden>

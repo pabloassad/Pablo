@@ -16,6 +16,7 @@ import { pieces } from "@/data/pieces";
 import { caseStudies } from "@/data/caseStudies";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
 import { CaseList } from "@/components/repertoire/CaseIndex";
+import { saveRepertoireScroll, takeRepertoireScroll } from "@/lib/repertoireScroll";
 import type { CaseStudy, Piece, ProjectMedia } from "@/lib/content/types";
 
 // The dedicated hero video that opens the Répertoire full screen (cut for
@@ -44,6 +45,22 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
   const featured = useMemo(() => caseStudies.filter((c) => c.featured), []);
   const others = useMemo(() => caseStudies.filter((c) => !c.featured), []);
+
+  // Returning from a case study: land back exactly where the visitor left, not
+  // at the top. Restored across a few frames while the media grids settle their
+  // heights (Lenis-aware).
+  useEffect(() => {
+    if (!standalone) return;
+    const y = takeRepertoireScroll();
+    if (y === null) return;
+    const restore = () => {
+      const l = window.__lenis;
+      if (l) l.scrollTo(y, { immediate: true });
+      else window.scrollTo(0, y);
+    };
+    const timers = [0, 60, 160, 320, 500].map((d) => window.setTimeout(restore, d));
+    return () => timers.forEach(clearTimeout);
+  }, [standalone]);
 
   return (
     <section
@@ -243,6 +260,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
           </div>
           <Link
             href={`/repertoire/${study.slug}`}
+            onClick={saveRepertoireScroll}
             className="group text-ink inline-flex items-center gap-2 self-start text-sm font-medium transition-colors md:self-end"
           >
             {w.caseRead}

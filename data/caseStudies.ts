@@ -46,9 +46,19 @@ export const caseStudies: CaseStudy[] = [
       { value: "500k", label: { fr: "vues / édition", en: "views / edition" } },
     ],
     media: [
-      { src: "/works/le-cercle/10.webp", w: 1920, h: 1080 },
-      { src: "/works/le-cercle/06.webp", w: 1400, h: 1400 },
+      { src: "/works/le-cercle/01.webp", w: 1920, h: 1080 },
+      { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
+      { src: "/works/le-cercle/02.webp", w: 1080, h: 1920 },
+      { src: "/works/le-cercle/teaser-02.mp4", type: "video" },
+      { src: "/works/le-cercle/04.webp", w: 1400, h: 1400 },
+      { src: "/works/le-cercle/teaser-07.mp4", type: "video" },
+      { src: "/works/le-cercle/07.webp", w: 1080, h: 1920 },
       { src: "/works/le-cercle/08.webp", w: 1080, h: 1920 },
+      { src: "/works/le-cercle/teaser-03.mp4", type: "video" },
+      { src: "/works/le-cercle/06.webp", w: 1400, h: 1400 },
+      { src: "/works/le-cercle/10.webp", w: 1920, h: 1080 },
+      { src: "/works/le-cercle/teaser-04.mp4", type: "video" },
+      { src: "/works/le-cercle/teaser-05.mp4", type: "video" },
       { src: "/works/le-cercle/logo.webp", w: 2000, h: 2000 },
     ],
   },
@@ -90,8 +100,10 @@ export const caseStudies: CaseStudy[] = [
     media: [
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },
+      { src: "/works/adonis/teaser-03.mp4", type: "video" },
       { src: "/works/adonis/08.webp", w: 2000, h: 2828 },
       { src: "/works/adonis/teaser-02.mp4", type: "video" },
+      { src: "/works/adonis/teaser-05.mp4", type: "video" },
     ],
   },
 
@@ -100,6 +112,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "riva-agency",
     title: { fr: "Riva Agency", en: "Riva Agency" },
     year: "2025",
+    logo: "/works/riva/logo.png",
     role: {
       fr: "Cofondateur · Production et développement",
       en: "Co-founder · Production and development",
@@ -132,6 +145,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "versatile",
     title: { fr: "Versatile", en: "Versatile" },
     year: "2026",
+    logo: "/works/versatile/logo.png",
     role: {
       fr: "Stratégie et création · Licence, Paris 8",
       en: "Strategy and creative · Bachelor, Paris 8",
@@ -163,6 +177,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "teisseire",
     title: { fr: "Teisseire", en: "Teisseire" },
     year: "2026",
+    logo: "/works/teisseire/logo.png",
     role: {
       fr: "Stratégie et création · Licence, Paris 8",
       en: "Strategy and creative · Bachelor, Paris 8",
