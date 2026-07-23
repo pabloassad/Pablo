@@ -249,8 +249,13 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
           </h3>
           <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
             {meta.map((m, i) => (
-              <span key={i} className="whitespace-nowrap">
-                {i > 0 ? ` · ${m}` : m}
+              <span key={i}>
+                {i > 0 && (
+                  <span aria-hidden className="mx-1.5">
+                    ·
+                  </span>
+                )}
+                <span className="whitespace-nowrap">{m}</span>
               </span>
             ))}
           </p>
@@ -267,7 +272,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
               className="font-display text-mute text-balance text-xl sm:text-2xl"
               style={{ lineHeight: 1.2, fontWeight: 400, letterSpacing: "-0.01em" }}
             >
-              <RichText text={study.result[locale]} strongClass="text-ink font-bold" />
+              <RichText text={study.result[locale]} strongClass="text-ink font-semibold" />
             </p>
           </div>
           <Link
@@ -701,7 +706,7 @@ function PieceFigure({
  * un-muted; a missing visual becomes a quiet placeholder.
  */
 // How many packed units show on arrival; the rest sit behind "see more".
-const PIECES_VISIBLE = 7;
+const PIECES_VISIBLE = 10;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const { t } = useLanguage();

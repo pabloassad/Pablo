@@ -78,7 +78,7 @@ export function CaseList({ cases, startNumber = 0 }: { cases: CaseStudy[]; start
                   {study.year}
                 </span>
               </div>
-              <p className="text-mute mt-1 text-sm font-light leading-snug text-pretty">
+              <p className="text-mute mt-1 text-sm leading-snug text-pretty">
                 <RichText text={study.result[locale]} />
               </p>
             </div>

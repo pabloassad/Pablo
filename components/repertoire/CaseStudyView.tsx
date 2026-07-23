@@ -121,7 +121,14 @@ export function CaseStudyView({
   const w = t.work;
   const [expanded, setExpanded] = useState<LightboxMedia | null>(null);
 
-  const meta = [study.role[locale], study.client, study.year].filter(Boolean) as string[];
+  // Every case page opens at the top (Lenis keeps scroll otherwise, so
+  // switching projects could land mid-page).
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    window.__lenis?.scrollTo(0, { immediate: true });
+  }, [study.slug]);
+
+  const meta = [study.role[locale], study.client ? "Client" : null, study.year].filter(Boolean) as string[];
 
   return (
     <article className="px-4 pt-28 pb-24 sm:px-6 sm:pt-32 lg:px-8">
@@ -131,9 +138,8 @@ export function CaseStudyView({
           <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span>
           {w.caseBack}
         </Link>
-        <p className="kicker mt-8">{w.casesTitle}</p>
         <h1
-          className="font-display text-ink mt-3 uppercase"
+          className="font-display text-ink mt-8 uppercase"
           style={{ fontSize: "clamp(2.5rem,8vw,6rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.9 }}
         >
           {study.title[locale]}
@@ -147,7 +153,7 @@ export function CaseStudyView({
           ))}
         </div>
         <p className="font-display text-mute mt-8 max-w-3xl text-balance" style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 400, letterSpacing: "-0.02em" }}>
-          <RichText text={study.result[locale]} strongClass="text-ink font-bold" />
+          <RichText text={study.result[locale]} strongClass="text-ink font-semibold" />
         </p>
       </div>
 
@@ -158,20 +164,20 @@ export function CaseStudyView({
       {/* Story */}
       <div className="mx-auto mt-12 max-w-5xl sm:mt-16">
         <Block index="01" label={w.caseContext}>
-          <p className="text-mute text-lg font-light leading-relaxed text-pretty">
+          <p className="text-mute text-lg leading-relaxed text-pretty">
             <RichText text={study.context[locale]} />
           </p>
         </Block>
         <Block index="02" label={w.caseChallenge}>
-          <p className="text-mute text-lg font-light leading-relaxed text-pretty">
+          <p className="text-mute text-lg leading-relaxed text-pretty">
             <RichText text={study.challenge[locale]} />
           </p>
         </Block>
         <Block index="03" label={w.caseDecisions}>
           <ul className="space-y-5">
             {study.decisions.map((d, i) => (
-              <li key={i} className="text-mute flex gap-4 text-lg font-light leading-relaxed text-pretty">
-                <span className="bg-ink/30 mt-[0.7em] h-px w-5 shrink-0" aria-hidden />
+              <li key={i} className="text-mute flex gap-4 text-lg leading-relaxed text-pretty">
+                <span className="bg-ink/40 mt-[0.7em] h-px w-2.5 shrink-0" aria-hidden />
                 <span><RichText text={d[locale]} /></span>
               </li>
             ))}
@@ -204,6 +210,10 @@ export function CaseStudyView({
 
       {/* Foot — next study + contact */}
       <div className="border-line mx-auto mt-20 max-w-5xl border-t pt-8">
+        <Link href="/repertoire#cas" className="group text-faint hover:text-ink mb-8 inline-flex items-center gap-2 text-sm font-medium transition-colors">
+          <span aria-hidden className="inline-block transition-transform duration-300 group-hover:-translate-x-1">←</span>
+          {w.caseBack}
+        </Link>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex gap-8">
             {prev && (

@@ -107,13 +107,4 @@ export const pieces: Piece[] = [
     h: 1920,
     year: "2026",
   },
-  {
-    id: "sunset",
-    title: { fr: "Sunset", en: "Sunset" },
-    src: "/works/pieces-sunset.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 0.8,
-  },
 ];
