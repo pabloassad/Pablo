@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useAudio } from "@/lib/audio/AudioProvider";
 import { useElementWidth } from "@/lib/hooks/useElementWidth";
@@ -10,11 +10,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
-import { projects, categoryLabels } from "@/data/projects";
 import { pieces } from "@/data/pieces";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
 import { CaseIndex } from "@/components/repertoire/CaseIndex";
-import type { Project, ProjectMedia, Piece } from "@/lib/content/types";
+import type { Piece } from "@/lib/content/types";
 
 // The dedicated hero video that opens the Répertoire full screen (cut for
 // this page). It lives only in the hero, never inline in a sheet.
@@ -36,8 +35,6 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
   const w = t.work;
   // One click = the piece alone, larger, centre screen. No dedicated panel.
   const [expanded, setExpanded] = useState<LightboxMedia | null>(null);
-
-  const published = useMemo(() => projects.filter((p) => p.status === "published"), []);
 
   const expand = useCallback((m: LightboxMedia) => setExpanded(m), []);
   const collapse = useCallback(() => setExpanded(null), []);
@@ -71,15 +68,11 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
       <FlowAnchor />
 
       <div id="visuel" className="mx-auto max-w-[2100px] scroll-mt-28">
-        {/* One flow: published projects, then the detached pieces, no headings */}
+        {/* The gallery: standalone pieces — a curated selection, then the rest
+            behind a "see more". The deep projects live in Études, not here. */}
         <div className="mt-8">
-          {published.map((p, i) => (
-            <ProjectRow key={p.slug} project={p} index={i} onExpand={expand} />
-          ))}
-
           {pieces.length > 0 && (
-            <Reveal className="border-line mt-8 border-t pt-6">
-              {/* Mark the shift: these are standalone, independent projects. */}
+            <Reveal>
               <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
                 <h3
                   className="font-display text-ink uppercase"
@@ -285,128 +278,6 @@ function justifyRows<T>(
     const h = isLast ? Math.min(baseH * feat, full) : full;
     return { h, items: row.map((it) => ({ it, w: arOf(it) * h })) };
   });
-}
-
-/* ── One project = one contact sheet ──────────────────────────────────── */
-
-function ProjectRow({
-  project,
-  index,
-  onExpand,
-}: {
-  project: Project;
-  index: number;
-  onExpand: (m: LightboxMedia) => void;
-}) {
-  const { locale } = useLanguage();
-
-  // Media in data order — the author sequences the sheet.
-  const strip: ProjectMedia[] = useMemo(
-    () => [
-      ...(project.cover ? [{ src: project.cover, w: project.coverW, h: project.coverH }] : []),
-      ...(project.media ?? []).filter((m) => m.src !== project.cover && m.src !== HERO_SRC),
-    ],
-    [project],
-  );
-
-  return (
-    <article className="border-line border-t py-8 first:border-t-0 sm:py-10">
-      {/* Header on top, full-width — no left title column, so no white band. */}
-      <header className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-1 px-1 sm:px-2">
-        <span className="mono text-faint text-sm" aria-hidden>
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <h3
-          className="font-display text-ink text-balance"
-          style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
-        >
-          {project.title[locale]}
-        </h3>
-        <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
-          <span className="whitespace-nowrap">{categoryLabels[project.category][locale]}</span>
-          {project.year && <span className="whitespace-nowrap">{` · ${project.year}`}</span>}
-          {project.descriptor && <span className="whitespace-nowrap">{` · ${project.descriptor[locale]}`}</span>}
-        </p>
-      </header>
-
-      <MediaMosaic strip={strip} project={project} onExpand={onExpand} />
-    </article>
-  );
-}
-
-/**
- * Justified tiers ("étages"): media pack into rows of uniform height that fill
- * the width edge to edge, each tile keeping its native ratio — chrome-free,
- * near full-bleed on desktop, no two rows alike. Video ratios settle on
- * metadata load, then the layout re-packs.
- */
-function MediaMosaic({
-  strip,
-  project,
-  onExpand,
-}: {
-  strip: ProjectMedia[];
-  project: Project;
-  onExpand: (m: LightboxMedia) => void;
-}) {
-  const { locale } = useLanguage();
-  const [ref, width] = useElementWidth<HTMLDivElement>();
-  const [videoAr, setVideoAr] = useState<Record<string, number>>({});
-
-  const GAP = 6;
-  const targetH = width < 640 ? 240 : width < 1024 ? 360 : width < 1600 ? 480 : 560;
-  const HERO = 1.42; // the opening row runs taller — the block's accroche
-
-  const rows = useMemo(() => {
-    const arOf = (m: ProjectMedia) =>
-      m.type === "video" ? (videoAr[m.src] ?? 0.5625) : (m.w ?? 4) / (m.h ?? 5);
-    // First media is the accroche — its row runs taller (videos lead Adonis).
-    const featureOf = (m: ProjectMedia) => (m === strip[0] ? HERO : 1);
-    return justifyRows(strip, width, GAP, targetH, arOf, featureOf);
-  }, [strip, width, targetH, videoAr]);
-
-  return (
-    <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
-      {rows.map((row, ri) => (
-        <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-          {row.items.map(({ it: m, w }) =>
-            m.type === "video" ? (
-              <div key={m.src} className="bg-paper-2 relative shrink-0 overflow-hidden" style={{ width: w, height: row.h }}>
-                <VideoTile
-                  id={`${project.slug}:${m.src}`}
-                  src={m.src}
-                  title={project.title[locale]}
-                  onMeta={(ar) => setVideoAr((prev) => (prev[m.src] === ar ? prev : { ...prev, [m.src]: ar }))}
-                  onExpand={() =>
-                    onExpand({ src: m.src, type: "video", alt: project.title[locale], ar: videoAr[m.src] ?? 0.5625 })
-                  }
-                />
-              </div>
-            ) : (
-              <button
-                key={m.src}
-                type="button"
-                onClick={() =>
-                  onExpand({ src: m.src, alt: m.alt?.[locale] ?? project.title[locale], ar: (m.w ?? 4) / (m.h ?? 5) })
-                }
-                aria-label={m.alt?.[locale] ?? project.title[locale]}
-                className="group bg-paper-2 relative shrink-0 overflow-hidden"
-                style={{ width: w, height: row.h }}
-              >
-                <Image
-                  src={m.src}
-                  alt={m.alt?.[locale] ?? project.title[locale]}
-                  fill
-                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 640px"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                />
-              </button>
-            ),
-          )}
-        </div>
-      ))}
-    </div>
-  );
 }
 
 /**
@@ -646,9 +517,14 @@ function PieceFigure({
  * width. Titles surface on hover; video pieces autoplay muted and can be
  * un-muted; a missing visual becomes a quiet placeholder.
  */
+// How many packed units show on arrival; the rest sit behind "see more".
+const PIECES_VISIBLE = 5;
+
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
+  const { t } = useLanguage();
   const [ref, width] = useElementWidth<HTMLDivElement>();
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
+  const [showAll, setShowAll] = useState(false);
 
   const GAP = 6;
   const targetH = width < 640 ? 260 : width < 1024 ? 360 : width < 1600 ? 460 : 540;
@@ -682,31 +558,79 @@ function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; com
     return out;
   }, [pieces, arOf]);
 
-  const rows = useMemo(
-    () => justifyRows(units, width, GAP, targetH, (u) => u.ar, (u) => u.feature),
-    [units, width, targetH],
+  const visibleUnits = useMemo(() => units.slice(0, PIECES_VISIBLE), [units]);
+  const restUnits = useMemo(() => units.slice(PIECES_VISIBLE), [units]);
+  const restCount = restUnits.reduce((s, u) => s + u.members.length, 0);
+
+  const visibleRows = useMemo(
+    () => justifyRows(visibleUnits, width, GAP, targetH, (u) => u.ar, (u) => u.feature),
+    [visibleUnits, width, targetH],
   );
+  const restRows = useMemo(
+    () => justifyRows(restUnits, width, GAP, targetH, (u) => u.ar, (u) => u.feature),
+    [restUnits, width, targetH],
+  );
+
+  const renderRows = (rows: JRow<{ id: string; members: Piece[]; ar: number; feature: number }>[]) =>
+    rows.map((row, ri) => (
+      <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
+        {row.items.map(({ it: u, w }) => (
+          <div key={u.id} className="flex shrink-0" style={{ width: w, height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
+            {u.members.map((p) => (
+              <PieceFigure
+                key={p.id}
+                p={p}
+                onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
+                onExpand={onExpand}
+                comingSoonLabel={comingSoonLabel}
+                style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    ));
 
   return (
     <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
-      {rows.map((row, ri) => (
-        <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-          {row.items.map(({ it: u, w }) => (
-            <div key={u.id} className="flex shrink-0" style={{ width: w, height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
-              {u.members.map((p) => (
-                <PieceFigure
-                  key={p.id}
-                  p={p}
-                  onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
-                  onExpand={onExpand}
-                  comingSoonLabel={comingSoonLabel}
-                  style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      ))}
+      {renderRows(visibleRows)}
+
+      {restCount > 0 && (
+        <>
+          <AnimatePresence initial={false}>
+            {showAll && (
+              <motion.div
+                key="rest"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                style={{ overflow: "hidden" }}
+              >
+                <div className="flex flex-col" style={{ gap: GAP, paddingTop: GAP }}>
+                  {renderRows(restRows)}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <button
+            type="button"
+            onClick={() => setShowAll((v) => !v)}
+            aria-expanded={showAll}
+            className="group mt-6 flex w-full items-center gap-4 text-[0.65rem] font-medium uppercase tracking-[0.2em]"
+          >
+            <span className="bg-line h-px flex-1" aria-hidden />
+            <span className="text-faint group-hover:text-ink flex items-center gap-2 whitespace-nowrap transition-colors">
+              {showAll ? t.work.seeLess : `${t.work.seeMore} · ${restCount}`}
+              <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-y-0.5">
+                {showAll ? "↑" : "↓"}
+              </span>
+            </span>
+            <span className="bg-line h-px flex-1" aria-hidden />
+          </button>
+        </>
+      )}
     </div>
   );
 }

@@ -2,16 +2,16 @@ import type { Piece } from "@/lib/content/types";
 
 /**
  * Standalone productions — one strong visual each (image or video), no
- * dedicated project. The featured pieces lead as an accroche (Rosa's flyer +
- * cocktail menu paired and large, then Boss Lady, Flashback, Miami Game), then
- * the rest keeps a portrait/landscape rhythm. Add a piece = drop the file in
+ * dedicated project. Order matters: the first units are the curated selection
+ * shown on arrival (the strongest, most brand-forward work), the rest sit
+ * behind a "see more" in the gallery. Add a piece = drop the file in
  * public/works/<slug>/ (or reference any existing path) and add an entry here.
  * Entries without `src` render as intentional placeholders. Video pieces
  * autoplay muted while on screen.
  */
 
 export const pieces: Piece[] = [
-  // ── Accroche — featured, larger row ──────────────────────────────────────
+  // ── Selection shown on arrival — the strongest, most brand-forward ────────
   {
     id: "rosa-summer-party",
     title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
@@ -33,45 +33,6 @@ export const pieces: Piece[] = [
     feature: 1.5,
   },
   {
-    id: "boss-lady",
-    title: { fr: "Boss Lady", en: "Boss Lady" },
-    src: "/works/boss-lady/cover.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 1.35,
-  },
-  {
-    id: "flashback",
-    title: { fr: "Flashback", en: "Flashback" },
-    src: "/works/flashback/flyer.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 1.35,
-  },
-  {
-    id: "miami-game",
-    title: { fr: "Miami Game", en: "Miami Game" },
-    src: "/works/miami-game/flyer-01.mp4",
-    type: "video",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 1.35,
-  },
-
-  // ── The rest — portrait / landscape rhythm ───────────────────────────────
-  {
-    id: "versatile",
-    title: { fr: "Versatile", en: "Versatile" },
-    src: "/works/versatile/teaser-01.mp4",
-    type: "video",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-  },
-  {
     id: "ruby",
     title: { fr: "Ruby", en: "Ruby" },
     src: "/works/ruby/teaser-01.mp4",
@@ -90,14 +51,6 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
-    id: "la-nuit-du-bac",
-    title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
-    src: "/works/la-nuit-du-bac/flyer.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-  },
-  {
     id: "fondamentall",
     title: { fr: "Fondament'All · logo animé", en: "Fondament'All · animated logo" },
     src: "/works/fondamentall/logo-01.mp4",
@@ -108,20 +61,58 @@ export const pieces: Piece[] = [
     feature: 0.8,
   },
   {
-    id: "sunset",
-    title: { fr: "Sunset", en: "Sunset" },
-    src: "/works/pieces-sunset.webp",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 0.8,
-  },
-  {
     id: "paradise",
     title: { fr: "Paradise · identité", en: "Paradise · identity" },
     src: "/works/paradise-solo.webp",
     w: 960,
     h: 1080,
+    year: "2026",
+    feature: 0.8,
+  },
+
+  // ── The rest — revealed behind "see more" ─────────────────────────────────
+  {
+    id: "miami-game",
+    title: { fr: "Miami Game", en: "Miami Game" },
+    src: "/works/miami-game/flyer-01.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+    feature: 1.35,
+  },
+  {
+    id: "boss-lady",
+    title: { fr: "Boss Lady", en: "Boss Lady" },
+    src: "/works/boss-lady/cover.webp",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+    feature: 1.35,
+  },
+  {
+    id: "flashback",
+    title: { fr: "Flashback", en: "Flashback" },
+    src: "/works/flashback/flyer.webp",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+    feature: 1.35,
+  },
+  {
+    id: "la-nuit-du-bac",
+    title: { fr: "La Nuit du Bac", en: "La Nuit du Bac" },
+    src: "/works/la-nuit-du-bac/flyer.webp",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
+    id: "sunset",
+    title: { fr: "Sunset", en: "Sunset" },
+    src: "/works/pieces-sunset.webp",
+    w: 1080,
+    h: 1920,
     year: "2026",
     feature: 0.8,
   },

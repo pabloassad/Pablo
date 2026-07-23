@@ -33,6 +33,8 @@ export interface Translations {
     back: string;
     pieces: string;
     piecesNote: string;
+    seeMore: string;
+    seeLess: string;
     backToTop: string;
     flowVisual: string;
     flowCases: string;
@@ -132,6 +134,8 @@ const fr: Translations = {
     back: "Présentation",
     pieces: "Pièces détachées",
     piecesNote: "Projets indépendants",
+    seeMore: "Voir plus",
+    seeLess: "Voir moins",
     backToTop: "Retour en haut",
     flowVisual: "Visuel",
     flowCases: "Études",
@@ -240,6 +244,8 @@ const en: Translations = {
     back: "About",
     pieces: "Single pieces",
     piecesNote: "Standalone projects",
+    seeMore: "See more",
+    seeLess: "See less",
     backToTop: "Back to top",
     flowVisual: "Visual",
     flowCases: "Studies",
