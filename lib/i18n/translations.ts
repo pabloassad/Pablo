@@ -148,9 +148,9 @@ const fr: Translations = {
   },
   craft: {
     label: "Création",
-    title: "On ne voit bien qu'avec le cœur. L'essentiel est invisible pour les yeux.",
+    title: "Être du côté des gens, c'est être du côté des marques.",
     body: [],
-    aside: "Antoine de Saint-Exupéry",
+    aside: "Pablo Assad",
   },
   repCta: {
     title: "Voir le Répertoire",
@@ -244,9 +244,9 @@ const en: Translations = {
   },
   craft: {
     label: "Craft",
-    title: "One sees clearly only with the heart. What is essential is invisible to the eye.",
+    title: "To stand with people is to stand with brands.",
     body: [],
-    aside: "Antoine de Saint-Exupéry",
+    aside: "Pablo Assad",
   },
   repCta: {
     title: "Enter the Portfolio",

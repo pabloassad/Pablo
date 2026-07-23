@@ -30,10 +30,11 @@ export const projects: Project[] = [
     coverW: 1080,
     coverH: 1920,
     media: [
+      // Le teaser de lancement suit directement l'affiche (cover).
+      { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },
       { src: "/works/adonis/teaser-03.mp4", type: "video" },
       { src: "/works/adonis/08.webp", w: 2000, h: 2828 },
-      { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/teaser-02.mp4", type: "video" },
       { src: "/works/adonis/teaser-05.mp4", type: "video" },
     ],

@@ -40,15 +40,17 @@ export function Nav() {
           : "border-b border-transparent py-5",
       )}
     >
-      {/* Three balanced groups on one baseline: monogram · the two spaces · FR/EN + CTA */}
-      <nav className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 sm:px-10 lg:px-16">
-        <Link href="/" className="font-display justify-self-start text-lg tracking-tight" style={{ fontWeight: 700 }}>
+      {/* On phones a 3-column grid keeps the wide FR labels, FR/EN and contact
+          from ever colliding; from sm up (where there's room) the two spaces are
+          pinned to the true viewport centre so they read as perfectly centred. */}
+      <nav className="relative mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6 sm:flex sm:justify-between sm:px-10 lg:px-16">
+        <Link href="/" className="font-display text-lg tracking-tight justify-self-start" style={{ fontWeight: 700 }}>
           <span className="hidden sm:inline">Pablo Assad</span>
           <span className="sm:hidden">P.A.</span>
         </Link>
 
-        {/* The two spaces — centred */}
-        <ul className="flex items-center gap-7 justify-self-center sm:gap-9">
+        {/* The two spaces — centred (grid centre on mobile, viewport centre from sm) */}
+        <ul className="flex items-center gap-7 justify-self-center sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:gap-9">
           {tabs.map((tab) => (
             <li key={tab.href}>
               <Link

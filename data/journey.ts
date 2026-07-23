@@ -35,9 +35,9 @@ export const journey: JourneyMilestone[] = [
   {
     id: "master",
     year: "Sept. 2026",
-    title: { fr: "Master Stratégie de communication", en: "MSc Communication Strategy" },
-    place: { fr: "La Sorbonne", en: "La Sorbonne" },
-    kind: "goal",
+    title: { fr: "Master Communication des organisations", en: "MSc Organizational Communication" },
+    place: { fr: "Sorbonne Paris Nord", en: "Sorbonne Paris Nord" },
+    kind: "school",
     emphasis: 3,
   },
 
