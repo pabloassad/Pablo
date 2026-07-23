@@ -247,7 +247,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
           >
             {study.title[locale]}
           </h3>
-          <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
+          <p className="text-faint w-full text-[0.65rem] font-medium uppercase tracking-[0.16em] sm:w-auto">
             {meta.map((m, i) => (
               <span key={i}>
                 {i > 0 && (
@@ -255,7 +255,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
                     ·
                   </span>
                 )}
-                <span className="whitespace-nowrap">{m}</span>
+                {m}
               </span>
             ))}
           </p>
