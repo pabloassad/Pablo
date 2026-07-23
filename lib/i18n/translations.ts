@@ -37,6 +37,7 @@ export interface Translations {
     seeLess: string;
     backToTop: string;
     flowVisual: string;
+    flowPieces: string;
     flowCases: string;
     flowSound: string;
     soundOn: string;
@@ -138,6 +139,7 @@ const fr: Translations = {
     seeLess: "Voir moins",
     backToTop: "Retour en haut",
     flowVisual: "Visuel",
+    flowPieces: "Pièces",
     flowCases: "Études",
     flowSound: "Son",
     soundOn: "Activer le son",
@@ -248,6 +250,7 @@ const en: Translations = {
     seeLess: "See less",
     backToTop: "Back to top",
     flowVisual: "Visual",
+    flowPieces: "Pieces",
     flowCases: "Studies",
     flowSound: "Sound",
     soundOn: "Unmute",

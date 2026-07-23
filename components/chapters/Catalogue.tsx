@@ -2,18 +2,21 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useAudio } from "@/lib/audio/AudioProvider";
 import { useElementWidth } from "@/lib/hooks/useElementWidth";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealText } from "@/components/ui/RevealText";
+import { RichText } from "@/components/ui/RichText";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
 import { pieces } from "@/data/pieces";
+import { caseStudies } from "@/data/caseStudies";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
-import { CaseIndex } from "@/components/repertoire/CaseIndex";
-import type { Piece } from "@/lib/content/types";
+import { CaseList } from "@/components/repertoire/CaseIndex";
+import type { CaseStudy, Piece, ProjectMedia } from "@/lib/content/types";
 
 // The dedicated hero video that opens the Répertoire full screen (cut for
 // this page). It lives only in the hero, never inline in a sheet.
@@ -38,6 +41,9 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
   const expand = useCallback((m: LightboxMedia) => setExpanded(m), []);
   const collapse = useCallback(() => setExpanded(null), []);
+
+  const featured = useMemo(() => caseStudies.filter((c) => c.featured), []);
+  const others = useMemo(() => caseStudies.filter((c) => !c.featured), []);
 
   return (
     <section
@@ -67,30 +73,42 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
       <FlowAnchor />
 
-      <div id="visuel" className="mx-auto max-w-[2100px] scroll-mt-28">
-        {/* The gallery: standalone pieces — a curated selection, then the rest
-            behind a "see more". The deep projects live in Études, not here. */}
-        <div className="mt-8">
-          {pieces.length > 0 && (
-            <Reveal>
-              <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
-                <h3
-                  className="font-display text-ink uppercase"
-                  style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
-                >
-                  {w.pieces}
-                </h3>
-                <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
-              </header>
-              <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} onExpand={expand} />
-            </Reveal>
-          )}
-        </div>
+      {/* Études de cas — the wow: featured projects lead with their full visuals
+          and key figures inline, then the rest as a compact index. */}
+      <div id="cas" className="mx-auto mt-8 max-w-[2100px] scroll-mt-28">
+        <Reveal as="div">
+          <header className="mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
+            <h2
+              className="font-display text-ink uppercase"
+              style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+            >
+              {w.casesTitle}
+            </h2>
+            <p className="text-faint max-w-sm text-[0.8rem] leading-relaxed">{w.casesIntro}</p>
+          </header>
+        </Reveal>
+        {featured.map((c, i) => (
+          <FeaturedCase key={c.slug} study={c} index={i} onExpand={expand} />
+        ))}
+        <CaseList cases={others} startNumber={featured.length} />
       </div>
 
-      {/* The études — projects told, not just shown */}
-      <div className="mx-auto max-w-5xl">
-        <CaseIndex />
+      {/* Pièces détachées — a wide selection, the rest behind "see more" */}
+      <div id="visuel" className="mx-auto mt-20 max-w-[2100px] scroll-mt-28">
+        {pieces.length > 0 && (
+          <Reveal>
+            <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
+              <h2
+                className="font-display text-ink uppercase"
+                style={{ fontSize: "clamp(1.5rem,3.2vw,2.6rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+              >
+                {w.pieces}
+              </h2>
+              <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
+            </header>
+            <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} onExpand={expand} />
+          </Reveal>
+        )}
       </div>
 
       {/* The closing movement */}
@@ -98,6 +116,141 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
       <Lightbox media={expanded} onClose={collapse} />
     </section>
+  );
+}
+
+/* ── Featured case: the visual content as a contact sheet, key figures below ── */
+
+function MediaGrid({
+  media,
+  keyPrefix,
+  title,
+  onExpand,
+}: {
+  media: ProjectMedia[];
+  keyPrefix: string;
+  title: string;
+  onExpand: (m: LightboxMedia) => void;
+}) {
+  const [ref, width] = useElementWidth<HTMLDivElement>();
+  const [videoAr, setVideoAr] = useState<Record<string, number>>({});
+
+  const GAP = 6;
+  const targetH = width < 640 ? 240 : width < 1024 ? 360 : width < 1600 ? 480 : 560;
+  const HERO = 1.42; // the opening media runs taller — the block's accroche
+
+  const rows = useMemo(() => {
+    const arOf = (m: ProjectMedia) =>
+      m.type === "video" ? (videoAr[m.src] ?? 0.5625) : (m.w ?? 4) / (m.h ?? 5);
+    const featureOf = (m: ProjectMedia) => (m === media[0] ? HERO : 1);
+    return justifyRows(media, width, GAP, targetH, arOf, featureOf);
+  }, [media, width, targetH, videoAr]);
+
+  return (
+    <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
+      {rows.map((row, ri) => (
+        <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
+          {row.items.map(({ it: m, w }) =>
+            m.type === "video" ? (
+              <div key={m.src} className="bg-paper-2 relative shrink-0 overflow-hidden" style={{ width: w, height: row.h }}>
+                <VideoTile
+                  id={`${keyPrefix}:${m.src}`}
+                  src={m.src}
+                  title={title}
+                  onMeta={(ar) => setVideoAr((prev) => (prev[m.src] === ar ? prev : { ...prev, [m.src]: ar }))}
+                  onExpand={() => onExpand({ src: m.src, type: "video", alt: title, ar: videoAr[m.src] ?? 0.5625 })}
+                />
+              </div>
+            ) : (
+              <button
+                key={m.src}
+                type="button"
+                onClick={() => onExpand({ src: m.src, alt: title, ar: (m.w ?? 4) / (m.h ?? 5) })}
+                aria-label={title}
+                className="group bg-paper-2 relative shrink-0 overflow-hidden"
+                style={{ width: w, height: row.h }}
+              >
+                <Image
+                  src={m.src}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 640px) 70vw, (max-width: 1024px) 45vw, (max-width: 1600px) 40vw, 640px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </button>
+            ),
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: number; onExpand: (m: LightboxMedia) => void }) {
+  const { t, locale } = useLanguage();
+  const w = t.work;
+  const media: ProjectMedia[] = [
+    ...(study.cover ? [{ src: study.cover, type: study.coverType, w: study.coverW, h: study.coverH }] : []),
+    ...(study.media ?? []),
+  ];
+  const meta = [study.role[locale], study.year].filter(Boolean) as string[];
+
+  return (
+    <Reveal as="div">
+      <article className="border-line border-t py-10 first:border-t-0 sm:py-12">
+        <header className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-1 px-1 sm:px-2">
+          <span className="mono text-faint text-sm" aria-hidden>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3
+            className="font-display text-ink"
+            style={{ fontSize: "clamp(1.6rem,3.4vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+          >
+            {study.title[locale]}
+          </h3>
+          <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">
+            {meta.map((m, i) => (
+              <span key={i} className="whitespace-nowrap">
+                {i > 0 ? ` · ${m}` : m}
+              </span>
+            ))}
+          </p>
+        </header>
+
+        <MediaGrid media={media} keyPrefix={study.slug} title={study.title[locale]} onExpand={onExpand} />
+
+        {/* Below the content: the line + key figures, and the way into the full study */}
+        <div className="mt-6 grid gap-6 px-1 sm:px-2 md:grid-cols-[1fr_auto] md:items-end">
+          <div className="max-w-2xl">
+            <p
+              className="font-display text-ink text-balance"
+              style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}
+            >
+              <RichText text={study.result[locale]} strongClass="font-bold" />
+            </p>
+            {study.metrics && study.metrics.length > 0 && (
+              <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4">
+                {study.metrics.map((mt, i) => (
+                  <div key={i}>
+                    <dt className="font-display text-ink text-2xl sm:text-3xl" style={{ fontWeight: 800, letterSpacing: "-0.02em" }}>
+                      {mt.value}
+                    </dt>
+                    <dd className="text-faint mt-0.5 text-[0.65rem] font-medium uppercase tracking-[0.14em]">{mt.label[locale]}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </div>
+          <Link
+            href={`/repertoire/${study.slug}`}
+            className="group text-ink inline-flex items-center gap-2 self-start text-sm font-medium transition-colors md:self-end"
+          >
+            {w.caseRead}
+            <span aria-hidden className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </Link>
+        </div>
+      </article>
+    </Reveal>
   );
 }
 
@@ -197,8 +350,8 @@ function FlowAnchor() {
     }`;
 
   const tabs: { id: string; label: string }[] = [
-    { id: "visuel", label: t.work.flowVisual },
     { id: "cas", label: t.work.flowCases },
+    { id: "visuel", label: t.work.flowPieces },
     { id: "son", label: t.work.flowSound },
   ];
 
@@ -518,7 +671,7 @@ function PieceFigure({
  * un-muted; a missing visual becomes a quiet placeholder.
  */
 // How many packed units show on arrival; the rest sit behind "see more".
-const PIECES_VISIBLE = 5;
+const PIECES_VISIBLE = 7;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const { t } = useLanguage();

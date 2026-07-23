@@ -97,6 +97,9 @@ export interface CaseStudy {
   client?: string;
   year: string;
   role: Localized;
+  /** Featured cases lead the Répertoire as rich blocks (visuals + key figures
+   *  inline); the rest show as compact index rows. */
+  featured?: boolean;
   /** One-line proof shown in the index — the accroche. */
   result: Localized;
   /** Cover for the index thumbnail and page hero. Omit → typographic hero. */

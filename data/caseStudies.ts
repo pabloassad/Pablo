@@ -1,17 +1,20 @@
 import type { CaseStudy } from "@/lib/content/types";
 
 /**
- * The case studies — projects told, not just shown. Order = the "Études" index
- * order (most telling first). Copy stays essential: short sentences, the words
- * that matter in **bold**. No filler.
+ * The case studies — projects told, not just shown. `featured` cases (with rich
+ * media) lead the Répertoire as full visual blocks with their key figures
+ * inline; the rest show as compact index rows. Order here drives both the page
+ * order and prev/next. Copy stays essential: short sentences, the words that
+ * matter in **bold**. No filler.
  */
 
 export const caseStudies: CaseStudy[] = [
-  // ── 01 · Le Cercle ────────────────────────────────────────────────────────
+  // ── 01 · Le Cercle (featured) ─────────────────────────────────────────────
   {
     slug: "le-cercle",
     title: { fr: "Le Cercle", en: "Le Cercle" },
     year: "2024-2026",
+    featured: true,
     role: {
       fr: "Fondateur · Direction artistique et coordination",
       en: "Founder · Art direction and coordination",
@@ -50,44 +53,13 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 
-  // ── 02 · Riva Agency ──────────────────────────────────────────────────────
-  {
-    slug: "riva-agency",
-    title: { fr: "Riva Agency", en: "Riva Agency" },
-    year: "2025",
-    role: {
-      fr: "Cofondateur · Production et développement",
-      en: "Co-founder · Production and development",
-    },
-    result: {
-      fr: "Agence événementielle B2B : **20+ événements**, **5 marques**, **70 collaborateurs** en un an.",
-      en: "A B2B events agency: **20+ events**, **5 brands**, **70 collaborators** in a year.",
-    },
-    context: {
-      fr: "**Cofondateur** d'une agence événementielle **B2B** : on crée des marques d'événement, on produit et on vend des services de production.",
-      en: "**Co-founder** of a **B2B** events agency: we create event brands, produce and sell production services.",
-    },
-    challenge: {
-      fr: "La **satisfaction** des clients et la **sécurité financière** d'une structure jeune.",
-      en: "Client **satisfaction** and the **financial security** of a young structure.",
-    },
-    decisions: [
-      { fr: "**Produire nos propres événements** pour bâtir notre crédibilité avant de la vendre.", en: "**Produce our own events** to build credibility before selling it." },
-      { fr: "**Documenter chaque événement** sur les réseaux : prouver et entretenir le réseau.", en: "**Document every event** on social: prove it, keep the network warm." },
-    ],
-    metrics: [
-      { value: "20+", label: { fr: "événements", en: "events" } },
-      { value: "5", label: { fr: "marques", en: "brands" } },
-      { value: "70+", label: { fr: "collaborateurs", en: "collaborators" } },
-    ],
-  },
-
-  // ── 03 · Adonis ───────────────────────────────────────────────────────────
+  // ── 02 · Adonis (featured) ────────────────────────────────────────────────
   {
     slug: "adonis",
     title: { fr: "Adonis", en: "Adonis" },
     client: "Adonis",
     year: "2026",
+    featured: true,
     role: {
       fr: "Accompagnement stratégique · Direction artistique",
       en: "Strategic support · Art direction",
@@ -123,6 +95,38 @@ export const caseStudies: CaseStudy[] = [
     ],
   },
 
+  // ── 03 · Riva Agency ──────────────────────────────────────────────────────
+  {
+    slug: "riva-agency",
+    title: { fr: "Riva Agency", en: "Riva Agency" },
+    year: "2025",
+    role: {
+      fr: "Cofondateur · Production et développement",
+      en: "Co-founder · Production and development",
+    },
+    result: {
+      fr: "Agence événementielle B2B : **20+ événements**, **5 marques**, **70 collaborateurs** en un an.",
+      en: "A B2B events agency: **20+ events**, **5 brands**, **70 collaborators** in a year.",
+    },
+    context: {
+      fr: "**Cofondateur** d'une agence événementielle **B2B** : on crée des marques d'événement, on produit et on vend des services de production.",
+      en: "**Co-founder** of a **B2B** events agency: we create event brands, produce and sell production services.",
+    },
+    challenge: {
+      fr: "La **satisfaction** des clients et la **sécurité financière** d'une structure jeune.",
+      en: "Client **satisfaction** and the **financial security** of a young structure.",
+    },
+    decisions: [
+      { fr: "**Produire nos propres événements** pour bâtir notre crédibilité avant de la vendre.", en: "**Produce our own events** to build credibility before selling it." },
+      { fr: "**Documenter chaque événement** sur les réseaux : prouver et entretenir le réseau.", en: "**Document every event** on social: prove it, keep the network warm." },
+    ],
+    metrics: [
+      { value: "20+", label: { fr: "événements", en: "events" } },
+      { value: "5", label: { fr: "marques", en: "brands" } },
+      { value: "70+", label: { fr: "collaborateurs", en: "collaborators" } },
+    ],
+  },
+
   // ── 04 · Versatile ────────────────────────────────────────────────────────
   {
     slug: "versatile",
@@ -154,7 +158,7 @@ export const caseStudies: CaseStudy[] = [
     metrics: [{ value: "19/20", label: { fr: "note", en: "grade" } }],
   },
 
-  // ── 05 · Teisserre ────────────────────────────────────────────────────────
+  // ── 05 · Teisseire ────────────────────────────────────────────────────────
   {
     slug: "teisseire",
     title: { fr: "Teisseire", en: "Teisseire" },
