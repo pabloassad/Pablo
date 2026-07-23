@@ -221,7 +221,7 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
           </span>
           <h3
             className="font-display text-ink"
-            style={{ fontSize: "clamp(1.6rem,3.4vw,2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
+            style={{ fontSize: "clamp(1.5rem,3vw,2.4rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1 }}
           >
             {study.title[locale]}
           </h3>
@@ -238,12 +238,14 @@ function FeaturedCase({ study, index, onExpand }: { study: CaseStudy; index: num
 
         {/* Below the content: the line + key figures, and the way into the full study */}
         <div className="mt-6 grid gap-6 px-1 sm:px-2 md:grid-cols-[1fr_auto] md:items-end">
-          <div className="max-w-2xl">
+          <div className="max-w-3xl">
+            {/* Lead: quiet by default so the bold facts carry the line and it
+                sits a clear notch under the title (rarely wraps on desktop). */}
             <p
-              className="font-display text-ink text-balance"
-              style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}
+              className="font-display text-mute text-balance text-xl sm:text-2xl"
+              style={{ lineHeight: 1.2, fontWeight: 400, letterSpacing: "-0.01em" }}
             >
-              <RichText text={study.result[locale]} strongClass="font-bold" />
+              <RichText text={study.result[locale]} strongClass="text-ink font-bold" />
             </p>
             {study.metrics && study.metrics.length > 0 && (
               <dl className="mt-6 flex flex-wrap gap-x-10 gap-y-4">

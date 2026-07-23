@@ -146,8 +146,8 @@ export function CaseStudyView({
             </span>
           ))}
         </div>
-        <p className="font-display text-ink mt-8 max-w-2xl text-balance" style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}>
-          <RichText text={study.result[locale]} strongClass="font-bold" />
+        <p className="font-display text-mute mt-8 max-w-3xl text-balance" style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 400, letterSpacing: "-0.02em" }}>
+          <RichText text={study.result[locale]} strongClass="text-ink font-bold" />
         </p>
       </div>
 
@@ -156,19 +156,19 @@ export function CaseStudyView({
       {/* Story */}
       <div className="mx-auto mt-12 max-w-5xl sm:mt-16">
         <Block index="01" label={w.caseContext}>
-          <p className="text-mute text-lg leading-relaxed text-pretty">
+          <p className="text-mute text-lg font-light leading-relaxed text-pretty">
             <RichText text={study.context[locale]} />
           </p>
         </Block>
         <Block index="02" label={w.caseChallenge}>
-          <p className="text-mute text-lg leading-relaxed text-pretty">
+          <p className="text-mute text-lg font-light leading-relaxed text-pretty">
             <RichText text={study.challenge[locale]} />
           </p>
         </Block>
         <Block index="03" label={w.caseDecisions}>
           <ul className="space-y-4">
             {study.decisions.map((d, i) => (
-              <li key={i} className="text-mute flex gap-3 text-lg leading-relaxed text-pretty">
+              <li key={i} className="text-mute flex gap-3 text-lg font-light leading-relaxed text-pretty">
                 <span className="mono text-faint mt-1 shrink-0 text-xs" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
                 <span><RichText text={d[locale]} /></span>
               </li>
