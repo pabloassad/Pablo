@@ -35,9 +35,21 @@ export interface Translations {
     piecesNote: string;
     backToTop: string;
     flowVisual: string;
+    flowCases: string;
     flowSound: string;
     soundOn: string;
     soundOff: string;
+    casesTitle: string;
+    casesIntro: string;
+    caseContext: string;
+    caseChallenge: string;
+    caseDecisions: string;
+    caseResult: string;
+    caseRead: string;
+    caseBack: string;
+    caseNext: string;
+    casePrev: string;
+    caseCta: string;
   };
   sound: {
     label: string;
@@ -122,9 +134,21 @@ const fr: Translations = {
     piecesNote: "Projets indépendants",
     backToTop: "Retour en haut",
     flowVisual: "Visuel",
+    flowCases: "Études",
     flowSound: "Son",
     soundOn: "Activer le son",
     soundOff: "Couper le son",
+    casesTitle: "Études de cas",
+    casesIntro: "Quelques projets racontés : le rôle, le contexte, les décisions, le résultat.",
+    caseContext: "Contexte",
+    caseChallenge: "Enjeu",
+    caseDecisions: "Décisions",
+    caseResult: "Résultat",
+    caseRead: "Lire l'étude",
+    caseBack: "Toutes les études",
+    caseNext: "Suivante",
+    casePrev: "Précédente",
+    caseCta: "Travailler ensemble",
   },
   sound: {
     label: "Son",
@@ -218,9 +242,21 @@ const en: Translations = {
     piecesNote: "Standalone projects",
     backToTop: "Back to top",
     flowVisual: "Visual",
+    flowCases: "Studies",
     flowSound: "Sound",
     soundOn: "Unmute",
     soundOff: "Mute",
+    casesTitle: "Case studies",
+    casesIntro: "A few projects told: the role, the context, the decisions, the outcome.",
+    caseContext: "Context",
+    caseChallenge: "Challenge",
+    caseDecisions: "Decisions",
+    caseResult: "Outcome",
+    caseRead: "Read the study",
+    caseBack: "All studies",
+    caseNext: "Next",
+    casePrev: "Previous",
+    caseCta: "Let's work together",
   },
   sound: {
     label: "Sound",

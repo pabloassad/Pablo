@@ -13,6 +13,7 @@ import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
 import { projects, categoryLabels } from "@/data/projects";
 import { pieces } from "@/data/pieces";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
+import { CaseIndex } from "@/components/repertoire/CaseIndex";
 import type { Project, ProjectMedia, Piece } from "@/lib/content/types";
 
 // The dedicated hero video that opens the Répertoire full screen (cut for
@@ -94,6 +95,11 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
         </div>
       </div>
 
+      {/* The études — projects told, not just shown */}
+      <div className="mx-auto max-w-5xl">
+        <CaseIndex />
+      </div>
+
       {/* The closing movement */}
       <SoundLibrary />
 
@@ -156,12 +162,12 @@ function RepertoireHero() {
   );
 }
 
-/* ── Minimal navigation: Visuel · Son ─────────────────────────────────── */
+/* ── Minimal navigation: Visuel · Études · Son ────────────────────────── */
 
 function FlowAnchor() {
   const { t } = useLanguage();
   const reduced = useReducedMotion();
-  const [onSound, setOnSound] = useState(false);
+  const [active, setActive] = useState("visuel");
   // Hidden at the very top — the header should breathe on arrival; the anchor
   // materialises once exploration begins (reduced-motion: shown from the start).
   const [revealed, setRevealed] = useState(false);
@@ -175,13 +181,14 @@ function FlowAnchor() {
   }, [reduced]);
 
   useEffect(() => {
-    const el = document.getElementById("son");
-    if (!el) return;
+    const ids = ["visuel", "cas", "son"];
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as Element[];
+    if (!els.length) return;
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setOnSound(e.isIntersecting)),
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
       { rootMargin: "-45% 0px -45% 0px" },
     );
-    io.observe(el);
+    els.forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
 
@@ -191,10 +198,16 @@ function FlowAnchor() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const item = (active: boolean) =>
+  const item = (on: boolean) =>
     `relative px-1 py-0.5 text-[0.7rem] font-medium uppercase tracking-[0.18em] transition-colors ${
-      active ? "text-ink" : "text-faint hover:text-mute"
+      on ? "text-ink" : "text-faint hover:text-mute"
     }`;
+
+  const tabs: { id: string; label: string }[] = [
+    { id: "visuel", label: t.work.flowVisual },
+    { id: "cas", label: t.work.flowCases },
+    { id: "son", label: t.work.flowSound },
+  ];
 
   return (
     <div
@@ -210,13 +223,14 @@ function FlowAnchor() {
           revealed ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
-        <a href="#visuel" onClick={go("visuel")} className={item(!onSound)} tabIndex={revealed ? 0 : -1}>
-          {t.work.flowVisual}
-        </a>
-        <span className="bg-line h-3 w-px" aria-hidden />
-        <a href="#son" onClick={go("son")} className={item(onSound)} tabIndex={revealed ? 0 : -1}>
-          {t.work.flowSound}
-        </a>
+        {tabs.map((tab, i) => (
+          <div key={tab.id} className="flex items-center gap-4">
+            {i > 0 && <span className="bg-line h-3 w-px" aria-hidden />}
+            <a href={`#${tab.id}`} onClick={go(tab.id)} className={item(active === tab.id)} tabIndex={revealed ? 0 : -1}>
+              {tab.label}
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );

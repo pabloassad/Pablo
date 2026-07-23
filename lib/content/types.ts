@@ -86,6 +86,32 @@ export interface Piece {
   feature?: number;
 }
 
+/**
+ * A case study — a project told, not just shown: role, context, the real
+ * challenge, the decisions taken and the outcome. Rendered both as a line in
+ * the "Études" index and as a dedicated, shareable page /repertoire/[slug].
+ */
+export interface CaseStudy {
+  slug: string;
+  title: Localized;
+  client?: string;
+  year: string;
+  role: Localized;
+  /** One-line proof shown in the index — the accroche. */
+  result: Localized;
+  /** Cover for the index thumbnail and page hero. Omit → typographic hero. */
+  cover?: string;
+  coverType?: "image" | "video";
+  coverW?: number;
+  coverH?: number;
+  context: Localized;
+  challenge: Localized;
+  decisions: Localized[];
+  metrics?: ProjectMetric[];
+  /** Extra media shown on the case page (beyond the cover). */
+  media?: ProjectMedia[];
+}
+
 export type TrackKind = "commande" | "jingle" | "reportage" | "perso";
 
 /** One track of the sound library. */
