@@ -29,9 +29,11 @@ export default function RepertoirePage() {
     <>
       {/* The whole top zone shares the section ground (paper-2), so nothing
           draws a floating edge under the transparent nav at scroll 0. The
-          header line then appears with the navbar's own scrolled state. */}
+          spacer matches the transparent nav's full height (mobile 69px, desktop
+          77px) so the dark hero starts exactly at its bottom and the nav items
+          read as vertically centred on the light bar, not sunk toward it. */}
       <div className="bg-paper-2">
-        <div className="pt-14 sm:pt-16" aria-hidden />
+        <div className="pt-[4.4rem] sm:pt-20" aria-hidden />
         <Catalogue standalone />
       </div>
     </>

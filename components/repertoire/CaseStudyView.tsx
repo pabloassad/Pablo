@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
+import { RichText } from "@/components/ui/RichText";
 import type { CaseStudy, Localized, ProjectMedia } from "@/lib/content/types";
 
 const posterFor = (src: string) => src.replace(/\.mp4$/, "-poster.webp");
@@ -146,7 +147,7 @@ export function CaseStudyView({
           ))}
         </div>
         <p className="font-display text-ink mt-8 max-w-2xl text-balance" style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}>
-          {study.result[locale]}
+          <RichText text={study.result[locale]} strongClass="font-bold" />
         </p>
       </div>
 
@@ -155,17 +156,21 @@ export function CaseStudyView({
       {/* Story */}
       <div className="mx-auto mt-12 max-w-5xl sm:mt-16">
         <Block index="01" label={w.caseContext}>
-          <p className="text-mute text-lg leading-relaxed text-pretty">{study.context[locale]}</p>
+          <p className="text-mute text-lg leading-relaxed text-pretty">
+            <RichText text={study.context[locale]} />
+          </p>
         </Block>
         <Block index="02" label={w.caseChallenge}>
-          <p className="text-mute text-lg leading-relaxed text-pretty">{study.challenge[locale]}</p>
+          <p className="text-mute text-lg leading-relaxed text-pretty">
+            <RichText text={study.challenge[locale]} />
+          </p>
         </Block>
         <Block index="03" label={w.caseDecisions}>
           <ul className="space-y-4">
             {study.decisions.map((d, i) => (
-              <li key={i} className="text-ink flex gap-3 text-lg leading-relaxed text-pretty">
+              <li key={i} className="text-mute flex gap-3 text-lg leading-relaxed text-pretty">
                 <span className="mono text-faint mt-1 shrink-0 text-xs" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
-                <span>{d[locale]}</span>
+                <span><RichText text={d[locale]} /></span>
               </li>
             ))}
           </ul>

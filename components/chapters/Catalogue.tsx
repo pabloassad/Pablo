@@ -211,7 +211,7 @@ function FlowAnchor() {
 
   return (
     <div
-      className="pointer-events-none sticky top-14 z-30 -mx-3 my-4 flex justify-center transition-[opacity,transform] duration-500 ease-out sm:top-16 sm:-mx-6 lg:-mx-8"
+      className="pointer-events-none sticky top-[4.75rem] z-30 -mx-3 my-6 flex justify-center transition-[opacity,transform] duration-500 ease-out sm:top-20 sm:-mx-6 lg:-mx-8"
       style={{
         opacity: revealed ? 1 : 0,
         transform: revealed ? "translateY(0)" : "translateY(-8px)",

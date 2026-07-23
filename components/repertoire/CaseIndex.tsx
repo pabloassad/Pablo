@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
+import { RichText } from "@/components/ui/RichText";
 import { caseStudies } from "@/data/caseStudies";
 import type { CaseStudy } from "@/lib/content/types";
 
@@ -78,7 +79,9 @@ export function CaseIndex() {
                       {study.year}
                     </span>
                   </div>
-                  <p className="text-mute mt-1 text-sm leading-snug text-pretty">{study.result[locale]}</p>
+                  <p className="text-mute mt-1 text-sm leading-snug text-pretty">
+                    <RichText text={study.result[locale]} />
+                  </p>
                 </div>
                 <span
                   aria-hidden
