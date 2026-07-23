@@ -141,8 +141,8 @@ export const caseStudies: CaseStudy[] = [
     coverW: 720,
     coverH: 1280,
     context: {
-      fr: "Exercice de licence : **stratégie et création** d'un parfum de niche. Des **notes de champagne** pour les fêtes, « **À ta senteur** ».",
-      en: "A bachelor brief: **strategy and creative** for a niche perfume. **Champagne notes** for the holidays, « **À ta senteur** ».",
+      fr: "Exercice de licence : **stratégie et création** d'un parfum de niche. Des **notes de champagne** pour les fêtes, « **À ta sentez** ».",
+      en: "A bachelor brief: **strategy and creative** for a niche perfume. **Champagne notes** for the holidays, « **À ta sentez** ».",
     },
     challenge: {
       fr: "Convaincre par la **pertinence stratégique** et l'exécution.",

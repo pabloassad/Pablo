@@ -43,13 +43,14 @@ export function RevealText({
 
   if (reduced) {
     return (
-      <Tag className={className} style={style}>
+      <Tag className={className} style={{ ...style, whiteSpace: text.includes("\n") ? "pre-line" : undefined }}>
         {text}
       </Tag>
     );
   }
 
-  const words = text.split(" ");
+  // A literal "\n" in the text forces a line break between words.
+  const words = text.replace(/\n/g, " \n ").split(" ").filter(Boolean);
 
   return (
     // key={text}: a language switch swaps the words; without a remount the new
@@ -65,21 +66,25 @@ export function RevealText({
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -12% 0px" }}
     >
-      {words.map((w, i) => (
-        <span
-          key={`${w}-${i}`}
-          className="inline-block overflow-hidden align-top"
-          style={{
-            paddingBottom: "0.14em",
-            marginBottom: "-0.14em",
-            marginRight: i < words.length - 1 ? "0.27em" : undefined,
-          }}
-        >
-          <motion.span className="inline-block will-change-transform" variants={word}>
-            {w}
-          </motion.span>
-        </span>
-      ))}
+      {words.map((w, i) =>
+        w === "\n" ? (
+          <span key={`br-${i}`} className="block w-full" aria-hidden />
+        ) : (
+          <span
+            key={`${w}-${i}`}
+            className="inline-block overflow-hidden align-top"
+            style={{
+              paddingBottom: "0.14em",
+              marginBottom: "-0.14em",
+              marginRight: i < words.length - 1 ? "0.27em" : undefined,
+            }}
+          >
+            <motion.span className="inline-block will-change-transform" variants={word}>
+              {w}
+            </motion.span>
+          </span>
+        ),
+      )}
     </Tag>
   );
 }

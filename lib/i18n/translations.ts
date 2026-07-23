@@ -172,7 +172,7 @@ const fr: Translations = {
   },
   craft: {
     label: "Création",
-    title: "Être du côté des gens, c'est être du côté des marques.",
+    title: "Être du côté des gens,\nc'est être du côté des marques.",
     body: [],
     aside: "Pablo Assad",
   },
@@ -280,7 +280,7 @@ const en: Translations = {
   },
   craft: {
     label: "Craft",
-    title: "To stand with people is to stand with brands.",
+    title: "To stand with people\nis to stand with brands.",
     body: [],
     aside: "Pablo Assad",
   },
