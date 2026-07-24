@@ -6,17 +6,16 @@ import { useEffect, useState } from "react";
 const SESSION_KEY = "pa_intro_seen";
 
 /**
- * Cinematic title card. On the first visit of a session it briefly holds the
- * name over a dark ground, then lifts away like a curtain to reveal the page.
- * Shown once per session (sessionStorage) and skipped entirely for
- * reduced-motion users.
+ * Cinematic title card. On the first visit of a session it holds the name over
+ * a dark ground, then lifts away like a curtain to reveal the page. Shown once
+ * per session (sessionStorage) on every device — reduced-motion visitors get
+ * the same card, just without the vertical drift.
  */
 export function Intro() {
   const reduced = useReducedMotion();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (reduced) return;
     try {
       if (sessionStorage.getItem(SESSION_KEY)) return;
     } catch {
@@ -28,12 +27,12 @@ export function Intro() {
     setShow(true);
     const root = document.documentElement;
     root.style.overflow = "hidden";
-    // Kept short so the hero (the LCP element) is uncovered quickly on a real
-    // first visit; the card then dissolves uniformly rather than sliding the
-    // top-placed portrait off last.
-    const timer = setTimeout(() => setShow(false), 500);
+    // Long enough to actually register as a title card on fast devices (the
+    // 500ms version read as a flicker, or absent), short enough to uncover the
+    // hero (the LCP element) quickly. The card then dissolves uniformly.
+    const timer = setTimeout(() => setShow(false), 900);
     return () => clearTimeout(timer);
-  }, [reduced]);
+  }, []);
 
   const handleSettled = () => {
     try {
@@ -57,9 +56,9 @@ export function Intro() {
         >
           <motion.div
             className="text-center"
-            initial={{ opacity: 0, y: 14 }}
+            initial={{ opacity: 0, y: reduced ? 0 : 14 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: reduced ? 0 : -10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="kicker text-paper/55">Portfolio</span>

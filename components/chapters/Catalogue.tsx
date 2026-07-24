@@ -325,7 +325,7 @@ function RepertoireHero() {
           ready ? "" : reduced ? "h-[56svh]" : "h-[calc(100svh-3.75rem)]"
         }`}
       >
-        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" silent eager />
+        <VideoTile id="hero:repertoire" src={HERO_SRC} title="Adonis" silent />
         <motion.div
           style={ready ? { opacity: fade } : undefined}
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-ink/55 to-transparent px-4 pt-24 pb-6 sm:px-8 sm:pb-8"
@@ -508,6 +508,9 @@ function VideoTile({
   // pulling every clip at once (was 32 mp4 / 302 MB on one mobile load).
   const [mounted, setMounted] = useState(eager);
   const [visible, setVisible] = useState(false);
+  // The video fades in only once it is actually rendering frames, over the
+  // poster — no black flash / flicker while it buffers.
+  const [videoReady, setVideoReady] = useState(false);
   const sounding = soundingVideo === id;
   const poster = posterFor(src);
 
@@ -545,6 +548,10 @@ function VideoTile({
     const v = ref.current;
     if (!v) return;
     if ((visible && !reduced) || sounding) {
+      // Set muted on the element BEFORE play(): React's `muted` attribute is
+      // not reliably applied, and an unmuted autoplay is blocked on many
+      // browsers (the tile would freeze on its poster). This is the fix.
+      v.muted = !sounding;
       if (visible && !wasVisible.current && !sounding) {
         try {
           v.currentTime = 0;
@@ -595,7 +602,9 @@ function VideoTile({
             const v = e.currentTarget;
             if (v.videoWidth && v.videoHeight) onMeta?.(v.videoWidth / v.videoHeight);
           }}
-          className="absolute inset-0 h-full w-full scale-[1.004] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          onPlaying={() => setVideoReady(true)}
+          style={{ opacity: videoReady ? 1 : 0 }}
+          className="absolute inset-0 h-full w-full scale-[1.004] object-cover transition-[transform,opacity] duration-700 ease-out group-hover:scale-[1.03]"
         />
       )}
       {onExpand && (
