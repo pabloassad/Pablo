@@ -96,7 +96,16 @@ export function Hero() {
                 transition={{ duration: 1, delay: 0.3 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
                 className={letter === "A" ? "mr-[0.06em]" : undefined}
               >
-                {letter === "A" ? <BarlessA /> : letter}
+                {letter === "A" ? (
+                  <>
+                    <BarlessA />
+                    {/* Keep the real letter in the text layer so the name reads
+                        "PABLITO" to search engines and on copy/paste. */}
+                    <span className="sr-only">A</span>
+                  </>
+                ) : (
+                  letter
+                )}
               </motion.span>
             ))}
           </h1>
@@ -122,7 +131,7 @@ export function Hero() {
           <button
             type="button"
             onClick={() => playTrack(playerQueue[0].id)}
-            className="group inline-flex items-center gap-3 rounded-full bg-foreground py-3 pl-4 pr-6 text-sm tracking-wide text-background transition-all duration-300 hover:bg-accent hover:shadow-[0_0_36px_rgba(216,200,168,0.4)]"
+            className="group inline-flex items-center gap-3 rounded-full bg-foreground py-3 pl-4 pr-6 text-sm tracking-wide text-background transition-all duration-300 hover:bg-accent hover:shadow-glow active:scale-[0.98]"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background/10">
               <PlayIcon className="ml-0.5 h-3.5 w-3.5" />

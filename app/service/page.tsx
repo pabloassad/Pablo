@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { ServicePageContent } from "@/components/service/ServicePageContent";
+import { getServerLocale } from "@/lib/i18n/server";
+import { pageMetadata } from "@/lib/i18n/metadata";
 
-export const metadata: Metadata = {
-  title: "Service",
-  description:
-    "DJ sets for private events and custom music production: weddings, corporate events, live shows and audiovisual projects with Pablito.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata(await getServerLocale(), "service");
+}
 
 export default function ServicePage() {
   return <ServicePageContent />;

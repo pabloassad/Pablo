@@ -46,7 +46,7 @@ export function ListenStrip() {
             type="button"
             onClick={() => playTrack(playerQueue[0].id)}
             aria-label={t.home.heroPlay}
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 hover:scale-105 hover:bg-accent hover:shadow-[0_0_30px_rgba(216,200,168,0.4)]"
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-background transition-all duration-300 hover:scale-105 hover:bg-accent hover:shadow-glow active:scale-95"
           >
             <PlayIcon className="ml-0.5 h-5 w-5" />
           </button>

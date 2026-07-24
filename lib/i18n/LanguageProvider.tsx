@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import { translations, type Locale, type Translations } from "./translations";
 
 interface LanguageContextValue {
@@ -12,26 +12,23 @@ interface LanguageContextValue {
 
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
-const STORAGE_KEY = "pablito-locale";
+const LOCALE_COOKIE = "pablito-locale";
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
-    let initial: Locale = "en";
-    if (stored === "en" || stored === "fr") {
-      initial = stored;
-    } else if (window.navigator.language.toLowerCase().startsWith("fr")) {
-      initial = "fr";
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate locale from client-only storage
-    setLocaleState(initial);
-  }, []);
+export function LanguageProvider({
+  children,
+  initialLocale = "en",
+}: {
+  children: ReactNode;
+  initialLocale?: Locale;
+}) {
+  // Seeded from the server-resolved locale so SSR and first paint already match
+  // the visitor's language — no post-hydration flash, no lang/content mismatch.
+  const [locale, setLocaleState] = useState<Locale>(initialLocale);
 
   const setLocale = (next: Locale) => {
     setLocaleState(next);
-    window.localStorage.setItem(STORAGE_KEY, next);
+    // Persist for the next request so the server renders the same language.
+    document.cookie = `${LOCALE_COOKIE}=${next};path=/;max-age=31536000;samesite=lax`;
     document.documentElement.lang = next;
   };
 

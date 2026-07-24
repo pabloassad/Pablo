@@ -53,7 +53,7 @@ export function CercleBand() {
               <button
                 type="button"
                 onClick={() => playTrack(latestSet.id, { expand: true })}
-                className="group inline-flex items-center gap-3 rounded-full bg-foreground py-3 pl-4 pr-6 text-sm tracking-wide text-background transition-all duration-300 hover:bg-accent hover:shadow-[0_0_36px_rgba(216,200,168,0.4)]"
+                className="group inline-flex items-center gap-3 rounded-full bg-foreground py-3 pl-4 pr-6 text-sm tracking-wide text-background transition-all duration-300 hover:bg-accent hover:shadow-glow active:scale-[0.98]"
               >
                 <span className="flex h-7 w-7 items-center justify-center rounded-full bg-background/10">
                   <PlayIcon className="ml-0.5 h-3.5 w-3.5" />

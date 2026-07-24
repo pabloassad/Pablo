@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { MusicPageContent } from "@/components/music/MusicPageContent";
+import { getServerLocale } from "@/lib/i18n/server";
+import { pageMetadata } from "@/lib/i18n/metadata";
 
-export const metadata: Metadata = {
-  title: "Music",
-  description: "Explore Pablito's productions, mixes and live recordings: a sound gallery across SoundCloud, Spotify and YouTube.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata(await getServerLocale(), "music");
+}
 
 export default function MusicPage() {
   return <MusicPageContent />;

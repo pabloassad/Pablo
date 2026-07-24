@@ -7,6 +7,9 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SocialSidebar } from "@/components/layout/SocialSidebar";
 import { MiniPlayer } from "@/components/player/MiniPlayer";
+import { getServerLocale } from "@/lib/i18n/server";
+import { rootMetadata } from "@/lib/i18n/metadata";
+import { socials, contactEmail } from "@/lib/data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,46 +32,39 @@ const kiona = localFont({
 });
 
 const siteUrl = "https://djpablito.vercel.app";
-const ogImageUrl = `${siteUrl}/images/og-image.jpg`;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: "Pablito",
-    template: "%s · Pablito",
-  },
-  description: "DJ • Producteur • Paris",
-  openGraph: {
-    title: "Pablito",
-    description: "DJ • Producteur • Paris",
-    url: siteUrl,
-    type: "website",
-    images: [
-      {
-        url: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: "Pablito",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pablito",
-    description: "DJ • Producteur • Paris",
-    images: [ogImageUrl],
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  return rootMetadata(await getServerLocale());
+}
+
+// schema.org MusicGroup — lets search engines and rich results tie the name,
+// socials and genre together as a single music act.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  name: "Pablito",
+  url: siteUrl,
+  genre: ["Electronic", "House", "DJ"],
+  email: contactEmail,
+  address: { "@type": "PostalAddress", addressLocality: "Paris", addressCountry: "FR" },
+  sameAs: [socials.spotify, socials.soundcloud, socials.youtube, socials.instagram],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getServerLocale();
+
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable} ${kiona.variable} h-full antialiased`}>
+    <html lang={locale} data-scroll-behavior="smooth" className={`${geistSans.variable} ${geistMono.variable} ${kiona.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <Providers>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Providers initialLocale={locale}>
           <div className="grain" />
           <Header />
           <main className="flex-1">{children}</main>

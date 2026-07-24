@@ -7,8 +7,8 @@ export function Marquee() {
 
   return (
     <div className="border-y border-line bg-background-elevated/40">
-      <div className="relative overflow-hidden py-5">
-        <div className="animate-marquee flex w-max items-center gap-12 whitespace-nowrap pr-12 will-change-transform [backface-visibility:hidden]">
+      <div className="group relative overflow-hidden py-5 [-webkit-mask-image:linear-gradient(to_right,transparent,black_9%,black_91%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_9%,black_91%,transparent)]">
+        <div className="animate-marquee flex w-max items-center gap-12 whitespace-nowrap pr-12 will-change-transform [backface-visibility:hidden] group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]">
           {row.map((club, i) => (
             <a
               key={`${club.name}-${i}`}

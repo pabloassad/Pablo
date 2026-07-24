@@ -26,6 +26,9 @@
   --animate-marquee: marquee 38s linear infinite;
   --animate-glow: glow 6s ease-in-out infinite;
 
+  /* Signature accent glow — one token instead of hand-copied rgba shadows */
+  --shadow-glow: 0 0 36px rgba(216, 200, 168, 0.4);
+
   @keyframes fade-up {
     from {
       opacity: 0;

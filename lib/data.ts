@@ -40,35 +40,33 @@ export const navLinks = [
  * One image per slot: no photo appears twice across the site.
  */
 export const images = {
-  portraitAmber: "/images/pablito-amber.jpg", // crystal tee, warm backdrop — home hero
-  portraitBeige: "/images/pablito-beige.jpg", // beige suit, seated editorial — profile
-  liveClub: "/images/pablito-club.png", // hands up in the booth — cercle case study
-  clubRed: "/images/pablito-red.png", // red light, club energy — BSB League cover
-  clubCrowd: "/images/cover-bsb.png", // black and white crowd, hands up — duo club
-  cercleRoom: "/images/cercle-room.png", // full room under the beams — home cercle band
-  liveViolet: "/images/live-violet.png", // violet beams over the floor — available
-  boothSpread: "/images/pablito-booth-spread.png", // white shirt, arms wide at the booth — Saint-Valentin set
-  boothRaised: "/images/pablito-booth-raised.png", // arm raised in blue light at the booth — BSB League set
-  liveChampagne: "/images/live-champagne.png", // champagne pour in the dark — music page
-  crowdBW: "/images/pablito-crowd.png", // black and white crowd, arms raised — projects header
-  crowdEnergy: "/images/cover-club.png", // DJ from behind, crowd lit in pink — clubs module
-  studioSession: "/images/studio-session.jpg", // hands on keyboard, studio — music page header
-  studioComposition: "/images/studio-composition.jpg", // at the DAW, studio — home producer dial
-  pabloCarre: "/images/pablito-portrait-night.png", // close b&w portrait — contact page
-  studioRadio: "/images/cover-radio.jpg", // profile at the DAW — rinse radio cover
-  yardlandCover: "/images/cover-yardland.png", // mic in hand, crowd, black and white — yardland set
-  premiumPortrait: "/images/premium-portrait.jpg", // beige suit, daylight portrait — service header
-  serviceEvents: "/images/service-soiree.png", // beige suit, seated on ottoman — service, private events
-  studioFlStudio: "/images/studio-flstudio.jpg", // at the FL Studio rig — service, compositions
+  portraitAmber: "/images/pablito-amber.webp", // crystal tee, warm backdrop — home hero
+  portraitBeige: "/images/pablito-beige.webp", // beige suit, seated editorial — profile
+  liveClub: "/images/pablito-club.webp", // hands up in the booth — cercle case study
+  clubRed: "/images/pablito-red.webp", // red light, club energy — BSB League cover
+  clubCrowd: "/images/cover-bsb.webp", // black and white crowd, hands up — duo club
+  cercleRoom: "/images/cercle-room.webp", // full room under the beams — home cercle band
+  boothSpread: "/images/pablito-booth-spread.webp", // white shirt, arms wide at the booth — Saint-Valentin set
+  boothRaised: "/images/pablito-booth-raised.webp", // arm raised in blue light at the booth — BSB League set
+  liveChampagne: "/images/live-champagne.webp", // champagne pour in the dark — music page
+  crowdBW: "/images/pablito-crowd.webp", // black and white crowd, arms raised — projects header
+  crowdEnergy: "/images/cover-club.webp", // DJ from behind, crowd lit in pink — clubs module
+  studioSession: "/images/studio-session.webp", // hands on keyboard, studio — music page header
+  studioComposition: "/images/studio-composition.webp", // at the DAW, studio — home producer dial
+  pabloCarre: "/images/pablito-portrait-night.webp", // close b&w portrait — contact page
+  studioRadio: "/images/cover-radio.webp", // profile at the DAW — rinse radio cover
+  yardlandCover: "/images/cover-yardland.webp", // mic in hand, crowd, black and white — yardland set
+  serviceEvents: "/images/service-soiree.webp", // beige suit, seated on ottoman — service, private events
+  studioFlStudio: "/images/studio-flstudio.webp", // at the FL Studio rig — service, compositions
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
 export const cercleGallery = [
-  "/images/cercle-01.jpg",
-  "/images/cercle-02.jpg",
-  "/images/cercle-03.jpg",
-  "/images/cercle-04.jpg",
-  "/images/cercle-05.png",
+  "/images/cercle-01.webp",
+  "/images/cercle-02.webp",
+  "/images/cercle-03.webp",
+  "/images/cercle-04.webp",
+  "/images/cercle-05.webp",
 ];
 
 export type ArtVariant = "amber" | "violet" | "teal" | "rose" | "slate" | "gold";
@@ -123,7 +121,7 @@ export const cercleLiveSets: LiveSet[] = [
     kicker: "Le Cercle",
     name: "Opening Set",
     edition: "06",
-    cover: "/images/cover-opening.png",
+    cover: "/images/cover-opening.webp",
   },
 ];
 
@@ -227,7 +225,7 @@ export const playerQueue: PlayerTrack[] = [
     title: "Le Cercle · Opening Set",
     subtitle: "Live set",
     art: "amber",
-    image: "/images/cover-opening.png",
+    image: "/images/cover-opening.webp",
     source: "youtube",
     videoId: "vxGilpTQv3E",
     startTime: 685,

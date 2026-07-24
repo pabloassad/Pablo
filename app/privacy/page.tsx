@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { getServerLocale } from "@/lib/i18n/server";
+import { pageMetadata } from "@/lib/i18n/metadata";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: "Privacy policy for Pablito",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata(await getServerLocale(), "privacy");
+}
 
 export default function PrivacyPage() {
   return (

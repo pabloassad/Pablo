@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/contact/ContactPageContent";
+import { getServerLocale } from "@/lib/i18n/server";
+import { pageMetadata } from "@/lib/i18n/metadata";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Get in touch with Pablito for bookings, collaborations and press inquiries.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return pageMetadata(await getServerLocale(), "contact");
+}
 
 export default function ContactPage() {
   return <ContactPageContent />;
