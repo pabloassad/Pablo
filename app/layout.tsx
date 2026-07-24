@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "@/components/providers/Providers";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -108,6 +110,10 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </Providers>
+        {/* Privacy-friendly, cookieless — no consent banner needed. Both only
+            emit once deployed on Vercel; no-ops in local dev. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
