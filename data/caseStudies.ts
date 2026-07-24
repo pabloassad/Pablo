@@ -33,7 +33,7 @@ export const caseStudies: CaseStudy[] = [
     },
     challenge: {
       fr: "Proposer du **nouveau** en restant fidèle à la **DA initiale**. Continuité, pas rupture.",
-      en: "Offer something **new** while staying true to the **original art direction**. Continuity, not rupture.",
+      en: "Offer something **new** while staying true to the **original art direction**. Continuity, not a break.",
     },
     decisions: [
       { fr: "Capitaliser sur l'**ADN de la marque** : le lustre, le nom Adonis comme symbole de beauté.", en: "Lean on the **brand's DNA**: the chandelier, the name Adonis as a symbol of beauty." },
@@ -76,11 +76,11 @@ export const caseStudies: CaseStudy[] = [
     },
     challenge: {
       fr: "Garder une **identité reconnaissable** en réinventant le **thème à chaque édition**.",
-      en: "Keep a **recognisable identity** while reinventing the **theme every edition**.",
+      en: "Keep a **recognizable identity** while reinventing the **theme every edition**.",
     },
     decisions: [
       { fr: "Un **thème inédit** à chaque édition.", en: "A **fresh theme** every edition." },
-      { fr: "Une édition **tous les 6 mois** : rester un moment d'exception.", en: "One edition **every 6 months**: stay an exceptional moment." },
+      { fr: "Une édition **tous les 6 mois** : rester un moment d'exception.", en: "One edition **every 6 months**: keep it exceptional." },
       { fr: "Une marque bâtie sur l'idée du **cercle** : on célèbre **ensemble**.", en: "A brand built on the **circle**: we celebrate **together**." },
     ],
     metrics: [
@@ -127,7 +127,7 @@ export const caseStudies: CaseStudy[] = [
     },
     challenge: {
       fr: "La **satisfaction** des clients et la **sécurité financière** d'une structure jeune.",
-      en: "Client **satisfaction** and the **financial security** of a young structure.",
+      en: "Client **satisfaction** and the **financial security** of a young company.",
     },
     decisions: [
       { fr: "**Produire nos propres événements** pour bâtir notre crédibilité avant de la vendre.", en: "**Produce our own events** to build credibility before selling it." },
@@ -160,7 +160,7 @@ export const caseStudies: CaseStudy[] = [
     coverH: 1280,
     context: {
       fr: "Exercice de licence à Paris 8 (marque fictive) : **stratégie et création** d'un parfum de niche. Des **notes de champagne** pour les fêtes, « **À ta sentez** ».",
-      en: "A bachelor brief at Paris 8 (fictional brand): **strategy and creative** for a niche perfume. **Champagne notes** for the holidays, « **À ta sentez** ».",
+      en: "An undergraduate brief at Paris 8 (fictional brand): **strategy and creative** for a niche perfume. **Champagne notes** for the holidays, “**À ta sentez**”.",
     },
     challenge: {
       fr: "Convaincre par la **pertinence stratégique** et l'exécution.",

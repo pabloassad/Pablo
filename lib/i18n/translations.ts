@@ -92,6 +92,7 @@ export interface Translations {
     cv: string;
   };
   footer: { rights: string };
+  notFound: { code: string; title: string; lead: string; home: string; work: string };
 }
 
 const fr: Translations = {
@@ -203,6 +204,13 @@ const fr: Translations = {
     cv: "Télécharger le CV",
   },
   footer: { rights: "Tous droits réservés." },
+  notFound: {
+    code: "Erreur 404",
+    title: "Page introuvable",
+    lead: "La page que vous cherchez n'existe pas, ou elle a été déplacée.",
+    home: "Retour à l'accueil",
+    work: "Voir le répertoire",
+  },
 };
 
 const en: Translations = {
@@ -228,7 +236,7 @@ const en: Translations = {
     label: "About",
     title: "Who I am",
     body: [
-      "I'm Pablo. Trained in applied arts before communication, I've worked agency side, with non profits, and as a founder, always where things get made.",
+      "I'm Pablo. Trained in applied arts before communication, I've worked agency side, with non-profits, and as a founder, always where things get made.",
       "Shaping an identity, framing a project, holding a budget: I like ideas that stand up.",
       "Before any project, I step back. That's where the good ideas are.",
     ],
@@ -314,6 +322,13 @@ const en: Translations = {
     cv: "Download the CV",
   },
   footer: { rights: "All rights reserved." },
+  notFound: {
+    code: "Error 404",
+    title: "Page not found",
+    lead: "The page you're looking for doesn't exist, or it has moved.",
+    home: "Back home",
+    work: "View the portfolio",
+  },
 };
 
 export const locales: Locale[] = ["fr", "en"];
