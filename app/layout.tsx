@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -32,6 +32,8 @@ const kiona = localFont({
 });
 
 const siteUrl = "https://djpablito.vercel.app";
+
+export const viewport: Viewport = { themeColor: "#0a0a0a" };
 
 export async function generateMetadata(): Promise<Metadata> {
   return rootMetadata(await getServerLocale());
