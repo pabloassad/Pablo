@@ -32,7 +32,26 @@ export function ContactForm() {
 
     setStatus("sending");
     try {
-      await new Promise((resolve) => setTimeout(resolve, 900));
+      const res = await fetch("https://formsubmit.co/ajax/pabloassad14@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          message: values.message,
+          _subject: `Nouveau message du site — ${values.name}`,
+          _template: "table",
+          _captcha: "false",
+        }),
+      });
+
+      const data = (await res.json().catch(() => null)) as { success?: string | boolean } | null;
+      const ok = res.ok && (data?.success === true || data?.success === "true");
+      if (!ok) throw new Error("send failed");
+
       setStatus("success");
       setValues({ name: "", email: "", message: "" });
     } catch {
