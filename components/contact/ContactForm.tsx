@@ -52,7 +52,9 @@ export function ContactForm() {
   };
 
   const inputClass =
-    "w-full rounded-xl border border-line bg-white/[0.02] px-4 py-3 text-sm text-foreground placeholder:text-muted/60 transition-colors duration-300 focus:border-accent/50 focus:outline-none focus:ring-0";
+    // text-base (16px) on mobile stops iOS Safari from auto-zooming into the
+    // field on focus; sm:text-sm keeps the original 14px look on desktop.
+    "w-full rounded-xl border border-line bg-white/[0.02] px-4 py-3 text-base sm:text-sm text-foreground placeholder:text-muted/60 transition-colors duration-300 focus:border-accent/50 focus:outline-none focus:ring-0";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
