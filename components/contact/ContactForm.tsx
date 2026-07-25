@@ -32,26 +32,17 @@ export function ContactForm() {
 
     setStatus("sending");
     try {
-      // Send as url-encoded form data (not JSON): this is a "simple" request,
-      // so the browser skips the CORS preflight that FormSubmit mishandles on
-      // return. Without it the message is delivered but the response is
-      // unreadable, and the UI wrongly reports an error.
-      const res = await fetch("https://formsubmit.co/ajax/pabloassad14@gmail.com", {
+      // Post to our own server route (same origin), which emails the message.
+      const res = await fetch("/api/contact", {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: new URLSearchParams({
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           name: values.name,
           email: values.email,
           message: values.message,
-          _subject: `Nouveau message du site — ${values.name}`,
-          _template: "table",
-          _captcha: "false",
         }),
       });
-
-      const data = (await res.json().catch(() => null)) as { success?: string | boolean } | null;
-      const ok = res.ok && (data?.success === true || data?.success === "true");
-      if (!ok) throw new Error("send failed");
+      if (!res.ok) throw new Error("send failed");
 
       setStatus("success");
       setValues({ name: "", email: "", message: "" });
