@@ -47,6 +47,7 @@ export function Hero() {
           alt="Pablito · portrait"
           fallback="amber"
           priority
+          quality={100}
           sizes="100vw"
           className="absolute inset-0"
           imgClassName="object-cover object-[center_top] md:object-[38%_22%]"
