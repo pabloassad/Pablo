@@ -17,6 +17,8 @@ interface ArtImageProps {
   imgClassName?: string;
   sizes?: string;
   priority?: boolean;
+  /** Optimized-output quality (1-100). Must be one of next.config images.qualities. */
+  quality?: number;
   children?: ReactNode;
 }
 
@@ -35,6 +37,7 @@ export function ArtImage({
   imgClassName,
   sizes,
   priority,
+  quality = 90,
   children,
 }: ArtImageProps) {
   const [failed, setFailed] = useState(false);
@@ -57,6 +60,7 @@ export function ArtImage({
           fill
           sizes={sizes ?? "100vw"}
           priority={priority}
+          quality={quality}
           className={clsx(
             "object-cover",
             tone === "soft"
