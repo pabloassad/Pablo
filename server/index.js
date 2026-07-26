@@ -79,6 +79,7 @@ app.get("/health", async (_req, res) => {
     // Whether a cookies file was supplied — the deciding factor when YouTube
     // blocks this host's IP range.
     cookies: cookiesReady,
+    cookiesFromBrowser: COOKIES_FROM_BROWSER || false,
     proxy: Boolean(PROXY),
     allowedOrigins: ORIGINS,
   });
@@ -141,6 +142,11 @@ if (process.env.YTDLP_COOKIES) {
   }
 }
 
+// When the service runs on a personal machine, yt-dlp can read the cookies
+// straight out of an installed browser — no export, no credentials stored
+// anywhere. Set to a browser name such as "chrome", "firefox" or "safari".
+const COOKIES_FROM_BROWSER = process.env.YTDLP_COOKIES_FROM_BROWSER || "";
+
 // Routing through a residential proxy is the alternative to cookies: it fixes
 // the same problem (a datacenter IP) without handing the service any account
 // credentials.
@@ -198,15 +204,20 @@ app.post("/api/convert", async (req, res) => {
       "bestaudio/best",
       "-o",
       source,
-      ...(cookiesReady ? ["--cookies", COOKIES_PATH] : []),
+      ...(COOKIES_FROM_BROWSER
+        ? ["--cookies-from-browser", COOKIES_FROM_BROWSER]
+        : cookiesReady
+          ? ["--cookies", COOKIES_PATH]
+          : []),
       ...(PROXY ? ["--proxy", PROXY] : []),
     ];
 
     // Cookies only authenticate the browser-shaped clients; the mobile ones
     // ignore them, so trying those would just waste the timeout budget.
-    const clients = cookiesReady
-      ? ["default", "tv", "web_embedded"]
-      : PLAYER_CLIENTS;
+    const clients =
+      cookiesReady || COOKIES_FROM_BROWSER
+        ? ["default", "tv", "web_embedded"]
+        : PLAYER_CLIENTS;
 
     // Walk the client list until one succeeds. A video that is genuinely gone
     // fails identically on all of them, so stop early in that case rather than

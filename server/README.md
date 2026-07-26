@@ -10,6 +10,27 @@ Il est totalement indépendant du site DJ (projet Next.js à la racine du dépô
 Il a besoin d'un serveur persistant avec `yt-dlp` et `ffmpeg` — donc Railway,
 Render ou une VM, **pas** Vercel.
 
+## En local — la voie recommandée
+
+YouTube bloque les IP de datacenter (voir plus bas). Sur une machine
+personnelle le problème disparaît : la requête part de ta connexion internet,
+et yt-dlp lit les cookies directement dans ton navigateur — rien à exporter,
+aucun identifiant stocké.
+
+```bash
+cd server
+./start-local.sh            # cookies lus depuis Chrome
+./start-local.sh firefox    # ...ou un autre navigateur
+./start-local.sh none       # sans cookies
+```
+
+Le script vérifie que `node`, `ffmpeg` et `yt-dlp` sont présents (et explique
+comment les installer sinon), puis ouvre le convertisseur sur
+<http://localhost:4000>.
+
+Pour un outil privé, c'est aussi le déploiement le plus simple : rien à
+héberger, rien à payer.
+
 ## Déploiement (Railway ou Render)
 
 Le `Dockerfile` à la **racine du dépôt** installe ffmpeg + yt-dlp et démarre le
@@ -27,6 +48,7 @@ Variables d'environnement — **toutes optionnelles** :
 | `CONVERT_TIMEOUT_MS` | `120000` | abandon d'une conversion trop longue |
 | `CORS_ORIGIN` | `*` | utile seulement si l'UI est servie ailleurs |
 | `YTDLP_COOKIES` | — | contenu d'un export de cookies au format Netscape |
+| `YTDLP_COOKIES_FROM_BROWSER` | — | nom d'un navigateur local (`chrome`, `firefox`…) |
 | `YTDLP_PROXY` | — | proxy résidentiel, ex. `http://user:pass@host:port` |
 
 ## « BLOQUÉ PAR YOUTUBE »
@@ -34,7 +56,10 @@ Variables d'environnement — **toutes optionnelles** :
 YouTube refuse les requêtes venant des plages d'IP de datacenter — donc de
 Railway, Render et consorts — avec *« Sign in to confirm you're not a bot »*.
 Le service réessaie déjà avec plusieurs clients YouTube, mais quand tous sont
-refusés il faut lever l'anonymat de la requête. Deux options :
+refusés il faut lever l'anonymat de la requête. Trois options :
+
+**Tourner en local** (voir plus haut) — supprime la cause racine plutôt que de
+la contourner, et ne demande aucun identifiant.
 
 **Cookies** (`YTDLP_COOKIES`) — exporter les cookies d'un compte connecté avec
 une extension type *Get cookies.txt LOCALLY*, puis coller le contenu du fichier
