@@ -31,8 +31,24 @@ if [ ${#missing[@]} -gt 0 ]; then
   echo "Il manque : ${missing[*]}"
   echo
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "Sur macOS, avec Homebrew (https://brew.sh) :"
-    echo "    brew install ${missing[*]}"
+    if command -v brew >/dev/null 2>&1; then
+      echo "Installe-les avec :"
+      echo "    brew install ${missing[*]}"
+    else
+      # Telling someone to run `brew install` when brew itself is missing is a
+      # dead end, so hand over the real first step instead.
+      echo "Homebrew n'est pas installé — c'est par là qu'il faut commencer."
+      echo
+      echo "1) Installer Homebrew (il demandera ton mot de passe Mac) :"
+      echo '    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+      echo
+      echo "2) L'ajouter au PATH (Mac Apple Silicon — M1/M2/M3/M4) :"
+      echo '    echo '\''eval "$(/opt/homebrew/bin/brew shellenv)"'\'' >> ~/.zprofile'
+      echo '    eval "$(/opt/homebrew/bin/brew shellenv)"'
+      echo
+      echo "3) Installer les outils, puis relancer ce script :"
+      echo "    brew install ${missing[*]}"
+    fi
   else
     echo "Sur Debian/Ubuntu :"
     echo "    sudo apt install -y ${missing[*]}"
