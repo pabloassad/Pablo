@@ -79,6 +79,7 @@ app.get("/health", async (_req, res) => {
     // Whether a cookies file was supplied — the deciding factor when YouTube
     // blocks this host's IP range.
     cookies: cookiesReady,
+    proxy: Boolean(PROXY),
     allowedOrigins: ORIGINS,
   });
 });
@@ -140,6 +141,11 @@ if (process.env.YTDLP_COOKIES) {
   }
 }
 
+// Routing through a residential proxy is the alternative to cookies: it fixes
+// the same problem (a datacenter IP) without handing the service any account
+// credentials.
+const PROXY = process.env.YTDLP_PROXY || "";
+
 // "YouTube is refusing us" — a service-side problem we can sometimes route
 // around — as opposed to a video that genuinely cannot be fetched by anyone.
 function isBlocked(stderr = "") {
@@ -193,14 +199,21 @@ app.post("/api/convert", async (req, res) => {
       "-o",
       source,
       ...(cookiesReady ? ["--cookies", COOKIES_PATH] : []),
+      ...(PROXY ? ["--proxy", PROXY] : []),
     ];
+
+    // Cookies only authenticate the browser-shaped clients; the mobile ones
+    // ignore them, so trying those would just waste the timeout budget.
+    const clients = cookiesReady
+      ? ["default", "tv", "web_embedded"]
+      : PLAYER_CLIENTS;
 
     // Walk the client list until one succeeds. A video that is genuinely gone
     // fails identically on all of them, so stop early in that case rather than
     // burning the whole timeout budget.
     let lastErr;
     let fetched = false;
-    for (const client of PLAYER_CLIENTS) {
+    for (const client of clients) {
       const extra =
         client === "default"
           ? []
