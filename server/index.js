@@ -13,7 +13,7 @@ import express from "express";
 import cors from "cors";
 import { spawn } from "node:child_process";
 import { mkdtemp, rm, readdir, stat } from "node:fs/promises";
-import { createReadStream } from "node:fs";
+import { createReadStream, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -72,7 +72,15 @@ app.get("/health", async (_req, res) => {
       () => false
     ),
   ]);
-  res.json({ ok: ytdlp && ffmpeg, ytdlp, ffmpeg, allowedOrigins: ORIGINS });
+  res.json({
+    ok: ytdlp && ffmpeg,
+    ytdlp,
+    ffmpeg,
+    // Whether a cookies file was supplied — the deciding factor when YouTube
+    // blocks this host's IP range.
+    cookies: cookiesReady,
+    allowedOrigins: ORIGINS,
+  });
 });
 
 // Run a command, rejecting on non-zero exit, missing binary, or timeout.
@@ -113,12 +121,48 @@ function run(cmd, args, { timeout } = {}) {
   });
 }
 
-// yt-dlp stderr fingerprints that mean "this video can't be fetched" rather
-// than "our service is broken".
-function isUnavailable(stderr = "") {
-  return /private video|video unavailable|removed|does not exist|not available|age.?restricted|sign in to confirm|members-only/i.test(
+// YouTube refuses its default web client from datacenter IP ranges, which is
+// exactly where this service runs. Each of these clients answers under
+// different conditions, so we try them in turn before giving up.
+const PLAYER_CLIENTS = ["default", "tv", "web_embedded", "android_vr", "ios"];
+
+// Netscape-format cookies exported from a logged-in browser. This is the only
+// reliable way past YouTube's bot check; supplied via env so no credentials
+// live in the repository.
+const COOKIES_PATH = join(tmpdir(), "yt-cookies.txt");
+let cookiesReady = false;
+if (process.env.YTDLP_COOKIES) {
+  try {
+    writeFileSync(COOKIES_PATH, process.env.YTDLP_COOKIES, "utf8");
+    cookiesReady = true;
+  } catch (e) {
+    console.error("could not write cookies file:", e.message);
+  }
+}
+
+// "YouTube is refusing us" — a service-side problem we can sometimes route
+// around — as opposed to a video that genuinely cannot be fetched by anyone.
+function isBlocked(stderr = "") {
+  return /sign in to confirm|not a bot|failed to extract any player response|unable to extract|please sign in|429|too many requests|cookies/i.test(
     stderr
   );
+}
+
+// The video itself is gone or restricted; no amount of retrying helps.
+function isUnavailable(stderr = "") {
+  return /private video|video unavailable|has been removed|does not exist|is not available|age.?restricted|members-only|copyright/i.test(
+    stderr
+  );
+}
+
+// Condense yt-dlp's output to the one ERROR line worth showing a human.
+function briefReason(stderr = "") {
+  const line = stderr
+    .split("\n")
+    .map((l) => l.trim())
+    .filter((l) => /^error/i.test(l))
+    .pop();
+  return (line || stderr.trim().split("\n").pop() || "").slice(0, 300);
 }
 
 app.post("/api/convert", async (req, res) => {
@@ -140,19 +184,41 @@ app.post("/api/convert", async (req, res) => {
     // 1) Extract best available audio into the workdir. Restrict output naming
     //    so the transcode step can find it deterministically.
     const source = join(workdir, "source.%(ext)s");
-    await run(
-      "yt-dlp",
-      [
-        "--no-playlist",
-        "--no-warnings",
-        "-f",
-        "bestaudio/best",
-        "-o",
-        source,
-        url.trim(),
-      ],
-      { timeout: remaining() }
-    );
+    const base = [
+      "--no-playlist",
+      "--no-warnings",
+      "--no-progress",
+      "-f",
+      "bestaudio/best",
+      "-o",
+      source,
+      ...(cookiesReady ? ["--cookies", COOKIES_PATH] : []),
+    ];
+
+    // Walk the client list until one succeeds. A video that is genuinely gone
+    // fails identically on all of them, so stop early in that case rather than
+    // burning the whole timeout budget.
+    let lastErr;
+    let fetched = false;
+    for (const client of PLAYER_CLIENTS) {
+      const extra =
+        client === "default"
+          ? []
+          : ["--extractor-args", `youtube:player_client=${client}`];
+      try {
+        await run("yt-dlp", [...base, ...extra, url.trim()], {
+          timeout: remaining(),
+        });
+        fetched = true;
+        break;
+      } catch (e) {
+        lastErr = e;
+        if (e.code === "timeout" || e.code === "ENOENT") throw e;
+        if (isUnavailable(e.stderr)) throw e;
+        console.warn(`yt-dlp client "${client}" failed:`, briefReason(e.stderr));
+      }
+    }
+    if (!fetched) throw lastErr ?? new Error("extraction failed");
 
     // Find whatever extension yt-dlp actually wrote.
     const files = await readdir(workdir);
@@ -196,10 +262,24 @@ app.post("/api/convert", async (req, res) => {
       return res.status(500).json({ error: "convert_failed" });
     }
     if (isUnavailable(err.stderr)) {
-      return res.status(422).json({ error: "unavailable" });
+      return res
+        .status(422)
+        .json({ error: "unavailable", reason: briefReason(err.stderr) });
+    }
+    // Every client was refused: YouTube is blocking this host, not the video.
+    // Surfacing the reason keeps this from looking like a generic failure.
+    if (isBlocked(err.stderr)) {
+      console.error("blocked by YouTube:", briefReason(err.stderr));
+      return res.status(403).json({
+        error: "blocked",
+        reason: briefReason(err.stderr),
+        cookies: cookiesReady,
+      });
     }
     console.error("convert failed:", err.stderr || err.message);
-    return res.status(500).json({ error: "convert_failed" });
+    return res
+      .status(500)
+      .json({ error: "convert_failed", reason: briefReason(err.stderr || err.message) });
   }
 });
 

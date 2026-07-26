@@ -215,6 +215,14 @@
         text-shadow: 0 0 8px rgba(255, 92, 92, 0.5);
       }
 
+      .detail {
+        margin-top: -1.25rem;
+        color: var(--green-dim);
+        font-size: 0.95rem;
+        line-height: 1.35;
+        word-break: break-word;
+      }
+
       .retry {
         align-self: flex-start;
         background: none;
@@ -271,6 +279,8 @@
 
       <div class="status" id="status" role="status" aria-live="polite" data-kind="info"></div>
 
+      <div class="detail hidden" id="detail"></div>
+
       <button type="button" class="retry hidden" id="retry">réinitialiser</button>
     </form>
 
@@ -284,6 +294,7 @@
         invalid_url: "URL NON RECONNUE",
         invalid_format: "FORMAT INVALIDE",
         unavailable: "VIDÉO INDISPONIBLE",
+        blocked: "BLOQUÉ PAR YOUTUBE",
         timeout: "DÉLAI DÉPASSÉ",
         convert_failed: "ÉCHEC DE CONVERSION",
         network: "SERVEUR INJOIGNABLE",
@@ -294,6 +305,7 @@
       const submit = document.getElementById("submit");
       const progress = document.getElementById("progress");
       const status = document.getElementById("status");
+      const detail = document.getElementById("detail");
       const retry = document.getElementById("retry");
       const formatButtons = [...document.querySelectorAll(".format")];
 
@@ -309,9 +321,13 @@
         progress.classList.toggle("hidden", !next);
       }
 
-      function showError(code) {
+      function showError(code, reason) {
         status.dataset.kind = "error";
         status.textContent = ERRORS[code] || "ERREUR";
+        // One dim line of raw cause, only when the server sends one — enough to
+        // diagnose without turning the screen into a log.
+        detail.textContent = reason || "";
+        detail.classList.toggle("hidden", !reason);
         retry.classList.remove("hidden");
       }
 
@@ -323,6 +339,8 @@
         );
         status.dataset.kind = "info";
         status.textContent = "";
+        detail.textContent = "";
+        detail.classList.add("hidden");
         retry.classList.add("hidden");
         setBusy(false);
         urlInput.focus();
@@ -342,6 +360,8 @@
         if (status.dataset.kind === "error") {
           status.dataset.kind = "info";
           status.textContent = "";
+          detail.textContent = "";
+          detail.classList.add("hidden");
           retry.classList.add("hidden");
         }
       });
@@ -382,14 +402,16 @@
 
           if (!res.ok) {
             let code = "convert_failed";
+            let reason = "";
             try {
               const data = await res.json();
               if (typeof data.error === "string") code = data.error;
+              if (typeof data.reason === "string") reason = data.reason;
             } catch {
               /* non-JSON error body */
             }
             setBusy(false);
-            showError(code);
+            showError(code, reason);
             return;
           }
 
