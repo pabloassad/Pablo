@@ -26,6 +26,31 @@ Variables d'environnement — **toutes optionnelles** :
 | `PORT` | injecté par l'hébergeur | port d'écoute |
 | `CONVERT_TIMEOUT_MS` | `120000` | abandon d'une conversion trop longue |
 | `CORS_ORIGIN` | `*` | utile seulement si l'UI est servie ailleurs |
+| `YTDLP_COOKIES` | — | contenu d'un export de cookies au format Netscape |
+| `YTDLP_PROXY` | — | proxy résidentiel, ex. `http://user:pass@host:port` |
+
+## « BLOQUÉ PAR YOUTUBE »
+
+YouTube refuse les requêtes venant des plages d'IP de datacenter — donc de
+Railway, Render et consorts — avec *« Sign in to confirm you're not a bot »*.
+Le service réessaie déjà avec plusieurs clients YouTube, mais quand tous sont
+refusés il faut lever l'anonymat de la requête. Deux options :
+
+**Cookies** (`YTDLP_COOKIES`) — exporter les cookies d'un compte connecté avec
+une extension type *Get cookies.txt LOCALLY*, puis coller le contenu du fichier
+dans la variable.
+
+Exporter depuis une **fenêtre de navigation privée** et la fermer **sans se
+déconnecter** : sinon la session continue de tourner dans le navigateur et
+invalide les cookies exportés au bout de quelques heures.
+
+Ces cookies donnent accès au compte Google associé tant qu'ils sont valides —
+utiliser un **compte secondaire**, jamais un compte principal.
+
+**Proxy résidentiel** (`YTDLP_PROXY`) — ne transmet aucune donnée de compte,
+mais c'est un service payant.
+
+`/health` indique laquelle des deux est active (`cookies`, `proxy`).
 
 ## Vérifier que tout va bien
 
