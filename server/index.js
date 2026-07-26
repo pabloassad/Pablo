@@ -21,9 +21,11 @@ const PORT = process.env.PORT || 4000;
 
 // Comma-separated allowlist of frontend origins. Defaults to permissive for
 // local dev; set CORS_ORIGIN in production to the deployed site origin.
+// A trailing slash is easy to paste in by accident and would never match the
+// browser's Origin header, so normalise it away here.
 const ORIGINS = (process.env.CORS_ORIGIN || "*")
   .split(",")
-  .map((o) => o.trim())
+  .map((o) => o.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
 // Hard ceiling on how long one conversion may run before we give up.
@@ -49,7 +51,22 @@ app.use(
   })
 );
 
-app.get("/health", (_req, res) => res.json({ ok: true }));
+// Health check doubles as a deployment diagnostic: it reports whether the two
+// required binaries are actually present in the running container, which is
+// the difference between "service is down" and "image built without ffmpeg".
+app.get("/health", async (_req, res) => {
+  const [ytdlp, ffmpeg] = await Promise.all([
+    run("yt-dlp", ["--version"], { timeout: 5000 }).then(
+      () => true,
+      () => false
+    ),
+    run("ffmpeg", ["-version"], { timeout: 5000 }).then(
+      () => true,
+      () => false
+    ),
+  ]);
+  res.json({ ok: ytdlp && ffmpeg, ytdlp, ffmpeg, allowedOrigins: ORIGINS });
+});
 
 // Run a command, rejecting on non-zero exit, missing binary, or timeout.
 function run(cmd, args, { timeout } = {}) {

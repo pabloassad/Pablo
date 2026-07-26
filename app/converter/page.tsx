@@ -4,7 +4,9 @@ import { useRef, useState } from "react";
 
 // The heavy lifting (yt-dlp + ffmpeg) lives in a separate persistent service,
 // not in a Vercel serverless function. Point this at that service's origin.
-const API_BASE = process.env.NEXT_PUBLIC_CONVERTER_API ?? "";
+// A trailing slash would produce "//api/convert", so strip it here rather than
+// relying on the value being entered perfectly in the hosting dashboard.
+const API_BASE = (process.env.NEXT_PUBLIC_CONVERTER_API ?? "").replace(/\/+$/, "");
 
 type Format = "wav" | "mp3" | "flac";
 const FORMATS: Format[] = ["wav", "mp3", "flac"];
@@ -22,6 +24,7 @@ const ERRORS: Record<string, string> = {
   timeout: "DÉLAI DÉPASSÉ",
   convert_failed: "ÉCHEC DE CONVERSION",
   network: "SERVEUR INJOIGNABLE",
+  not_configured: "API NON CONFIGURÉE",
 };
 
 export default function ConverterPage() {
@@ -55,6 +58,14 @@ export default function ConverterPage() {
     const trimmed = url.trim();
     if (!URL_RE.test(trimmed)) {
       setErrorCode("invalid_url");
+      setPhase("error");
+      return;
+    }
+
+    // Without a backend origin the request would silently hit the Next.js app
+    // itself and fail as a generic network error — call it out precisely.
+    if (!API_BASE) {
+      setErrorCode("not_configured");
       setPhase("error");
       return;
     }
@@ -96,7 +107,10 @@ export default function ConverterPage() {
 
       // Straight back to a blank slate, ready for the next URL.
       reset();
-    } catch {
+    } catch (err) {
+      // The UI stays terse by design; the console carries the detail needed to
+      // tell a CORS rejection apart from a service that is simply down.
+      console.error("convert request failed", API_BASE, err);
       setErrorCode("network");
       setPhase("error");
     }
