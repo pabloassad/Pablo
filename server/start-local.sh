@@ -13,6 +13,10 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
+# Without this, a failure part-way through scrolls past and the only symptom
+# is a browser that cannot connect — which says nothing about the cause.
+trap 'echo; echo "✗ Le démarrage a échoué à la ligne $LINENO. Le message d'\''erreur juste au-dessus dit pourquoi."; echo' ERR
+
 BROWSER="${1:-chrome}"
 
 echo "→ Vérification des outils requis"
@@ -44,7 +48,19 @@ echo "→ yt-dlp $(yt-dlp --version)"
 
 if [ ! -d node_modules ]; then
   echo "→ Installation des dépendances"
-  npm install --omit=dev --silent
+  npm install --omit=dev
+fi
+
+export PORT="${PORT:-4000}"
+
+# An occupied port is the one failure that looks exactly like "site
+# inaccessible": the server exits immediately and the browser finds nothing.
+if command -v lsof >/dev/null 2>&1 && lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo
+  echo "✗ Le port $PORT est déjà utilisé par un autre programme."
+  echo "  Relance sur un autre port :   PORT=4001 ./start-local.sh $BROWSER"
+  echo
+  exit 1
 fi
 
 if [ "$BROWSER" != "none" ]; then
@@ -52,11 +68,9 @@ if [ "$BROWSER" != "none" ]; then
   echo "→ Cookies lus depuis : $BROWSER"
 fi
 
-export PORT="${PORT:-4000}"
-
 echo
-echo "  Convertisseur prêt →  http://localhost:$PORT"
-echo "  (Ctrl+C pour arrêter)"
+echo "  Convertisseur →  http://localhost:$PORT"
+echo "  (garde ce terminal ouvert ; Ctrl+C pour arrêter)"
 echo
 
 node index.js

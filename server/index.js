@@ -314,6 +314,19 @@ async function cleanup(dir) {
   await rm(dir, { recursive: true, force: true }).catch(() => {});
 }
 
-app.listen(PORT, () => {
-  console.log(`converter service listening on :${PORT}`);
+const server = app.listen(PORT, () => {
+  console.log(`✓ Convertisseur démarré → http://localhost:${PORT}`);
+});
+
+// Otherwise the process dies on a raw stack trace and the only visible symptom
+// is a browser that cannot connect.
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(
+      `\n✗ Le port ${PORT} est déjà utilisé.\n  Relance avec un autre port :  PORT=4001 ./start-local.sh\n`
+    );
+  } else {
+    console.error("\n✗ Le serveur n'a pas pu démarrer :", err.message, "\n");
+  }
+  process.exit(1);
 });
