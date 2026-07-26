@@ -15,7 +15,10 @@ import { spawn } from "node:child_process";
 import { mkdtemp, rm, readdir, stat } from "node:fs/promises";
 import { createReadStream } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = dirname(fileURLToPath(import.meta.url));
 
 const PORT = process.env.PORT || 4000;
 
@@ -44,6 +47,10 @@ const URL_RE =
 
 const app = express();
 app.use(express.json({ limit: "16kb" }));
+
+// The converter UI ships with the service and is served from the same origin,
+// so the browser's fetch to /api/convert is never a cross-origin request.
+app.use(express.static(join(here, "public")));
 app.use(
   cors({
     origin: ORIGINS.includes("*") ? true : ORIGINS,

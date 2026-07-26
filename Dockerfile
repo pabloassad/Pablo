@@ -1,6 +1,9 @@
-# Persistent container for the extraction service. Railway and Render both
-# build straight from this Dockerfile. ffmpeg comes from apt; yt-dlp is pulled
-# as a standalone binary so it stays current independent of the distro repos.
+# Root-level build for the converter service (server/).
+#
+# Railway and Render look for a Dockerfile at the repository root by default,
+# so keeping this here means the service deploys with no "Root Directory"
+# setting to configure. The Next.js site is unaffected — Vercel uses its own
+# builder and ignores this file.
 FROM node:20-slim
 
 RUN apt-get update \
@@ -13,10 +16,10 @@ RUN apt-get update \
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+COPY server/package.json server/package-lock.json* ./
 RUN npm install --omit=dev
 
-COPY . .
+COPY server/ ./
 
 ENV PORT=4000
 EXPOSE 4000

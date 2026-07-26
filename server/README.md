@@ -1,53 +1,60 @@
-# Converter service
+# Convertisseur URL → audio
 
-Extraction backend for the `/converter` page. Takes a YouTube / YouTube Music
-URL and a target format, runs **yt-dlp** then **ffmpeg**, and streams back the
-audio file for direct download.
+Site autonome : colle une URL YouTube / YouTube Music, choisis WAV / MP3 / FLAC,
+le fichier se télécharge automatiquement.
 
-It needs a persistent filesystem and both `yt-dlp` and `ffmpeg` available — so
-it runs as a long-lived container (Railway / Render / a VM), **not** on Vercel
-serverless.
+C'est **un seul service** — l'interface et l'API sont servies par le même
+serveur, sur la même URL. Rien à configurer entre les deux, pas de CORS.
+Il est totalement indépendant du site DJ (projet Next.js à la racine du dépôt).
+
+Il a besoin d'un serveur persistant avec `yt-dlp` et `ffmpeg` — donc Railway,
+Render ou une VM, **pas** Vercel.
+
+## Déploiement (Railway ou Render)
+
+Le `Dockerfile` à la **racine du dépôt** installe ffmpeg + yt-dlp et démarre le
+service. Aucun réglage de « Root Directory » n'est nécessaire.
+
+1. Nouveau projet → déployer depuis ce dépôt GitHub
+2. Générer un domaine public (Railway : *Settings → Networking → Generate Domain*)
+3. Ouvrir ce domaine : l'interface s'affiche
+
+Variables d'environnement — **toutes optionnelles** :
+
+| Variable | Défaut | Rôle |
+| --- | --- | --- |
+| `PORT` | injecté par l'hébergeur | port d'écoute |
+| `CONVERT_TIMEOUT_MS` | `120000` | abandon d'une conversion trop longue |
+| `CORS_ORIGIN` | `*` | utile seulement si l'UI est servie ailleurs |
+
+## Vérifier que tout va bien
+
+`GET /health` :
+
+```json
+{ "ok": true, "ytdlp": true, "ffmpeg": true, "allowedOrigins": ["*"] }
+```
+
+`ok: false` indique lequel des deux binaires manque dans le conteneur.
 
 ## API
 
-`POST /api/convert`
+`POST /api/convert` → `{ "url": "...", "format": "wav" | "mp3" | "flac" }`
 
-```json
-{ "url": "https://www.youtube.com/watch?v=...", "format": "wav" }
-```
+Succès : les octets audio avec un `Content-Disposition` de téléchargement.
+Erreurs : `{ "error": "<code>" }` — `invalid_url` / `invalid_format` (400),
+`unavailable` (422), `timeout` (504), `convert_failed` (500).
 
-- `format` — one of `wav`, `mp3`, `flac`.
-- Success → `200` with the audio bytes and a `Content-Disposition` attachment
-  header.
-- Errors → JSON `{ "error": "<code>" }` with a matching status:
-  `invalid_url` / `invalid_format` (400), `unavailable` (422),
-  `timeout` (504), `convert_failed` (500).
+Les fichiers temporaires sont écrits dans un dossier par requête, supprimé dès
+la fin du téléchargement ou en cas d'erreur.
 
-`GET /health` → `{ "ok": true }`.
+## En local
 
-Temp files are written to a per-request directory and removed once the download
-finishes (or on any error), so nothing accumulates on disk.
-
-## Local run
-
-Requires `yt-dlp` and `ffmpeg` on your PATH.
+Nécessite `yt-dlp` et `ffmpeg` sur le PATH.
 
 ```bash
+cd server
 npm install
-cp .env.example .env
 npm start
+# http://localhost:4000
 ```
-
-## Deploy (Railway / Render)
-
-Both platforms build the included `Dockerfile`, which installs ffmpeg and the
-yt-dlp binary. Point the service's root at this `server/` directory and set:
-
-- `CORS_ORIGIN` → your deployed site origin (e.g. `https://djpablito.vercel.app`).
-- `CONVERT_TIMEOUT_MS` → optional, defaults to `120000`.
-
-## Wiring the frontend
-
-Set `NEXT_PUBLIC_CONVERTER_API` on the Next.js app to this service's public URL
-(e.g. `https://converter.up.railway.app`). The `/converter` page posts to
-`${NEXT_PUBLIC_CONVERTER_API}/api/convert`.
