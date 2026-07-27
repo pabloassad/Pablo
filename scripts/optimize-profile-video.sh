@@ -9,11 +9,11 @@
 # et la compression divise encore le poids par 5 environ.
 #
 # Usage :
-#   ./scripts/optimize-profile-video.sh [url_source]
+#   ./scripts/optimize-profile-video.sh [url_ou_fichier_local]
 #
 set -euo pipefail
 
-SRC_URL="${1:-https://nedkcj0yzoauflft.public.blob.vercel-storage.com/FINALE%20PABLITO%20%281%29.mp4}"
+SRC="${1:-https://nedkcj0yzoauflft.public.blob.vercel-storage.com/FINALE%20PABLITO%20%281%29.mp4}"
 OUT_DIR="public/video"
 OUT_FILE="$OUT_DIR/profile.mp4"
 TMP_FILE="$(mktemp -t profile-video-XXXXXX).mp4"
@@ -29,8 +29,23 @@ if ! command -v ffmpeg >/dev/null 2>&1; then
   exit 1
 fi
 
-echo "→ Téléchargement depuis $SRC_URL"
-curl -fSL --progress-bar "$SRC_URL" -o "$TMP_FILE"
+# Quand le quota Blob est épuisé, le store est suspendu : le téléchargement
+# échoue aussi. D'où l'acceptation d'un fichier local, à récupérer depuis les
+# rushes ou l'export du montage.
+if [ -f "$SRC" ]; then
+  echo "→ Source locale : $SRC"
+  cp "$SRC" "$TMP_FILE"
+else
+  echo "→ Téléchargement depuis $SRC"
+  if ! curl -fSL --progress-bar "$SRC" -o "$TMP_FILE"; then
+    echo >&2
+    echo "Le téléchargement a échoué. Si le quota Blob est épuisé, le store est" >&2
+    echo "suspendu et le fichier n'est plus accessible : relance le script en lui" >&2
+    echo "passant la vidéo d'origine, par exemple :" >&2
+    echo "  $0 ~/Desktop/FINALE\\ PABLITO.mp4" >&2
+    exit 1
+  fi
+fi
 
 # 720 px sur la largeur en portrait, 1280 px en paysage : la vidéo s'affiche
 # dans un bloc aspect-[3/4] large d'au plus 50vw, donc au-delà on paierait du
