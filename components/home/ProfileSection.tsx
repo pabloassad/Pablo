@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { ArtImage } from "@/components/ui/ArtImage";
 import { Emph } from "@/components/ui/Emph";
+import { ProfileVideo } from "@/components/home/ProfileVideo";
 import { images, profileVideoUrl } from "@/lib/data";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -23,13 +24,9 @@ export function ProfileSection() {
         >
           {profileVideoUrl ? (
             <div className="relative aspect-[3/4] overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-              <video
+              <ProfileVideo
                 src={profileVideoUrl}
                 poster={images.portraitBeige}
-                autoPlay
-                muted
-                loop
-                playsInline
                 className="absolute inset-0 h-full w-full object-cover [filter:contrast(1.08)_saturate(0.88)_brightness(0.97)]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
