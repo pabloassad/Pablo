@@ -18,19 +18,17 @@ export const pressKitUrl =
   "https://drive.google.com/drive/folders/1VxMX6NAM5UyVw02vwCxBGN1PBbrXRr2L?usp=sharing";
 
 /*
- * Home "profile" video — hosted externally on Vercel Blob (too large for the
- * git repo). The public URL is the default; NEXT_PUBLIC_PROFILE_VIDEO_URL can
- * override it without a code change. Empty value falls back to the
+ * Home "profile" video — served from public/ so it rides the Fast Data Transfer
+ * quota. It used to live on Vercel Blob, whose 10 GB/month of included transfer
+ * ran out and got the store suspended. NEXT_PUBLIC_PROFILE_VIDEO_URL overrides
+ * the path without a code change; an empty value falls back to the
  * portraitBeige photo.
  *
- * Blob meters data transfer (10 GB/month on the free tier) while files served
- * from public/ count against the far roomier Fast Data Transfer quota. Running
- * scripts/optimize-profile-video.sh compresses the clip into
- * public/video/profile.mp4; point this at "/video/profile.mp4" afterwards.
+ * scripts/optimize-profile-video.sh re-encodes a source file into this exact
+ * path when the clip needs to get lighter.
  */
 export const profileVideoUrl =
-  process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL ||
-  "https://nedkcj0yzoauflft.public.blob.vercel-storage.com/FINALE%20PABLITO%20%281%29.mp4";
+  process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL || "/video/profile.mp4";
 
 export const navLinks = [
   { href: "/", key: "home" } as const,
