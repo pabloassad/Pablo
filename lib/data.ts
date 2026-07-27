@@ -22,6 +22,11 @@ export const pressKitUrl =
  * git repo). The public URL is the default; NEXT_PUBLIC_PROFILE_VIDEO_URL can
  * override it without a code change. Empty value falls back to the
  * portraitBeige photo.
+ *
+ * Blob meters data transfer (10 GB/month on the free tier) while files served
+ * from public/ count against the far roomier Fast Data Transfer quota. Running
+ * scripts/optimize-profile-video.sh compresses the clip into
+ * public/video/profile.mp4; point this at "/video/profile.mp4" afterwards.
  */
 export const profileVideoUrl =
   process.env.NEXT_PUBLIC_PROFILE_VIDEO_URL ||
