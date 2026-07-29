@@ -67,7 +67,7 @@ export const images = {
 export const cercleGallery = [
   "/images/cercle-01.webp",
   "/images/cercle-02.webp",
-  "/images/cercle-03.webp",
+  "/images/cercle-booth.webp", // edition 03 Las Vegas — Pablito in the booth, crowd
   "/images/cercle-04.webp",
   "/images/cercle-05.webp",
 ];
