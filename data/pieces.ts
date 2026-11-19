@@ -1,17 +1,26 @@
 import type { Piece } from "@/lib/content/types";
 
 /**
- * Standalone productions — one strong visual each (image or video), no
- * dedicated project. Order matters: the first units are the curated selection
- * shown on arrival (the strongest, most brand-forward work), the rest sit
- * behind a "see more" in the gallery. Add a piece = drop the file in
- * public/works/<slug>/ (or reference any existing path) and add an entry here.
- * Entries without `src` render as intentional placeholders. Video pieces
- * autoplay muted while on screen.
+ * Standalone productions — a tight best-of, ordered by impact (hero pieces
+ * first, supporting work after), not by date. `feature` (>1) makes a tile
+ * bigger; `pair` packs two entries into one campaign unit that never splits
+ * (motion + key art side by side). Kept short on purpose: a few strong units
+ * read premium where a long grid reads like a dump. Add a piece = drop the file
+ * in public/works/<slug>/ and add an entry here. Video pieces autoplay muted.
  */
 
 export const pieces: Piece[] = [
-  // ── Selection shown on arrival — the strongest, most brand-forward ────────
+  // ── Heroes — the strongest, brand-forward work, shown bigger ──────────────
+  {
+    id: "le-light",
+    title: { fr: "Le Light", en: "Le Light" },
+    src: "/works/le-light/teaser.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+    feature: 1.5,
+  },
   {
     id: "rosa-summer-party",
     title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
@@ -32,16 +41,8 @@ export const pieces: Piece[] = [
     pair: "rosa",
     feature: 1.5,
   },
-  {
-    id: "le-light",
-    title: { fr: "Le Light", en: "Le Light" },
-    src: "/works/le-light/teaser.mp4",
-    type: "video",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    feature: 1.35,
-  },
+
+  // ── Ruby Halloween — motion + key art, grouped as one campaign unit ───────
   {
     id: "ruby-halloween",
     title: { fr: "Ruby · Halloween", en: "Ruby · Halloween" },
@@ -50,7 +51,21 @@ export const pieces: Piece[] = [
     w: 1080,
     h: 1920,
     year: "2026",
+    pair: "ruby",
+    feature: 1.2,
   },
+  {
+    id: "ruby-halloween-flyer",
+    title: { fr: "Ruby · Halloween, affiche", en: "Ruby · Halloween, poster" },
+    src: "/works/ruby/halloween-banner.webp",
+    w: 1414,
+    h: 2000,
+    year: "2026",
+    pair: "ruby",
+    feature: 1.2,
+  },
+
+  // ── Supporting — range (film, animated identity), shown smaller ───────────
   {
     id: "manifesto",
     title: { fr: "Manifesto", en: "Manifesto" },
@@ -68,16 +83,6 @@ export const pieces: Piece[] = [
     w: 1920,
     h: 1080,
     year: "2026",
-    feature: 0.8,
-  },
-
-  // ── The rest — revealed behind "see more" ─────────────────────────────────
-  {
-    id: "ruby-halloween-flyer",
-    title: { fr: "Ruby · Halloween, affiche", en: "Ruby · Halloween, poster" },
-    src: "/works/ruby/halloween-banner.webp",
-    w: 1414,
-    h: 2000,
-    year: "2026",
+    feature: 0.85,
   },
 ];
