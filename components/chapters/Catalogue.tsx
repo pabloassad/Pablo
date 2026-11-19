@@ -112,9 +112,28 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
       <FlowAnchor />
 
-      {/* Études de cas — the wow: featured projects lead with their full visuals
-          and key figures inline, then the rest as a compact index. */}
-      <div id="cas" className="mx-auto mt-12 max-w-[2100px] scroll-mt-28">
+      {/* Pièces détachées — the visual hook: a best-of up top, the rest behind
+          "voir plus", each with a one-line context. */}
+      <div id="visuel" className="mx-auto mt-10 max-w-[2100px] scroll-mt-28">
+        {pieces.length > 0 && (
+          <Reveal>
+            <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
+              <h2
+                className="font-display text-ink uppercase"
+                style={{ fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95 }}
+              >
+                {w.pieces}
+              </h2>
+              <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
+            </header>
+            <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} onExpand={expand} />
+          </Reveal>
+        )}
+      </div>
+
+      {/* Projets — the case studies, told as compact rows; the full story, the
+          key figures and the gallery live one click away on each project page. */}
+      <div id="cas" className="mx-auto mt-28 max-w-[2100px] scroll-mt-28">
         <Reveal as="div">
           <header className="mb-2 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
             <h2
@@ -130,24 +149,6 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
           <FeaturedCase key={c.slug} study={c} index={i} onExpand={expand} />
         ))}
         <CaseList cases={others} startNumber={featured.length} />
-      </div>
-
-      {/* Pièces détachées — a wide selection, the rest behind "see more" */}
-      <div id="visuel" className="mx-auto mt-28 max-w-[2100px] scroll-mt-28">
-        {pieces.length > 0 && (
-          <Reveal>
-            <header className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 px-1 sm:px-2">
-              <h2
-                className="font-display text-ink uppercase"
-                style={{ fontSize: "clamp(2rem,5vw,3.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95 }}
-              >
-                {w.pieces}
-              </h2>
-              <p className="text-faint text-[0.65rem] font-medium uppercase tracking-[0.16em]">{w.piecesNote}</p>
-            </header>
-            <PieceWall pieces={pieces} comingSoonLabel={w.comingSoon} onExpand={expand} />
-          </Reveal>
-        )}
       </div>
 
       {/* The closing movement */}
@@ -385,8 +386,8 @@ function FlowAnchor() {
     }`;
 
   const tabs: { id: string; label: string }[] = [
-    { id: "cas", label: t.work.flowCases },
     { id: "visuel", label: t.work.flowPieces },
+    { id: "cas", label: t.work.flowCases },
     { id: "son", label: t.work.flowSound },
   ];
 
@@ -645,13 +646,11 @@ function PieceFigure({
   p,
   onMeta,
   onExpand,
-  comingSoonLabel,
   style,
 }: {
   p: Piece;
   onMeta: (ar: number) => void;
   onExpand: (m: LightboxMedia) => void;
-  comingSoonLabel: string;
   style?: React.CSSProperties;
 }) {
   const { locale } = useLanguage();
@@ -695,14 +694,6 @@ function PieceFigure({
           }}
         />
       )}
-      <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-3 bg-gradient-to-t from-ink/70 to-transparent px-3 pt-8 pb-2.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="font-display text-paper truncate text-sm" style={{ fontWeight: 600 }}>
-          {p.title[locale]}
-        </span>
-        <span className="text-paper/70 shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
-          {p.src ? p.year : comingSoonLabel}
-        </span>
-      </figcaption>
     </figure>
   );
 }
@@ -714,11 +705,13 @@ function PieceFigure({
  * width. Titles surface on hover; video pieces autoplay muted and can be
  * un-muted; a missing visual becomes a quiet placeholder.
  */
-// How many packed units show on arrival; the rest sit behind "see more".
+// How many packed units show on arrival; the rest sit behind "voir plus". The
+// current best-of fits under this, so all show; raise the curation (more
+// pieces) and the overflow folds behind the button automatically.
 const PIECES_VISIBLE = 10;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
   const [ref, width] = useElementWidth<HTMLDivElement>();
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
   const [showAll, setShowAll] = useState(false);
@@ -770,21 +763,36 @@ function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; com
 
   const renderRows = (rows: JRow<{ id: string; members: Piece[]; ar: number; feature: number }>[]) =>
     rows.map((row, ri) => (
-      <div key={ri} className="flex" style={{ gap: GAP, height: row.h }}>
-        {row.items.map(({ it: u, w }) => (
-          <div key={u.id} className="flex shrink-0" style={{ width: w, height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
-            {u.members.map((p) => (
-              <PieceFigure
-                key={p.id}
-                p={p}
-                onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
-                onExpand={onExpand}
-                comingSoonLabel={comingSoonLabel}
-                style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
-              />
-            ))}
-          </div>
-        ))}
+      <div key={ri} className="flex items-start" style={{ gap: GAP }}>
+        {row.items.map(({ it: u, w }) => {
+          const lead = u.members[0];
+          return (
+            <div key={u.id} className="shrink-0" style={{ width: w }}>
+              <div className="flex" style={{ height: row.h, gap: u.members.length > 1 ? 4 : 0 }}>
+                {u.members.map((p) => (
+                  <PieceFigure
+                    key={p.id}
+                    p={p}
+                    onMeta={(ar) => setMeta(p.src ?? p.id, ar)}
+                    onExpand={onExpand}
+                    style={{ flex: `${arOf(p) / u.ar} 1 0%` }}
+                  />
+                ))}
+              </div>
+              <figcaption className="mt-2 px-0.5">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="font-display text-ink truncate text-sm" style={{ fontWeight: 600, letterSpacing: "-0.01em" }}>
+                    {lead.title[locale]}
+                  </span>
+                  <span className="text-faint shrink-0 text-[0.6rem] uppercase tracking-[0.14em] whitespace-nowrap">
+                    {lead.src ? lead.year : comingSoonLabel}
+                  </span>
+                </div>
+                {lead.note && <p className="text-mute mt-0.5 text-xs leading-snug text-pretty">{lead.note[locale]}</p>}
+              </figcaption>
+            </div>
+          );
+        })}
       </div>
     ));
 

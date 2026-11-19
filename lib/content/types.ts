@@ -80,6 +80,8 @@ export interface Piece {
   w?: number;
   h?: number;
   year?: string;
+  /** One-line context shown under the piece in the wall (what it is / the role). */
+  note?: Localized;
   /** Pieces sharing a pair id render side by side as one unit, all widths. */
   pair?: string;
   /** Row-height multiplier (>1) to feature this piece bigger. Default 1. */

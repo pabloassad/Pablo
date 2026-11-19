@@ -15,7 +15,6 @@ export const caseStudies: CaseStudy[] = [
     title: { fr: "Adonis", en: "Adonis" },
     client: "Adonis",
     year: "2026",
-    featured: true,
     role: {
       fr: "Accompagnement stratégique · Direction artistique",
       en: "Strategic support · Art direction",
@@ -60,7 +59,6 @@ export const caseStudies: CaseStudy[] = [
     slug: "le-cercle",
     title: { fr: "Le Cercle", en: "Le Cercle" },
     year: "2024-2026",
-    featured: true,
     role: {
       fr: "Fondateur · Direction artistique et coordination",
       en: "Founder · Art direction and coordination",
