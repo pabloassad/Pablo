@@ -15,7 +15,7 @@ import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
 import { pieces } from "@/data/pieces";
 import { caseStudies } from "@/data/caseStudies";
 import { SoundLibrary } from "@/components/repertoire/SoundLibrary";
-import { CaseList } from "@/components/repertoire/CaseIndex";
+import { CaseMosaic } from "@/components/repertoire/CaseMosaic";
 import { saveRepertoireScroll, takeRepertoireScroll } from "@/lib/repertoireScroll";
 import type { CaseStudy, Piece, ProjectMedia } from "@/lib/content/types";
 
@@ -148,7 +148,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
         {featured.map((c, i) => (
           <FeaturedCase key={c.slug} study={c} index={i} onExpand={expand} />
         ))}
-        <CaseList cases={others} startNumber={featured.length} />
+        <CaseMosaic cases={others} />
       </div>
 
       {/* The closing movement */}
@@ -705,10 +705,8 @@ function PieceFigure({
  * width. Titles surface on hover; video pieces autoplay muted and can be
  * un-muted; a missing visual becomes a quiet placeholder.
  */
-// How many packed units show on arrival; the rest sit behind "voir plus". The
-// current best-of fits under this, so all show; raise the curation (more
-// pieces) and the overflow folds behind the button automatically.
-const PIECES_VISIBLE = 10;
+// How many packed units show on arrival; the rest sit behind "voir plus".
+const PIECES_VISIBLE = 5;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const { t, locale } = useLanguage();

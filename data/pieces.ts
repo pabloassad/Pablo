@@ -1,16 +1,35 @@
 import type { Piece } from "@/lib/content/types";
 
 /**
- * Standalone productions — a tight best-of, ordered by impact (hero pieces
- * first, supporting work after), not by date. `feature` (>1) makes a tile
- * bigger; `pair` packs two entries into one campaign unit that never splits
- * (motion + key art side by side); `note` is the one-line context under each
- * unit. The hero units show on arrival, the rest sit behind "voir plus". Add a
- * piece = drop the file in public/works/<slug>/ and add an entry here.
+ * The Sélection — a curated best-of shown up top. The strongest units (incl.
+ * the best project teasers) lead and show on arrival; the rest fold behind
+ * "voir plus". `feature` (>1) makes a tile bigger; `pair` packs two entries
+ * into one unit; `note` is the one-line context under each unit. Add a piece =
+ * drop the file in public/works/<slug>/ and add an entry here.
  */
 
 export const pieces: Piece[] = [
-  // ── Heroes — the strongest, brand-forward work, shown bigger ──────────────
+  // ── Shown on arrival — the best content ───────────────────────────────────
+  {
+    id: "adonis-bal-ombres",
+    title: { fr: "Adonis · Le Bal des Ombres", en: "Adonis · Le Bal des Ombres" },
+    note: { fr: "Teaser de lancement, dernière édition.", en: "Launch teaser, latest edition." },
+    src: "/works/adonis/teaser-retour.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
+    id: "adonis-azur",
+    title: { fr: "Adonis · Édition Azur", en: "Adonis · Azur Edition" },
+    note: { fr: "Teaser de lancement de l'édition.", en: "Edition launch teaser." },
+    src: "/works/adonis/teaser-01.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
   {
     id: "le-light",
     title: { fr: "Le Light", en: "Le Light" },
@@ -20,19 +39,28 @@ export const pieces: Piece[] = [
     w: 1080,
     h: 1920,
     year: "2026",
-    feature: 1.5,
   },
   {
     id: "rosa-summer-party",
     title: { fr: "Rosa Summer Party", en: "Rosa Summer Party" },
-    note: { fr: "Soirée privée sur invitation : affiche et carte cocktails.", en: "Private invite-only party: poster and cocktail menu." },
+    note: { fr: "Soirée privée sur invitation, affiche.", en: "Private invite-only party, poster." },
     src: "/works/rosa-summer-party/flyer.webp",
     w: 1600,
     h: 2242,
     year: "2024",
-    pair: "rosa",
-    feature: 1.5,
   },
+  {
+    id: "ruby-halloween",
+    title: { fr: "Ruby · Halloween", en: "Ruby · Halloween" },
+    note: { fr: "Marque de clubbing, édition Halloween.", en: "Clubbing brand, Halloween edition." },
+    src: "/works/ruby/halloween.mp4",
+    type: "video",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+
+  // ── Behind "voir plus" — the rest of the selection ────────────────────────
   {
     id: "rosa-cocktail",
     title: { fr: "Rosa Summer Party · carte cocktails", en: "Rosa Summer Party · cocktail menu" },
@@ -41,22 +69,6 @@ export const pieces: Piece[] = [
     w: 1414,
     h: 2000,
     year: "2024",
-    pair: "rosa",
-    feature: 1.5,
-  },
-
-  // ── Ruby Halloween — motion + key art, grouped as one campaign unit ───────
-  {
-    id: "ruby-halloween",
-    title: { fr: "Ruby · Halloween", en: "Ruby · Halloween" },
-    note: { fr: "Marque de clubbing, édition Halloween : teaser et affiche.", en: "Clubbing brand, Halloween edition: teaser and poster." },
-    src: "/works/ruby/halloween.mp4",
-    type: "video",
-    w: 1080,
-    h: 1920,
-    year: "2026",
-    pair: "ruby",
-    feature: 1.2,
   },
   {
     id: "ruby-halloween-flyer",
@@ -66,11 +78,7 @@ export const pieces: Piece[] = [
     w: 1414,
     h: 2000,
     year: "2026",
-    pair: "ruby",
-    feature: 1.2,
   },
-
-  // ── Supporting — range (film, animated identity), shown smaller ───────────
   {
     id: "manifesto",
     title: { fr: "Manifesto", en: "Manifesto" },
@@ -90,6 +98,5 @@ export const pieces: Piece[] = [
     w: 1920,
     h: 1080,
     year: "2026",
-    feature: 0.85,
   },
 ];
