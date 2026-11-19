@@ -44,6 +44,9 @@ export const caseStudies: CaseStudy[] = [
       { value: "250k", label: { fr: "impressions", en: "impressions" } },
     ],
     media: [
+      { src: "/works/adonis/teaser-retour.mp4", type: "video" },
+      { src: "/works/adonis/bal-des-ombres-banner.webp", w: 1920, h: 1080 },
+      { src: "/works/adonis/ecran.mp4", type: "video" },
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },
       { src: "/works/adonis/teaser-03.mp4", type: "video" },
