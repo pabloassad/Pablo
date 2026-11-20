@@ -61,8 +61,7 @@ export function Intro() {
             exit={{ opacity: 0, y: reduced ? 0 : -10 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="kicker text-paper/55">Portfolio</span>
-            <p className="font-display mt-3 text-4xl font-light text-paper sm:text-6xl">
+            <p className="font-display text-4xl font-light text-paper sm:text-6xl">
               Pablo Assad
             </p>
           </motion.div>
