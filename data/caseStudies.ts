@@ -23,9 +23,9 @@ export const caseStudies: CaseStudy[] = [
       fr: "**1000+ participants** par édition, **250k impressions** par campagne.",
       en: "**1000+ guests** per edition, **250k impressions** per campaign.",
     },
-    cover: "/works/adonis/cover.webp",
-    coverW: 1080,
-    coverH: 1920,
+    cover: "/works/adonis/bal-des-ombres-banner.webp",
+    coverW: 1920,
+    coverH: 1080,
     context: {
       fr: "**Accompagnement stratégique et direction artistique** d'une marque d'événement : supports, développement, suivi.",
       en: "**Strategic support and art direction** for an event brand: production, development, follow-up.",
@@ -44,7 +44,6 @@ export const caseStudies: CaseStudy[] = [
     ],
     media: [
       { src: "/works/adonis/teaser-retour.mp4", type: "video" },
-      { src: "/works/adonis/bal-des-ombres-banner.webp", w: 1920, h: 1080 },
       { src: "/works/adonis/ecran.mp4", type: "video" },
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },

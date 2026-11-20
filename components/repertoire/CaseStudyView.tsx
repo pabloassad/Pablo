@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 import { Lightbox, type LightboxMedia } from "@/components/ui/Lightbox";
 import { RichText } from "@/components/ui/RichText";
+import { MediaMosaic } from "@/components/repertoire/MediaMosaic";
 import type { CaseStudy, Localized, ProjectMedia } from "@/lib/content/types";
 
 const posterFor = (src: string) => src.replace(/\.mp4$/, "-poster.webp");
@@ -197,14 +198,10 @@ export function CaseStudyView({
         )}
       </div>
 
-      {/* Media — only for non-featured cases (featured show theirs on the Répertoire) */}
+      {/* Media — a full-width mosaic (a composition, not a one-after-another stack) */}
       {!study.featured && study.media && study.media.length > 0 && (
-        <div className="mx-auto mt-14 flex max-w-5xl flex-col gap-3 sm:mt-20">
-          {study.media.map((m) => (
-            <Reveal key={m.src}>
-              <CaseFigure m={m} alt={study.title[locale]} onExpand={setExpanded} />
-            </Reveal>
-          ))}
+        <div className="mx-auto mt-14 max-w-[2100px] sm:mt-20">
+          <MediaMosaic media={study.media} title={study.title[locale]} />
         </div>
       )}
 

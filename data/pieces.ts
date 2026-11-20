@@ -3,9 +3,9 @@ import type { Piece } from "@/lib/content/types";
 /**
  * The Sélection — a curated best-of shown up top. The strongest units (incl.
  * the best project teasers) lead and show on arrival; the rest fold behind
- * "voir plus". `feature` (>1) makes a tile bigger; `pair` packs two entries
- * into one unit; `note` is the one-line context under each unit. Add a piece =
- * drop the file in public/works/<slug>/ and add an entry here.
+ * "voir plus" — a deeper gallery drawn from the projects and standalone work.
+ * `feature` (>1) makes a tile bigger; `pair` packs two entries into one unit;
+ * `note` is the one-line context under each unit.
  */
 
 export const pieces: Piece[] = [
@@ -60,7 +60,25 @@ export const pieces: Piece[] = [
     year: "2026",
   },
 
-  // ── Behind "voir plus" — the rest of the selection ────────────────────────
+  // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
+  {
+    id: "le-cercle-saint-valentin",
+    title: { fr: "Le Cercle · Saint-Valentin", en: "Le Cercle · Valentine's" },
+    note: { fr: "Édition Saint-Valentin, affiche.", en: "Valentine's edition, poster." },
+    src: "/works/le-cercle/01.webp",
+    w: 1920,
+    h: 1080,
+    year: "2026",
+  },
+  {
+    id: "le-cercle-carton",
+    title: { fr: "Le Cercle · carton", en: "Le Cercle · invite" },
+    note: { fr: "Carton d'invitation « Bienvenue ».", en: "“Welcome” invitation card." },
+    src: "/works/le-cercle/10.webp",
+    w: 1920,
+    h: 1080,
+    year: "2025",
+  },
   {
     id: "rosa-cocktail",
     title: { fr: "Rosa Summer Party · carte cocktails", en: "Rosa Summer Party · cocktail menu" },
@@ -77,6 +95,24 @@ export const pieces: Piece[] = [
     src: "/works/ruby/halloween-banner.webp",
     w: 1414,
     h: 2000,
+    year: "2026",
+  },
+  {
+    id: "le-cercle-metro",
+    title: { fr: "Le Cercle · image", en: "Le Cercle · image" },
+    note: { fr: "Direction artistique, éditorial.", en: "Art direction, editorial." },
+    src: "/works/le-cercle/04.webp",
+    w: 1400,
+    h: 1400,
+    year: "2025",
+  },
+  {
+    id: "boss-lady",
+    title: { fr: "Boss Lady", en: "Boss Lady" },
+    note: { fr: "Affiche d'événement.", en: "Event poster." },
+    src: "/works/boss-lady/cover.webp",
+    w: 1080,
+    h: 1920,
     year: "2026",
   },
   {
