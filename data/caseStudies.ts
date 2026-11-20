@@ -46,11 +46,13 @@ export const caseStudies: CaseStudy[] = [
     media: [
       { src: "/works/adonis/bal-des-ombres-banner.webp", w: 1920, h: 1080 },
       { src: "/works/adonis/event-01.webp", w: 1600, h: 1066 },
+      { src: "/works/adonis/event-06.webp", w: 1080, h: 1920 },
       { src: "/works/adonis/ecran.mp4", type: "video" },
       { src: "/works/adonis/event-02.webp", w: 1600, h: 1067 },
       { src: "/works/adonis/teaser-01.mp4", type: "video" },
       { src: "/works/adonis/event-03.webp", w: 1600, h: 1066 },
       { src: "/works/adonis/mockup.webp", w: 1080, h: 1440 },
+      { src: "/works/adonis/event-05.webp", w: 1600, h: 1066 },
       { src: "/works/adonis/cover.webp", w: 1080, h: 1920 },
       { src: "/works/adonis/event-04.webp", w: 1600, h: 1066 },
       { src: "/works/adonis/teaser-03.mp4", type: "video" },
