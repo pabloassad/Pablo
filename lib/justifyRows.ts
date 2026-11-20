@@ -16,6 +16,7 @@ export function justifyRows<T>(
   baseH: number,
   arOf: (it: T) => number,
   featureOf: (it: T) => number = () => 1,
+  fillLast = false,
 ): JRow<T>[] {
   if (!width || !items.length) return [];
   const lines: T[][] = [];
@@ -46,7 +47,10 @@ export function justifyRows<T>(
     const avail = width - gap * (row.length - 1);
     const full = avail / sum;
     const isLast = i === lines.length - 1 && lines.length > 1;
-    const h = isLast ? Math.min(baseH * feat, full) : full;
+    // Normally the last row keeps its natural height (ragged right). With
+    // fillLast, it stretches to the full width like the others — but capped so
+    // a two-item last row doesn't tower over the rest.
+    const h = isLast && !fillLast ? Math.min(baseH * feat, full) : fillLast && isLast ? Math.min(full, baseH * 2.2) : full;
     return { h, items: row.map((it) => ({ it, w: arOf(it) * h })) };
   });
 }

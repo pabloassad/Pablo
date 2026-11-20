@@ -710,7 +710,7 @@ function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; com
   const restCount = restUnits.reduce((s, u) => s + u.members.length, 0);
 
   const visibleRows = useMemo(
-    () => justifyRows(visibleUnits, width, GAP, targetH, (u) => u.ar, (u) => u.feature),
+    () => justifyRows(visibleUnits, width, GAP, targetH, (u) => u.ar, (u) => u.feature, true),
     [visibleUnits, width, targetH],
   );
   const restRows = useMemo(
