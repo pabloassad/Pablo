@@ -71,12 +71,12 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
-    id: "le-cercle-carton",
-    title: { fr: "Le Cercle · carton", en: "Le Cercle · invite" },
-    note: { fr: "Carton d'invitation « Bienvenue ».", en: "“Welcome” invitation card." },
-    src: "/works/le-cercle/10.webp",
-    w: 1920,
-    h: 1080,
+    id: "le-cercle-vegas",
+    title: { fr: "Le Cercle · Las Vegas", en: "Le Cercle · Las Vegas" },
+    note: { fr: "Édition Las Vegas, affiche.", en: "Las Vegas edition, poster." },
+    src: "/works/le-cercle/02.webp",
+    w: 1080,
+    h: 1920,
     year: "2025",
   },
   {

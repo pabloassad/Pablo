@@ -23,6 +23,9 @@ import type { CaseStudy, Piece, ProjectMedia } from "@/lib/content/types";
 // The dedicated hero video that opens the Répertoire full screen (cut for
 // this page). It lives only in the hero, never inline in a sheet.
 const HERO_SRC = "/works/adonis/hero.mp4";
+
+// Projects bento order (first = the big flagship tile).
+const BENTO_ORDER = ["riva-agency", "le-cercle", "adonis", "versatile"];
 // Every video ships a ~40 KB poster next to it (same name, -poster.webp) so a
 // still paints instantly and the clip is fetched only when needed.
 const posterFor = (src: string) => src.replace(/\.mp4$/, "-poster.webp");
@@ -46,6 +49,11 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
 
   const featured = useMemo(() => caseStudies.filter((c) => c.featured), []);
   const others = useMemo(() => caseStudies.filter((c) => !c.featured), []);
+  // Bento order: Riva leads as the flagship (big tile), then the rest.
+  const bentoCases = useMemo(
+    () => [...others].sort((a, b) => BENTO_ORDER.indexOf(a.slug) - BENTO_ORDER.indexOf(b.slug)),
+    [others],
+  );
 
   // Returning from a case study: land back exactly where the visitor left, not
   // at the top. The page is held invisible until the media grids have settled
@@ -149,7 +157,7 @@ export function Catalogue({ standalone = false }: { standalone?: boolean }) {
         {featured.map((c, i) => (
           <FeaturedCase key={c.slug} study={c} index={i} onExpand={expand} />
         ))}
-        <CaseMosaic cases={others} />
+        <CaseMosaic cases={bentoCases} />
       </div>
 
       {/* The closing movement */}
