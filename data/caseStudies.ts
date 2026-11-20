@@ -96,13 +96,17 @@ export const caseStudies: CaseStudy[] = [
       { value: "500k", label: { fr: "vues / édition", en: "views / edition" } },
     ],
     media: [
+      { src: "/works/le-cercle/live-03.webp", w: 1600, h: 1066 },
       { src: "/works/le-cercle/01.webp", w: 1920, h: 1080 },
       { src: "/works/le-cercle/teaser-01.mp4", type: "video" },
+      { src: "/works/le-cercle/live-01.webp", w: 1600, h: 1068 },
       { src: "/works/le-cercle/02.webp", w: 1080, h: 1920 },
       { src: "/works/le-cercle/teaser-02.mp4", type: "video" },
+      { src: "/works/le-cercle/live-04.webp", w: 1600, h: 1066 },
       { src: "/works/le-cercle/04.webp", w: 1400, h: 1400 },
       { src: "/works/le-cercle/teaser-07.mp4", type: "video" },
       { src: "/works/le-cercle/07.webp", w: 1080, h: 1920 },
+      { src: "/works/le-cercle/live-02.webp", w: 1600, h: 1066 },
       { src: "/works/le-cercle/08.webp", w: 1080, h: 1920 },
       { src: "/works/le-cercle/teaser-03.mp4", type: "video" },
       { src: "/works/le-cercle/06.webp", w: 1400, h: 1400 },
@@ -127,8 +131,8 @@ export const caseStudies: CaseStudy[] = [
       en: "Co-founder · Growth and production",
     },
     result: {
-      fr: "Agence événementielle B2B montée de zéro : partenaires **Durex**, **Jägermeister**, **Red Bull**, **Heetch**, et **30+ écoles** clientes.",
-      en: "A B2B events agency built from zero: partners **Durex**, **Jägermeister**, **Red Bull**, **Heetch**, and **30+ schools** as clients.",
+      fr: "Agence événementielle B2B montée de zéro, **30+ écoles** clientes.",
+      en: "A B2B events agency built from zero, **30+ schools** as clients.",
     },
     context: {
       fr: "**Cofondateur** d'une agence événementielle **B2B** montée de zéro : on crée des marques d'événement, on **produit** et on **vend** des prestations à des **écoles** et à des **marques**.",
