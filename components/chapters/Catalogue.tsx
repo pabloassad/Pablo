@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { useAudio } from "@/lib/audio/AudioProvider";
 import { useElementWidth } from "@/lib/hooks/useElementWidth";
@@ -665,13 +665,42 @@ function PieceFigure({
  * un-muted; a missing visual becomes a quiet placeholder.
  */
 // How many packed units show on arrival; the rest sit behind "voir plus".
-const PIECES_VISIBLE = 6;
+// One justified row of the strongest pieces; everything else folds away.
+const PIECES_VISIBLE = 3;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const { t, locale } = useLanguage();
   const [ref, width] = useElementWidth<HTMLDivElement>();
   const [videoAr, setVideoAr] = useState<Record<string, number>>({});
   const [showAll, setShowAll] = useState(false);
+  // "voir moins" must leave the visitor exactly where they were before they
+  // expanded — on the Sélection — never stranded further down. We record the
+  // scroll on expand and jump back to it on collapse, synchronously before
+  // paint. Scroll anchoring is disabled on the wall (below) so the browser
+  // doesn't fight the jump as rows are added/removed.
+  const scrollBeforeExpand = useRef<number | null>(null);
+  const justCollapsed = useRef(false);
+
+  const toggleShowAll = useCallback(() => {
+    setShowAll((open) => {
+      if (!open) {
+        scrollBeforeExpand.current = window.scrollY;
+        return true;
+      }
+      justCollapsed.current = true;
+      return false;
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!justCollapsed.current) return;
+    justCollapsed.current = false;
+    const y = scrollBeforeExpand.current;
+    if (y == null) return;
+    const l = window.__lenis;
+    if (l) l.scrollTo(y, { immediate: true, force: true });
+    else window.scrollTo(0, y);
+  }, [showAll]);
 
   const GAP = 6;
   const targetH = width < 640 ? 260 : width < 1024 ? 360 : width < 1600 ? 460 : 540;
@@ -754,31 +783,27 @@ function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; com
     ));
 
   return (
-    <div ref={ref} className="flex flex-col" style={{ gap: GAP }}>
+    <div ref={ref} className="flex flex-col" style={{ gap: GAP, overflowAnchor: "none" }}>
       {renderRows(visibleRows)}
 
       {restCount > 0 && (
         <>
-          <AnimatePresence initial={false}>
-            {showAll && (
-              <motion.div
-                key="rest"
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                style={{ overflow: "hidden" }}
-              >
-                <div className="flex flex-col" style={{ gap: GAP, paddingTop: GAP }}>
-                  {renderRows(restRows)}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {showAll && (
+            <motion.div
+              key="rest"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col"
+              style={{ gap: GAP, paddingTop: GAP }}
+            >
+              {renderRows(restRows)}
+            </motion.div>
+          )}
 
           <button
             type="button"
-            onClick={() => setShowAll((v) => !v)}
+            onClick={toggleShowAll}
             aria-expanded={showAll}
             className="group mt-6 flex w-full items-center gap-4 text-[0.65rem] font-medium uppercase tracking-[0.2em]"
           >

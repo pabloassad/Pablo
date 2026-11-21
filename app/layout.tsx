@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Pablo Assad" }],
   openGraph: {
-    title: "Pablo Assad · Portfolio",
+    title: "Pablo Assad",
     description: "Communication et direction de projet. Design, image, son.",
     url: siteUrl,
     siteName: "Pablo Assad",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pablo Assad · Portfolio",
+    title: "Pablo Assad",
     description: "Communication et direction de projet. Design, image, son.",
     images: [ogImageUrl],
   },

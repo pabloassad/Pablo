@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "Pablo Assad · Répertoire",
     description: "Productions et réalisations, en images.",
     url: `${siteUrl}/repertoire`,
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Pablo Assad · Portfolio" }],
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Pablo Assad" }],
     siteName: "Pablo Assad",
     locale: "fr_FR",
     type: "website",
