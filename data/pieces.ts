@@ -71,6 +71,33 @@ export const pieces: Piece[] = [
 
   // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
   {
+    id: "naya-opening",
+    title: { fr: "Naya · Paris", en: "Naya · Paris" },
+    note: { fr: "Ouverture d'un nouveau rendez-vous, affiche.", en: "New residency opening, poster." },
+    src: "/works/naya/poster.webp",
+    w: 1080,
+    h: 1920,
+    year: "2025",
+  },
+  {
+    id: "ritual-halloween",
+    title: { fr: "Ritual · Paris", en: "Ritual · Paris" },
+    note: { fr: "Édition Halloween, affiche d'ouverture.", en: "Halloween edition, opening poster." },
+    src: "/works/ritual/poster.webp",
+    w: 1080,
+    h: 1920,
+    year: "2026",
+  },
+  {
+    id: "flashback-summer",
+    title: { fr: "Flashback · Paris", en: "Flashback · Paris" },
+    note: { fr: "Soirée rétro, édition été, affiche.", en: "Retro night, summer edition, poster." },
+    src: "/works/flashback/poster.webp",
+    w: 1080,
+    h: 1920,
+    year: "2025",
+  },
+  {
     id: "le-cercle-vegas",
     title: { fr: "Le Cercle · Las Vegas", en: "Le Cercle · Las Vegas" },
     note: { fr: "Édition Las Vegas, affiche.", en: "Las Vegas edition, poster." },

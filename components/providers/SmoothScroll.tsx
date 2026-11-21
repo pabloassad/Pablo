@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 /**
@@ -9,6 +10,27 @@ import Lenis from "lenis";
  * Anchor clicks are intercepted so in-page navigation eases instead of jumps.
  */
 export function SmoothScroll() {
+  const pathname = usePathname();
+  const firstRun = useRef(true);
+
+  // On route change, land at the top of the new page. Lenis keeps its own
+  // scroll state across navigations, so Next's default scroll restoration
+  // doesn't take — we reset Lenis (or native scroll) explicitly. The first
+  // run is skipped so an initial deep-link / hash anchor isn't overridden.
+  useEffect(() => {
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    if (window.location.hash) return;
+    const lenis = window.__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
+
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     // Touch devices keep native scrolling — smoother, and immune to the
