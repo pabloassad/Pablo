@@ -96,12 +96,12 @@ export function Hero() {
             </span>
           </motion.h1>
 
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 sm:items-end">
+          <div className="mt-8 max-w-md">
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.5 }}
-              className="font-display text-ink max-w-md text-balance"
+              className="font-display text-ink text-balance"
               style={{ fontSize: "var(--text-h3)", lineHeight: "var(--text-h3--line-height)", fontWeight: 500, letterSpacing: "-0.02em" }}
             >
               {h.statement}
@@ -110,7 +110,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease, delay: 0.62 }}
-              className="text-mute max-w-xs text-base leading-relaxed sm:pb-1"
+              className="text-mute mt-3 max-w-md text-base leading-relaxed text-balance"
             >
               {h.intro}
             </motion.p>

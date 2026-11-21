@@ -3,26 +3,19 @@ import type { JourneyMilestone } from "@/lib/content/types";
 /**
  * The markers — sourced from Pablo's CV (2026). Two registers of one block:
  * kind "school" | "goal" → Formation column; everything else → Expériences.
- * Titles + structure + year only; the layout stays silent by design.
+ * Ordered most-recent → oldest in each register. Titles + structure + year;
+ * the layout stays deliberately quiet.
  */
 
 export const journey: JourneyMilestone[] = [
-  // ── Formation ───────────────────────────────────────────────────────────
+  // ── Formation (plus récent → plus ancien) ─────────────────────────────────
   {
-    id: "std2a",
-    year: "2020-23",
-    title: { fr: "Bac STD2A, Arts appliqués", en: "Baccalauréat STD2A, Applied Arts" },
-    place: { fr: "Lycée Nicolas Ledoux, Vincennes", en: "Lycée Nicolas Ledoux, Vincennes" },
+    id: "master",
+    year: "Sept. 2026",
+    title: { fr: "Master Communication des organisations", en: "Master's in Organizational Communication" },
+    place: { fr: "Sorbonne Paris Nord", en: "Sorbonne Paris Nord" },
     kind: "school",
-    emphasis: 1,
-  },
-  {
-    id: "bts-com",
-    year: "2023-25",
-    title: { fr: "BTS Communication", en: "BTS Communication" },
-    place: { fr: "Lycée Samuel de Champlain", en: "Lycée Samuel de Champlain" },
-    kind: "school",
-    emphasis: 1,
+    emphasis: 3,
   },
   {
     id: "but-infocom",
@@ -33,52 +26,36 @@ export const journey: JourneyMilestone[] = [
     emphasis: 3,
   },
   {
-    id: "master",
-    year: "Sept. 2026",
-    title: { fr: "Master Communication des organisations", en: "Master's in Organizational Communication" },
-    place: { fr: "Sorbonne Paris Nord", en: "Sorbonne Paris Nord" },
+    id: "bts-com",
+    year: "2023-25",
+    title: { fr: "BTS Communication", en: "BTS Communication" },
+    place: { fr: "Lycée Samuel de Champlain", en: "Lycée Samuel de Champlain" },
     kind: "school",
-    emphasis: 3,
+    emphasis: 1,
+  },
+  {
+    id: "std2a",
+    year: "2020-23",
+    title: { fr: "Bac STD2A, Arts appliqués", en: "Baccalauréat STD2A, Applied Arts" },
+    place: { fr: "Lycée Nicolas Ledoux, Vincennes", en: "Lycée Nicolas Ledoux, Vincennes" },
+    kind: "school",
+    emphasis: 1,
   },
 
-  // ── Expériences ─────────────────────────────────────────────────────────
+  // ── Expériences (plus récent → plus ancien) ───────────────────────────────
   {
-    id: "benzene",
-    year: "2020",
-    title: { fr: "Benzene", en: "Benzene" },
-    place: { fr: "Stage · Sound design et musique", en: "Internship · Sound design and music" },
-    kind: "agency",
-    emphasis: 1,
-  },
-  {
-    id: "philharmonie",
-    year: "2020",
-    title: { fr: "Philharmonie de Paris", en: "Philharmonie de Paris" },
-    place: { fr: "Stage", en: "Internship" },
-    kind: "agency",
-    emphasis: 1,
+    id: "riva",
+    year: "2025-26",
+    title: { fr: "Riva Agency", en: "Riva Agency" },
+    place: { fr: "Projet entrepreneurial", en: "Entrepreneurial venture" },
+    kind: "venture",
+    emphasis: 2,
   },
   {
     id: "fondamentall",
-    year: "2023",
+    year: "Mars-Juil. 2026",
     title: { fr: "Fondament'All", en: "Fondament'All" },
-    place: { fr: "Association culturelle · Communication", en: "Cultural non-profit · Communications" },
-    kind: "agency",
-    emphasis: 1,
-  },
-  {
-    id: "fscf",
-    year: "2023",
-    title: { fr: "FSCF", en: "FSCF" },
-    place: { fr: "Formateur BAFA", en: "BAFA trainer" },
-    kind: "agency",
-    emphasis: 1,
-  },
-  {
-    id: "rosa-paris",
-    year: "Juin 2024",
-    title: { fr: "Rosa Paris", en: "Rosa Paris" },
-    place: { fr: "Stage · Direction artistique", en: "Internship · Art direction" },
+    place: { fr: "Responsable communication · Association solidaire", en: "Communications lead · Non-profit" },
     kind: "agency",
     emphasis: 2,
   },
@@ -99,11 +76,35 @@ export const journey: JourneyMilestone[] = [
     emphasis: 1,
   },
   {
-    id: "riva",
-    year: "2025-26",
-    title: { fr: "Riva Agency", en: "Riva Agency" },
-    place: { fr: "Projet entrepreneurial", en: "Entrepreneurial venture" },
-    kind: "venture",
+    id: "rosa-paris",
+    year: "Juin 2024",
+    title: { fr: "Rosa Paris", en: "Rosa Paris" },
+    place: { fr: "Stage · Direction artistique", en: "Internship · Art direction" },
+    kind: "agency",
     emphasis: 2,
+  },
+  {
+    id: "fscf",
+    year: "2023",
+    title: { fr: "FSCF", en: "FSCF" },
+    place: { fr: "Formateur BAFA", en: "BAFA trainer" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "philharmonie",
+    year: "2020",
+    title: { fr: "Philharmonie de Paris", en: "Philharmonie de Paris" },
+    place: { fr: "Stage", en: "Internship" },
+    kind: "agency",
+    emphasis: 1,
+  },
+  {
+    id: "benzene",
+    year: "2020",
+    title: { fr: "Benzene", en: "Benzene" },
+    place: { fr: "Stage · Sound design et musique", en: "Internship · Sound design and music" },
+    kind: "agency",
+    emphasis: 1,
   },
 ];
