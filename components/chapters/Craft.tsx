@@ -12,9 +12,8 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
  * section.
  */
 export function Craft() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
   const c = t.craft;
-  const quote = locale === "fr" ? `« ${c.title} »` : `“${c.title}”`;
 
   return (
     <section id="creation" className="bg-paper px-6 py-32 sm:px-10 sm:py-44 lg:px-16">
@@ -31,11 +30,11 @@ export function Craft() {
             </span>
           </Reveal>
 
-          <blockquote className="mt-10">
+          <p className="mt-10">
             <RevealText
-              as="p"
-              text={quote}
-              className="font-display text-ink mx-auto max-w-3xl text-balance"
+              as="span"
+              text={c.title}
+              className="font-display text-ink mx-auto block max-w-3xl text-balance"
               style={{
                 fontSize: "clamp(1.55rem,3.6vw,2.9rem)",
                 lineHeight: 1.28,
@@ -43,13 +42,7 @@ export function Craft() {
                 letterSpacing: "-0.015em",
               }}
             />
-          </blockquote>
-
-          <Reveal delayIndex={2}>
-            <figcaption className="text-faint mt-12 text-[0.7rem] font-medium uppercase tracking-[0.28em]">
-              {c.aside}
-            </figcaption>
-          </Reveal>
+          </p>
         </figure>
       </div>
     </section>
