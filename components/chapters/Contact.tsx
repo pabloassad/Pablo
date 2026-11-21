@@ -46,8 +46,8 @@ export function Contact() {
               <span aria-hidden>→</span>
             </MagneticButton>
             <a
-              href="/cv/CV-Pablo-Assad-2026.pdf"
-              download="CV-Pablo-Assad-2026.pdf"
+              href="/cv/CV-Pablo-Assad-2026-v2.pdf"
+              download="Pablo Assad - CV 2026.pdf"
               className="group border-ink/25 text-ink hover:border-ink inline-flex items-center gap-2.5 rounded-full border px-7 py-3.5 text-sm font-medium whitespace-nowrap transition-colors duration-300"
             >
               {c.cv}
