@@ -131,8 +131,8 @@ export const caseStudies: CaseStudy[] = [
       en: "Co-founder · Growth and production",
     },
     result: {
-      fr: "Agence événementielle B2B montée de zéro, **30+ écoles** clientes.",
-      en: "A B2B events agency built from zero, **30+ schools** as clients.",
+      fr: "Agence événementielle B2B montée de zéro.",
+      en: "A B2B events agency built from zero.",
     },
     context: {
       fr: "**Cofondateur** d'une agence événementielle **B2B** montée de zéro : on crée des marques d'événement, on **produit** et on **vend** des prestations à des **écoles** et à des **marques**.",

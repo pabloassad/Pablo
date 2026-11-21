@@ -60,6 +60,17 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
+    id: "ruby-halloween-flyer",
+    title: { fr: "Ruby · Halloween, affiche", en: "Ruby · Halloween, poster" },
+    note: { fr: "Affiche de l'édition Halloween.", en: "Halloween edition poster." },
+    src: "/works/ruby/halloween-banner.webp",
+    w: 1414,
+    h: 2000,
+    year: "2026",
+  },
+
+  // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
+  {
     id: "le-cercle-vegas",
     title: { fr: "Le Cercle · Las Vegas", en: "Le Cercle · Las Vegas" },
     note: { fr: "Édition Las Vegas, affiche.", en: "Las Vegas edition, poster." },
@@ -68,8 +79,6 @@ export const pieces: Piece[] = [
     h: 1920,
     year: "2025",
   },
-
-  // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
   {
     id: "rosa-cocktail",
     title: { fr: "Rosa Summer Party · carte cocktails", en: "Rosa Summer Party · cocktail menu" },
@@ -78,15 +87,6 @@ export const pieces: Piece[] = [
     w: 1414,
     h: 2000,
     year: "2024",
-  },
-  {
-    id: "ruby-halloween-flyer",
-    title: { fr: "Ruby · Halloween, affiche", en: "Ruby · Halloween, poster" },
-    note: { fr: "Affiche de l'édition Halloween.", en: "Halloween edition poster." },
-    src: "/works/ruby/halloween-banner.webp",
-    w: 1414,
-    h: 2000,
-    year: "2026",
   },
   {
     id: "le-cercle-metro",
