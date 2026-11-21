@@ -665,7 +665,7 @@ function PieceFigure({
  * un-muted; a missing visual becomes a quiet placeholder.
  */
 // How many packed units show on arrival; the rest sit behind "voir plus".
-const PIECES_VISIBLE = 5;
+const PIECES_VISIBLE = 6;
 
 function PieceWall({ pieces, comingSoonLabel, onExpand }: { pieces: Piece[]; comingSoonLabel: string; onExpand: (m: LightboxMedia) => void }) {
   const { t, locale } = useLanguage();

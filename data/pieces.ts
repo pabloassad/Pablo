@@ -9,7 +9,7 @@ import type { Piece } from "@/lib/content/types";
  */
 
 export const pieces: Piece[] = [
-  // ── Shown on arrival — the best content ───────────────────────────────────
+  // ── Shown on arrival — the best content (two rows) ────────────────────────
   {
     id: "adonis-bal-ombres",
     title: { fr: "Adonis · Le Bal des Ombres", en: "Adonis · Le Bal des Ombres" },
@@ -21,20 +21,20 @@ export const pieces: Piece[] = [
     year: "2026",
   },
   {
-    id: "adonis-azur",
-    title: { fr: "Adonis · Édition Azur", en: "Adonis · Azur Edition" },
-    note: { fr: "Teaser de lancement de l'édition.", en: "Edition launch teaser." },
-    src: "/works/adonis/teaser-01.mp4",
+    id: "le-light",
+    title: { fr: "Le Light", en: "Le Light" },
+    note: { fr: "Événement house phare à Paris, teaser d'annonce.", en: "Flagship Paris house event, launch teaser." },
+    src: "/works/le-light/teaser.mp4",
     type: "video",
     w: 1080,
     h: 1920,
     year: "2026",
   },
   {
-    id: "le-light",
-    title: { fr: "Le Light", en: "Le Light" },
-    note: { fr: "Événement house phare à Paris, teaser d'annonce.", en: "Flagship Paris house event, launch teaser." },
-    src: "/works/le-light/teaser.mp4",
+    id: "adonis-azur",
+    title: { fr: "Adonis · Édition Azur", en: "Adonis · Azur Edition" },
+    note: { fr: "Teaser de lancement de l'édition.", en: "Edition launch teaser." },
+    src: "/works/adonis/teaser-01.mp4",
     type: "video",
     w: 1080,
     h: 1920,
@@ -59,17 +59,6 @@ export const pieces: Piece[] = [
     h: 1920,
     year: "2026",
   },
-
-  // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
-  {
-    id: "le-cercle-saint-valentin",
-    title: { fr: "Le Cercle · Saint-Valentin", en: "Le Cercle · Valentine's" },
-    note: { fr: "Édition Saint-Valentin, affiche.", en: "Valentine's edition, poster." },
-    src: "/works/le-cercle/01.webp",
-    w: 1920,
-    h: 1080,
-    year: "2026",
-  },
   {
     id: "le-cercle-vegas",
     title: { fr: "Le Cercle · Las Vegas", en: "Le Cercle · Las Vegas" },
@@ -79,6 +68,8 @@ export const pieces: Piece[] = [
     h: 1920,
     year: "2025",
   },
+
+  // ── Behind "voir plus" — a deeper gallery ─────────────────────────────────
   {
     id: "rosa-cocktail",
     title: { fr: "Rosa Summer Party · carte cocktails", en: "Rosa Summer Party · cocktail menu" },

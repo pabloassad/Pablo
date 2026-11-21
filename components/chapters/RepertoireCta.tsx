@@ -7,9 +7,9 @@ import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import { Reveal } from "@/components/ui/Reveal";
 
 const COVERS = [
-  "/works/adonis/cover.webp",
-  "/works/le-cercle/02.webp",
-  "/works/boss-lady/cover.webp",
+  "/works/ruby/halloween-banner.webp",
+  "/works/adonis/event-06.webp",
+  "/works/rosa-summer-party/flyer.webp",
 ];
 
 /**
