@@ -61,6 +61,8 @@ export const images = {
   yardlandCover: "/images/cover-yardland.webp", // mic in hand, crowd, black and white — yardland set
   serviceEvents: "/images/service-soiree.webp", // beige suit, seated on ottoman — service, private events
   studioFlStudio: "/images/studio-flstudio.webp", // at the FL Studio rig — service, compositions
+  clubPablito: "/images/pablito-live-hands.webp", // Pablito facing the crowd, hands up — home club card
+  mixtapeAllStyles: "/images/pablito-decks.webp", // Pablito at the decks — All Styles mixtape cover
 };
 
 /* Le Cercle gallery — one shot per recorded edition, mirrors `cercleSets` order */
@@ -146,6 +148,13 @@ export const liveSetsMusic: LiveSet[] = [
     cover: images.yardlandCover,
   },
   {
+    id: "mixtape-all-styles",
+    kicker: "Mixtape",
+    name: "All Styles",
+    sub: "Toutes influences · battle de danse",
+    cover: images.mixtapeAllStyles,
+  },
+  {
     id: "bsb-league",
     kicker: "2024",
     name: "BSB League",
@@ -195,6 +204,15 @@ export const playerQueue: PlayerTrack[] = [
     source: "youtube" as const,
     videoId: set.videoId,
   })),
+  {
+    id: "mixtape-all-styles",
+    title: "All Styles",
+    subtitle: "Mixtape · battle de danse",
+    art: "amber",
+    image: images.mixtapeAllStyles,
+    source: "youtube",
+    videoId: "7p4Uu11h0UM",
+  },
   {
     id: "bsb-league",
     title: "BSB League",
